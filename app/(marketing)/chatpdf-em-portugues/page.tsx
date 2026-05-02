@@ -25,6 +25,29 @@ export default function ChatpdfEmPortuguesPage() {
         </ol>
       </section>
 
+      <section className="grid gap-4 sm:grid-cols-2">
+        <div className="rounded-[length:var(--radius-cards)] border border-subtle-gray p-5">
+          <h2 className="font-display text-base font-semibold text-midnight-ink">ChatPDF (internacional)</h2>
+          <p className="mt-2 text-sm text-faded-stone">Para o mercado global</p>
+          <ul className="mt-3 list-inside list-disc space-y-1 text-sm text-charcoal-text">
+            <li>Interface em inglês por padrão</li>
+            <li>Respostas dependem do idioma do prompt</li>
+            <li>Sem modos para documentos brasileiros</li>
+            <li>Preços em USD</li>
+          </ul>
+        </div>
+        <div className="rounded-[length:var(--radius-cards)] border border-midnight-ink p-5">
+          <h2 className="font-display text-base font-semibold text-midnight-ink">ChatPDF Brasil</h2>
+          <p className="mt-2 text-sm text-faded-stone">Para o mercado brasileiro</p>
+          <ul className="mt-3 list-inside list-disc space-y-1 text-sm text-charcoal-text">
+            <li>Interface em português do Brasil</li>
+            <li>Respostas em PT-BR por padrão</li>
+            <li>Modos para CLT, editais e apólices</li>
+            <li>Preços em BRL</li>
+          </ul>
+        </div>
+      </section>
+
       <section className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-canvas p-6">
         <h2 className="font-display text-lg font-semibold text-midnight-ink">Comece agora</h2>
         <p className="mt-2 text-charcoal-text">

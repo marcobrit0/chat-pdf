@@ -81,6 +81,24 @@ export default function ChatpdfVsAdobePage() {
         </div>
       </section>
 
+      <section className="space-y-4">
+        <h2 className="font-display text-xl font-semibold text-midnight-ink">Perguntas frequentes</h2>
+        <dl className="space-y-4">
+          <div>
+            <dt className="font-medium text-midnight-ink">O AI Assistant do Acrobat funciona em português?</dt>
+            <dd className="mt-1 text-charcoal-text">
+              Suporta múltiplos idiomas, mas não foi desenvolvido com foco no mercado brasileiro. O ChatPDF Brasil tem modos específicos para documentos como CLT, editais e apólices.
+            </dd>
+          </div>
+          <div>
+            <dt className="font-medium text-midnight-ink">Qual o custo da assinatura Adobe com AI Assistant?</dt>
+            <dd className="mt-1 text-charcoal-text">
+              O AI Assistant está incluído em planos pagos da Adobe, cobrados em USD. O ChatPDF Brasil tem resumo gratuito e planos Premium em BRL.
+            </dd>
+          </div>
+        </dl>
+      </section>
+
       <section className="border-t border-subtle-gray pt-6">
         <p className="text-sm font-medium text-faded-stone uppercase tracking-wide">Veja também</p>
         <ul className="mt-3 flex flex-wrap gap-4">

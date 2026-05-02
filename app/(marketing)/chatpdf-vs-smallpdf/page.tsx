@@ -60,6 +60,24 @@ export default function ChatpdfVsSmallpdfPage() {
         </div>
       </section>
 
+      <section className="space-y-4">
+        <h2 className="font-display text-xl font-semibold text-midnight-ink">Perguntas frequentes</h2>
+        <dl className="space-y-4">
+          <div>
+            <dt className="font-medium text-midnight-ink">Posso usar os dois juntos?</dt>
+            <dd className="mt-1 text-charcoal-text">
+              Sim. Use o Smallpdf para converter ou compactar o arquivo, depois carregue no ChatPDF Brasil para entender o conteúdo.
+            </dd>
+          </div>
+          <div>
+            <dt className="font-medium text-midnight-ink">O Smallpdf tem IA para resumir conteúdo?</dt>
+            <dd className="mt-1 text-charcoal-text">
+              O foco do Smallpdf é em operações no arquivo (editar, converter, assinar). Para resumo e chat sobre o conteúdo, use o ChatPDF Brasil.
+            </dd>
+          </div>
+        </dl>
+      </section>
+
       <section className="border-t border-subtle-gray pt-6">
         <p className="text-sm font-medium text-faded-stone uppercase tracking-wide">Veja também</p>
         <ul className="mt-3 flex flex-wrap gap-4">

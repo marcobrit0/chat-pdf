@@ -96,6 +96,24 @@ export default function ChatpdfVsChatgptPage() {
         </div>
       </section>
 
+      <section className="space-y-4">
+        <h2 className="font-display text-xl font-semibold text-midnight-ink">Perguntas frequentes</h2>
+        <dl className="space-y-4">
+          <div>
+            <dt className="font-medium text-midnight-ink">Preciso pagar o ChatGPT Plus para usar PDFs?</dt>
+            <dd className="mt-1 text-charcoal-text">
+              Sim, o upload de PDFs no ChatGPT exige o plano Plus (USD). O ChatPDF Brasil tem resumo gratuito sem conta e Premium em BRL.
+            </dd>
+          </div>
+          <div>
+            <dt className="font-medium text-midnight-ink">O ChatGPT perde contexto em documentos longos?</dt>
+            <dd className="mt-1 text-charcoal-text">
+              Pode. Em PDFs muito longos, o contexto pode ser truncado. Ferramentas dedicadas fazem chunking do documento e selecionam trechos relevantes por pergunta.
+            </dd>
+          </div>
+        </dl>
+      </section>
+
       <section className="border-t border-subtle-gray pt-6">
         <p className="text-sm font-medium text-faded-stone uppercase tracking-wide">Veja também</p>
         <ul className="mt-3 flex flex-wrap gap-4">
