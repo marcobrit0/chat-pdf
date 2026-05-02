@@ -6,5 +6,5 @@ export const siteConfig = {
   /** PT-BR marketing locale for Open Graph and future i18n. */
   locale: "pt_BR",
   defaultDescription:
-    "Converse com seus PDFs e extraia respostas com contexto. ChatPDF Brasil — em breve.",
+    "Resuma PDFs grátis e converse com documentos com contexto no ChatPDF Brasil.",
 } as const;

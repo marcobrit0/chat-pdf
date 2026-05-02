@@ -9,7 +9,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-6xl px-4 py-10 text-sm text-faded-stone sm:px-6">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between sm:gap-12">
           <p className="font-condensed tracking-tight">
-            © {new Date().getFullYear()} ChatPDF Brasil. Marketing e guias em português — iterativo (ver docs/PHASE7.md).
+            © {new Date().getFullYear()} ChatPDF Brasil. Resumos e chat com PDFs em português.
           </p>
           <nav className="flex flex-wrap gap-x-6 gap-y-2 text-charcoal-text" aria-label="Rodapé">
             <Link href="/guias" className="underline-offset-4 hover:underline">
