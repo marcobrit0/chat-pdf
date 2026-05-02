@@ -1,26 +1,85 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/**
+ * Apollo design tokens (DESIGN.md). Light theme only.
+ * --font-* from next/font on <html> are consumed below (see `app/fonts.ts`).
+ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* —— Colors —— */
+  --color-canvas: #f7f5f2;
+  --color-subtle-gray: #e5e7eb;
+  --color-ash-gray: #ccc9c6;
+  --color-midnight-ink: #000000;
+  --color-graphite: #1a1a1a;
+  --color-charcoal-text: #47423d;
+  --color-faded-stone: #736f6c;
+  --color-soft-stone: #94918e;
+  --color-crisp-white: #ffffff;
+  --color-apollo-gold: #ebf212;
+  --color-accent-green: #f8ff2c;
+  --color-violet-headline: #3f3653;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-surface-canvas: #f7f5f2;
+  --color-surface-primary-card: #ffffff;
+  --color-surface-section: #ccc9c6;
+
+  /* —— Font stacks: next/font variables are defined on <html> —— */
+  --font-sans: var(--font-soehne), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-season-mix), ui-sans-serif, system-ui, sans-serif;
+  --font-condensed:
+    var(--font-abc-diatype), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-founders-grotesk-mono), ui-monospace, monospace;
+
+  /* —— Type scale —— */
+  --text-caption: 12px;
+  --leading-caption: 14.4;
+  --text-body-sm: 14px;
+  --leading-body-sm: 16.8;
+  --text-body: 16px;
+  --leading-body: 24px;
+  --text-body-lg: 18px;
+  --leading-body-lg: 18px;
+  --text-subheading: 20px;
+  --leading-subheading: 24px;
+  --text-heading: 24px;
+  --leading-heading: 28.8px;
+  --text-heading-lg: 48px;
+  --leading-heading-lg: 50.4px;
+  --text-display: 88px;
+  --leading-display: 92.4px;
+
+  /* —— Spacing (8px base) —— */
+  --spacing-unit: 8px;
+  --spacing-8: 8px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-56: 56px;
+  --spacing-80: 80px;
+  --spacing-96: 96px;
+
+  /* —— Radii —— */
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-cards: 8px;
+  --radius-image: 8px;
+  --radius-inputs: 0px;
+  --radius-buttons: 8px;
+  --radius-default: 8px;
+  --radius-smallcard: 12px;
+
+  /* —— Layout —— */
+  --section-gap: 40px;
+  --card-padding: 24px;
+  --element-gap: 8px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-canvas);
+  color: var(--color-charcoal-text);
+  font-family: var(--font-sans);
+  letter-spacing: 0.009em;
 }
