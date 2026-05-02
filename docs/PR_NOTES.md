@@ -2,13 +2,14 @@
 
 **Repository:** https://github.com/marcobrit0/chat-pdf  
 **Default branch:** `main`  
-**Feature branch:** `feat/chatpdf-mvp-phase4`
+**Feature branch (historical):** `feat/chatpdf-mvp-phase4` — **merged** into `main`; safe to delete locally/remotely after sync.
 
 ## Completed PR
 
 | Item | Value |
 |------|--------|
 | PR | https://github.com/marcobrit0/chat-pdf/pull/1 |
+| Status | **Merged** into `main` |
 | Base | `main` |
 | Head | `feat/chatpdf-mvp-phase4` |
 
@@ -55,9 +56,27 @@ See `docs/BLOCKERS.md` (incl. `CHATPDF_PREMIUM_STUB`, `OPENROUTER_CHAT_MODEL`).
 - `npm run build` / `npm run lint` / `npm run typecheck`
 - With `CHATPDF_PREMIUM_STUB=true` and Supabase: upload PDF on `/app`, open workspace, send chat message (stub without `OPENROUTER_API_KEY`).
 
-## One PR vs two
+## Phases 0–7 vs Git (audit)
 
-The working tree is a **single cohesive MVP** (initial Create Next App state was almost empty). Splitting into “foundation” vs “marketing” PRs would require reverting/reapplying overlapping files; this delivery is **one PR**. If you prefer two PRs later, use interactive rebase or stacked branches from this baseline.
+**Logical phases** (see `docs/PHASE7.md` and related docs) are **not** separate git milestones on this branch.
+
+| Finding | Detail |
+|--------|--------|
+| **Single PR vs split** | **One PR** — https://github.com/marcobrit0/chat-pdf/pull/1 — contains the full MVP + follow-up marketing/SEO work. There is **no** set of 8 branches/commits that map 1:1 to phases 0–7. |
+| **History shape** | MVP arrived in **one GitHub PR** with **few fat commits** on the feature branch (not one commit per plan phase). After merge, **`main` contains the full app**; use small branches for the next milestones. |
+| **Stacked PRs pr/phase-0 … pr/phase-7** | **Not created.** There are no commit anchors for eight phases; opening eight PRs into `main` would **repeat the same diff** and waste review. **No force-push to `main`.** |
+| **Going forward** | Prefer **new branches per milestone** from `main` after merge, or **interactive rebase / filter-repo** only if the team explicitly wants to rewrite unpublished history — not done here. |
+
+**Optional smaller stack (only if you choose to split later):** the natural non-destructive split is **two** follow-up branches from history — `d459af3` (bulk MVP) then `a72127a` (incremental landings) — not eight. That still does not match “phase 0–7” labels without manual file boundaries.
+
+## PR list and merge order
+
+| Order | PR | Base | Head | Notes |
+|------|-----|------|------|--------|
+| 1 | https://github.com/marcobrit0/chat-pdf/pull/1 | `main` | `feat/chatpdf-mvp-phase4` | **Merged** — full MVP (marketing, APIs, Premium workspace, later SEO/hardening per repo history). |
+
+**Next:** deploy from `main` (e.g. Vercel), apply secrets per `docs/BLOCKERS.md`, optional `git branch -d feat/chatpdf-mvp-phase4` and delete remote branch if GitHub did not auto-delete.
+
 
 ## GitHub CLI setup
 
