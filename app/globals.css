@@ -82,4 +82,5 @@ body {
   color: var(--color-charcoal-text);
   font-family: var(--font-sans);
   letter-spacing: 0.009em;
+  overflow-x: hidden;
 }
