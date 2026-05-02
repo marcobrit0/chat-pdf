@@ -7,13 +7,21 @@ import {
   PDF_MIME_TYPES,
 } from "@/lib/constants/limits";
 import { parsePdfBuffer } from "@/lib/pdf/inspect";
-import { logApiError, userFacingMessage } from "@/lib/security/safe-api-response";
+import {
+  isContentLengthWithinLimit,
+  isPdfMagicBytes,
+} from "@/lib/pdf/validation";
+import {
+  logApiError,
+  userFacingMessage,
+} from "@/lib/security/safe-api-response";
 import { getClientIp, hashAnonymousFingerprint } from "@/lib/usage/fingerprint";
 import { consumeAnonymousSummarySlot } from "@/lib/usage/anonymous-rate-limit";
 
 export const runtime = "nodejs";
 
 const ROUTE = "api/summarize/anonymous";
+const MULTIPART_OVERHEAD_BYTES = 1024 * 1024;
 
 /**
  * Placeholder summary when OpenRouter is not configured (keeps API contract for UI tests).
@@ -46,17 +54,15 @@ export async function POST(request: Request) {
       );
     }
 
-    const ip = getClientIp(request);
-    const ua = request.headers.get("user-agent");
-    const fp = hashAnonymousFingerprint(ip, ua);
-    const rate = await consumeAnonymousSummarySlot(fp);
-    if (!rate.ok) {
+    if (
+      !isContentLengthWithinLimit(
+        request,
+        ANON_MAX_FILE_BYTES + MULTIPART_OVERHEAD_BYTES,
+      )
+    ) {
       return NextResponse.json(
-        {
-          error:
-            "Limite diário de resumos anônimos atingido. Tente amanhã ou assine o Premium.",
-        },
-        { status: 429 },
+        { error: "Arquivo grande demais para o nível gratuito." },
+        { status: 413 },
       );
     }
 
@@ -92,6 +98,13 @@ export async function POST(request: Request) {
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
+    if (!isPdfMagicBytes(buffer)) {
+      return NextResponse.json(
+        { error: "O arquivo enviado não parece ser um PDF válido." },
+        { status: 400 },
+      );
+    }
+
     let pageCount = 0;
     let text = "";
     try {
@@ -132,13 +145,31 @@ export async function POST(request: Request) {
       return NextResponse.json(buildStubSummary());
     }
 
+    const ip = getClientIp(request);
+    const fp = hashAnonymousFingerprint(ip);
+    const rate = await consumeAnonymousSummarySlot(fp);
+    if (!rate.ok) {
+      return NextResponse.json(
+        {
+          error:
+            "Limite diário de resumos anônimos atingido. Tente amanhã ou assine o Premium.",
+        },
+        { status: 429 },
+      );
+    }
+
     try {
       const payload = await summarizePdfText(text, { contractIntent });
       return NextResponse.json(payload);
     } catch (e) {
       logApiError(ROUTE, e);
       return NextResponse.json(
-        { error: userFacingMessage(e, "A IA não conseguiu concluir o resumo. Tente outro PDF ou mais tarde.") },
+        {
+          error: userFacingMessage(
+            e,
+            "A IA não conseguiu concluir o resumo. Tente outro PDF ou mais tarde.",
+          ),
+        },
         { status: 502 },
       );
     }

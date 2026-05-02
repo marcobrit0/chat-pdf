@@ -2,7 +2,11 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { assertAllowedPriceId } from "@/lib/stripe/price-allowlist";
 import { getStripe } from "@/lib/stripe/server";
+import { isPaidSubscriptionStatus } from "@/lib/stripe/subscription-status";
 import { getSiteUrl } from "@/lib/seo";
+import { checkoutRequestSchema, parseJsonWithSchema } from "@/lib/security/request-validation";
+import { logApiError } from "@/lib/security/safe-api-response";
+import { consumeUserAndIpLimit } from "@/lib/usage/premium-limits";
 
 export const runtime = "nodejs";
 
@@ -12,15 +16,12 @@ export const runtime = "nodejs";
  */
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as { priceId?: string };
-    const priceId = body.priceId;
-    if (!priceId || typeof priceId !== "string") {
-      return NextResponse.json(
-        { error: "priceId obrigatório" },
-        { status: 400 },
-      );
+    const parsed = await parseJsonWithSchema(request, checkoutRequestSchema);
+    if (!parsed.ok) {
+      return NextResponse.json({ error: parsed.error }, { status: 400 });
     }
 
+    const { priceId } = parsed.data;
     assertAllowedPriceId(priceId);
 
     const supabase = await createClient();
@@ -36,8 +37,37 @@ export async function POST(request: Request) {
       );
     }
 
+    const { data: existingSubscription, error: subscriptionError } = await supabase
+      .from("subscriptions")
+      .select("status, stripe_customer_id")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (subscriptionError) {
+      logApiError("api/stripe/checkout", subscriptionError);
+      return NextResponse.json(
+        { error: "Não foi possível verificar sua assinatura." },
+        { status: 500 },
+      );
+    }
+
+    if (isPaidSubscriptionStatus(existingSubscription?.status)) {
+      return NextResponse.json(
+        { error: "Sua assinatura Premium já está ativa." },
+        { status: 409 },
+      );
+    }
+
     const site = getSiteUrl();
     const stripe = getStripe();
+    const quota = await consumeUserAndIpLimit({
+      action: "stripe-checkout",
+      userId: user.id,
+      request,
+    });
+    if (!quota.ok) {
+      return NextResponse.json({ error: quota.reason }, { status: quota.status });
+    }
 
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
@@ -53,7 +83,9 @@ export async function POST(request: Request) {
           supabase_user_id: user.id,
         },
       },
-      customer_email: user.email ?? undefined,
+      ...(existingSubscription?.stripe_customer_id
+        ? { customer: existingSubscription.stripe_customer_id }
+        : { customer_email: user.email ?? undefined }),
     });
 
     if (!session.url) {
@@ -65,7 +97,10 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ url: session.url });
   } catch (e) {
-    const message = e instanceof Error ? e.message : "Erro desconhecido";
-    return NextResponse.json({ error: message }, { status: 400 });
+    logApiError("api/stripe/checkout", e);
+    return NextResponse.json(
+      { error: "Não foi possível iniciar o checkout." },
+      { status: 400 },
+    );
   }
 }

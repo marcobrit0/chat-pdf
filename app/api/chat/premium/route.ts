@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
-import { premiumDocumentChatOrStub } from "@/lib/ai/openrouter";
+import { premiumDocumentChatOrStub, selectRelevantChunks } from "@/lib/ai/openrouter";
 import type { ChatTurn, GroundedContextChunk } from "@/lib/ai/openrouter";
 import { requirePremiumAccess } from "@/lib/entitlements";
 import { logApiError, userFacingMessage } from "@/lib/security/safe-api-response";
+import { chatRequestSchema, parseJsonWithSchema } from "@/lib/security/request-validation";
 import { createClient } from "@/lib/supabase/server";
+import { consumeUserAndIpLimit } from "@/lib/usage/premium-limits";
 
 export const runtime = "nodejs";
 
@@ -28,27 +30,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: gate.reason }, { status: gate.status });
     }
 
-    const body = (await request.json()) as {
-      documentId?: string;
-      messages?: ChatTurn[];
-    };
-
-    const documentId = body.documentId?.trim();
-    const messages = body.messages;
-    if (!documentId || !messages?.length) {
-      return NextResponse.json(
-        { error: "documentId e messages são obrigatórios." },
-        { status: 400 },
-      );
+    const parsed = await parseJsonWithSchema(request, chatRequestSchema);
+    if (!parsed.ok) {
+      return NextResponse.json({ error: parsed.error }, { status: 400 });
     }
 
+    const { documentId, messages } = parsed.data;
     const last = messages[messages.length - 1];
-    if (last.role !== "user") {
-      return NextResponse.json(
-        { error: "A última mensagem deve ser do usuário." },
-        { status: 400 },
-      );
-    }
 
     const { data: doc, error: docErr } = await supabase
       .from("documents")
@@ -93,9 +81,19 @@ export async function POST(request: Request) {
       };
     });
 
-    const history = messages.slice(0, -1);
+    const selectedContextChunks = selectRelevantChunks(contextChunks, last.content, 30);
+    const history: ChatTurn[] = messages.slice(0, -1);
+    const quota = await consumeUserAndIpLimit({
+      action: "premium-chat",
+      userId: user.id,
+      request,
+    });
+    if (!quota.ok) {
+      return NextResponse.json({ error: quota.reason }, { status: quota.status });
+    }
+
     const { text, stub } = await premiumDocumentChatOrStub({
-      contextChunks,
+      contextChunks: selectedContextChunks,
       history,
       userMessage: last.content,
     });
@@ -103,7 +101,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       message: text,
       stub,
-      citationRefs: contextChunks.map((c) => ({
+      citationRefs: selectedContextChunks.map((c) => ({
         id: c.id,
         label: c.label,
       })),

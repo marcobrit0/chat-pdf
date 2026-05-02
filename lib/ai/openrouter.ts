@@ -9,11 +9,53 @@ import { summarySchema, type SummaryPayload } from "@/lib/ai/summary-schema";
 
 /** Default matches build spec; override via OPENROUTER_SUMMARY_MODEL. */
 const DEFAULT_MODEL = "google/gemini-2.5-flash-lite";
+const OPENROUTER_TIMEOUT_MS = 30_000;
 
 export type SummarizeOptions = {
   /** Enfatiza cláusulas típicas de contratos (partes, objeto, prazo, multa). */
   contractIntent?: boolean;
 };
+
+function chunksToPromptBody(
+  chunks: GroundedContextChunk[],
+  maxChars: number,
+  truncationNotice: string,
+): string {
+  const body = chunks
+    .map((chunk) => `#### ${chunk.label} (ref: ${chunk.id})\n${chunk.text}`)
+    .join("\n\n---\n\n");
+
+  if (body.length <= maxChars) {
+    return body;
+  }
+
+  return `${body.slice(0, maxChars)}\n\n${truncationNotice}`;
+}
+
+function openRouterHeaders(key: string): HeadersInit {
+  return {
+    Authorization: `Bearer ${key}`,
+    "Content-Type": "application/json",
+    "HTTP-Referer": process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+    "X-Title": "ChatPDF Brasil",
+  };
+}
+
+async function callOpenRouter(key: string, body: unknown): Promise<Response> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), OPENROUTER_TIMEOUT_MS);
+
+  try {
+    return await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: openRouterHeaders(key),
+      body: JSON.stringify(body),
+      signal: controller.signal,
+    });
+  } finally {
+    clearTimeout(timeout);
+  }
+}
 
 /**
  * Calls OpenRouter for a structured PT-BR summary. Throws on HTTP errors or invalid JSON.
@@ -59,17 +101,7 @@ export async function summarizePdfText(
     response_format: { type: "json_object" },
   };
 
-  const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${key}`,
-      "Content-Type": "application/json",
-      "HTTP-Referer":
-        process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-      "X-Title": "ChatPDF Brasil",
-    },
-    body: JSON.stringify(body),
-  });
+  const res = await callOpenRouter(key, body);
 
   if (!res.ok) {
     const errText = await res.text();
@@ -94,6 +126,70 @@ export type GroundedContextChunk = {
   label: string;
   text: string;
 };
+
+const STOP_WORDS = new Set([
+  "como",
+  "com",
+  "para",
+  "qual",
+  "quais",
+  "que",
+  "sobre",
+  "uma",
+  "das",
+  "dos",
+  "por",
+]);
+
+function meaningfulTerms(text: string): Set<string> {
+  return new Set(
+    text
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/\p{Diacritic}/gu, "")
+      .split(/[^a-z0-9]+/u)
+      .filter((term) => term.length > 3 && !STOP_WORDS.has(term)),
+  );
+}
+
+function countMatchingTerms(searchTerms: Set<string>, text: string): number {
+  const textTerms = meaningfulTerms(text);
+  let score = 0;
+
+  for (const term of searchTerms) {
+    if (textTerms.has(term)) {
+      score += 1;
+    }
+  }
+
+  return score;
+}
+
+/**
+ * Selects a bounded, deterministic subset of chunks for chat prompts using lightweight lexical overlap.
+ */
+export function selectRelevantChunks(
+  chunks: GroundedContextChunk[],
+  userMessage: string,
+  limit = 30,
+): GroundedContextChunk[] {
+  const terms = meaningfulTerms(userMessage);
+  if (terms.size === 0) {
+    return chunks.slice(0, limit);
+  }
+
+  return chunks
+    .map((chunk, index) => {
+      return {
+        chunk,
+        index,
+        score: countMatchingTerms(terms, chunk.text),
+      };
+    })
+    .sort((a, b) => b.score - a.score || a.index - b.index)
+    .slice(0, limit)
+    .map((item) => item.chunk);
+}
 
 export type ChatTurn = { role: "user" | "assistant"; content: string };
 
@@ -121,13 +217,11 @@ export async function premiumDocumentChat(options: {
     process.env.OPENROUTER_SUMMARY_MODEL ??
     DEFAULT_CHAT_MODEL;
 
-  let docBody = options.contextChunks
-    .map((c) => `#### ${c.label} (ref: ${c.id})\n${c.text}`)
-    .join("\n\n---\n\n");
-
-  if (docBody.length > MAX_CONTEXT_CHARS) {
-    docBody = `${docBody.slice(0, MAX_CONTEXT_CHARS)}\n\n[…documento truncado por limite de contexto…]`;
-  }
+  const docBody = chunksToPromptBody(
+    options.contextChunks,
+    MAX_CONTEXT_CHARS,
+    "[…documento truncado por limite de contexto…]",
+  );
 
   const system = [
     "Você é um assistente em português (Brasil). Use **somente** o material do documento abaixo.",
@@ -155,17 +249,7 @@ export async function premiumDocumentChat(options: {
     max_tokens: 2048,
   };
 
-  const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${key}`,
-      "Content-Type": "application/json",
-      "HTTP-Referer":
-        process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-      "X-Title": "ChatPDF Brasil",
-    },
-    body: JSON.stringify(body),
-  });
+  const res = await callOpenRouter(key, body);
 
   if (!res.ok) {
     const errText = await res.text();
@@ -193,8 +277,7 @@ export async function premiumDocumentChatOrStub(options: {
   if (!process.env.OPENROUTER_API_KEY) {
     return {
       stub: true,
-      text:
-        "[Stub — configure OPENROUTER_API_KEY] Com base no documento carregado, responderia aqui com citações [p. X]. O painel à direita lista os trechos indexados para o Premium.",
+      text: "[Stub — configure OPENROUTER_API_KEY] Com base no documento carregado, responderia aqui com citações [p. X]. O painel à direita lista os trechos indexados para o Premium.",
     };
   }
   const text = await premiumDocumentChat(options);
@@ -206,19 +289,14 @@ export async function premiumDocumentChatOrStub(options: {
 const MODE_CONTEXT_CAP = 120_000;
 
 function chunksToDocBody(chunks: GroundedContextChunk[]): string {
-  let docBody = chunks
-    .map((c) => `#### ${c.label} (ref: ${c.id})\n${c.text}`)
-    .join("\n\n---\n\n");
-  if (docBody.length > MODE_CONTEXT_CAP) {
-    docBody = `${docBody.slice(0, MODE_CONTEXT_CAP)}\n\n[…truncado por limite…]`;
-  }
-  return docBody;
+  return chunksToPromptBody(
+    chunks,
+    MODE_CONTEXT_CAP,
+    "[…truncado por limite…]",
+  );
 }
 
-function modeSystemPrompt(
-  mode: DocumentMode,
-  contractIntent: boolean,
-): string {
+function modeSystemPrompt(mode: DocumentMode, contractIntent: boolean): string {
   const contractHint = contractIntent
     ? " O documento pode ser um contrato: priorize partes, objeto, contraprestação, prazos, rescisão e penalidades quando aparecerem no texto."
     : "";
@@ -242,23 +320,28 @@ function modeSystemPrompt(
   }
   return [
     "Você aponta **possíveis pontos de atenção** para revisão humana, em pt-BR, com base **somente** no documento.",
-    "Não afirme conformidade legal nem dê parecer jurídico. Use linguagem cautelosa (\"pode\", \"verificar\").",
+    'Não afirme conformidade legal nem dê parecer jurídico. Use linguagem cautelosa ("pode", "verificar").',
     contractHint,
     "Responda apenas JSON com chaves: flaggedTopics (array de { area, observation, pageReference? }), missingInformation (lista), suggestedReviewQuestions (lista).",
   ].join(" ");
 }
 
 function modeUserContent(mode: DocumentMode, docBody: string): string {
-  return [
-    mode === "risk"
-      ? "Liste riscos ou ambiguidades que mereçam checagem humana. Se algo não estiver no documento, não invente."
-      : mode === "extract"
-        ? "Extraia fatos e dados objetivos do documento."
-        : "Faça um resumo estruturado completo do documento.",
-    "",
-    "Documento:",
-    docBody,
-  ].join("\n");
+  let instruction: string;
+  switch (mode) {
+    case "risk":
+      instruction =
+        "Liste riscos ou ambiguidades que mereçam checagem humana. Se algo não estiver no documento, não invente.";
+      break;
+    case "extract":
+      instruction = "Extraia fatos e dados objetivos do documento.";
+      break;
+    case "summary":
+      instruction = "Faça um resumo estruturado completo do documento.";
+      break;
+  }
+
+  return [instruction, "", "Documento:", docBody].join("\n");
 }
 
 /**
@@ -280,7 +363,10 @@ export async function premiumDocumentModeAnalysis(options: {
     DEFAULT_MODEL;
 
   const docBody = chunksToDocBody(options.contextChunks);
-  const system = modeSystemPrompt(options.mode, options.contractIntent === true);
+  const system = modeSystemPrompt(
+    options.mode,
+    options.contractIntent === true,
+  );
   const user = modeUserContent(options.mode, docBody);
 
   const body = {
@@ -294,17 +380,7 @@ export async function premiumDocumentModeAnalysis(options: {
     max_tokens: 4096,
   };
 
-  const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${key}`,
-      "Content-Type": "application/json",
-      "HTTP-Referer":
-        process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-      "X-Title": "ChatPDF Brasil",
-    },
-    body: JSON.stringify(body),
-  });
+  const res = await callOpenRouter(key, body);
 
   if (!res.ok) {
     const errText = await res.text();
@@ -344,7 +420,9 @@ function stubModeResult(mode: DocumentMode): PremiumModeAnalysisResult {
         bulletPoints: ["Trecho indexado disponível para o modelo."],
         keyDatesOrValues: [],
         entities: [],
-        suggestedQuestions: ["Quais cláusulas você quer comparar com advogado?"],
+        suggestedQuestions: [
+          "Quais cláusulas você quer comparar com advogado?",
+        ],
       },
     };
   }
@@ -370,7 +448,9 @@ function stubModeResult(mode: DocumentMode): PremiumModeAnalysisResult {
         },
       ],
       missingInformation: ["Resposta real da IA após configurar a API."],
-      suggestedReviewQuestions: ["Levar cláusulas críticas a profissional habilitado."],
+      suggestedReviewQuestions: [
+        "Levar cláusulas críticas a profissional habilitado.",
+      ],
     },
   };
 }
