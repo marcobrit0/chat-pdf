@@ -2,19 +2,23 @@ import type { MetadataRoute } from "next";
 
 import { getSiteUrl } from "@/lib/seo";
 
-/**
- * Static routes for Phase 0. Expand when new marketing or app pages ship.
- */
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = getSiteUrl();
   const now = new Date();
-  const paths = [
+
+  const standardPaths = [
     "/",
     "/precos",
     "/login",
     "/chat-pdf",
     "/resumir-pdf",
+    "/resumo-de-pdf",
+    "/chatgpt-pdf",
+    "/comparar-pdfs",
     "/analisar-contrato-com-ia",
+    "/resumir-contrato-pdf",
+    "/analisar-contrato-clt",
+    "/analisar-contrato-de-prestacao-de-servicos",
     "/ia-pdf",
     "/pdf-ia",
     "/ia-para-resumir-pdf",
@@ -22,6 +26,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/resumir-edital-de-licitacao",
     "/analisar-apolice-de-seguro",
     "/entender-laudo-medico",
+    "/resumir-relatorio-pdf",
+    "/analisar-proposta-comercial",
+    "/resumir-boleto-ou-fatura",
     "/guias",
     "/guias/como-resumir-pdf-com-ia",
     "/termos",
@@ -29,10 +36,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/app",
   ] as const;
 
-  return paths.map((path) => ({
-    url: `${base}${path}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: path === "/" ? 1 : 0.7,
-  }));
+  // Comparison pages — higher commercial intent, slightly higher priority
+  const comparisonPaths = [
+    "/alternativa-ao-chatpdf",
+    "/chatpdf-em-portugues",
+    "/chatpdf-vs-chatgpt",
+    "/chatpdf-vs-smallpdf",
+    "/chatpdf-vs-adobe-acrobat-ai",
+  ] as const;
+
+  return [
+    ...standardPaths.map((path) => ({
+      url: `${base}${path}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: path === "/" ? 1 : 0.7,
+    })),
+    ...comparisonPaths.map((path) => ({
+      url: `${base}${path}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    })),
+  ];
 }
