@@ -1,26 +1,36 @@
 import { NextResponse } from "next/server";
-import { premiumDocumentChatOrStub } from "@/lib/ai/openrouter";
-import type { ChatTurn, GroundedContextChunk } from "@/lib/ai/openrouter";
+import { documentModeEnum } from "@/lib/ai/document-modes-schema";
+import {
+  premiumDocumentModeAnalysisOrStub,
+  type GroundedContextChunk,
+} from "@/lib/ai/openrouter";
 import { requirePremiumAccess } from "@/lib/entitlements";
 import { logApiError, userFacingMessage } from "@/lib/security/safe-api-response";
 import { createClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
 
-const ROUTE = "api/chat/premium";
-
 /**
- * Body: { documentId: string, messages: { role: 'user' | 'assistant', content: string }[] }
- * Last message must be from the user.
+ * Análise estruturada do documento (modos: resumo, extrair, riscos). Exige Premium.
+ * Body: { mode: "summary" | "extract" | "risk", contractIntent?: boolean }
  */
-export async function POST(request: Request) {
+export async function POST(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> },
+) {
+  const route = "api/documents/[id]/analyze";
   try {
+    const { id: documentId } = await params;
+    if (!documentId) {
+      return NextResponse.json({ error: "ID do documento inválido." }, { status: 400 });
+    }
+
     const supabase = await createClient();
     const {
       data: { user },
     } = await supabase.auth.getUser();
     if (!user) {
-      return NextResponse.json({ error: "Não autenticado" }, { status: 401 });
+      return NextResponse.json({ error: "Não autenticado." }, { status: 401 });
     }
 
     const gate = await requirePremiumAccess(supabase, user.id);
@@ -29,26 +39,19 @@ export async function POST(request: Request) {
     }
 
     const body = (await request.json()) as {
-      documentId?: string;
-      messages?: ChatTurn[];
+      mode?: unknown;
+      contractIntent?: unknown;
     };
 
-    const documentId = body.documentId?.trim();
-    const messages = body.messages;
-    if (!documentId || !messages?.length) {
+    const parsedMode = documentModeEnum.safeParse(body.mode);
+    if (!parsedMode.success) {
       return NextResponse.json(
-        { error: "documentId e messages são obrigatórios." },
+        { error: "Informe mode: summary, extract ou risk." },
         { status: 400 },
       );
     }
 
-    const last = messages[messages.length - 1];
-    if (last.role !== "user") {
-      return NextResponse.json(
-        { error: "A última mensagem deve ser do usuário." },
-        { status: 400 },
-      );
-    }
+    const contractIntent = body.contractIntent === true;
 
     const { data: doc, error: docErr } = await supabase
       .from("documents")
@@ -57,10 +60,11 @@ export async function POST(request: Request) {
       .maybeSingle();
 
     if (docErr) {
-      return NextResponse.json({ error: "Erro ao validar documento" }, { status: 500 });
+      logApiError(route, docErr);
+      return NextResponse.json({ error: "Erro ao validar documento." }, { status: 500 });
     }
     if (!doc) {
-      return NextResponse.json({ error: "Documento não encontrado" }, { status: 404 });
+      return NextResponse.json({ error: "Documento não encontrado." }, { status: 404 });
     }
 
     const { data: chunkRows, error: chErr } = await supabase
@@ -70,8 +74,8 @@ export async function POST(request: Request) {
       .order("chunk_index", { ascending: true });
 
     if (chErr) {
-      console.error("[chat/premium] chunks", chErr);
-      return NextResponse.json({ error: "Falha ao carregar trechos" }, { status: 500 });
+      logApiError(route, chErr);
+      return NextResponse.json({ error: "Falha ao carregar trechos." }, { status: 500 });
     }
 
     if (!chunkRows?.length) {
@@ -93,25 +97,17 @@ export async function POST(request: Request) {
       };
     });
 
-    const history = messages.slice(0, -1);
-    const { text, stub } = await premiumDocumentChatOrStub({
+    const { result, stub } = await premiumDocumentModeAnalysisOrStub({
       contextChunks,
-      history,
-      userMessage: last.content,
+      mode: parsedMode.data,
+      contractIntent,
     });
 
-    return NextResponse.json({
-      message: text,
-      stub,
-      citationRefs: contextChunks.map((c) => ({
-        id: c.id,
-        label: c.label,
-      })),
-    });
+    return NextResponse.json({ ...result, stub });
   } catch (e) {
-    logApiError(ROUTE, e);
+    logApiError(route, e);
     return NextResponse.json(
-      { error: userFacingMessage(e, "Erro ao gerar resposta.") },
+      { error: userFacingMessage(e) },
       { status: 500 },
     );
   }

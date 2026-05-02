@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
-import { PaywallCta } from "@/components/marketing/PaywallCta";
-import { UploadShell } from "@/components/marketing/UploadShell";
+import { AnonymousSummaryFlow } from "@/components/marketing/AnonymousSummaryFlow";
 
 export function SeoPageTemplate({
   title,
@@ -8,12 +7,15 @@ export function SeoPageTemplate({
   children,
   showUpload,
   titleAs = "h1",
+  /** Páginas como “analisar contrato” passam true para orientar o modelo. */
+  contractIntent = false,
 }: {
   title: string;
   intro: string;
   children?: ReactNode;
   showUpload?: boolean;
   titleAs?: "h1" | "h2";
+  contractIntent?: boolean;
 }) {
   const TitleTag = titleAs === "h2" ? "h2" : "h1";
   return (
@@ -24,8 +26,7 @@ export function SeoPageTemplate({
       </header>
       {showUpload ? (
         <section className="mt-10 space-y-10">
-          <UploadShell />
-          <PaywallCta reason="PDFs grandes ou chat exigem Premium." />
+          <AnonymousSummaryFlow contractIntent={contractIntent} />
         </section>
       ) : null}
       {children ? <div className="mt-10 space-y-6 text-graphite">{children}</div> : null}

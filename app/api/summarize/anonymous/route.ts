@@ -7,10 +7,13 @@ import {
   PDF_MIME_TYPES,
 } from "@/lib/constants/limits";
 import { parsePdfBuffer } from "@/lib/pdf/inspect";
+import { logApiError, userFacingMessage } from "@/lib/security/safe-api-response";
 import { getClientIp, hashAnonymousFingerprint } from "@/lib/usage/fingerprint";
 import { consumeAnonymousSummarySlot } from "@/lib/usage/anonymous-rate-limit";
 
 export const runtime = "nodejs";
+
+const ROUTE = "api/summarize/anonymous";
 
 /**
  * Placeholder summary when OpenRouter is not configured (keeps API contract for UI tests).
@@ -33,6 +36,16 @@ function buildStubSummary(): SummaryPayload & { stub: true } {
 
 export async function POST(request: Request) {
   try {
+    if (process.env.DISABLE_ANONYMOUS_SUMMARY === "true") {
+      return NextResponse.json(
+        {
+          error:
+            "Resumos anônimos estão temporariamente indisponíveis. Tente mais tarde ou assine o Premium.",
+        },
+        { status: 503 },
+      );
+    }
+
     const ip = getClientIp(request);
     const ua = request.headers.get("user-agent");
     const fp = hashAnonymousFingerprint(ip, ua);
@@ -48,6 +61,10 @@ export async function POST(request: Request) {
     }
 
     const form = await request.formData();
+    const intentRaw = form.get("intent");
+    const contractIntent =
+      typeof intentRaw === "string" && intentRaw.trim() === "contrato";
+
     const file = form.get("file");
     if (!(file instanceof File)) {
       return NextResponse.json(
@@ -116,14 +133,20 @@ export async function POST(request: Request) {
     }
 
     try {
-      const payload = await summarizePdfText(text);
+      const payload = await summarizePdfText(text, { contractIntent });
       return NextResponse.json(payload);
     } catch (e) {
-      const message = e instanceof Error ? e.message : "Erro na IA";
-      return NextResponse.json({ error: message }, { status: 502 });
+      logApiError(ROUTE, e);
+      return NextResponse.json(
+        { error: userFacingMessage(e, "A IA não conseguiu concluir o resumo. Tente outro PDF ou mais tarde.") },
+        { status: 502 },
+      );
     }
   } catch (e) {
-    const message = e instanceof Error ? e.message : "Erro desconhecido";
-    return NextResponse.json({ error: message }, { status: 500 });
+    logApiError(ROUTE, e);
+    return NextResponse.json(
+      { error: userFacingMessage(e, "Não foi possível processar o pedido.") },
+      { status: 500 },
+    );
   }
 }

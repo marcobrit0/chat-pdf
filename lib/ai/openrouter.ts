@@ -1,12 +1,27 @@
+import {
+  extractSchema,
+  riskSchema,
+  type DocumentMode,
+  type ExtractPayload,
+  type RiskPayload,
+} from "@/lib/ai/document-modes-schema";
 import { summarySchema, type SummaryPayload } from "@/lib/ai/summary-schema";
 
 /** Default matches build spec; override via OPENROUTER_SUMMARY_MODEL. */
 const DEFAULT_MODEL = "google/gemini-2.5-flash-lite";
 
+export type SummarizeOptions = {
+  /** Enfatiza cláusulas típicas de contratos (partes, objeto, prazo, multa). */
+  contractIntent?: boolean;
+};
+
 /**
  * Calls OpenRouter for a structured PT-BR summary. Throws on HTTP errors or invalid JSON.
  */
-export async function summarizePdfText(text: string): Promise<SummaryPayload> {
+export async function summarizePdfText(
+  text: string,
+  options?: SummarizeOptions,
+): Promise<SummaryPayload> {
   const key = process.env.OPENROUTER_API_KEY;
   if (!key) {
     throw new Error("OPENROUTER_API_KEY não configurada");
@@ -17,13 +32,19 @@ export async function summarizePdfText(text: string): Promise<SummaryPayload> {
 
   const model = process.env.OPENROUTER_SUMMARY_MODEL ?? DEFAULT_MODEL;
 
+  const systemBase =
+    "Você resume PDFs em pt-BR. Responda apenas JSON válido no schema pedido, sem markdown.";
+  const systemContract =
+    options?.contractIntent === true
+      ? `${systemBase} Se o texto parecer um contrato, destaque partes, objeto, prazo, preço/valores, rescisão e responsabilidades quando existirem no texto.`
+      : systemBase;
+
   const body = {
     model,
     messages: [
       {
         role: "system",
-        content:
-          "Você resume PDFs em pt-BR. Responda apenas JSON válido no schema pedido, sem markdown.",
+        content: systemContract,
       },
       {
         role: "user",
@@ -178,4 +199,196 @@ export async function premiumDocumentChatOrStub(options: {
   }
   const text = await premiumDocumentChat(options);
   return { text, stub: false };
+}
+
+// --- Document modes (Premium workspace): summary / extract / risk ---
+
+const MODE_CONTEXT_CAP = 120_000;
+
+function chunksToDocBody(chunks: GroundedContextChunk[]): string {
+  let docBody = chunks
+    .map((c) => `#### ${c.label} (ref: ${c.id})\n${c.text}`)
+    .join("\n\n---\n\n");
+  if (docBody.length > MODE_CONTEXT_CAP) {
+    docBody = `${docBody.slice(0, MODE_CONTEXT_CAP)}\n\n[…truncado por limite…]`;
+  }
+  return docBody;
+}
+
+function modeSystemPrompt(
+  mode: DocumentMode,
+  contractIntent: boolean,
+): string {
+  const contractHint = contractIntent
+    ? " O documento pode ser um contrato: priorize partes, objeto, contraprestação, prazos, rescisão e penalidades quando aparecerem no texto."
+    : "";
+
+  if (mode === "summary") {
+    return [
+      "Você analisa documentos em pt-BR usando **somente** o material fornecido.",
+      contractHint,
+      "Responda apenas JSON válido com chaves: summary, bulletPoints, keyDatesOrValues, entities, suggestedQuestions (mesmo formato do resumo anônimo).",
+    ]
+      .filter((s) => s.trim().length > 0)
+      .join(" ");
+  }
+  if (mode === "extract") {
+    return [
+      "Você extrai informação factual do documento em pt-BR. Use **somente** o texto fornecido.",
+      contractHint,
+      "Responda apenas JSON com chaves: keyFacts (lista), datesValuesAndAmounts (lista), partiesOrEntities (lista), obligationsOrDeadlines (lista).",
+      "Não invente dados ausentes; omita ou use lista vazia se não houver.",
+    ].join(" ");
+  }
+  return [
+    "Você aponta **possíveis pontos de atenção** para revisão humana, em pt-BR, com base **somente** no documento.",
+    "Não afirme conformidade legal nem dê parecer jurídico. Use linguagem cautelosa (\"pode\", \"verificar\").",
+    contractHint,
+    "Responda apenas JSON com chaves: flaggedTopics (array de { area, observation, pageReference? }), missingInformation (lista), suggestedReviewQuestions (lista).",
+  ].join(" ");
+}
+
+function modeUserContent(mode: DocumentMode, docBody: string): string {
+  return [
+    mode === "risk"
+      ? "Liste riscos ou ambiguidades que mereçam checagem humana. Se algo não estiver no documento, não invente."
+      : mode === "extract"
+        ? "Extraia fatos e dados objetivos do documento."
+        : "Faça um resumo estruturado completo do documento.",
+    "",
+    "Documento:",
+    docBody,
+  ].join("\n");
+}
+
+/**
+ * Análise estruturada por modo para documentos Premium já indexados em chunks.
+ */
+export async function premiumDocumentModeAnalysis(options: {
+  contextChunks: GroundedContextChunk[];
+  mode: DocumentMode;
+  contractIntent?: boolean;
+}): Promise<PremiumModeAnalysisResult> {
+  const key = process.env.OPENROUTER_API_KEY;
+  if (!key) {
+    throw new Error("OPENROUTER_API_KEY não configurada");
+  }
+
+  const model =
+    process.env.OPENROUTER_SUMMARY_MODEL ??
+    process.env.OPENROUTER_CHAT_MODEL ??
+    DEFAULT_MODEL;
+
+  const docBody = chunksToDocBody(options.contextChunks);
+  const system = modeSystemPrompt(options.mode, options.contractIntent === true);
+  const user = modeUserContent(options.mode, docBody);
+
+  const body = {
+    model,
+    messages: [
+      { role: "system" as const, content: system },
+      { role: "user" as const, content: user },
+    ],
+    temperature: options.mode === "risk" ? 0.35 : 0.2,
+    response_format: { type: "json_object" },
+    max_tokens: 4096,
+  };
+
+  const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${key}`,
+      "Content-Type": "application/json",
+      "HTTP-Referer":
+        process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+      "X-Title": "ChatPDF Brasil",
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    const errText = await res.text();
+    throw new Error(`OpenRouter HTTP ${res.status}: ${errText.slice(0, 200)}`);
+  }
+
+  const json = (await res.json()) as {
+    choices?: { message?: { content?: string } }[];
+  };
+  const raw = json.choices?.[0]?.message?.content;
+  if (!raw) {
+    throw new Error("Resposta vazia do modelo");
+  }
+
+  const parsed = JSON.parse(raw) as unknown;
+  if (options.mode === "summary") {
+    return { mode: "summary", data: summarySchema.parse(parsed) };
+  }
+  if (options.mode === "extract") {
+    return { mode: "extract", data: extractSchema.parse(parsed) };
+  }
+  return { mode: "risk", data: riskSchema.parse(parsed) };
+}
+
+export type PremiumModeAnalysisResult =
+  | { mode: "summary"; data: SummaryPayload }
+  | { mode: "extract"; data: ExtractPayload }
+  | { mode: "risk"; data: RiskPayload };
+
+function stubModeResult(mode: DocumentMode): PremiumModeAnalysisResult {
+  if (mode === "summary") {
+    return {
+      mode: "summary",
+      data: {
+        summary:
+          "[Stub — configure OPENROUTER_API_KEY] Resumo de exemplo para desenvolvimento.",
+        bulletPoints: ["Trecho indexado disponível para o modelo."],
+        keyDatesOrValues: [],
+        entities: [],
+        suggestedQuestions: ["Quais cláusulas você quer comparar com advogado?"],
+      },
+    };
+  }
+  if (mode === "extract") {
+    return {
+      mode: "extract",
+      data: {
+        keyFacts: ["Configure a chave OpenRouter para extração real."],
+        datesValuesAndAmounts: [],
+        partiesOrEntities: [],
+        obligationsOrDeadlines: [],
+      },
+    };
+  }
+  return {
+    mode: "risk",
+    data: {
+      flaggedTopics: [
+        {
+          area: "Configuração",
+          observation:
+            "Sem OPENROUTER_API_KEY não há análise automática; este é um resultado ilustrativo.",
+        },
+      ],
+      missingInformation: ["Resposta real da IA após configurar a API."],
+      suggestedReviewQuestions: ["Levar cláusulas críticas a profissional habilitado."],
+    },
+  };
+}
+
+/**
+ * Mesmo contrato que `premiumDocumentModeAnalysis`, com stub seguro sem API key.
+ */
+export async function premiumDocumentModeAnalysisOrStub(options: {
+  contextChunks: GroundedContextChunk[];
+  mode: DocumentMode;
+  contractIntent?: boolean;
+}): Promise<{ result: PremiumModeAnalysisResult; stub: boolean }> {
+  if (!process.env.OPENROUTER_API_KEY) {
+    return {
+      stub: true,
+      result: stubModeResult(options.mode),
+    };
+  }
+  const result = await premiumDocumentModeAnalysis(options);
+  return { result, stub: false };
 }

@@ -18,9 +18,11 @@ npm run dev
 
 Abra [http://localhost:3000](http://localhost:3000).
 
-## Rotas públicas (Fase 0)
+## Rotas públicas
 
-`/`, `/pricing`, `/login`, `/chat-pdf`, `/resumir-pdf` e landings SEO adicionais vivem em `app/(marketing)/`. O segmento `(marketing)` é só organização — não entra na URL.
+`/`, `/precos`, `/login`, `/chat-pdf`, `/resumir-pdf`, `/guias`, landings SEO (licitações, seguros, laudos, etc.) e páginas legais vivem em `app/(marketing)/`. O segmento `(marketing)` é só organização — não entra na URL.
+
+Iterações recentes (SEO, placeholders Premium, UX de citações): ver **[docs/PHASE7.md](./docs/PHASE7.md)**.
 
 ## Scripts
 
@@ -40,6 +42,6 @@ Abra [http://localhost:3000](http://localhost:3000).
 2. Em **Environment Variables**, defina pelo menos `NEXT_PUBLIC_SITE_URL` com a URL pública (ex.: `https://seu-dominio.vercel.app` ou domínio customizado).
 3. Adicione chaves de Supabase, Stripe e OpenRouter quando as fases seguintes estiverem prontas — veja `.env.example`.
 
-## Fase 1 (próximos passos)
+## Próximos passos (produto)
 
-- Auth e banco (Supabase), pagamentos (Stripe), pipeline de IA (OpenRouter), uploads de PDF e limites de uso.
+- Evoluções listadas em `docs/PHASE7.md` (OCR, compare real, pastas multi-PDF).

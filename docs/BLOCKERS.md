@@ -47,5 +47,7 @@ Apply `supabase/migrations/20250502120000_document_chunks.sql` after the init mi
 | Variable | Purpose |
 |----------|---------|
 | `ANONYMOUS_RATE_SALT` | Secret salt for hashed fingerprints when counting anonymous usage (set in production). |
+| `DISABLE_ANONYMOUS_SUMMARY` | Set to `true` to return 503 on `POST /api/summarize/anonymous` (abuse or cost kill-switch) without taking the rest of the app down. |
+| `NEXT_PUBLIC_POSTHOG_KEY` | Optional; if set, the client queues events in `window.__CHATPDF_EVENTS__` (stub) until you wire a real SDK. |
 
 No irreversible decisions were required from you beyond choosing your Stripe Price IDs and Supabase project when you connect environments.
