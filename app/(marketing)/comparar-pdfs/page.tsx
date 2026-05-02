@@ -56,7 +56,7 @@ export default function CompararPdfsPage() {
           <div>
             <dt className="font-medium text-midnight-ink">Quando a comparação direta vai estar disponível?</dt>
             <dd className="mt-1 text-charcoal-text">
-              Está em desenvolvimento. Crie conta no Premium e você recebe acesso quando lançar.
+              Está em desenvolvimento. Clientes Premium terão acesso assim que lançar.
             </dd>
           </div>
           <div>
