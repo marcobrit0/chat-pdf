@@ -1,19 +1,41 @@
-# PR notes — ChatPDF (local branch, no `origin` yet)
+# PR notes — ChatPDF
 
-**Branch:** `feat/chatpdf-mvp-phase4` — use `git log -1 --oneline` for the current commit hash.
+**Repository:** https://github.com/marcobrit0/chat-pdf  
+**Default branch:** `main`  
+**Feature branch:** `feat/chatpdf-mvp-phase4`
 
-This repository had **no `git remote` configured** at commit time. After you add a GitHub remote, push the branch and open a PR (or use the suggested `gh` command).
+## Completed PR
 
-## Suggested branch
+| Item | Value |
+|------|--------|
+| PR | https://github.com/marcobrit0/chat-pdf/pull/1 |
+| Base | `main` |
+| Head | `feat/chatpdf-mvp-phase4` |
 
-- `feat/chatpdf-mvp-phase4` (current work)
+## What was run (2026-05-02)
 
-## Commands (after `git remote add origin <url>`)
+`gh auth status` was OK (account `marcobrit0`, HTTPS, token scopes include `repo`).
 
 ```bash
-git checkout feat/chatpdf-mvp-phase4
+# Uncommitted work was committed on feat/chatpdf-mvp-phase4 before push:
+# git add -A && git commit -m "feat: marketing landings, compare/pasta, ..."
+
+gh repo create chat-pdf --public --source=. --remote=origin --description "ChatPDF — AI PDF chat, summarize, and Premium workspace"
+
+git push -u origin main
 git push -u origin feat/chatpdf-mvp-phase4
-gh pr create --base main --head feat/chatpdf-mvp-phase4 --title "feat: ChatPDF MVP — marketing, APIs, Premium workspace (Phase 4)" --body-file - <<'EOF'
+
+gh pr create --base main --head feat/chatpdf-mvp-phase4 \
+  --title "feat: ChatPDF MVP — marketing, APIs, Premium workspace (Phase 4)" \
+  --body "...(same Summary / Migrations / Environment / Test plan as below)..."
+```
+
+## PR title and body (reference)
+
+**Title:** feat: ChatPDF MVP — marketing, APIs, Premium workspace (Phase 4)
+
+**Body:**
+
 ## Summary
 
 - **Marketing / SEO**: landings, shell, sitemap, robots, pricing, legal.
@@ -32,9 +54,11 @@ See `docs/BLOCKERS.md` (incl. `CHATPDF_PREMIUM_STUB`, `OPENROUTER_CHAT_MODEL`).
 
 - `npm run build` / `npm run lint` / `npm run typecheck`
 - With `CHATPDF_PREMIUM_STUB=true` and Supabase: upload PDF on `/app`, open workspace, send chat message (stub without `OPENROUTER_API_KEY`).
-EOF
-```
 
 ## One PR vs two
 
 The working tree is a **single cohesive MVP** (initial Create Next App state was almost empty). Splitting into “foundation” vs “marketing” PRs would require reverting/reapplying overlapping files; this delivery is **one PR**. If you prefer two PRs later, use interactive rebase or stacked branches from this baseline.
+
+## GitHub CLI setup
+
+If `gh auth status` fails: run `gh auth login` (browser or token), enable SSO for the org if applicable, then re-run the push / `gh pr create` commands above.
