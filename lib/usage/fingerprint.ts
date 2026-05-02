@@ -1,14 +1,14 @@
 import { createHash } from "node:crypto";
 
 /**
- * Privacy-preserving daily fingerprint for anonymous rate limits (IP + salt; no raw IP stored).
+ * Privacy-preserving daily fingerprint for rate limits (IP + salt; no raw IP stored).
+ * User-Agent is intentionally ignored so changing browser strings cannot reset quotas.
  */
 export function hashAnonymousFingerprint(
   ip: string | null,
-  userAgent: string | null,
 ): string {
   const salt = process.env.ANONYMOUS_RATE_SALT ?? "dev-only-salt-change-me";
-  const raw = `${ip ?? "unknown"}|${userAgent ?? ""}|${salt}`;
+  const raw = `${ip ?? "unknown"}|${salt}`;
   return createHash("sha256").update(raw).digest("hex");
 }
 

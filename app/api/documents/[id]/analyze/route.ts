@@ -1,12 +1,17 @@
 import { NextResponse } from "next/server";
-import { documentModeEnum } from "@/lib/ai/document-modes-schema";
 import {
   premiumDocumentModeAnalysisOrStub,
   type GroundedContextChunk,
 } from "@/lib/ai/openrouter";
 import { requirePremiumAccess } from "@/lib/entitlements";
 import { logApiError, userFacingMessage } from "@/lib/security/safe-api-response";
+import {
+  analyzeRequestSchema,
+  documentIdParamSchema,
+  parseJsonWithSchema,
+} from "@/lib/security/request-validation";
 import { createClient } from "@/lib/supabase/server";
+import { consumeUserAndIpLimit } from "@/lib/usage/premium-limits";
 
 export const runtime = "nodejs";
 
@@ -20,10 +25,12 @@ export async function POST(
 ) {
   const route = "api/documents/[id]/analyze";
   try {
-    const { id: documentId } = await params;
-    if (!documentId) {
+    const { id } = await params;
+    const parsedDocumentId = documentIdParamSchema.safeParse(id);
+    if (!parsedDocumentId.success) {
       return NextResponse.json({ error: "ID do documento inválido." }, { status: 400 });
     }
+    const documentId = parsedDocumentId.data;
 
     const supabase = await createClient();
     const {
@@ -38,20 +45,12 @@ export async function POST(
       return NextResponse.json({ error: gate.reason }, { status: gate.status });
     }
 
-    const body = (await request.json()) as {
-      mode?: unknown;
-      contractIntent?: unknown;
-    };
-
-    const parsedMode = documentModeEnum.safeParse(body.mode);
-    if (!parsedMode.success) {
-      return NextResponse.json(
-        { error: "Informe mode: summary, extract ou risk." },
-        { status: 400 },
-      );
+    const parsedBody = await parseJsonWithSchema(request, analyzeRequestSchema);
+    if (!parsedBody.ok) {
+      return NextResponse.json({ error: parsedBody.error }, { status: 400 });
     }
 
-    const contractIntent = body.contractIntent === true;
+    const { mode, contractIntent = false } = parsedBody.data;
 
     const { data: doc, error: docErr } = await supabase
       .from("documents")
@@ -97,9 +96,18 @@ export async function POST(
       };
     });
 
+    const quota = await consumeUserAndIpLimit({
+      action: "premium-analysis",
+      userId: user.id,
+      request,
+    });
+    if (!quota.ok) {
+      return NextResponse.json({ error: quota.reason }, { status: quota.status });
+    }
+
     const { result, stub } = await premiumDocumentModeAnalysisOrStub({
       contextChunks,
-      mode: parsedMode.data,
+      mode,
       contractIntent,
     });
 

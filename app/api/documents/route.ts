@@ -7,9 +7,18 @@ import {
 } from "@/lib/constants/limits";
 import { chunkPagesForStorage } from "@/lib/pdf/chunk-pages";
 import { parsePdfBuffer } from "@/lib/pdf/inspect";
+import {
+  isContentLengthWithinLimit,
+  isPdfMagicBytes,
+  sanitizeDocumentTitle,
+} from "@/lib/pdf/validation";
+import { createPremiumDocumentWithChunks } from "@/lib/documents/server-writes";
 import { createClient } from "@/lib/supabase/server";
+import { consumeUserAndIpLimit } from "@/lib/usage/premium-limits";
 
 export const runtime = "nodejs";
+
+const MULTIPART_OVERHEAD_BYTES = 1024 * 1024;
 
 /**
  * Lists documents for the logged-in user (RLS applies).
@@ -31,7 +40,10 @@ export async function GET() {
 
     if (error) {
       console.error("[documents GET]", error);
-      return NextResponse.json({ error: "Falha ao listar documentos" }, { status: 500 });
+      return NextResponse.json(
+        { error: "Falha ao listar documentos" },
+        { status: 500 },
+      );
     }
 
     return NextResponse.json({ documents: data ?? [] });
@@ -49,6 +61,18 @@ export async function GET() {
  */
 export async function POST(request: Request) {
   try {
+    if (
+      !isContentLengthWithinLimit(
+        request,
+        PREMIUM_MAX_FILE_BYTES + MULTIPART_OVERHEAD_BYTES,
+      )
+    ) {
+      return NextResponse.json(
+        { error: "Arquivo grande demais para upload." },
+        { status: 413 },
+      );
+    }
+
     const supabase = await createClient();
     const {
       data: { user },
@@ -90,13 +114,31 @@ export async function POST(request: Request) {
     }
 
     const titleRaw = form.get("title");
-    const title =
-      typeof titleRaw === "string" && titleRaw.trim()
-        ? titleRaw.trim()
-        : file.name.replace(/\.pdf$/i, "") || "Documento";
+    const title = sanitizeDocumentTitle(
+      typeof titleRaw === "string" && titleRaw.trim() ? titleRaw : file.name,
+    );
 
     const buffer = Buffer.from(await file.arrayBuffer());
-    const { pageCount, pages } = await parsePdfBuffer(buffer);
+    if (!isPdfMagicBytes(buffer)) {
+      return NextResponse.json(
+        { error: "O arquivo enviado não parece ser um PDF válido." },
+        { status: 400 },
+      );
+    }
+
+    let parsedPdf: Awaited<ReturnType<typeof parsePdfBuffer>>;
+    try {
+      parsedPdf = await parsePdfBuffer(buffer);
+    } catch {
+      return NextResponse.json(
+        {
+          error:
+            "Não foi possível ler o PDF (arquivo corrompido ou protegido por senha).",
+        },
+        { status: 400 },
+      );
+    }
+    const { pageCount, pages } = parsedPdf;
 
     if (pageCount > PREMIUM_MAX_PAGES) {
       return NextResponse.json(
@@ -115,48 +157,30 @@ export async function POST(request: Request) {
       );
     }
 
-    const { data: doc, error: docErr } = await supabase
-      .from("documents")
-      .insert({
-        user_id: user.id,
-        title,
-        storage_path: null,
-        page_count: pageCount,
-      })
-      .select("id")
-      .single();
-
-    if (docErr || !doc) {
-      console.error("[documents POST] insert doc", docErr);
+    const quota = await consumeUserAndIpLimit({
+      action: "premium-upload",
+      userId: user.id,
+      request,
+    });
+    if (!quota.ok) {
       return NextResponse.json(
-        { error: "Não foi possível salvar o documento." },
-        { status: 500 },
+        { error: quota.reason },
+        { status: quota.status },
       );
     }
 
-    const rows = chunks.map((c) => ({
-      document_id: doc.id,
-      chunk_index: c.chunkIndex,
-      page_start: c.pageStart,
-      page_end: c.pageEnd,
-      content: c.content,
-    }));
-
-    const { error: chErr } = await supabase.from("document_chunks").insert(rows);
-    if (chErr) {
-      console.error("[documents POST] insert chunks", chErr);
-      await supabase.from("documents").delete().eq("id", doc.id);
-      return NextResponse.json(
-        { error: "Falha ao indexar o texto do PDF." },
-        { status: 500 },
-      );
-    }
-
-    return NextResponse.json({
-      id: doc.id,
+    const stored = await createPremiumDocumentWithChunks({
+      userId: user.id,
       title,
       pageCount,
-      chunkCount: rows.length,
+      chunks,
+    });
+
+    return NextResponse.json({
+      id: stored.id,
+      title: stored.title,
+      pageCount: stored.pageCount,
+      chunkCount: stored.chunkCount,
     });
   } catch (e) {
     console.error("[documents POST]", e);
