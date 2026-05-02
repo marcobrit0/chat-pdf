@@ -28,7 +28,7 @@ export default function AnalisarContratoCltPage() {
           <li>Cláusulas de não-concorrência ou confidencialidade quando presentes</li>
         </ul>
         <p className="mt-4 text-sm text-faded-stone">
-          Dúvidas sobre direitos trabalhistas, verbas rescisórias ou irregularidades? Consulte um advogado trabalhista ou o sindicato da categoria.
+          Esta análise não substitui assessoria jurídica ou trabalhista. Para dúvidas sobre direitos, verbas rescisórias ou irregularidades, consulte um advogado trabalhista ou o sindicato da categoria.
         </p>
       </section>
 
