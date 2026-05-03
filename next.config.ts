@@ -29,6 +29,13 @@ const CONTENT_SECURITY_POLICY = [
 const nextConfig: NextConfig = {
   // pdf-parse v2 pulls pdfjs + optional native canvas — keep in Node runtime, not bundled for edge.
   serverExternalPackages: ["pdf-parse", "pdfjs-dist", "@napi-rs/canvas"],
+  // pdfjs-dist loads its worker via dynamic import, which Vercel's file tracer
+  // doesn't follow — force-include the worker bundle so summarize routes can
+  // resolve it at runtime.
+  outputFileTracingIncludes: {
+    "/api/summarize/anonymous": ["./node_modules/pdfjs-dist/legacy/build/*.mjs"],
+    "/api/documents": ["./node_modules/pdfjs-dist/legacy/build/*.mjs"],
+  },
   async redirects() {
     return [{ source: "/pricing", destination: "/precos", permanent: true }];
   },
