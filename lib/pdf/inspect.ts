@@ -8,12 +8,22 @@ export type PdfPageText = { num: number; text: string };
 export async function parsePdfBuffer(
   buffer: Buffer,
 ): Promise<{ pageCount: number; text: string; pages: PdfPageText[] }> {
-  // pdfjs-dist (bundled inside pdf-parse) references DOMMatrix at module init
-  // time, which doesn't exist in Vercel's serverless Node.js runtime. Stub it
-  // before the dynamic import so the module can evaluate successfully.
+  // pdfjs-dist (bundled inside pdf-parse) references browser-only globals at
+  // module init time. Vercel's serverless Node.js runtime doesn't provide them
+  // and @napi-rs/canvas (the optional polyfill source) isn't installed. Stub
+  // the constructors before the dynamic import — text extraction never
+  // exercises them, so empty classes are enough.
   if (typeof globalThis.DOMMatrix === "undefined") {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (globalThis as any).DOMMatrix = class DOMMatrix {};
+  }
+  if (typeof globalThis.Path2D === "undefined") {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (globalThis as any).Path2D = class Path2D {};
+  }
+  if (typeof globalThis.ImageData === "undefined") {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (globalThis as any).ImageData = class ImageData {};
   }
 
   const { PDFParse } = await import("pdf-parse");
