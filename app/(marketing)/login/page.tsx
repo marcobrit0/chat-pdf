@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 
-import { MagicLinkForm } from "@/components/auth/MagicLinkForm";
+import { OtpForm } from "@/components/auth/OtpForm";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Entrar",
   description:
-    "Entre no PDFIA com um link seguro enviado por e-mail.",
+    "Entre no PDFIA com um código seguro enviado por e-mail.",
   path: "/login",
 });
 
@@ -28,20 +28,20 @@ export default async function LoginPage({
           Entre e continue lendo seus PDFs.
         </h1>
         <p className="max-w-xl text-base leading-relaxed text-charcoal-text sm:text-lg">
-          Use um link mágico por e-mail. Depois do acesso, o workspace abre sua
-          biblioteca, uploads Premium e chat com citações.
+          Use um código enviado por e-mail. Depois do acesso, o workspace abre
+          sua biblioteca, uploads Premium e chat com citações.
         </p>
       </section>
 
       <section className="rounded-[length:var(--radius-cards)] border border-midnight-ink bg-crisp-white p-6 sm:p-8">
         <h2 className="font-display text-2xl font-semibold text-midnight-ink">
-          Receber link seguro
+          Receber código de acesso
         </h2>
         <p className="mt-2 text-sm leading-relaxed text-charcoal-text">
-          Sem senha para lembrar. O link expira e cria a sessão no navegador.
+          Sem senha para lembrar. O código expira e cria a sessão no navegador.
         </p>
         <div className="mt-6">
-          <MagicLinkForm nextPath={nextPath} />
+          <OtpForm nextPath={nextPath} />
         </div>
       </section>
     </div>
