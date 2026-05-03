@@ -1,3 +1,4 @@
+import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
@@ -7,68 +8,99 @@ export const metadata = buildPageMetadata({
   path: "/privacidade",
 });
 
+const breadcrumbs = [
+  { label: "Início", path: "/" },
+  { label: "Política de privacidade", path: "/privacidade" },
+];
+
+const lastUpdated = "3 de maio de 2026";
+
 /**
- * Placeholders PT-BR alinhados à LGPD: complete dados do controlador, DPO e bases legais com seu jurídico.
+ * Texto modelo PT-BR alinhado à LGPD. Complete dados do controlador, DPO e
+ * bases legais com seu jurídico antes de escalar marketing.
  */
 export default function PrivacidadePage() {
   return (
-    <article className="mx-auto max-w-3xl px-4 py-14 md:px-6">
-      <h1 className="font-display text-3xl font-semibold text-midnight-ink">Política de privacidade</h1>
-      <p className="mt-4 text-sm text-faded-stone">Última atualização: texto modelo — revisar antes do uso amplo.</p>
-
-      <section className="mt-10 space-y-4 text-charcoal-text">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">1. Quem somos</h2>
+    <SeoPageTemplate
+      title="Política de privacidade"
+      intro={`Última atualização: ${lastUpdated}. Esqueleto LGPD — substituir nomes, prazos de retenção e canais oficiais antes da revisão jurídica final.`}
+      breadcrumbs={breadcrumbs}
+    >
+      <section className="space-y-4">
+        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+          1. Quem somos
+        </h2>
         <p>
-          Descreva aqui o nome empresarial, CNPJ e contato do controlador dos dados. Esta página é um esqueleto para
-          atender à transparência prevista na LGPD.
+          Descreva aqui o nome empresarial, CNPJ e contato do controlador dos
+          dados. Esta seção é o ponto de transparência exigido pela LGPD.
         </p>
       </section>
 
-      <section className="mt-10 space-y-4 text-charcoal-text">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">2. Dados que tratamos</h2>
+      <section className="space-y-4">
+        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+          2. Dados que tratamos
+        </h2>
         <p>
-          Podemos tratar: dados de conta (e-mail, identificador de usuário), metadados de uso (logs, limites de rate),
-          conteúdo de PDFs enviados para processamento e dados de pagamento processados pelo provedor de cobrança (não
-          armazenamos cartão completo no ChatPDF salvo indicação contrária na integração).
+          Podemos tratar: dados de conta (e-mail, identificador de usuário),
+          metadados de uso (logs, limites de rate), conteúdo de PDFs enviados
+          para processamento e dados de pagamento processados pelo provedor de
+          cobrança (não armazenamos cartão completo no ChatPDF).
         </p>
       </section>
 
-      <section className="mt-10 space-y-4 text-charcoal-text">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">3. Bases legais</h2>
+      <section className="space-y-4">
+        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+          3. Bases legais
+        </h2>
         <p>
-          Execução de contrato, legítimo interesse (segurança e melhoria do serviço), consentimento quando exigido e
-          cumprimento de obrigação legal. Detalhe cada finalidade com seu advogado.
+          Execução de contrato, legítimo interesse (segurança e melhoria do
+          serviço), consentimento quando exigido e cumprimento de obrigação
+          legal. Detalhe cada finalidade com seu advogado.
         </p>
       </section>
 
-      <section className="mt-10 space-y-4 text-charcoal-text">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">4. Compartilhamento</h2>
+      <section className="space-y-4">
+        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+          4. Compartilhamento
+        </h2>
         <p>
-          Prestadores necessários ao produto: hospedagem (ex.: Vercel), banco de dados e auth (ex.: Supabase), pagamentos
-          (ex.: Stripe), provedor de IA (ex.: OpenRouter e modelos subjacentes). Não vendemos seus dados pessoais.
+          Prestadores necessários ao produto: hospedagem (Vercel), banco de
+          dados e auth (Supabase), pagamentos (Stripe), provedor de IA
+          (OpenRouter e modelos subjacentes). Não vendemos seus dados pessoais.
         </p>
       </section>
 
-      <section className="mt-10 space-y-4 text-charcoal-text">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">5. Retenção e exclusão</h2>
+      <section className="space-y-4">
+        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+          5. Retenção e exclusão
+        </h2>
         <p>
-          Defina prazos de retenção por tipo de dado. O usuário pode solicitar exclusão ou exportação conforme a LGPD;
-          descreva o canal (e-mail do DPO / formulário).
+          Defina prazos de retenção por tipo de dado. O usuário pode solicitar
+          exclusão ou exportação conforme a LGPD; descreva o canal (e-mail do
+          DPO ou formulário).
         </p>
       </section>
 
-      <section className="mt-10 space-y-4 text-charcoal-text">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">6. Direitos do titular</h2>
+      <section className="space-y-4">
+        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+          6. Direitos do titular
+        </h2>
         <p>
-          Confirmação, acesso, correção, anonimização, portabilidade, eliminação e informação sobre compartilhamentos.
-          Indique prazo de resposta e autenticação necessária para evitar vazamento a terceiros.
+          Confirmação, acesso, correção, anonimização, portabilidade,
+          eliminação e informação sobre compartilhamentos. Indique prazo de
+          resposta e autenticação necessária para evitar vazamento a terceiros.
         </p>
       </section>
 
-      <section className="mt-10 space-y-4 text-charcoal-text">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">7. Encarregado (DPO)</h2>
-        <p>Inclua nome e contato do encarregado quando aplicável ao seu porte e tratamento de dados.</p>
+      <section className="space-y-4">
+        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+          7. Encarregado (DPO)
+        </h2>
+        <p>
+          Inclua nome e contato do encarregado quando aplicável ao seu porte e
+          tratamento de dados.
+        </p>
       </section>
-    </article>
+    </SeoPageTemplate>
   );
 }
