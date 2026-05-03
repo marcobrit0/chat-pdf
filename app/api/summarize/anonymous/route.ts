@@ -111,7 +111,8 @@ export async function POST(request: Request) {
       const parsed = await parsePdfBuffer(buffer);
       pageCount = parsed.pageCount;
       text = parsed.text?.trim() ?? "";
-    } catch {
+    } catch (e) {
+      logApiError(ROUTE, e);
       return NextResponse.json(
         {
           error:
