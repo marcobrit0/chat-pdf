@@ -1,25 +1,54 @@
-import Link from "next/link";
 import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "ChatPDF vs Smallpdf — editar ou entender?",
+  title: "ChatPDF vs Smallpdf — editar ou entender PDFs?",
   description:
-    "Smallpdf é para editar, converter e compactar PDFs. ChatPDF Brasil é para ler, perguntar e entender o que o documento diz. São categorias diferentes.",
+    "Smallpdf edita, converte e compacta PDFs. ChatPDF Brasil lê, resume e responde com fonte. São categorias complementares — entenda quando usar cada um.",
   path: "/chatpdf-vs-smallpdf",
 });
+
+const faqs = [
+  {
+    q: "Posso usar Smallpdf e ChatPDF Brasil juntos?",
+    a: "Sim, e faz sentido. Use o Smallpdf para converter, compactar ou unir PDFs; depois carregue o arquivo no ChatPDF Brasil para resumir e perguntar.",
+  },
+  {
+    q: "O Smallpdf tem IA para resumir conteúdo?",
+    a: "O foco do Smallpdf é em operações no arquivo (editar, converter, assinar). Para resumo e chat sobre o conteúdo, use uma ferramenta dedicada como o ChatPDF Brasil.",
+  },
+  {
+    q: "Qual é mais barato?",
+    a: "Depende do uso. Para edição recorrente, Smallpdf compensa. Para leitura e análise de PDFs, o ChatPDF Brasil tem resumo gratuito sem cadastro e Premium em BRL.",
+  },
+];
 
 export default function ChatpdfVsSmallpdfPage() {
   return (
     <SeoPageTemplate
       title="ChatPDF vs Smallpdf — editar ou entender?"
-      intro="Smallpdf resolve edição, conversão e compactação de PDFs. ChatPDF Brasil resolve leitura, resumo e perguntas sobre o conteúdo — você não precisa editar o arquivo, precisa entender o que ele diz. São ferramentas complementares, não concorrentes diretas."
+      intro="Smallpdf resolve edição, conversão e compactação. ChatPDF Brasil resolve leitura, resumo e perguntas sobre o conteúdo. São categorias complementares — você usa o primeiro para mexer no arquivo, o segundo para entender o que ele diz."
+      breadcrumbs={[
+        { label: "Início", path: "/" },
+        { label: "Comparações", path: "/precos" },
+        { label: "vs Smallpdf", path: "/chatpdf-vs-smallpdf" },
+      ]}
+      faqs={faqs}
+      related={[
+        { href: "/chatpdf-vs-chatgpt", label: "vs ChatGPT" },
+        { href: "/chatpdf-vs-adobe-acrobat-ai", label: "vs Adobe Acrobat AI" },
+        { href: "/alternativa-ao-chatpdf", label: "Alternativa ao ChatPDF" },
+      ]}
     >
-      <section className="grid gap-4 sm:grid-cols-2">
-        <div className="rounded-[length:var(--radius-cards)] border border-subtle-gray p-5">
-          <h2 className="font-display text-base font-semibold text-midnight-ink">Smallpdf</h2>
-          <p className="mt-2 text-sm text-faded-stone">Para trabalhar no arquivo</p>
-          <ul className="mt-3 list-inside list-disc space-y-1 text-sm text-charcoal-text">
+      <section className="grid gap-6 md:grid-cols-2">
+        <div className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
+          <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+            Smallpdf
+          </p>
+          <h2 className="mt-3 font-display text-xl font-semibold text-midnight-ink">
+            Para trabalhar no arquivo
+          </h2>
+          <ul className="mt-4 space-y-2 text-sm text-charcoal-text">
             <li>Converter PDF em Word, Excel, imagem</li>
             <li>Compactar e reduzir tamanho</li>
             <li>Assinar digitalmente</li>
@@ -27,10 +56,14 @@ export default function ChatpdfVsSmallpdfPage() {
             <li>Preencher formulários</li>
           </ul>
         </div>
-        <div className="rounded-[length:var(--radius-cards)] border border-midnight-ink p-5">
-          <h2 className="font-display text-base font-semibold text-midnight-ink">ChatPDF Brasil</h2>
-          <p className="mt-2 text-sm text-faded-stone">Para entender o conteúdo</p>
-          <ul className="mt-3 list-inside list-disc space-y-1 text-sm text-charcoal-text">
+        <div className="rounded-[length:var(--radius-cards)] border border-midnight-ink bg-crisp-white p-6">
+          <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+            ChatPDF Brasil
+          </p>
+          <h2 className="mt-3 font-display text-xl font-semibold text-midnight-ink">
+            Para entender o conteúdo
+          </h2>
+          <ul className="mt-4 space-y-2 text-sm text-charcoal-text">
             <li>Resumir o documento em tópicos</li>
             <li>Perguntas com respostas citadas por página</li>
             <li>Extrair datas, valores e obrigações</li>
@@ -40,51 +73,17 @@ export default function ChatpdfVsSmallpdfPage() {
         </div>
       </section>
 
-      <section className="space-y-4">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">Qual usar?</h2>
-        <p className="text-base text-charcoal-text">
-          Se precisar transformar o formato do arquivo — use o Smallpdf. Se precisar entender o conteúdo antes de assinar, pagar ou decidir — use o ChatPDF Brasil. Para contratos, relatórios, editais e apólices, as duas ferramentas podem ser usadas em sequência: Smallpdf para converter, ChatPDF Brasil para entender.
+      <section>
+        <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+          Qual usar?
+        </h2>
+        <p className="mt-3 text-base leading-relaxed text-charcoal-text">
+          Se precisa transformar o formato do arquivo, use o Smallpdf. Se
+          precisa entender o conteúdo antes de assinar, pagar ou decidir, use o
+          ChatPDF Brasil. Para contratos, relatórios, editais e apólices, as
+          duas em sequência é o fluxo mais comum: Smallpdf para preparar,
+          ChatPDF Brasil para entender.
         </p>
-      </section>
-
-      <section className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-canvas p-6">
-        <h2 className="font-display text-lg font-semibold text-midnight-ink">Experimente o resumo grátis</h2>
-        <p className="mt-2 text-charcoal-text">Sem cadastro para PDFs de até 10 páginas.</p>
-        <div className="mt-4">
-          <Link
-            href="/resumir-pdf"
-            className="inline-flex items-center justify-center rounded-[length:var(--radius-buttons)] bg-apollo-gold px-5 py-3 text-sm font-medium text-midnight-ink"
-          >
-            Resumir PDF grátis
-          </Link>
-        </div>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">Perguntas frequentes</h2>
-        <dl className="space-y-4">
-          <div>
-            <dt className="font-medium text-midnight-ink">Posso usar os dois juntos?</dt>
-            <dd className="mt-1 text-charcoal-text">
-              Sim. Use o Smallpdf para converter ou compactar o arquivo, depois carregue no ChatPDF Brasil para entender o conteúdo.
-            </dd>
-          </div>
-          <div>
-            <dt className="font-medium text-midnight-ink">O Smallpdf tem IA para resumir conteúdo?</dt>
-            <dd className="mt-1 text-charcoal-text">
-              O foco do Smallpdf é em operações no arquivo (editar, converter, assinar). Para resumo e chat sobre o conteúdo, use o ChatPDF Brasil.
-            </dd>
-          </div>
-        </dl>
-      </section>
-
-      <section className="border-t border-subtle-gray pt-6">
-        <p className="text-sm font-medium text-faded-stone uppercase tracking-wide">Veja também</p>
-        <ul className="mt-3 flex flex-wrap gap-4">
-          <li><Link href="/chatpdf-vs-chatgpt" className="text-sm text-midnight-ink underline underline-offset-4">ChatPDF vs ChatGPT</Link></li>
-          <li><Link href="/chatpdf-vs-adobe-acrobat-ai" className="text-sm text-midnight-ink underline underline-offset-4">ChatPDF vs Adobe Acrobat AI</Link></li>
-          <li><Link href="/alternativa-ao-chatpdf" className="text-sm text-midnight-ink underline underline-offset-4">Alternativa ao ChatPDF</Link></li>
-        </ul>
       </section>
     </SeoPageTemplate>
   );

@@ -23,9 +23,26 @@ export function absoluteUrl(path: string): string {
   return `${base}${normalized}`;
 }
 
+const BRAND_SEPARATOR = " · ";
+
+/**
+ * Returns `<page-title> · ChatPDF Brasil`, but if the title already mentions
+ * "ChatPDF Brasil" or "ChatPDF" we leave it alone — avoids the SERP duplication
+ * that the layout's title.template was producing.
+ */
+function withBrand(title: string): string {
+  const t = title.trim();
+  if (/chatpdf/i.test(t)) return t;
+  return `${t}${BRAND_SEPARATOR}${siteConfig.name}`;
+}
+
 /**
  * Constructs Next.js Metadata with canonical URL and basic Open Graph fields.
  * Use on leaf pages for consistent SEO primitives across marketing routes.
+ *
+ * Uses `title.absolute` so the root layout's title.template is bypassed —
+ * branding is appended deterministically by withBrand() instead, which avoids
+ * "ChatPDF Brasil · ChatPDF Brasil" when the leaf title already includes brand.
  */
 export function buildPageMetadata(input: {
   title: string;
@@ -33,18 +50,21 @@ export function buildPageMetadata(input: {
   path: string;
   /** When false, ask crawlers not to index (e.g. authenticated shells later). */
   index?: boolean;
+  /** Override the social-share title if you want it shorter than the SERP title. */
+  ogTitle?: string;
 }): Metadata {
   const canonical = absoluteUrl(input.path);
   const index = input.index !== false;
+  const fullTitle = withBrand(input.title);
   return {
-    title: input.title,
+    title: { absolute: fullTitle },
     description: input.description,
     alternates: { canonical },
     robots: index
       ? { index: true, follow: true }
       : { index: false, follow: false },
     openGraph: {
-      title: input.title,
+      title: input.ogTitle ?? fullTitle,
       description: input.description,
       url: canonical,
       siteName: siteConfig.name,

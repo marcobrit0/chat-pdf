@@ -1,13 +1,31 @@
-import Link from "next/link";
 import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Resumir contrato em PDF com IA",
+  title: "Resumir contrato em PDF — IA em português",
   description:
-    "Identifique partes, objeto, prazo, valores e cláusulas-chave antes de negociar ou assinar. Resumo gratuito para contratos curtos; chat com citações no Premium.",
+    "Identifique partes, objeto, prazo, valores e cláusulas-chave do contrato antes de negociar ou assinar. Resumo gratuito; chat com citação de página no Premium.",
   path: "/resumir-contrato-pdf",
 });
+
+const faqs = [
+  {
+    q: "Funciona com contratos em formato imagem (escaneados)?",
+    a: "Não no plano gratuito — o PDF precisa ter texto selecionável. Suporte a OCR para arquivos escaneados está no roadmap Premium.",
+  },
+  {
+    q: "A IA vai entender termos jurídicos?",
+    a: "Ela extrai e organiza o texto do contrato. Não interpreta consequências legais — isso é papel de um advogado.",
+  },
+  {
+    q: "Posso fazer perguntas sobre cláusulas específicas?",
+    a: "Sim, no chat do Premium. Cada resposta cita a página do contrato onde o trecho aparece.",
+  },
+  {
+    q: "Quanto tempo demora?",
+    a: "Em geral 5 a 20 segundos para um contrato curto. Contratos longos no Premium podem levar até 1 minuto.",
+  },
+];
 
 export default function ResumirContratoPdfPage() {
   return (
@@ -16,53 +34,53 @@ export default function ResumirContratoPdfPage() {
       intro="Identifique partes, objeto, prazo, valores e cláusulas principais antes de negociar ou assinar. O resumo gratuito cobre contratos curtos; o Premium adiciona chat com citações de página, extração estruturada e revisão de riscos."
       showUpload
       contractIntent
+      breadcrumbs={[
+        { label: "Início", path: "/" },
+        { label: "Casos de uso", path: "/" },
+        { label: "Resumir contrato", path: "/resumir-contrato-pdf" },
+      ]}
+      faqs={faqs}
+      related={[
+        { href: "/analisar-contrato-com-ia", label: "Analisar contrato" },
+        { href: "/analisar-contrato-clt", label: "Contrato CLT" },
+        {
+          href: "/analisar-contrato-de-prestacao-de-servicos",
+          label: "Prestação de serviços",
+        },
+        { href: "/comparar-pdfs", label: "Comparar PDFs" },
+      ]}
     >
-      <section className="rounded-[length:var(--radius-cards)] border border-amber-200 bg-canvas p-6">
-        <h2 className="font-display text-lg font-semibold text-midnight-ink">No resumo você vai ver</h2>
-        <ul className="mt-3 list-inside list-disc space-y-2 text-base text-charcoal-text">
-          <li>Partes contratantes (contratante e contratado)</li>
-          <li>Objeto do contrato</li>
-          <li>Vigência, renovação e condições de rescisão</li>
-          <li>Valores, forma e prazo de pagamento</li>
-          <li>Cláusulas de multa e penalidades quando presentes</li>
-        </ul>
-        <p className="mt-4 text-sm text-faded-stone">
-          Isso é um primeiro passe para leitura — não substitui análise jurídica. Para contratos com consequências financeiras ou legais relevantes, envolva um advogado.
+      <section className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
+        <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+          No resumo você vai ver
         </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">Perguntas frequentes</h2>
-        <dl className="space-y-4">
-          <div>
-            <dt className="font-medium text-midnight-ink">Funciona com contratos em formato imagem (escaneados)?</dt>
-            <dd className="mt-1 text-charcoal-text">
-              Não no plano gratuito. O PDF precisa ter texto selecionável. Suporte a OCR para arquivos escaneados está no roadmap Premium.
-            </dd>
-          </div>
-          <div>
-            <dt className="font-medium text-midnight-ink">A IA vai entender termos jurídicos?</dt>
-            <dd className="mt-1 text-charcoal-text">
-              Ela extrai e organiza o texto do contrato. Não interpreta consequências legais — isso é papel de um advogado.
-            </dd>
-          </div>
-          <div>
-            <dt className="font-medium text-midnight-ink">Posso fazer perguntas sobre cláusulas específicas?</dt>
-            <dd className="mt-1 text-charcoal-text">
-              Sim, no chat do Premium. Cada resposta cita a página do contrato onde o trecho aparece.
-            </dd>
-          </div>
-        </dl>
-      </section>
-
-      <section className="border-t border-subtle-gray pt-6">
-        <p className="text-sm font-medium text-faded-stone uppercase tracking-wide">Veja também</p>
-        <ul className="mt-3 flex flex-wrap gap-4">
-          <li><Link href="/analisar-contrato-com-ia" className="text-sm text-midnight-ink underline underline-offset-4">Analisar contrato</Link></li>
-          <li><Link href="/analisar-contrato-clt" className="text-sm text-midnight-ink underline underline-offset-4">Contrato CLT</Link></li>
-          <li><Link href="/analisar-contrato-de-prestacao-de-servicos" className="text-sm text-midnight-ink underline underline-offset-4">Prestação de serviços</Link></li>
-          <li><Link href="/comparar-pdfs" className="text-sm text-midnight-ink underline underline-offset-4">Comparar PDFs</Link></li>
+        <ul className="mt-4 grid gap-2 text-base text-charcoal-text">
+          <li className="flex items-start gap-3">
+            <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
+            Partes contratantes (contratante e contratado)
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
+            Objeto do contrato
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
+            Vigência, renovação e condições de rescisão
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
+            Valores, forma e prazo de pagamento
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
+            Cláusulas de multa e penalidades quando presentes
+          </li>
         </ul>
+        <p className="mt-5 text-sm text-faded-stone">
+          Este é um primeiro passe para leitura — não substitui análise
+          jurídica. Para contratos com consequências financeiras ou legais
+          relevantes, envolva um advogado.
+        </p>
       </section>
     </SeoPageTemplate>
   );

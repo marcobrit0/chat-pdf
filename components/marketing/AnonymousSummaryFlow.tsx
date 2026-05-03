@@ -109,8 +109,19 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
         </p>
 
         <form onSubmit={onSubmit} className="mt-6 space-y-4">
-          <label className="flex cursor-pointer flex-col items-center border border-dashed border-soft-stone py-10">
-            <span className="text-sm font-medium text-charcoal-text">Selecionar PDF</span>
+          <label className="group flex cursor-pointer flex-col items-center justify-center gap-2 border border-dashed border-soft-stone bg-canvas py-12 px-5 text-center transition-colors hover:border-midnight-ink hover:bg-crisp-white">
+            <span className="font-display text-lg font-semibold text-midnight-ink">
+              Solte um PDF aqui
+            </span>
+            <span className="text-sm text-charcoal-text">
+              ou{" "}
+              <span className="underline underline-offset-4">
+                clique para selecionar
+              </span>
+            </span>
+            <span className="font-condensed text-xs uppercase tracking-[0.18em] text-faded-stone">
+              Grátis · Sem cadastro · Até {ANON_MAX_PAGES} páginas
+            </span>
             <input
               name="file"
               type="file"
@@ -122,13 +133,32 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
               }}
             />
           </label>
-          {fileName ? <p className="text-sm text-graphite">Arquivo: {fileName}</p> : null}
+          {fileName ? (
+            <p className="text-sm text-graphite">
+              Arquivo selecionado:{" "}
+              <span className="font-medium text-midnight-ink">{fileName}</span>
+            </p>
+          ) : (
+            <p className="text-sm text-faded-stone">
+              Selecione um PDF para gerar o resumo.
+            </p>
+          )}
           <button
             type="submit"
             disabled={loading || !fileName}
-            className="w-full rounded-[length:var(--radius-buttons)] bg-apollo-gold px-5 py-3 text-sm font-medium text-midnight-ink disabled:opacity-50"
+            aria-disabled={loading || !fileName}
+            className={
+              "w-full rounded-[length:var(--radius-buttons)] px-5 py-3 text-sm font-medium transition-opacity " +
+              (fileName && !loading
+                ? "bg-apollo-gold text-midnight-ink hover:opacity-90"
+                : "cursor-not-allowed bg-subtle-gray text-faded-stone")
+            }
           >
-            {loading ? "Gerando resumo…" : "Gerar resumo gratuito"}
+            {loading
+              ? "Gerando resumo…"
+              : fileName
+                ? "Gerar resumo gratuito"
+                : "Selecione um PDF primeiro"}
           </button>
         </form>
 
