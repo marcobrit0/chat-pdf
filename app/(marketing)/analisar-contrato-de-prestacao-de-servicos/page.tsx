@@ -1,5 +1,7 @@
+import { PersonaVariantsSection } from "@/components/marketing/PersonaVariantsSection";
 import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
+import { personaVariantsByCanonical } from "@/lib/seo/programmatic-seo-data";
 
 export const metadata = buildPageMetadata({
   title: "Analisar contrato de prestação de serviços com IA",
@@ -63,6 +65,14 @@ export default function AnalisarContratoPrestacaoPage() {
           jurídica para contratos com valor ou risco relevante.
         </p>
       </section>
+
+      <PersonaVariantsSection
+        variants={
+          personaVariantsByCanonical[
+            "/analisar-contrato-de-prestacao-de-servicos"
+          ] ?? []
+        }
+      />
     </SeoPageTemplate>
   );
 }

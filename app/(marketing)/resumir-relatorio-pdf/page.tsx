@@ -1,5 +1,7 @@
+import { PersonaVariantsSection } from "@/components/marketing/PersonaVariantsSection";
 import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
+import { personaVariantsByCanonical } from "@/lib/seo/programmatic-seo-data";
 
 export const metadata = buildPageMetadata({
   title: "Resumir relatório em PDF com IA",
@@ -53,6 +55,10 @@ export default function ResumirRelatorioPdfPage() {
           <li>· Perguntas de follow-up úteis para aprofundar</li>
         </ul>
       </section>
+
+      <PersonaVariantsSection
+        variants={personaVariantsByCanonical["/resumir-relatorio-pdf"] ?? []}
+      />
     </SeoPageTemplate>
   );
 }

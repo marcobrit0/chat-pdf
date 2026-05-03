@@ -1,5 +1,7 @@
+import { PersonaVariantsSection } from "@/components/marketing/PersonaVariantsSection";
 import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
+import { personaVariantsByCanonical } from "@/lib/seo/programmatic-seo-data";
 
 export const metadata = buildPageMetadata({
   title: "Entender laudo médico com IA",
@@ -55,6 +57,10 @@ export default function EntenderLaudoMedicoPage() {
           contínuo, mantenha sempre o vínculo com o seu médico.
         </p>
       </section>
+
+      <PersonaVariantsSection
+        variants={personaVariantsByCanonical["/entender-laudo-medico"] ?? []}
+      />
     </SeoPageTemplate>
   );
 }

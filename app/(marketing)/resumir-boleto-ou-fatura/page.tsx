@@ -1,5 +1,7 @@
+import { PersonaVariantsSection } from "@/components/marketing/PersonaVariantsSection";
 import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
+import { personaVariantsByCanonical } from "@/lib/seo/programmatic-seo-data";
 
 export const metadata = buildPageMetadata({
   title: "Resumir boleto ou fatura em PDF — IA em português",
@@ -66,6 +68,12 @@ export default function ResumirBoletoOuFaturaPage() {
           escaneada podem não ser lidos corretamente.
         </p>
       </section>
+
+      <PersonaVariantsSection
+        variants={
+          personaVariantsByCanonical["/resumir-boleto-ou-fatura"] ?? []
+        }
+      />
     </SeoPageTemplate>
   );
 }

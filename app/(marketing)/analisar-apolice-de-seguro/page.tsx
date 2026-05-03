@@ -1,5 +1,7 @@
+import { PersonaVariantsSection } from "@/components/marketing/PersonaVariantsSection";
 import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
+import { personaVariantsByCanonical } from "@/lib/seo/programmatic-seo-data";
 
 export const metadata = buildPageMetadata({
   title: "Analisar apólice de seguro com IA",
@@ -55,6 +57,12 @@ export default function AnalisarApolicePage() {
           dúvidas sobre cobertura, sinistro ou renovação.
         </p>
       </section>
+
+      <PersonaVariantsSection
+        variants={
+          personaVariantsByCanonical["/analisar-apolice-de-seguro"] ?? []
+        }
+      />
     </SeoPageTemplate>
   );
 }

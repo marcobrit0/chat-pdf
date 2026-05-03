@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { getSiteUrl } from "@/lib/seo";
+import { programmaticSlugs } from "@/lib/seo/programmatic-seo-data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = getSiteUrl();
@@ -58,6 +59,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/termos", priority: 0.3, freq: "monthly" },
     { path: "/privacidade", priority: 0.3, freq: "monthly" },
     { path: "/app", priority: 0.3, freq: "monthly" },
+
+    // Programmatic SEO: persona × document-type long-tail landings.
+    // Lower priority than canonical use-cases (0.8) to avoid signaling
+    // them as primary entry points.
+    ...programmaticSlugs.map((slug) => ({
+      path: `/${slug}`,
+      priority: 0.7,
+      freq: "weekly" as const,
+    })),
   ];
 
   return entries.map((entry) => ({
