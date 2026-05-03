@@ -1,7 +1,7 @@
 /** Anonymous free tier — small PDFs only, summary without chat. */
 export const ANON_MAX_PAGES = 10;
 export const ANON_MAX_FILE_BYTES = 5 * 1024 * 1024; // 5 MiB — conservative for V1
-export const ANON_SUMMARIES_PER_DAY = 1;
+export const ANON_SUMMARIES_PER_DAY = 5;
 
 /** Premium workspace uploads — larger docs for grounded chat (server-enforced). */
 export const PREMIUM_MAX_PAGES = 400;
