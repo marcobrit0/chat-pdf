@@ -19,7 +19,7 @@ export function JsonLd({ data }: JsonLdProps) {
 
 const ORG = {
   "@type": "Organization",
-  name: "ChatPDF Brasil",
+  name: "PDFIA",
   url: getSiteUrl(),
 } as const;
 
@@ -30,7 +30,7 @@ export function softwareApplicationSchema(input?: {
   const data: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "ChatPDF Brasil",
+    name: "PDFIA",
     description:
       "Resuma PDFs e converse com documentos em português, com citações por página.",
     applicationCategory: "BusinessApplication",

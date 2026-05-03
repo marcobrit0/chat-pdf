@@ -4,7 +4,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata = buildPageMetadata({
   title: "Termos de uso",
   description:
-    "Termos de uso do ChatPDF Brasil — texto modelo PT-BR até revisão jurídica.",
+    "Termos de uso do PDFIA — texto modelo PT-BR até revisão jurídica.",
   path: "/termos",
 });
 
@@ -31,7 +31,7 @@ export default function TermosPage() {
           1. Serviço
         </h2>
         <p>
-          O ChatPDF Brasil oferece ferramentas para extrair texto de PDFs e gerar
+          O PDFIA oferece ferramentas para extrair texto de PDFs e gerar
           saídas assistidas por IA (resumos, extrações, perguntas e respostas no
           plano pago). O serviço pode mudar, ser limitado ou interrompido para
           manutenção.

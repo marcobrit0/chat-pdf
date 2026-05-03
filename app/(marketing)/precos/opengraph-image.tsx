@@ -5,7 +5,7 @@ import {
 } from "@/components/seo/og-image";
 
 export const runtime = "edge";
-export const alt = "Preços do ChatPDF Brasil — grátis ou Premium R$29/mês";
+export const alt = "Preços do PDFIA — grátis ou Premium R$29/mês";
 export const size = ogImageSize;
 export const contentType = ogImageContentType;
 

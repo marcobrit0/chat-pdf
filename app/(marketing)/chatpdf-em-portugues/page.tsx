@@ -10,8 +10,8 @@ export const metadata = buildPageMetadata({
 
 const faqs = [
   {
-    q: "O ChatPDF Brasil é o mesmo que o ChatPDF.com?",
-    a: "Não. São produtos independentes. O ChatPDF Brasil foi construído especificamente para o mercado brasileiro, com foco em documentos e vocabulário local.",
+    q: "O PDFIA é o mesmo que o ChatPDF.com?",
+    a: "Não. São produtos independentes. O PDFIA foi construído especificamente para o mercado brasileiro, com foco em documentos e vocabulário local.",
   },
   {
     q: "Funciona para PDFs em inglês?",
@@ -27,7 +27,7 @@ export default function ChatpdfEmPortuguesPage() {
   return (
     <SeoPageTemplate
       title="ChatPDF em português"
-      intro="O ChatPDF Brasil é uma ferramenta de chat com PDF construída para o mercado brasileiro: interface, respostas e modos em PT-BR sem precisar configurar idioma. Contratos CLT, editais, apólices e laudos têm tratamento específico."
+      intro="O PDFIA é uma ferramenta de chat com PDF construída para o mercado brasileiro: interface, respostas e modos em PT-BR sem precisar configurar idioma. Contratos CLT, editais, apólices e laudos têm tratamento específico."
       breadcrumbs={[
         { label: "Início", path: "/" },
         { label: "Comparações", path: "/precos" },
@@ -94,7 +94,7 @@ export default function ChatpdfEmPortuguesPage() {
         </div>
         <div className="rounded-[length:var(--radius-cards)] border border-midnight-ink bg-crisp-white p-6">
           <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
-            ChatPDF Brasil
+            PDFIA
           </p>
           <h3 className="mt-3 font-display text-lg font-semibold text-midnight-ink">
             Para o mercado brasileiro

@@ -4,7 +4,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata = buildPageMetadata({
   title: "Alternativa ao ChatPDF para o mercado brasileiro",
   description:
-    "ChatPDF funciona, mas foi feito para o mercado global. ChatPDF Brasil tem UX em PT-BR, modos para documentos brasileiros (CLT, editais, apólices) e preços em reais.",
+    "ChatPDF funciona, mas foi feito para o mercado global. PDFIA tem UX em PT-BR, modos para documentos brasileiros (CLT, editais, apólices) e preços em reais.",
   path: "/alternativa-ao-chatpdf",
 });
 
@@ -44,10 +44,10 @@ const comparison = [
 const faqs = [
   {
     q: "Por que não usar o ChatPDF internacional com prompt em português?",
-    a: "Funciona, mas exige configurar idioma em cada sessão e o produto não tem modos específicos para documentos típicos do mercado brasileiro. O ChatPDF Brasil já vem assim por padrão.",
+    a: "Funciona, mas exige configurar idioma em cada sessão e o produto não tem modos específicos para documentos típicos do mercado brasileiro. O PDFIA já vem assim por padrão.",
   },
   {
-    q: "Quais documentos o ChatPDF Brasil cobre melhor?",
+    q: "Quais documentos o PDFIA cobre melhor?",
     a: "Contratos de trabalho CLT, contratos de prestação de serviços, editais de licitação, apólices de seguro, laudos médicos e relatórios técnicos — todos com modos otimizados.",
   },
   {
@@ -60,7 +60,7 @@ export default function AlternativaAoChatpdfPage() {
   return (
     <SeoPageTemplate
       title="Alternativa ao ChatPDF em português"
-      intro="ChatPDF funciona bem para o mercado global, mas não foi feito para o Brasil. ChatPDF Brasil tem interface e respostas em PT-BR, modos prontos para CLT, editais e apólices, e preços em reais."
+      intro="ChatPDF funciona bem para o mercado global, mas não foi feito para o Brasil. PDFIA tem interface e respostas em PT-BR, modos prontos para CLT, editais e apólices, e preços em reais."
       breadcrumbs={[
         { label: "Início", path: "/" },
         { label: "Comparações", path: "/precos" },
@@ -85,7 +85,7 @@ export default function AlternativaAoChatpdfPage() {
                   Recurso
                 </th>
                 <th className="py-4 pr-6 font-medium text-midnight-ink">
-                  ChatPDF Brasil
+                  PDFIA
                 </th>
                 <th className="py-4 font-medium text-faded-stone">ChatPDF</th>
               </tr>

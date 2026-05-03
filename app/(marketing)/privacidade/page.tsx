@@ -4,7 +4,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata = buildPageMetadata({
   title: "Política de privacidade",
   description:
-    "Política de privacidade do ChatPDF Brasil — modelo LGPD (placeholder até revisão jurídica).",
+    "Política de privacidade do PDFIA — modelo LGPD (placeholder até revisão jurídica).",
   path: "/privacidade",
 });
 
@@ -44,7 +44,7 @@ export default function PrivacidadePage() {
           Podemos tratar: dados de conta (e-mail, identificador de usuário),
           metadados de uso (logs, limites de rate), conteúdo de PDFs enviados
           para processamento e dados de pagamento processados pelo provedor de
-          cobrança (não armazenamos cartão completo no ChatPDF).
+          cobrança (não armazenamos cartão completo no PDFIA).
         </p>
       </section>
 

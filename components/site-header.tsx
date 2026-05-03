@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -52,12 +53,15 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-subtle-gray bg-crisp-white/95 backdrop-blur">
       <div className="mx-auto flex min-h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
-        <Link
-          href="/"
-          className="whitespace-nowrap font-display text-lg font-semibold leading-none tracking-tight text-midnight-ink"
-        >
-          <span>ChatPDF</span>
-          <span className="hidden sm:inline"> Brasil</span>
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/pdfia-logo.png"
+            alt="PDFIA"
+            width={150}
+            height={32}
+            className="h-8 w-auto"
+            priority
+          />
         </Link>
 
         <nav

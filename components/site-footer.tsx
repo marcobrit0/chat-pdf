@@ -28,9 +28,9 @@ const useCaseLinks = [
 ] as const;
 
 const compareLinks = [
-  { href: "/chatpdf-vs-chatgpt", label: "ChatPDF vs ChatGPT" },
-  { href: "/chatpdf-vs-smallpdf", label: "ChatPDF vs Smallpdf" },
-  { href: "/chatpdf-vs-adobe-acrobat-ai", label: "ChatPDF vs Adobe Acrobat AI" },
+  { href: "/chatpdf-vs-chatgpt", label: "PDFIA vs ChatGPT" },
+  { href: "/chatpdf-vs-smallpdf", label: "PDFIA vs Smallpdf" },
+  { href: "/chatpdf-vs-adobe-acrobat-ai", label: "PDFIA vs Adobe Acrobat AI" },
   { href: "/alternativa-ao-chatpdf", label: "Alternativa ao ChatPDF" },
   { href: "/chatpdf-em-portugues", label: "ChatPDF em português" },
   { href: "/chatgpt-pdf", label: "ChatGPT para PDF" },
@@ -77,7 +77,7 @@ export function SiteFooter() {
 
         <div className="mt-12 flex flex-col gap-2 border-t border-subtle-gray pt-6 text-xs text-faded-stone sm:flex-row sm:items-center sm:justify-between">
           <p className="font-condensed tracking-tight">
-            © {new Date().getFullYear()} ChatPDF Brasil · Resumos e chat com PDFs em português
+            © {new Date().getFullYear()} PDFIA · Resumos e chat com PDFs em português
           </p>
           <p className="font-condensed tracking-tight">
             Pagamentos seguros via Stripe · LGPD

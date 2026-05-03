@@ -2,9 +2,9 @@ import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "ChatPDF Brasil vs Adobe Acrobat AI Assistant",
+  title: "PDFIA vs Adobe Acrobat AI Assistant",
   description:
-    "Adobe Acrobat AI exige assinatura do pacote Adobe. ChatPDF Brasil é independente, com resumo gratuito e Premium em BRL. Veja qual faz sentido para você.",
+    "Adobe Acrobat AI exige assinatura do pacote Adobe. PDFIA é independente, com resumo gratuito e Premium em BRL. Veja qual faz sentido para você.",
   path: "/chatpdf-vs-adobe-acrobat-ai",
 });
 
@@ -39,23 +39,23 @@ const comparison = [
 const faqs = [
   {
     q: "O AI Assistant do Acrobat funciona em português?",
-    a: "Suporta múltiplos idiomas, mas não foi desenvolvido com foco no mercado brasileiro. O ChatPDF Brasil tem modos específicos para CLT, editais e apólices — e responde em PT-BR por padrão.",
+    a: "Suporta múltiplos idiomas, mas não foi desenvolvido com foco no mercado brasileiro. O PDFIA tem modos específicos para CLT, editais e apólices — e responde em PT-BR por padrão.",
   },
   {
     q: "Qual o custo da assinatura Adobe com AI Assistant?",
-    a: "O AI Assistant está incluído em planos pagos da Adobe Acrobat, cobrados em USD. O ChatPDF Brasil tem resumo gratuito sem cadastro e Premium a R$29/mês.",
+    a: "O AI Assistant está incluído em planos pagos da Adobe Acrobat, cobrados em USD. O PDFIA tem resumo gratuito sem cadastro e Premium a R$29/mês.",
   },
   {
     q: "Posso usar o Acrobat só para o AI Assistant?",
-    a: "Faz pouco sentido contratar o pacote Adobe completo só para chat com PDF. Se você não usa Acrobat para edição, uma ferramenta dedicada como o ChatPDF Brasil sai mais barato e mais focada.",
+    a: "Faz pouco sentido contratar o pacote Adobe completo só para chat com PDF. Se você não usa Acrobat para edição, uma ferramenta dedicada como o PDFIA sai mais barato e mais focada.",
   },
 ];
 
 export default function ChatpdfVsAdobePage() {
   return (
     <SeoPageTemplate
-      title="ChatPDF Brasil vs Adobe Acrobat AI Assistant"
-      intro="O AI Assistant do Adobe Acrobat faz parte de um pacote completo de software — útil se você já usa Acrobat, mas não vale contratar só para chat com PDFs. O ChatPDF Brasil é independente: upload direto, sem licença Adobe."
+      title="PDFIA vs Adobe Acrobat AI Assistant"
+      intro="O AI Assistant do Adobe Acrobat faz parte de um pacote completo de software — útil se você já usa Acrobat, mas não vale contratar só para chat com PDFs. O PDFIA é independente: upload direto, sem licença Adobe."
       breadcrumbs={[
         { label: "Início", path: "/" },
         { label: "Comparações", path: "/precos" },
@@ -80,7 +80,7 @@ export default function ChatpdfVsAdobePage() {
                   Recurso
                 </th>
                 <th className="py-4 pr-6 font-medium text-midnight-ink">
-                  ChatPDF Brasil
+                  PDFIA
                 </th>
                 <th className="py-4 font-medium text-faded-stone">
                   Adobe Acrobat AI Assistant

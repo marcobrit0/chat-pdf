@@ -6,7 +6,7 @@ const destinations = [
   { href: "/resumir-pdf", label: "Resumir PDF grátis", hint: "Comece sem cadastro" },
   { href: "/chat-pdf", label: "Chat com PDF", hint: "Respostas com citação de página" },
   { href: "/precos", label: "Preços", hint: "Gratuito ou Premium R$29/mês" },
-  { href: "/chatpdf-vs-chatgpt", label: "ChatPDF vs ChatGPT", hint: "Comparação direta" },
+  { href: "/chatpdf-vs-chatgpt", label: "PDFIA vs ChatGPT", hint: "Comparação direta" },
   { href: "/analisar-contrato-clt", label: "Contrato CLT", hint: "Salário, jornada, rescisão" },
   { href: "/ler-edital-com-ia", label: "Editais", hint: "Objeto, prazos, penalidades" },
   { href: "/analisar-apolice-de-seguro", label: "Apólice de seguro", hint: "Coberturas e exclusões" },
