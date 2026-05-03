@@ -84,3 +84,26 @@ body {
   letter-spacing: 0.009em;
   overflow-x: hidden;
 }
+
+/* Visible keyboard focus across the whole product. The :focus:not(:focus-visible)
+   reset matches Tailwind v4's default and prevents focus rings from showing on
+   mouse-clicks while keeping them for keyboard navigation. */
+:focus-visible {
+  outline: 2px solid var(--color-midnight-ink);
+  outline-offset: 2px;
+  border-radius: var(--radius-default);
+}
+
+/* Respect users who prefer reduced motion: kill all transitions and animations
+   instead of defining slower variants — DESIGN.md prefers restraint and we
+   never animate layout, so removing motion entirely is safe. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}

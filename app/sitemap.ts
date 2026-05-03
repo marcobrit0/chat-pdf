@@ -6,57 +6,64 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const base = getSiteUrl();
   const now = new Date();
 
-  const standardPaths = [
-    "/",
-    "/precos",
-    "/login",
-    "/chat-pdf",
-    "/resumir-pdf",
-    "/resumo-de-pdf",
-    "/chatgpt-pdf",
-    "/comparar-pdfs",
-    "/analisar-contrato-com-ia",
-    "/resumir-contrato-pdf",
-    "/analisar-contrato-clt",
-    "/analisar-contrato-de-prestacao-de-servicos",
-    "/ia-pdf",
-    "/pdf-ia",
-    "/ia-para-resumir-pdf",
-    "/ler-edital-com-ia",
-    "/resumir-edital-de-licitacao",
-    "/analisar-apolice-de-seguro",
-    "/entender-laudo-medico",
-    "/resumir-relatorio-pdf",
-    "/analisar-proposta-comercial",
-    "/resumir-boleto-ou-fatura",
-    "/guias",
-    "/guias/como-resumir-pdf-com-ia",
-    "/termos",
-    "/privacidade",
-    "/app",
-  ] as const;
+  /**
+   * Priority bands:
+   *  1.0  homepage
+   *  0.9  primary product pages (chat, summary, pricing)
+   *  0.8  high-intent landing pages (contracts, editais, comparisons)
+   *  0.7  use-case landings
+   *  0.5  synonyms / lower-intent SEO
+   *  0.3  legal / login
+   */
+  const entries: Array<{ path: string; priority: number; freq: "daily" | "weekly" | "monthly" }> = [
+    { path: "/", priority: 1.0, freq: "weekly" },
 
-  // Comparison pages — higher commercial intent, slightly higher priority
-  const comparisonPaths = [
-    "/alternativa-ao-chatpdf",
-    "/chatpdf-em-portugues",
-    "/chatpdf-vs-chatgpt",
-    "/chatpdf-vs-smallpdf",
-    "/chatpdf-vs-adobe-acrobat-ai",
-  ] as const;
+    // Primary product pages
+    { path: "/resumir-pdf", priority: 0.9, freq: "weekly" },
+    { path: "/chat-pdf", priority: 0.9, freq: "weekly" },
+    { path: "/precos", priority: 0.9, freq: "weekly" },
+    { path: "/guias", priority: 0.7, freq: "weekly" },
+    { path: "/guias/como-resumir-pdf-com-ia", priority: 0.6, freq: "monthly" },
 
-  return [
-    ...standardPaths.map((path) => ({
-      url: `${base}${path}`,
-      lastModified: now,
-      changeFrequency: "weekly" as const,
-      priority: path === "/" ? 1 : 0.7,
-    })),
-    ...comparisonPaths.map((path) => ({
-      url: `${base}${path}`,
-      lastModified: now,
-      changeFrequency: "weekly" as const,
-      priority: 0.8,
-    })),
+    // High-intent comparisons (primary commercial keywords)
+    { path: "/chatpdf-vs-chatgpt", priority: 0.85, freq: "weekly" },
+    { path: "/chatpdf-vs-smallpdf", priority: 0.8, freq: "weekly" },
+    { path: "/chatpdf-vs-adobe-acrobat-ai", priority: 0.8, freq: "weekly" },
+    { path: "/alternativa-ao-chatpdf", priority: 0.8, freq: "weekly" },
+    { path: "/chatpdf-em-portugues", priority: 0.8, freq: "weekly" },
+    { path: "/chatgpt-pdf", priority: 0.7, freq: "weekly" },
+
+    // High-intent use cases
+    { path: "/analisar-contrato-clt", priority: 0.8, freq: "weekly" },
+    { path: "/analisar-contrato-com-ia", priority: 0.8, freq: "weekly" },
+    { path: "/resumir-contrato-pdf", priority: 0.8, freq: "weekly" },
+    { path: "/analisar-contrato-de-prestacao-de-servicos", priority: 0.75, freq: "weekly" },
+    { path: "/ler-edital-com-ia", priority: 0.8, freq: "weekly" },
+    { path: "/resumir-edital-de-licitacao", priority: 0.75, freq: "weekly" },
+    { path: "/analisar-apolice-de-seguro", priority: 0.75, freq: "weekly" },
+    { path: "/entender-laudo-medico", priority: 0.75, freq: "weekly" },
+    { path: "/comparar-pdfs", priority: 0.75, freq: "weekly" },
+    { path: "/analisar-proposta-comercial", priority: 0.7, freq: "weekly" },
+    { path: "/resumir-relatorio-pdf", priority: 0.7, freq: "weekly" },
+    { path: "/resumir-boleto-ou-fatura", priority: 0.7, freq: "weekly" },
+    { path: "/resumo-de-pdf", priority: 0.7, freq: "weekly" },
+
+    // Synonyms / lower-intent
+    { path: "/ia-pdf", priority: 0.5, freq: "monthly" },
+    { path: "/pdf-ia", priority: 0.5, freq: "monthly" },
+    { path: "/ia-para-resumir-pdf", priority: 0.5, freq: "monthly" },
+
+    // Auth + legal (lower)
+    { path: "/login", priority: 0.4, freq: "monthly" },
+    { path: "/termos", priority: 0.3, freq: "monthly" },
+    { path: "/privacidade", priority: 0.3, freq: "monthly" },
+    { path: "/app", priority: 0.3, freq: "monthly" },
   ];
+
+  return entries.map((entry) => ({
+    url: `${base}${entry.path}`,
+    lastModified: now,
+    changeFrequency: entry.freq,
+    priority: entry.priority,
+  }));
 }

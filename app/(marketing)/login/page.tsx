@@ -19,20 +19,21 @@ export default async function LoginPage({
   const nextPath = safeNextPath(params.next);
 
   return (
-    <div className="mx-auto grid w-full max-w-6xl flex-1 gap-8 px-4 py-12 sm:px-6 md:grid-cols-[minmax(0,0.95fr)_minmax(320px,0.7fr)] md:items-center md:py-20">
+    <div className="mx-auto grid w-full max-w-6xl flex-1 gap-10 px-4 py-12 sm:px-6 md:grid-cols-[minmax(0,1fr)_minmax(320px,0.85fr)] md:items-center md:py-20">
       <section className="space-y-5">
-        <p className="inline-flex rounded-full border border-midnight-ink px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-midnight-ink">
+        <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
           Acesso ao app
         </p>
-        <h1 className="font-display text-[clamp(2.75rem,10vw,5rem)] font-semibold leading-[1.02] tracking-tight text-midnight-ink">
+        <h1 className="font-display text-[clamp(2.5rem,6vw,4.25rem)] font-semibold leading-[1.05] tracking-tight text-midnight-ink">
           Entre e continue lendo seus PDFs.
         </h1>
         <p className="max-w-xl text-base leading-relaxed text-charcoal-text sm:text-lg">
-          Use um link mágico por e-mail. Depois do acesso, o workspace abre sua biblioteca, uploads Premium e chat com citações.
+          Use um link mágico por e-mail. Depois do acesso, o workspace abre sua
+          biblioteca, uploads Premium e chat com citações.
         </p>
       </section>
 
-      <section className="border border-midnight-ink bg-crisp-white p-5 shadow-[8px_8px_0_#000] sm:p-6">
+      <section className="rounded-[length:var(--radius-cards)] border border-midnight-ink bg-crisp-white p-6 sm:p-8">
         <h2 className="font-display text-2xl font-semibold text-midnight-ink">
           Receber link seguro
         </h2>

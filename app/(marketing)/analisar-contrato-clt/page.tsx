@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -9,6 +8,25 @@ export const metadata = buildPageMetadata({
   path: "/analisar-contrato-clt",
 });
 
+const faqs = [
+  {
+    q: "Posso usar para contratos de experiência, intermitente ou temporário?",
+    a: "Sim. A ferramenta funciona para qualquer tipo de contrato de trabalho em PDF com texto selecionável.",
+  },
+  {
+    q: "A IA sabe se uma cláusula é ilegal?",
+    a: "Não. Ela lê e organiza o que está escrito, mas não avalia conformidade com a CLT ou jurisprudência. Para isso, consulte um advogado trabalhista.",
+  },
+  {
+    q: "O documento fica salvo?",
+    a: "O resumo gratuito não salva o arquivo. No Premium, o documento fica vinculado à sua conta para você voltar e fazer mais perguntas.",
+  },
+  {
+    q: "Funciona para contratos PJ?",
+    a: "Para contratos de prestação de serviços (PJ), use a página específica — o modo de análise é diferente do CLT.",
+  },
+];
+
 export default function AnalisarContratoCltPage() {
   return (
     <SeoPageTemplate
@@ -16,53 +34,57 @@ export default function AnalisarContratoCltPage() {
       intro="Entenda o que o contrato diz sobre salário, jornada, benefícios, aviso prévio e rescisão antes de assinar ou contestar. A IA extrai e organiza o texto — não interpreta conformidade legal nem substitui assessoria trabalhista."
       showUpload
       contractIntent
+      breadcrumbs={[
+        { label: "Início", path: "/" },
+        { label: "Casos de uso", path: "/" },
+        { label: "Contrato CLT", path: "/analisar-contrato-clt" },
+      ]}
+      faqs={faqs}
+      related={[
+        { href: "/resumir-contrato-pdf", label: "Resumir contrato" },
+        { href: "/analisar-contrato-com-ia", label: "Analisar contrato com IA" },
+        {
+          href: "/analisar-contrato-de-prestacao-de-servicos",
+          label: "Prestação de serviços",
+        },
+        { href: "/resumir-pdf", label: "Resumir PDF (geral)" },
+      ]}
     >
-      <section className="rounded-[length:var(--radius-cards)] border border-amber-200 bg-canvas p-6">
-        <h2 className="font-display text-lg font-semibold text-midnight-ink">O que a análise cobre</h2>
-        <ul className="mt-3 list-inside list-disc space-y-2 text-base text-charcoal-text">
-          <li>Salário base, adicionais e forma de pagamento</li>
-          <li>Jornada de trabalho e regime de horas extras</li>
-          <li>Benefícios listados (VT, VR, plano de saúde, etc.)</li>
-          <li>Prazo de experiência e condições de efetivação</li>
-          <li>Aviso prévio e condições de rescisão</li>
-          <li>Cláusulas de não-concorrência ou confidencialidade quando presentes</li>
-        </ul>
-        <p className="mt-4 text-sm text-faded-stone">
-          Esta análise não substitui assessoria jurídica ou trabalhista. Para dúvidas sobre direitos, verbas rescisórias ou irregularidades, consulte um advogado trabalhista ou o sindicato da categoria.
+      <section className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
+        <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+          O que a análise cobre
         </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">Perguntas frequentes</h2>
-        <dl className="space-y-4">
-          <div>
-            <dt className="font-medium text-midnight-ink">Posso usar para contratos de experiência, intermitente ou temporário?</dt>
-            <dd className="mt-1 text-charcoal-text">
-              Sim. A ferramenta funciona para qualquer tipo de contrato de trabalho em PDF com texto selecionável.
-            </dd>
-          </div>
-          <div>
-            <dt className="font-medium text-midnight-ink">A IA sabe se uma cláusula é ilegal?</dt>
-            <dd className="mt-1 text-charcoal-text">
-              Não. Ela lê e organiza o que está escrito, mas não avalia conformidade com a CLT ou jurisprudência. Para isso, consulte um advogado.
-            </dd>
-          </div>
-          <div>
-            <dt className="font-medium text-midnight-ink">O documento fica salvo?</dt>
-            <dd className="mt-1 text-charcoal-text">
-              O resumo gratuito não salva o arquivo. No Premium, você pode salvar e voltar ao documento quando precisar.
-            </dd>
-          </div>
-        </dl>
-      </section>
-
-      <section className="border-t border-subtle-gray pt-6">
-        <p className="text-sm font-medium text-faded-stone uppercase tracking-wide">Veja também</p>
-        <ul className="mt-3 flex flex-wrap gap-4">
-          <li><Link href="/resumir-contrato-pdf" className="text-sm text-midnight-ink underline underline-offset-4">Resumir contrato</Link></li>
-          <li><Link href="/analisar-contrato-com-ia" className="text-sm text-midnight-ink underline underline-offset-4">Analisar contrato</Link></li>
-          <li><Link href="/analisar-contrato-de-prestacao-de-servicos" className="text-sm text-midnight-ink underline underline-offset-4">Prestação de serviços</Link></li>
+        <ul className="mt-4 grid gap-2 text-base text-charcoal-text">
+          <li className="flex items-start gap-3">
+            <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
+            Salário base, adicionais e forma de pagamento
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
+            Jornada de trabalho e regime de horas extras
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
+            Benefícios listados (VT, VR, plano de saúde, etc.)
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
+            Prazo de experiência e condições de efetivação
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
+            Aviso prévio e condições de rescisão
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
+            Cláusulas de não-concorrência ou confidencialidade
+          </li>
         </ul>
+        <p className="mt-5 text-sm text-faded-stone">
+          Esta análise não substitui assessoria jurídica ou trabalhista. Para
+          dúvidas sobre direitos, verbas rescisórias ou irregularidades,
+          consulte um advogado trabalhista ou o sindicato da categoria.
+        </p>
       </section>
     </SeoPageTemplate>
   );
