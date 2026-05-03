@@ -16,6 +16,63 @@ const PUBLISHED = [
     title: "Como resumir PDF com IA",
     blurb:
       "Passo a passo: do upload anônimo ao Premium com chat e citação de página.",
+    minutes: 10,
+  },
+  {
+    href: "/guias/como-ler-edital-de-licitacao",
+    title: "Como ler edital de licitação",
+    blurb:
+      "Triagem em 10 minutos: objeto, prazos, habilitação, julgamento e penalidades.",
+    minutes: 10,
+  },
+  {
+    href: "/guias/como-analisar-contrato-clt",
+    title: "Como analisar contrato CLT antes de assinar",
+    blurb:
+      "Ordem certa de leitura, o que costuma surpreender e o que ainda dá pra negociar.",
+    minutes: 10,
+  },
+  {
+    href: "/guias/como-entender-apolice-de-seguro",
+    title: "Como entender uma apólice de seguro",
+    blurb:
+      "Coberturas, exclusões, carência, franquia — leia antes de precisar acionar.",
+    minutes: 10,
+  },
+  {
+    href: "/guias/como-entender-laudo-medico",
+    title: "Como entender laudo médico em português",
+    blurb:
+      "Decifre termos técnicos com calma e prepare a próxima conversa com o(a) profissional.",
+    minutes: 10,
+  },
+  {
+    href: "/guias/como-conferir-boleto-antes-de-pagar",
+    title: "Como conferir um boleto antes de pagar",
+    blurb:
+      "Checklist anti-fraude: beneficiário, código de barras, valor, vencimento.",
+    minutes: 8,
+  },
+  {
+    href: "/guias/comparar-versoes-de-pdf",
+    title: "Como comparar duas versões de um PDF",
+    blurb:
+      "Manual, ferramenta de diff ou IA — qual usar em contrato, edital ou apólice.",
+    minutes: 9,
+  },
+  {
+    href: "/guias/ocr-para-pdf",
+    title: "OCR para PDF — quando precisa, como funciona",
+    blurb:
+      "Saiba se seu PDF tem texto, ferramentas de OCR e cuidados ao misturar OCR com IA.",
+    minutes: 9,
+  },
+  {
+    href: "/guias/pdf-protegido-por-senha",
+    title: "PDF protegido por senha — o que dá pra fazer",
+    blurb:
+      "Tipos de proteção, como abrir o que é seu e por que IA não processa PDF com senha.",
+    minutes: 8,
   },
 ] as const;
 
@@ -88,13 +145,16 @@ export default function GuiasIndexPage() {
         <h2 className="font-display text-2xl font-semibold text-midnight-ink">
           Guias publicados
         </h2>
-        <ul className="mt-6 grid gap-px overflow-hidden border border-subtle-gray bg-subtle-gray sm:grid-cols-2">
+        <ul className="mt-6 grid gap-px overflow-hidden border border-subtle-gray bg-subtle-gray sm:grid-cols-2 lg:grid-cols-3">
           {PUBLISHED.map((g) => (
             <li key={g.href} className="bg-canvas">
               <Link
                 href={g.href}
                 className="group flex h-full flex-col gap-4 p-6 transition-colors hover:bg-crisp-white"
               >
+                <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+                  ~{g.minutes} min
+                </p>
                 <h3 className="font-display text-xl font-semibold text-midnight-ink">
                   {g.title}
                 </h3>
