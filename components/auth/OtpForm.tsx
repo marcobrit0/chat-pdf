@@ -23,11 +23,14 @@ export function OtpForm({ nextPath }: OtpFormProps) {
     const supabase = createClient();
     const { error } = await supabase.auth.signInWithOtp({ email: emailToSend });
     if (error) {
+      const rateLimited = error.status === 429;
       setStep({
         name: "error",
         email: emailToSend,
-        message: "Não foi possível enviar o código. Confira o e-mail e tente novamente.",
-        canRetry: true,
+        message: rateLimited
+          ? "Muitas tentativas. Aguarde alguns minutos antes de solicitar um novo código."
+          : "Não foi possível enviar o código. Confira o e-mail e tente novamente.",
+        canRetry: !rateLimited,
       });
       return;
     }
