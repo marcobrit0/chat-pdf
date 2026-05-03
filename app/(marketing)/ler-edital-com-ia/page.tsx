@@ -1,5 +1,7 @@
+import { PersonaVariantsSection } from "@/components/marketing/PersonaVariantsSection";
 import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
+import { personaVariantsByCanonical } from "@/lib/seo/programmatic-seo-data";
 
 export const metadata = buildPageMetadata({
   title: "Ler edital de licitação com IA",
@@ -71,6 +73,10 @@ export default function LerEditalComIaPage() {
           A IA organiza o texto. Decisões sobre participação e estratégia comercial seguem com você e seu jurídico.
         </p>
       </section>
+
+      <PersonaVariantsSection
+        variants={personaVariantsByCanonical["/ler-edital-com-ia"] ?? []}
+      />
     </SeoPageTemplate>
   );
 }

@@ -1,5 +1,7 @@
+import { PersonaVariantsSection } from "@/components/marketing/PersonaVariantsSection";
 import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
+import { personaVariantsByCanonical } from "@/lib/seo/programmatic-seo-data";
 
 export const metadata = buildPageMetadata({
   title: "Analisar proposta comercial com IA",
@@ -55,6 +57,12 @@ export default function AnalisarPropostaComercialPage() {
           <li>· Validade da proposta</li>
         </ul>
       </section>
+
+      <PersonaVariantsSection
+        variants={
+          personaVariantsByCanonical["/analisar-proposta-comercial"] ?? []
+        }
+      />
     </SeoPageTemplate>
   );
 }
