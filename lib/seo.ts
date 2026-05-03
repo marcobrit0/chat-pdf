@@ -26,13 +26,13 @@ export function absoluteUrl(path: string): string {
 const BRAND_SEPARATOR = " · ";
 
 /**
- * Returns `<page-title> · ChatPDF Brasil`, but if the title already mentions
- * "ChatPDF Brasil" or "ChatPDF" we leave it alone — avoids the SERP duplication
+ * Returns `<page-title> · PDFIA`, but if the title already mentions
+ * "PDFIA" or "ChatPDF" we leave it alone — avoids the SERP duplication
  * that the layout's title.template was producing.
  */
 function withBrand(title: string): string {
   const t = title.trim();
-  if (/chatpdf/i.test(t)) return t;
+  if (/chatpdf|pdfia/i.test(t)) return t;
   return `${t}${BRAND_SEPARATOR}${siteConfig.name}`;
 }
 
@@ -42,7 +42,7 @@ function withBrand(title: string): string {
  *
  * Uses `title.absolute` so the root layout's title.template is bypassed —
  * branding is appended deterministically by withBrand() instead, which avoids
- * "ChatPDF Brasil · ChatPDF Brasil" when the leaf title already includes brand.
+ * "PDFIA · PDFIA" when the leaf title already includes brand.
  */
 export function buildPageMetadata(input: {
   title: string;

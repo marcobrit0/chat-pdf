@@ -37,7 +37,7 @@ function openRouterHeaders(key: string): HeadersInit {
     Authorization: `Bearer ${key}`,
     "Content-Type": "application/json",
     "HTTP-Referer": process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-    "X-Title": "ChatPDF Brasil",
+    "X-Title": "PDFIA",
   };
 }
 

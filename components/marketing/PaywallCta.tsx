@@ -13,7 +13,7 @@ const COPY: Record<
 > = {
   default: {
     headline: "Limites do uso gratuito",
-    body: "O resumo anônimo cobre PDFs menores (até 10 páginas). PDFs maiores, chat com fontes no documento, histórico e exportações organizadas exigem ChatPDF Premium.",
+    body: "O resumo anônimo cobre PDFs menores (até 10 páginas). PDFs maiores, chat com fontes no documento, histórico e exportações organizadas exigem PDFIA Premium.",
     cta: "Ver planos Premium",
   },
   after_summary: {

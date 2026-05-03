@@ -6,7 +6,7 @@ import {
 
 export const runtime = "edge";
 export const alt =
-  "ChatPDF Brasil — resumir e conversar com PDFs em português";
+  "PDFIA — resumir e conversar com PDFs em português";
 export const size = ogImageSize;
 export const contentType = ogImageContentType;
 

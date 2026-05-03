@@ -2,32 +2,32 @@ import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "ChatPDF vs Smallpdf — editar ou entender PDFs?",
+  title: "PDFIA vs Smallpdf — editar ou entender PDFs?",
   description:
-    "Smallpdf edita, converte e compacta PDFs. ChatPDF Brasil lê, resume e responde com fonte. São categorias complementares — entenda quando usar cada um.",
+    "Smallpdf edita, converte e compacta PDFs. PDFIA lê, resume e responde com fonte. São categorias complementares — entenda quando usar cada um.",
   path: "/chatpdf-vs-smallpdf",
 });
 
 const faqs = [
   {
-    q: "Posso usar Smallpdf e ChatPDF Brasil juntos?",
-    a: "Sim, e faz sentido. Use o Smallpdf para converter, compactar ou unir PDFs; depois carregue o arquivo no ChatPDF Brasil para resumir e perguntar.",
+    q: "Posso usar Smallpdf e PDFIA juntos?",
+    a: "Sim, e faz sentido. Use o Smallpdf para converter, compactar ou unir PDFs; depois carregue o arquivo no PDFIA para resumir e perguntar.",
   },
   {
     q: "O Smallpdf tem IA para resumir conteúdo?",
-    a: "O foco do Smallpdf é em operações no arquivo (editar, converter, assinar). Para resumo e chat sobre o conteúdo, use uma ferramenta dedicada como o ChatPDF Brasil.",
+    a: "O foco do Smallpdf é em operações no arquivo (editar, converter, assinar). Para resumo e chat sobre o conteúdo, use uma ferramenta dedicada como o PDFIA.",
   },
   {
     q: "Qual é mais barato?",
-    a: "Depende do uso. Para edição recorrente, Smallpdf compensa. Para leitura e análise de PDFs, o ChatPDF Brasil tem resumo gratuito sem cadastro e Premium em BRL.",
+    a: "Depende do uso. Para edição recorrente, Smallpdf compensa. Para leitura e análise de PDFs, o PDFIA tem resumo gratuito sem cadastro e Premium em BRL.",
   },
 ];
 
 export default function ChatpdfVsSmallpdfPage() {
   return (
     <SeoPageTemplate
-      title="ChatPDF vs Smallpdf — editar ou entender?"
-      intro="Smallpdf resolve edição, conversão e compactação. ChatPDF Brasil resolve leitura, resumo e perguntas sobre o conteúdo. São categorias complementares — você usa o primeiro para mexer no arquivo, o segundo para entender o que ele diz."
+      title="PDFIA vs Smallpdf — editar ou entender?"
+      intro="Smallpdf resolve edição, conversão e compactação. PDFIA resolve leitura, resumo e perguntas sobre o conteúdo. São categorias complementares — você usa o primeiro para mexer no arquivo, o segundo para entender o que ele diz."
       breadcrumbs={[
         { label: "Início", path: "/" },
         { label: "Comparações", path: "/precos" },
@@ -58,7 +58,7 @@ export default function ChatpdfVsSmallpdfPage() {
         </div>
         <div className="rounded-[length:var(--radius-cards)] border border-midnight-ink bg-crisp-white p-6">
           <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
-            ChatPDF Brasil
+            PDFIA
           </p>
           <h2 className="mt-3 font-display text-xl font-semibold text-midnight-ink">
             Para entender o conteúdo
@@ -80,9 +80,9 @@ export default function ChatpdfVsSmallpdfPage() {
         <p className="mt-3 text-base leading-relaxed text-charcoal-text">
           Se precisa transformar o formato do arquivo, use o Smallpdf. Se
           precisa entender o conteúdo antes de assinar, pagar ou decidir, use o
-          ChatPDF Brasil. Para contratos, relatórios, editais e apólices, as
+          PDFIA. Para contratos, relatórios, editais e apólices, as
           duas em sequência é o fluxo mais comum: Smallpdf para preparar,
-          ChatPDF Brasil para entender.
+          PDFIA para entender.
         </p>
       </section>
     </SeoPageTemplate>

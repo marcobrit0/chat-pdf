@@ -9,11 +9,11 @@ import {
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "ChatPDF Brasil — Resumir e conversar com PDFs em português",
+  title: "PDFIA — Resumir e conversar com PDFs em português",
   description:
     "Resuma PDFs grátis em português. Premium converte contratos, editais, laudos e relatórios em respostas com citação de página. Pagamento em BRL.",
   path: "/",
-  ogTitle: "ChatPDF Brasil",
+  ogTitle: "PDFIA",
 });
 
 const useCases = [
@@ -61,8 +61,8 @@ const faqs = [
     a: "Sim. O resumo de PDFs com até 10 páginas é gratuito e não exige cadastro. O Premium (R$29/mês ou R$290/ano) libera chat com citação de página, PDFs até 100 páginas e modos específicos para contratos, editais e apólices.",
   },
   {
-    q: "Em que o ChatPDF Brasil é diferente do ChatGPT?",
-    a: "O ChatPDF Brasil foi desenhado para PDFs: cita a página de origem em cada resposta, avisa quando a informação não está no documento e tem modos prontos para contratos CLT, editais e apólices brasileiras. O ChatGPT é genérico e exige plano Plus em USD para anexar PDFs.",
+    q: "Em que o PDFIA é diferente do ChatGPT?",
+    a: "O PDFIA foi desenhado para PDFs: cita a página de origem em cada resposta, avisa quando a informação não está no documento e tem modos prontos para contratos CLT, editais e apólices brasileiras. O ChatGPT é genérico e exige plano Plus em USD para anexar PDFs.",
   },
   {
     q: "Meu PDF fica salvo?",
@@ -165,7 +165,7 @@ export default function HomePage() {
             </h2>
             <p className="mt-5 text-base leading-relaxed text-charcoal-text">
               Sem prompts complicados, sem modelos para escolher, sem ChatGPT
-              Plus em dólar. Você envia, o ChatPDF Brasil organiza, você
+              Plus em dólar. Você envia, o PDFIA organiza, você
               pergunta.
             </p>
           </div>
@@ -252,7 +252,7 @@ export default function HomePage() {
         <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:py-24">
           <div>
             <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
-              ChatPDF Brasil vs alternativas
+              PDFIA vs alternativas
             </p>
             <h2 className="mt-4 font-display text-[clamp(2rem,4vw,2.75rem)] font-semibold leading-[1.05] tracking-tight text-midnight-ink">
               Por que não usar só o ChatGPT?
@@ -293,7 +293,7 @@ export default function HomePage() {
                     Recurso
                   </th>
                   <th className="py-3 pr-6 font-medium text-midnight-ink">
-                    ChatPDF Brasil
+                    PDFIA
                   </th>
                   <th className="py-3 font-medium text-faded-stone">
                     ChatGPT

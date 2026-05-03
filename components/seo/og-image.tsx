@@ -53,7 +53,7 @@ export function renderOgImage({ eyebrow, title, subtitle }: OgImageInput) {
               letterSpacing: "-0.01em",
             }}
           >
-            ChatPDF Brasil
+            PDFIA
           </span>
         </div>
 

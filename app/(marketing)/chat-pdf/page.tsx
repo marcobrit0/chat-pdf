@@ -20,7 +20,7 @@ const faqs = [
   },
   {
     q: "Toda resposta vem com fonte?",
-    a: "Sim. Cada resposta no Premium cita a página de origem dentro do PDF. Quando a informação não está no documento, o ChatPDF Brasil avisa em vez de inventar.",
+    a: "Sim. Cada resposta no Premium cita a página de origem dentro do PDF. Quando a informação não está no documento, o PDFIA avisa em vez de inventar.",
   },
   {
     q: "Funciona em quais tipos de PDF?",
@@ -191,7 +191,7 @@ export default function ChatPdfPage() {
                 href="/chatpdf-vs-chatgpt"
                 className="text-midnight-ink underline underline-offset-4"
               >
-                ChatPDF vs ChatGPT
+                PDFIA vs ChatGPT
               </Link>
             </li>
             <li>
@@ -244,7 +244,7 @@ function ChatPreview({
             }
           >
             <p className="font-condensed text-[10px] uppercase tracking-[0.22em] text-faded-stone">
-              {m.role === "user" ? "Você" : "ChatPDF Brasil"}
+              {m.role === "user" ? "Você" : "PDFIA"}
             </p>
             <p className="mt-1.5 text-sm leading-relaxed text-graphite">
               {m.text}

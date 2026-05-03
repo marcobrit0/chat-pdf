@@ -47,7 +47,7 @@ export async function requirePremiumAccess(
   return {
     ok: false,
     reason:
-      "Este recurso exige ChatPDF Premium ativo. Veja os planos em /precos.",
+      "Este recurso exige PDFIA Premium ativo. Veja os planos em /precos.",
     status: 402,
   };
 }

@@ -4,7 +4,7 @@ import { Breadcrumbs } from "@/components/marketing/Breadcrumbs";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Guias e tutoriais — ChatPDF Brasil",
+  title: "Guias e tutoriais — PDFIA",
   description:
     "Guias práticos sobre como resumir, ler e analisar PDFs com IA em português. Casos de uso reais para contratos, editais, apólices e relatórios.",
   path: "/guias",
@@ -76,7 +76,7 @@ export default function GuiasIndexPage() {
           Guias e tutoriais
         </p>
         <h1 className="mt-3 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-[1.05] tracking-tight text-midnight-ink">
-          Como tirar o máximo do ChatPDF Brasil.
+          Como tirar o máximo do PDFIA.
         </h1>
         <p className="mt-5 text-base leading-relaxed text-charcoal-text sm:text-lg">
           Tutoriais práticos sobre IA para PDFs em português, organizados por

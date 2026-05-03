@@ -6,7 +6,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildPageMetadata({
   title: "Entrar",
   description:
-    "Entre no ChatPDF Brasil com um link seguro enviado por e-mail.",
+    "Entre no PDFIA com um link seguro enviado por e-mail.",
   path: "/login",
 });
 

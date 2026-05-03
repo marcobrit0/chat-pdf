@@ -5,9 +5,9 @@ import { JsonLd, faqSchema } from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "ChatPDF vs ChatGPT — qual usar para PDFs?",
+  title: "PDFIA vs ChatGPT — qual usar para PDFs?",
   description:
-    "Comparação direta entre ChatPDF Brasil e ChatGPT para ler PDFs: citação de página, modos por tipo de documento, plano gratuito e preço em BRL.",
+    "Comparação direta entre PDFIA e ChatGPT para ler PDFs: citação de página, modos por tipo de documento, plano gratuito e preço em BRL.",
   path: "/chatpdf-vs-chatgpt",
 });
 
@@ -47,7 +47,7 @@ const comparison = [
 const faqs = [
   {
     q: "Preciso pagar o ChatGPT Plus para usar PDFs?",
-    a: "Sim, o upload de PDFs no ChatGPT exige o plano Plus (USD). O ChatPDF Brasil tem resumo gratuito sem conta e Premium em BRL.",
+    a: "Sim, o upload de PDFs no ChatGPT exige o plano Plus (USD). O PDFIA tem resumo gratuito sem conta e Premium em BRL.",
   },
   {
     q: "O ChatGPT perde contexto em documentos longos?",
@@ -74,13 +74,13 @@ export default function ChatpdfVsChatgptPage() {
 
         <header className="mt-6 max-w-3xl">
           <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
-            ChatPDF Brasil vs ChatGPT
+            PDFIA vs ChatGPT
           </p>
           <h1 className="mt-3 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-[1.05] tracking-tight text-midnight-ink">
             ChatGPT lê PDFs. Ferramentas dedicadas leem melhor.
           </h1>
           <p className="mt-5 text-base leading-relaxed text-charcoal-text sm:text-lg">
-            ChatGPT é genérico — também aceita PDFs. O ChatPDF Brasil foi
+            ChatGPT é genérico — também aceita PDFs. O PDFIA foi
             construído para isso: upload direto, respostas ancoradas no texto,
             citação de página por padrão e modos para contratos, editais e
             apólices.
@@ -94,7 +94,7 @@ export default function ChatpdfVsChatgptPage() {
               Em 30 segundos
             </p>
             <h2 className="mt-3 font-display text-xl font-semibold text-midnight-ink">
-              Use ChatPDF Brasil
+              Use PDFIA
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-charcoal-text">
               Para PDFs em português, leitura recorrente, contratos, editais e
@@ -128,7 +128,7 @@ export default function ChatpdfVsChatgptPage() {
                     Recurso
                   </th>
                   <th className="py-4 pr-6 font-medium text-midnight-ink">
-                    ChatPDF Brasil
+                    PDFIA
                   </th>
                   <th className="py-4 font-medium text-faded-stone">
                     ChatGPT

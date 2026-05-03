@@ -6,7 +6,7 @@ import { JsonLd, faqSchema, productSchema } from "@/components/seo/JsonLd";
 import { absoluteUrl, buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Preços do ChatPDF Brasil — grátis ou Premium R$29/mês",
+  title: "Preços do PDFIA — grátis ou Premium R$29/mês",
   description:
     "Resumo gratuito sem cadastro. Premium a partir de R$29/mês: chat com citação de página, PDFs até 100 páginas e modos de análise para contratos, editais e apólices.",
   path: "/precos",
@@ -120,7 +120,7 @@ export default function PrecosPage() {
     <>
       <JsonLd
         data={productSchema({
-          name: "ChatPDF Brasil Premium",
+          name: "PDFIA Premium",
           description:
             "Chat com citação de página, PDFs até 100 páginas, modos para contratos, editais, apólices e laudos.",
           offers: [
@@ -324,14 +324,14 @@ export default function PrecosPage() {
           <div className="grid gap-6 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:items-end">
             <div>
               <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
-                ChatPDF Brasil vs alternativas
+                PDFIA vs alternativas
               </p>
               <h2 className="mt-4 font-display text-3xl font-semibold leading-tight text-midnight-ink">
                 Como nos comparamos.
               </h2>
             </div>
             <p className="text-base leading-relaxed text-charcoal-text">
-              O ChatPDF Brasil compete com ChatGPT Plus, Smallpdf AI e Adobe
+              O PDFIA compete com ChatGPT Plus, Smallpdf AI e Adobe
               Acrobat AI Assistant — cada um com seu foco.
             </p>
           </div>
@@ -344,7 +344,7 @@ export default function PrecosPage() {
                     Item
                   </th>
                   <th className="py-4 pr-6 font-medium text-midnight-ink">
-                    ChatPDF Brasil
+                    PDFIA
                   </th>
                   <th className="py-4 pr-6 font-medium text-faded-stone">
                     ChatGPT Plus

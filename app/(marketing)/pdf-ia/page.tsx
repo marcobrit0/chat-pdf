@@ -44,7 +44,7 @@ const compare = [
     cantDo: "Persistir o documento, citar página por padrão, modos específicos por tipo de PDF",
   },
   {
-    tool: "ChatPDF Brasil",
+    tool: "PDFIA",
     canDo: "Resumir grátis, conversar com citação por página, modos para contratos/editais/apólices",
     cantDo: "Substituir parecer jurídico, médico ou financeiro — é apoio à leitura, não decisão",
   },
@@ -65,7 +65,7 @@ const faqs = [
   },
   {
     q: "Meus dados são usados para treinar o modelo?",
-    a: "Não. O ChatPDF Brasil envia o PDF apenas para o provedor de IA durante o processamento da sua sessão. Veja a Política de privacidade para os detalhes de retenção.",
+    a: "Não. O PDFIA envia o PDF apenas para o provedor de IA durante o processamento da sua sessão. Veja a Política de privacidade para os detalhes de retenção.",
   },
 ];
 
@@ -81,7 +81,7 @@ export default function PdfIaPage() {
         { href: "/ia-para-resumir-pdf", label: "IA para resumir PDF (passo a passo)" },
         { href: "/chat-pdf", label: "Chat com PDF" },
         { href: "/resumir-pdf", label: "Resumir PDF" },
-        { href: "/chatpdf-vs-chatgpt", label: "ChatPDF vs ChatGPT" },
+        { href: "/chatpdf-vs-chatgpt", label: "PDFIA vs ChatGPT" },
       ]}
     >
       <section className="space-y-4">
