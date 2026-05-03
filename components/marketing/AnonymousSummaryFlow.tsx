@@ -2,9 +2,16 @@
 
 import { useCallback, useState } from "react";
 import type { SummaryPayload } from "@/lib/ai/summary-schema";
-import { ANON_MAX_FILE_BYTES, ANON_MAX_PAGES, PDF_MIME_TYPES } from "@/lib/constants/limits";
+import {
+  ANON_MAX_FILE_BYTES,
+  ANON_MAX_PAGES,
+  PDF_MIME_TYPES,
+} from "@/lib/constants/limits";
 import { track } from "@/lib/analytics";
-import { PaywallCta } from "@/components/marketing/PaywallCta";
+import {
+  PaywallCta,
+  type PaywallVariant,
+} from "@/components/marketing/PaywallCta";
 
 type Props = {
   /** Quando true, envia `intent=contrato` para orientar o modelo (ex.: página de contratos). */
@@ -14,26 +21,39 @@ type Props = {
 /**
  * Upload anônimo + resumo estruturado via `/api/summarize/anonymous`.
  * Regra de produto: só o resumo é gratuito; chat permanece Premium (CTA após o resultado).
+ *
+ * Fluxo de paywall:
+ *  - Antes do resumo: card `default` abaixo do upload.
+ *  - Depois do resumo: substituímos por `after_summary` (não empilhamos).
+ *  - Cliques em "perguntar ao PDF" / "Exportar" sobrescrevem por uma variante mais específica
+ *    (`blocked_chat` / `export`) — sempre uma única razão visível por vez.
  */
 export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
   const [fileName, setFileName] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [summary, setSummary] = useState<(SummaryPayload & { stub?: boolean }) | null>(null);
-  /** Usuário pediu exportação — mostramos CTA Premium específico. */
-  const [exportAttempt, setExportAttempt] = useState(false);
+  const [summary, setSummary] = useState<
+    (SummaryPayload & { stub?: boolean }) | null
+  >(null);
   const [copyHint, setCopyHint] = useState<string | null>(null);
-  /** PDF acima do limite gratuito — CTA Premium específico. */
   const [largePdfBlocked, setLargePdfBlocked] = useState(false);
+  /** Sobrescreve a variante padrão pós-resumo quando o usuário tenta uma ação Premium específica. */
+  const [paywallOverride, setPaywallOverride] =
+    useState<PaywallVariant | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
 
   const validateFile = useCallback((file: File) => {
     setError(null);
-    if (!PDF_MIME_TYPES.includes(file.type as (typeof PDF_MIME_TYPES)[number])) {
+    if (
+      !PDF_MIME_TYPES.includes(file.type as (typeof PDF_MIME_TYPES)[number])
+    ) {
       setError("Envie apenas um arquivo PDF.");
       return false;
     }
     if (file.size > ANON_MAX_FILE_BYTES) {
-      setError(`Arquivo grande demais para o nível gratuito (máx. ${Math.round(ANON_MAX_FILE_BYTES / (1024 * 1024))} MB).`);
+      setError(
+        `Arquivo grande demais para o nível gratuito (máx. ${Math.round(ANON_MAX_FILE_BYTES / (1024 * 1024))} MB).`,
+      );
       return false;
     }
     setFileName(file.name);
@@ -46,6 +66,7 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
       setError(null);
       setSummary(null);
       setLargePdfBlocked(false);
+      setPaywallOverride(null);
       const form = e.currentTarget;
       const input = form.elements.namedItem("file") as HTMLInputElement;
       const file = input?.files?.[0];
@@ -86,8 +107,10 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
         }
 
         setSummary(json);
-        setExportAttempt(false);
-        track("anonymous_summary_ok", { stub: Boolean(json.stub), contractIntent });
+        track("anonymous_summary_ok", {
+          stub: Boolean(json.stub),
+          contractIntent,
+        });
       } catch {
         setError("Erro de rede. Tente novamente.");
       } finally {
@@ -97,19 +120,54 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
     [contractIntent, validateFile],
   );
 
+  /** Variante de paywall renderizada após o resumo (override > padrão). */
+  const postSummaryVariant: PaywallVariant = paywallOverride ?? "after_summary";
+
   return (
     <div className="space-y-8">
       <div className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">Enviar PDF</h2>
+        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+          Enviar PDF
+        </h2>
         <p className="mt-2 text-sm text-charcoal-text">
           Grátis sem cadastro: até {ANON_MAX_PAGES} páginas,{" "}
-          <strong className="font-medium text-midnight-ink">resumo apenas</strong>. O chat com o documento e análises
-          longas são{" "}
+          <strong className="font-medium text-midnight-ink">
+            resumo apenas
+          </strong>
+          . O chat com o documento e análises longas são{" "}
           <LinkInline href="/precos" label="Premium" />.
         </p>
 
         <form onSubmit={onSubmit} className="mt-6 space-y-4">
-          <label className="group flex cursor-pointer flex-col items-center justify-center gap-2 border border-dashed border-soft-stone bg-canvas py-12 px-5 text-center transition-colors hover:border-midnight-ink hover:bg-crisp-white">
+          <label
+            onDragOver={(e) => {
+              e.preventDefault();
+              setIsDragging(true);
+            }}
+            onDragLeave={() => setIsDragging(false)}
+            onDrop={(e) => {
+              e.preventDefault();
+              setIsDragging(false);
+              const f = e.dataTransfer.files?.[0];
+              if (f) {
+                validateFile(f);
+                const input = e.currentTarget.querySelector(
+                  "input[type=file]",
+                ) as HTMLInputElement | null;
+                if (input) {
+                  const dt = new DataTransfer();
+                  dt.items.add(f);
+                  input.files = dt.files;
+                }
+              }
+            }}
+            className={
+              "group flex cursor-pointer flex-col items-center justify-center gap-2 border border-dashed py-12 px-5 text-center transition-colors " +
+              (isDragging
+                ? "border-midnight-ink bg-crisp-white"
+                : "border-soft-stone bg-canvas hover:border-midnight-ink hover:bg-crisp-white")
+            }
+          >
             <span className="font-display text-lg font-semibold text-midnight-ink">
               Solte um PDF aqui
             </span>
@@ -176,8 +234,9 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
 
         {summary?.stub ? (
           <p className="mt-4 text-xs text-faded-stone">
-            Modo demonstração (sem chave de IA no servidor). Configure <code className="font-mono">OPENROUTER_API_KEY</code>{" "}
-            para resumo real.
+            Modo demonstração (sem chave de IA no servidor). Configure{" "}
+            <code className="font-mono">OPENROUTER_API_KEY</code> para resumo
+            real.
           </p>
         ) : null}
       </div>
@@ -185,11 +244,17 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
       {summary ? (
         <div className="space-y-6">
           <section className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
-            <h2 className="font-display text-xl font-semibold text-midnight-ink">Seu resumo</h2>
+            <h2 className="font-display text-xl font-semibold text-midnight-ink">
+              Seu resumo
+            </h2>
             <div className="mt-4 space-y-4 text-sm text-graphite">
-              <p className="leading-relaxed text-charcoal-text">{summary.summary}</p>
+              <p className="leading-relaxed text-charcoal-text">
+                {summary.summary}
+              </p>
               <div>
-                <h3 className="mb-2 text-xs font-semibold uppercase text-faded-stone">Em tópicos</h3>
+                <h3 className="mb-2 text-xs font-semibold uppercase text-faded-stone">
+                  Em tópicos
+                </h3>
                 <ul className="list-inside list-disc space-y-1">
                   {summary.bulletPoints.map((b) => (
                     <li key={b}>{b}</li>
@@ -198,7 +263,9 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
               </div>
               {summary.keyDatesOrValues.length > 0 ? (
                 <div>
-                  <h3 className="mb-2 text-xs font-semibold uppercase text-faded-stone">Datas e valores</h3>
+                  <h3 className="mb-2 text-xs font-semibold uppercase text-faded-stone">
+                    Datas e valores
+                  </h3>
                   <ul className="list-inside list-disc space-y-1">
                     {summary.keyDatesOrValues.map((b) => (
                       <li key={b}>{b}</li>
@@ -208,7 +275,9 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
               ) : null}
               {summary.entities.length > 0 ? (
                 <div>
-                  <h3 className="mb-2 text-xs font-semibold uppercase text-faded-stone">Entidades</h3>
+                  <h3 className="mb-2 text-xs font-semibold uppercase text-faded-stone">
+                    Entidades
+                  </h3>
                   <p>{summary.entities.join(", ")}</p>
                 </div>
               ) : null}
@@ -240,18 +309,42 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
                 type="button"
                 className="rounded-[length:var(--radius-buttons)] bg-midnight-ink px-4 py-2 text-sm font-medium text-crisp-white"
                 onClick={() => {
-                  setExportAttempt(true);
+                  setPaywallOverride("export");
                   track("anonymous_export_attempt", {});
                 }}
               >
                 Exportar pacote (Premium)
               </button>
-              {copyHint ? <span className="self-center text-xs text-faded-stone">{copyHint}</span> : null}
+              {copyHint ? (
+                <span className="self-center text-xs text-faded-stone">
+                  {copyHint}
+                </span>
+              ) : null}
             </div>
           </section>
 
-          <PaywallCta variant="after_summary" />
-          {exportAttempt ? <PaywallCta variant="export" /> : null}
+          {summary.suggestedQuestions.length > 0 ? (
+            <SuggestedQuestionsLocked
+              questions={summary.suggestedQuestions}
+              onClick={(q) => {
+                setPaywallOverride("blocked_chat");
+                track("anonymous_suggested_question_click", {
+                  question: q.slice(0, 80),
+                });
+                if (typeof document !== "undefined") {
+                  requestAnimationFrame(() => {
+                    document
+                      .getElementById("post-summary-paywall")
+                      ?.scrollIntoView({ behavior: "smooth", block: "center" });
+                  });
+                }
+              }}
+            />
+          ) : null}
+
+          <div id="post-summary-paywall">
+            <PaywallCta variant={postSummaryVariant} />
+          </div>
         </div>
       ) : (
         <PaywallCta variant="default" />
@@ -262,8 +355,109 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
 
 function LinkInline({ href, label }: { href: string; label: string }) {
   return (
-    <a href={href} className="font-medium text-midnight-ink underline underline-offset-2">
+    <a
+      href={href}
+      className="font-medium text-midnight-ink underline underline-offset-2"
+    >
       {label}
     </a>
+  );
+}
+
+/**
+ * Bloco de "perguntas sugeridas" — visíveis mas bloqueadas. Cada clique expõe
+ * o paywall de chat (blocked_chat). É a maior alavanca de conversão pós-resumo:
+ * o usuário viu o que a IA já sabe responder, mas precisa do Premium para perguntar.
+ */
+function SuggestedQuestionsLocked({
+  questions,
+  onClick,
+}: {
+  questions: string[];
+  onClick: (q: string) => void;
+}) {
+  return (
+    <section
+      aria-labelledby="suggested-questions-heading"
+      className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-canvas p-6"
+    >
+      <div className="flex flex-wrap items-baseline justify-between gap-3">
+        <div>
+          <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+            Perguntas sugeridas pela IA
+          </p>
+          <h3
+            id="suggested-questions-heading"
+            className="mt-2 font-display text-lg font-semibold text-midnight-ink"
+          >
+            Pergunte ao PDF — disponível no Premium.
+          </h3>
+        </div>
+        <span
+          aria-hidden="true"
+          className="inline-flex items-center gap-1.5 rounded-full border border-midnight-ink/20 bg-crisp-white px-3 py-1 font-condensed text-xs uppercase tracking-[0.18em] text-charcoal-text"
+        >
+          <LockIcon /> Premium
+        </span>
+      </div>
+
+      <p className="mt-3 max-w-2xl text-sm leading-relaxed text-charcoal-text">
+        A IA mapeou estas perguntas no documento. Clique numa para entrar no
+        chat com citação de página.
+      </p>
+
+      <ul className="mt-5 grid gap-2 sm:grid-cols-2">
+        {questions.map((q) => (
+          <li key={q}>
+            <button
+              type="button"
+              onClick={() => onClick(q)}
+              className="group flex w-full items-start gap-3 rounded-[length:var(--radius-md)] border border-subtle-gray bg-crisp-white px-4 py-3 text-left text-sm text-charcoal-text transition-colors hover:border-midnight-ink hover:bg-crisp-white"
+            >
+              <span
+                aria-hidden="true"
+                className="mt-0.5 inline-flex h-5 w-5 flex-none items-center justify-center rounded-full border border-soft-stone text-faded-stone group-hover:border-midnight-ink group-hover:text-midnight-ink"
+              >
+                <LockIcon />
+              </span>
+              <span className="flex-1 leading-snug">{q}</span>
+              <span
+                aria-hidden="true"
+                className="flex-none self-center text-faded-stone group-hover:text-midnight-ink"
+              >
+                →
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+function LockIcon() {
+  return (
+    <svg
+      width="11"
+      height="11"
+      viewBox="0 0 12 12"
+      fill="none"
+      aria-hidden="true"
+    >
+      <rect
+        x="2.5"
+        y="5.5"
+        width="7"
+        height="5"
+        rx="0.5"
+        stroke="currentColor"
+        strokeWidth="1"
+      />
+      <path
+        d="M4 5.5V3.75a2 2 0 0 1 4 0V5.5"
+        stroke="currentColor"
+        strokeWidth="1"
+      />
+    </svg>
   );
 }

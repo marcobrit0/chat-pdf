@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ExtractPayload, RiskPayload } from "@/lib/ai/document-modes-schema";
 import type { SummaryPayload } from "@/lib/ai/summary-schema";
 import { track } from "@/lib/analytics";
@@ -181,6 +181,8 @@ export function DocumentWorkspace({
   const [analyzeLoading, setAnalyzeLoading] = useState(false);
   const [analyzeError, setAnalyzeError] = useState<string | null>(null);
   const [copyHint, setCopyHint] = useState<string | null>(null);
+  /** Garante que o auto-disparo só acontece uma vez por documento (modo summary). */
+  const autoStartedRef = useRef(false);
 
   const [messages, setMessages] = useState<ChatTurn[]>([]);
   const [input, setInput] = useState("");
@@ -229,6 +231,19 @@ export function DocumentWorkspace({
       setAnalyzeLoading(false);
     }
   }, [activeMode, contractFocus, documentId]);
+
+  // Auto-dispara o resumo na primeira carga: a tela vazia + "Clique em Gerar análise"
+  // era um beco morto pra quem acabou de subir o PDF. O ref evita disparos duplicados
+  // em StrictMode dev e novas montagens. queueMicrotask defere o setState para fora
+  // do efeito (evita cascading-renders flag do react-hooks/set-state-in-effect).
+  useEffect(() => {
+    if (autoStartedRef.current) return;
+    if (cached.summary) return;
+    autoStartedRef.current = true;
+    queueMicrotask(() => {
+      void runAnalysis();
+    });
+  }, [cached.summary, runAnalysis]);
 
   /** Copia o texto formatado da análise atual (exportação leve para Premium). */
   const copyAnalysis = useCallback(async () => {
@@ -399,7 +414,13 @@ export function DocumentWorkspace({
 
             <div className="mt-4 border-t border-subtle-gray pt-4">
               {!currentResult && !analyzeLoading ? (
-                <p className="text-sm text-faded-stone">Clique em Gerar análise para preencher este modo.</p>
+                <p className="text-sm text-faded-stone">
+                  Clique em <span className="font-medium text-midnight-ink">Gerar análise</span> para
+                  preencher este modo.
+                </p>
+              ) : null}
+              {!currentResult && analyzeLoading ? (
+                <p className="text-sm text-faded-stone">Lendo o documento e gerando {MODE_LABELS[activeMode].toLowerCase()}…</p>
               ) : null}
               {currentResult?.mode === "summary" ? <SummaryView data={currentResult.data} /> : null}
               {currentResult?.mode === "extract" ? <ExtractView data={currentResult.data} /> : null}

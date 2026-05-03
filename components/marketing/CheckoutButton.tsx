@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { createClient } from "@/lib/supabase/client";
 
 type CheckoutButtonProps = { priceId: string; label: string };
 
@@ -12,6 +13,18 @@ export function CheckoutButton({ priceId, label }: CheckoutButtonProps) {
     setLoading(true);
     setError(null);
     try {
+      const supabase = createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        // Send to login with a return path back to /precos so checkout resumes after auth.
+        const next = encodeURIComponent("/precos");
+        window.location.href = `/login?next=${next}`;
+        return;
+      }
+
       const res = await fetch("/api/stripe/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

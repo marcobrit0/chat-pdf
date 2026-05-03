@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export type DocumentRow = {
   id: string;
@@ -18,24 +18,34 @@ type Props = {
 /**
  * Premium library: list persisted PDFs and multipart upload to `/api/documents`.
  * Refreshes the route after a successful import so the server list stays in sync.
+ *
+ * The drop zone matches the marketing surface (`AnonymousSummaryFlow`) so the
+ * upload affordance doesn't regress after a user upgrades.
  */
 export function DocumentLibrary({ initialDocuments }: Props) {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+  const [fileName, setFileName] = useState<string | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setError(null);
-    const form = e.currentTarget;
-    const fileInput = form.elements.namedItem("file") as HTMLInputElement;
-    const file = fileInput?.files?.[0];
+  function setSelectedFile(file: File | null) {
     if (!file) {
-      setError("Selecione um arquivo PDF.");
+      setFileName(null);
       return;
     }
+    if (file.type !== "application/pdf") {
+      setError("Envie apenas arquivos PDF.");
+      return;
+    }
+    setError(null);
+    setFileName(file.name);
+  }
 
+  async function uploadFile(file: File) {
     setPending(true);
+    setError(null);
     try {
       const body = new FormData();
       body.set("file", file);
@@ -49,7 +59,8 @@ export function DocumentLibrary({ initialDocuments }: Props) {
         return;
       }
       if (json.id) {
-        fileInput.value = "";
+        if (inputRef.current) inputRef.current.value = "";
+        setFileName(null);
         router.push(`/app/documents/${json.id}`);
         router.refresh();
       }
@@ -58,6 +69,16 @@ export function DocumentLibrary({ initialDocuments }: Props) {
     } finally {
       setPending(false);
     }
+  }
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const file = inputRef.current?.files?.[0];
+    if (!file) {
+      setError("Selecione um arquivo PDF.");
+      return;
+    }
+    await uploadFile(file);
   }
 
   return (
@@ -70,25 +91,85 @@ export function DocumentLibrary({ initialDocuments }: Props) {
           O texto é extraído no servidor e indexado em trechos com intervalo de
           páginas para citações no chat.
         </p>
-        <form onSubmit={onSubmit} className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end">
-          <label className="flex-1 text-sm text-charcoal-text">
-            <span className="mb-1 block">Arquivo</span>
+
+        <form onSubmit={onSubmit} className="mt-5 space-y-4">
+          <label
+            onDragOver={(e) => {
+              e.preventDefault();
+              setIsDragging(true);
+            }}
+            onDragLeave={() => setIsDragging(false)}
+            onDrop={(e) => {
+              e.preventDefault();
+              setIsDragging(false);
+              const f = e.dataTransfer.files?.[0];
+              if (!f) return;
+              setSelectedFile(f);
+              if (inputRef.current && f.type === "application/pdf") {
+                const dt = new DataTransfer();
+                dt.items.add(f);
+                inputRef.current.files = dt.files;
+              }
+            }}
+            className={
+              "group flex cursor-pointer flex-col items-center justify-center gap-2 border border-dashed py-10 px-5 text-center transition-colors " +
+              (isDragging
+                ? "border-midnight-ink bg-canvas"
+                : "border-soft-stone bg-canvas hover:border-midnight-ink")
+            }
+          >
+            <span className="font-display text-lg font-semibold text-midnight-ink">
+              Solte um PDF aqui
+            </span>
+            <span className="text-sm text-charcoal-text">
+              ou{" "}
+              <span className="underline underline-offset-4">
+                clique para selecionar
+              </span>
+            </span>
+            <span className="font-condensed text-xs uppercase tracking-[0.18em] text-faded-stone">
+              Premium · até 100 páginas · histórico salvo
+            </span>
             <input
+              ref={inputRef}
               name="file"
               type="file"
               accept="application/pdf"
-              className="w-full border border-ash-gray bg-canvas px-3 py-2 text-sm file:mr-3"
+              className="sr-only"
               disabled={pending}
+              onChange={(e) => setSelectedFile(e.target.files?.[0] ?? null)}
             />
           </label>
+
+          {fileName ? (
+            <p className="text-sm text-graphite">
+              Arquivo selecionado:{" "}
+              <span className="font-medium text-midnight-ink">{fileName}</span>
+            </p>
+          ) : (
+            <p className="text-sm text-faded-stone">
+              Selecione um PDF para criar um novo workspace.
+            </p>
+          )}
+
           <button
             type="submit"
-            disabled={pending}
-            className="rounded-[length:var(--radius-buttons)] bg-midnight-ink px-5 py-3 text-sm font-medium text-crisp-white disabled:opacity-50"
+            disabled={pending || !fileName}
+            className={
+              "w-full rounded-[length:var(--radius-buttons)] px-5 py-3 text-sm font-medium transition-opacity sm:w-auto " +
+              (fileName && !pending
+                ? "bg-apollo-gold text-midnight-ink hover:opacity-90"
+                : "cursor-not-allowed bg-subtle-gray text-faded-stone")
+            }
           >
-            {pending ? "Enviando…" : "Enviar e abrir workspace"}
+            {pending
+              ? "Enviando…"
+              : fileName
+                ? "Enviar e abrir workspace"
+                : "Selecione um PDF primeiro"}
           </button>
         </form>
+
         {error ? (
           <p className="mt-3 text-sm text-red-700" role="alert">
             {error}
@@ -108,7 +189,10 @@ export function DocumentLibrary({ initialDocuments }: Props) {
         ) : (
           <ul className="mt-4 divide-y divide-subtle-gray rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white">
             {initialDocuments.map((d) => (
-              <li key={d.id} className="flex flex-col gap-1 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+              <li
+                key={d.id}
+                className="flex flex-col gap-1 px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
+              >
                 <div>
                   <Link
                     href={`/app/documents/${d.id}`}
@@ -117,7 +201,9 @@ export function DocumentLibrary({ initialDocuments }: Props) {
                     {d.title ?? "Sem título"}
                   </Link>
                   <p className="text-sm text-faded-stone">
-                    {d.page_count != null ? `${d.page_count} páginas` : "Páginas —"}
+                    {d.page_count != null
+                      ? `${d.page_count} páginas`
+                      : "Páginas —"}
                     {" · "}
                     {new Date(d.created_at).toLocaleDateString("pt-BR")}
                   </p>
