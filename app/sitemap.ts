@@ -25,6 +25,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/precos", priority: 0.9, freq: "weekly" },
     { path: "/guias", priority: 0.7, freq: "weekly" },
     { path: "/guias/como-resumir-pdf-com-ia", priority: 0.6, freq: "monthly" },
+    { path: "/guias/como-ler-edital-de-licitacao", priority: 0.6, freq: "monthly" },
+    { path: "/guias/como-analisar-contrato-clt", priority: 0.6, freq: "monthly" },
+    { path: "/guias/como-entender-apolice-de-seguro", priority: 0.6, freq: "monthly" },
+    { path: "/guias/como-entender-laudo-medico", priority: 0.6, freq: "monthly" },
+    { path: "/guias/como-conferir-boleto-antes-de-pagar", priority: 0.6, freq: "monthly" },
+    { path: "/guias/comparar-versoes-de-pdf", priority: 0.6, freq: "monthly" },
+    { path: "/guias/ocr-para-pdf", priority: 0.6, freq: "monthly" },
+    { path: "/guias/pdf-protegido-por-senha", priority: 0.6, freq: "monthly" },
 
     // High-intent comparisons (primary commercial keywords)
     { path: "/chatpdf-vs-chatgpt", priority: 0.85, freq: "weekly" },
