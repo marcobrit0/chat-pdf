@@ -147,6 +147,10 @@ export async function POST(request: Request) {
 
     if (!process.env.OPENROUTER_API_KEY) {
       if (process.env.NODE_ENV === "production") {
+        logApiError(
+          ROUTE,
+          new Error("OPENROUTER_API_KEY missing in production"),
+        );
         return NextResponse.json(
           {
             error:

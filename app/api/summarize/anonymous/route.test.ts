@@ -41,18 +41,17 @@ function buildRequest(): Request {
 }
 
 describe("POST /api/summarize/anonymous", () => {
-  const ORIGINAL_ENV = { ...process.env };
   beforeEach(() => {
-    process.env = { ...ORIGINAL_ENV };
+    vi.resetModules();
   });
   afterEach(() => {
-    process.env = ORIGINAL_ENV;
+    vi.unstubAllEnvs();
     vi.clearAllMocks();
   });
 
   it("returns pageCount on success when OPENROUTER_API_KEY is set", async () => {
-    process.env.OPENROUTER_API_KEY = "test-key";
-    (process.env as Record<string, string>).NODE_ENV = "production";
+    vi.stubEnv("OPENROUTER_API_KEY", "test-key");
+    vi.stubEnv("NODE_ENV", "production");
     const { POST } = await import("@/app/api/summarize/anonymous/route");
     const res = await POST(buildRequest());
     const body = (await res.json()) as { pageCount?: number; summary?: string };
@@ -62,8 +61,8 @@ describe("POST /api/summarize/anonymous", () => {
   });
 
   it("returns 503 (not a stub) in production when the key is missing", async () => {
-    delete process.env.OPENROUTER_API_KEY;
-    (process.env as Record<string, string>).NODE_ENV = "production";
+    vi.stubEnv("OPENROUTER_API_KEY", "");
+    vi.stubEnv("NODE_ENV", "production");
     const { POST } = await import("@/app/api/summarize/anonymous/route");
     const res = await POST(buildRequest());
     expect(res.status).toBe(503);
