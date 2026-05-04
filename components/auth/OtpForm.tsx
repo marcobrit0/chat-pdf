@@ -97,22 +97,22 @@ export function OtpForm({ nextPath }: OtpFormProps) {
           Código enviado para <span className="font-medium text-midnight-ink">{step.email}</span>.
         </p>
         <label className="block text-sm font-medium text-midnight-ink">
-          Código de 6 dígitos
+          Código de 8 dígitos
           <input
             type="text"
             inputMode="numeric"
-            maxLength={6}
+            maxLength={8}
             required
             autoFocus
             value={token}
             onChange={(e) => setToken(e.target.value.replace(/\D/g, ""))}
-            placeholder="000000"
+            placeholder="00000000"
             className="mt-2 w-full border border-midnight-ink bg-canvas px-4 py-3 text-center text-xl tracking-[0.4em] text-graphite outline-none transition-shadow focus:shadow-[0_0_0_3px_#ebf212]"
           />
         </label>
         <button
           type="submit"
-          disabled={step.name === "verifying" || token.length < 6}
+          disabled={step.name === "verifying" || token.length < 8}
           className="w-full rounded-[length:var(--radius-buttons)] bg-apollo-gold px-5 py-3 text-base font-medium text-midnight-ink disabled:opacity-60"
         >
           {step.name === "verifying" ? "Verificando…" : "Entrar"}
