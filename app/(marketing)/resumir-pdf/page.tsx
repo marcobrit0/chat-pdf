@@ -41,7 +41,7 @@ export default function ResumirPdfPage() {
     <>
       <JsonLd data={faqSchema(faqs)} />
       <article className="bg-canvas">
-        <div className="mx-auto w-full max-w-6xl px-4 pt-8 sm:px-6">
+        <div className="mx-auto w-full max-w-[1240px] px-8 pt-8">
           <Breadcrumbs
             items={[
               { label: "Início", path: "/" },
@@ -50,9 +50,9 @@ export default function ResumirPdfPage() {
           />
         </div>
 
-        {/* Hero / state-aware client surface */}
-        <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 md:py-12">
-          <header className="mb-8 max-w-3xl">
+        {/* Hero / state-aware client surface — design: padding 32px 32px 80px */}
+        <div className="mx-auto w-full max-w-[1240px] px-8 pb-20 pt-8">
+          <header className="mb-8 max-w-[760px]">
             <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
               Resumo grátis · pt-BR · sem cadastro
             </p>
@@ -70,8 +70,8 @@ export default function ResumirPdfPage() {
 
         {/* FAQ + see also */}
         <div className="border-t border-subtle-gray bg-canvas">
-          <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 md:py-20">
-            <div className="grid gap-12 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+          <div className="mx-auto w-full max-w-[1240px] px-8 py-[88px]">
+            <div className="grid gap-16 md:grid-cols-[0.9fr_1.1fr]">
               <div>
                 <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
                   Perguntas frequentes

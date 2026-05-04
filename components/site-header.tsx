@@ -1,13 +1,13 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const navItems = [
-  { href: "/chat-pdf", label: "Chat PDF" },
+  { href: "/", label: "Início" },
   { href: "/resumir-pdf", label: "Resumir PDF" },
+  { href: "/#casos-de-uso", label: "Casos de uso" },
   { href: "/guias", label: "Guias" },
   { href: "/precos", label: "Preços" },
 ] as const;
@@ -27,9 +27,14 @@ const compareLinks = [
 ] as const;
 
 /**
- * Sticky marketing header. Desktop: horizontal nav. Mobile: hamburger opens a
- * full-height sheet that exposes nav + use-case + comparison shortcuts so the
- * whole SEO surface is reachable in one tap.
+ * Marketing site header (PDFIA Redesign).
+ *
+ * Design spec (PDFIA Redesign.html → .site-header):
+ *  - bg: --color-canvas, hairline bottom border
+ *  - inner: max-width 1240px, padding 18px 32px
+ *  - brand: 22×22px black square with gold "P" (mono 11px/700) + "PDFIA" wordmark
+ *  - nav: 28px gap, 14px charcoal-text
+ *  - right: ghost "Entrar" + outline "Resumir um PDF"
  */
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -51,35 +56,41 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-subtle-gray bg-crisp-white/95 backdrop-blur">
-      <div className="mx-auto flex min-h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
-        <Link href="/" className="flex items-center">
-          <Image
-            src="/pdfia-logo.png"
-            alt="PDFIA"
-            width={150}
-            height={32}
-            className="h-8 w-auto"
-            priority
-          />
+    <header className="border-b border-subtle-gray bg-canvas">
+      <div className="mx-auto flex w-full max-w-[1240px] items-center justify-between gap-6 px-8 py-[18px]">
+        <Link
+          href="/"
+          aria-label="PDFIA — início"
+          className="flex items-center gap-2.5"
+        >
+          <span
+            aria-hidden="true"
+            className="grid h-[22px] w-[22px] place-items-center rounded-[5px] bg-midnight-ink font-mono text-[11px] font-bold leading-none text-apollo-gold"
+          >
+            P
+          </span>
+          <span className="font-display text-base font-semibold tracking-[-0.01em] text-midnight-ink">
+            PDFIA
+          </span>
         </Link>
 
         <nav
-          className="hidden items-center justify-end gap-x-6 text-sm text-charcoal-text md:flex"
+          className="hidden items-center gap-7 text-sm text-charcoal-text md:flex"
           aria-label="Principal"
         >
           {navItems.map((item) => {
-            const active = pathname === item.href;
+            const active =
+              item.href === "/"
+                ? pathname === "/"
+                : pathname?.startsWith(item.href.split("#")[0] ?? item.href);
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={
-                  "relative transition-opacity hover:opacity-80 " +
-                  (active
-                    ? "text-midnight-ink after:absolute after:-bottom-1.5 after:left-0 after:right-0 after:h-px after:bg-midnight-ink"
-                    : "")
+                  "transition-colors hover:text-midnight-ink " +
+                  (active ? "text-midnight-ink" : "")
                 }
               >
                 {item.label}
@@ -88,18 +99,18 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
           <Link
-            href="/resumir-pdf"
-            className="hidden rounded-[length:var(--radius-buttons)] border border-midnight-ink px-3 py-2 text-sm font-medium text-midnight-ink md:inline-flex"
+            href="/login"
+            className="hidden rounded-[length:var(--radius-buttons)] px-3 py-2 text-sm text-charcoal-text transition-colors hover:text-midnight-ink md:inline-flex"
           >
-            Resumir PDF
+            Entrar
           </Link>
           <Link
-            href="/app"
-            className="hidden rounded-[length:var(--radius-buttons)] bg-apollo-gold px-3 py-2 text-sm font-medium text-midnight-ink md:inline-flex"
+            href="/resumir-pdf"
+            className="hidden items-center justify-center rounded-[length:var(--radius-buttons)] border border-midnight-ink px-3 py-2 text-sm font-medium text-midnight-ink transition-colors hover:bg-midnight-ink hover:text-crisp-white md:inline-flex"
           >
-            Entrar no app
+            Resumir um PDF
           </Link>
           <button
             type="button"
@@ -107,7 +118,7 @@ export function SiteHeader() {
             aria-controls="mobile-sheet"
             aria-label={open ? "Fechar menu" : "Abrir menu"}
             onClick={() => setOpen((v) => !v)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-[length:var(--radius-buttons)] border border-midnight-ink text-midnight-ink md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-[length:var(--radius-buttons)] border border-midnight-ink text-midnight-ink md:hidden"
           >
             <Hamburger open={open} />
           </button>
@@ -120,59 +131,59 @@ export function SiteHeader() {
             type="button"
             aria-label="Fechar menu"
             onClick={close}
-            className="fixed inset-x-0 top-16 bottom-0 z-30 bg-midnight-ink/10 md:hidden"
+            className="fixed inset-x-0 top-[60px] bottom-0 z-30 bg-midnight-ink/10 md:hidden"
           />
           <div
             id="mobile-sheet"
             role="dialog"
             aria-modal="true"
             aria-label="Menu de navegação"
-            className="fixed inset-x-0 top-16 z-40 max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-subtle-gray bg-crisp-white px-4 pb-12 pt-6 sm:px-6 md:hidden"
+            className="fixed inset-x-0 top-[60px] z-40 max-h-[calc(100dvh-60px)] overflow-y-auto border-t border-subtle-gray bg-crisp-white px-4 pb-12 pt-6 sm:px-6 md:hidden"
           >
-          <ul className="space-y-1">
-            {navItems.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  onClick={close}
-                  className="flex items-center justify-between border-b border-subtle-gray py-3 font-display text-2xl font-semibold text-midnight-ink"
-                >
-                  {item.label}
-                  <span aria-hidden="true" className="text-faded-stone">
-                    →
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+            <ul className="space-y-1">
+              {navItems.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    onClick={close}
+                    className="flex items-center justify-between border-b border-subtle-gray py-3 font-display text-2xl font-semibold text-midnight-ink"
+                  >
+                    {item.label}
+                    <span aria-hidden="true" className="text-faded-stone">
+                      →
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
 
-          <div className="mt-8 grid gap-3">
-            <Link
-              href="/resumir-pdf"
-              onClick={close}
-              className="inline-flex items-center justify-center rounded-[length:var(--radius-buttons)] bg-apollo-gold px-5 py-3 text-base font-medium text-midnight-ink"
-            >
-              Resumir PDF grátis
-            </Link>
-            <Link
-              href="/app"
-              onClick={close}
-              className="inline-flex items-center justify-center rounded-[length:var(--radius-buttons)] border border-midnight-ink px-5 py-3 text-base font-medium text-midnight-ink"
-            >
-              Entrar no app
-            </Link>
-          </div>
+            <div className="mt-8 grid gap-3">
+              <Link
+                href="/resumir-pdf"
+                onClick={close}
+                className="inline-flex items-center justify-center rounded-[length:var(--radius-buttons)] border border-midnight-ink px-5 py-3 text-base font-medium text-midnight-ink"
+              >
+                Resumir um PDF
+              </Link>
+              <Link
+                href="/login"
+                onClick={close}
+                className="inline-flex items-center justify-center rounded-[length:var(--radius-buttons)] bg-apollo-gold px-5 py-3 text-base font-medium text-midnight-ink"
+              >
+                Entrar
+              </Link>
+            </div>
 
-          <NavGroup
-            title="Casos de uso"
-            items={[...useCaseLinks]}
-            onLinkClick={close}
-          />
-          <NavGroup
-            title="Comparações"
-            items={[...compareLinks]}
-            onLinkClick={close}
-          />
+            <NavGroup
+              title="Casos de uso"
+              items={[...useCaseLinks]}
+              onLinkClick={close}
+            />
+            <NavGroup
+              title="Comparações"
+              items={[...compareLinks]}
+              onLinkClick={close}
+            />
           </div>
         </>
       ) : null}
