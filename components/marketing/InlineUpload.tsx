@@ -7,6 +7,7 @@ import {
   ANON_MAX_PAGES,
   PDF_MIME_TYPES,
 } from "@/lib/constants/limits";
+import { setPendingUpload } from "@/lib/uploads/pending-upload";
 
 type Props = {
   /** Where to send the user once a file is selected. */
@@ -43,14 +44,9 @@ export function InlineUpload({
         setError(`Arquivo grande demais (limite gratuito: ${mb} MB).`);
         return;
       }
-      try {
-        sessionStorage.setItem(
-          "pendingUpload",
-          JSON.stringify({ name: file.name, size: file.size, ts: Date.now() }),
-        );
-      } catch {
-        // sessionStorage may be unavailable; flow still continues on next page.
-      }
+      // Hand the actual File to the summary client across the route change so
+      // it can run the upload immediately and show its loading animation.
+      setPendingUpload(file);
       router.push(`${redirectTo}?from=hero`);
     },
     [redirectTo, router],
@@ -80,7 +76,7 @@ export function InlineUpload({
         onDragLeave={() => setDragging(false)}
         onDrop={onDrop}
         className={
-          "group flex cursor-pointer flex-col items-center justify-center gap-2 border border-dashed " +
+          "group flex cursor-pointer flex-col items-center justify-center gap-2 rounded-[length:var(--radius-md)] border border-dashed " +
           padY +
           " px-5 text-center transition-colors " +
           (dragging
@@ -88,14 +84,17 @@ export function InlineUpload({
             : "border-soft-stone bg-crisp-white hover:border-midnight-ink")
         }
       >
-        <span className="font-display text-lg font-semibold text-midnight-ink sm:text-xl">
-          Solte um PDF aqui
+        <span className="inline-flex items-center gap-2">
+          <UploadGlyph />
+          <span className="font-display text-lg font-semibold tracking-tight text-midnight-ink sm:text-xl">
+            Solte um PDF aqui
+          </span>
         </span>
         <span className="text-sm text-charcoal-text">
           ou{" "}
           <span className="underline underline-offset-4">clique para selecionar</span>
         </span>
-        <span className="font-condensed text-xs uppercase tracking-[0.18em] text-faded-stone">
+        <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-faded-stone">
           Grátis · Sem cadastro · Até {ANON_MAX_PAGES} páginas
         </span>
         <input
@@ -112,5 +111,32 @@ export function InlineUpload({
         </p>
       ) : null}
     </div>
+  );
+}
+
+function UploadGlyph() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      aria-hidden="true"
+      className="text-midnight-ink"
+    >
+      <path
+        d="M10 13V3M10 3l-3.5 3.5M10 3l3.5 3.5"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M3.5 13v3a1 1 0 001 1h11a1 1 0 001-1v-3"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+      />
+    </svg>
   );
 }
