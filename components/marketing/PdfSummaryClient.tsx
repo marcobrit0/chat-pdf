@@ -616,8 +616,11 @@ function Locked({
 }) {
   return (
     <div className="relative">
+      {/* `inert` removes the blurred preview from tab order AND the a11y tree —
+          required because real <button>s inside the children would otherwise
+          be focusable despite the visual blur (WCAG 4.1.2). */}
       <div
-        aria-hidden="true"
+        inert
         className="pointer-events-none select-none"
         style={{ filter: "blur(6px)", opacity: 0.55 }}
       >
