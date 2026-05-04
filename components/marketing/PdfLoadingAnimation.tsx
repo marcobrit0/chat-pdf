@@ -45,7 +45,7 @@ export function PdfLoadingAnimation({ fileName, pageHint }: Props) {
   return (
     <section className="relative overflow-hidden rounded-[length:var(--radius-cards)] border border-midnight-ink bg-crisp-white">
       <div className="grid gap-0 md:grid-cols-[minmax(0,260px)_1fr]">
-        {/* Document mock with scan line */}
+        {/* Stylized document silhouette + scan animation while the API runs. */}
         <div className="relative border-b border-subtle-gray bg-canvas p-6 md:border-b-0 md:border-r">
           <div className="relative mx-auto aspect-[0.77/1] w-full max-w-[200px] overflow-hidden border border-subtle-gray bg-crisp-white shadow-[0_1px_0_var(--color-subtle-gray)]">
             <div className="space-y-1.5 px-3 pt-3 font-mono text-[6px] leading-[1.5] text-faded-stone">
