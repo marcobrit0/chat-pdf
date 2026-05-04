@@ -168,7 +168,7 @@ export default function HomePage() {
                   Saída esperada
                 </p>
                 <span className="rounded-[4px] border border-subtle-gray bg-crisp-white px-1.5 py-0.5 font-mono text-[11px] tracking-[0.04em] text-charcoal-text">
-                  demo
+                  exemplo
                 </span>
               </div>
               <h3 className="mt-3 font-display text-lg font-semibold tracking-tight text-midnight-ink">
@@ -246,7 +246,7 @@ export default function HomePage() {
               href="/guias/como-resumir-pdf-com-ia"
               className="self-start rounded-[6px] border border-midnight-ink px-3 py-2 text-[13px] font-medium text-midnight-ink hover:bg-midnight-ink hover:text-crisp-white md:self-end"
             >
-              Ver demo completo →
+              Ver guia completo →
             </Link>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
