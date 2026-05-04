@@ -24,11 +24,14 @@ const ROUTE = "api/summarize/anonymous";
 const MULTIPART_OVERHEAD_BYTES = 1024 * 1024;
 
 /**
- * Placeholder summary when OpenRouter is not configured (keeps API contract for UI tests).
+ * Dev-only fallback so contributors without an OpenRouter key still get a
+ * working UI. Never returned in production — the route surfaces a 503 instead
+ * so the operator notices the missing config.
  */
-function buildStubSummary(): SummaryPayload & { stub: true } {
+function buildDevStubSummary(pageCount: number): SummaryPayload & { stub: true } {
   return {
     stub: true,
+    pageCount,
     summary:
       "Configure OPENROUTER_API_KEY para gerar resumos reais. Este é um retorno de exemplo para desenvolvimento.",
     bulletPoints: [
@@ -143,7 +146,16 @@ export async function POST(request: Request) {
     }
 
     if (!process.env.OPENROUTER_API_KEY) {
-      return NextResponse.json(buildStubSummary());
+      if (process.env.NODE_ENV === "production") {
+        return NextResponse.json(
+          {
+            error:
+              "Resumos temporariamente indisponíveis. Tente novamente em alguns minutos.",
+          },
+          { status: 503 },
+        );
+      }
+      return NextResponse.json(buildDevStubSummary(pageCount));
     }
 
     const ip = getClientIp(request);
@@ -161,7 +173,7 @@ export async function POST(request: Request) {
 
     try {
       const payload = await summarizePdfText(text, { contractIntent });
-      return NextResponse.json(payload);
+      return NextResponse.json({ ...payload, pageCount });
     } catch (e) {
       logApiError(ROUTE, e);
       return NextResponse.json(
