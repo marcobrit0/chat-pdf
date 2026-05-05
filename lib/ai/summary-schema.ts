@@ -7,6 +7,8 @@ import { z } from "zod";
  * so the UI can show a real page count next to the result without trusting the LLM.
  */
 export const summarySchema = z.object({
+  shortSummary: z.string().optional(),
+  detailedSummary: z.string().optional(),
   summary: z.string(),
   bulletPoints: z.array(z.string()),
   keyDatesOrValues: z.array(z.string()),
@@ -16,3 +18,12 @@ export const summarySchema = z.object({
 });
 
 export type SummaryPayload = z.infer<typeof summarySchema>;
+
+export function normalizeSummaryPayload(input: unknown): SummaryPayload {
+  const parsed = summarySchema.parse(input);
+  return {
+    ...parsed,
+    shortSummary: parsed.shortSummary ?? parsed.summary,
+    detailedSummary: parsed.detailedSummary ?? parsed.summary,
+  };
+}

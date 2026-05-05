@@ -53,7 +53,8 @@ function formatAnalysisForCopy(parsed: AnalyzeOk): string {
   const lines: string[] = [`Modo: ${MODE_LABELS[parsed.mode]}`, ""];
   if (parsed.mode === "summary") {
     const d = parsed.data;
-    lines.push(d.summary, "");
+    lines.push("Resumo curto:", d.shortSummary ?? d.summary, "");
+    lines.push("Resumo completo:", d.detailedSummary ?? d.summary, "");
     lines.push("Pontos:", ...d.bulletPoints.map((b) => `• ${b}`));
     lines.push(
       "",
@@ -112,7 +113,18 @@ function formatAnalysisForCopy(parsed: AnalyzeOk): string {
 function SummaryView({ data }: { data: SummaryPayload }) {
   return (
     <div className="space-y-4 text-body-sm text-graphite">
-      <p className="">{data.summary}</p>
+      <div className="border-b border-subtle-gray pb-4">
+        <MonoLabel>Resumo curto</MonoLabel>
+        <p className="mt-2 text-body text-midnight-ink">
+          {data.shortSummary ?? data.summary}
+        </p>
+      </div>
+      <div>
+        <MonoLabel>Resumo completo</MonoLabel>
+        <p className="mt-2 text-charcoal-text">
+          {data.detailedSummary ?? data.summary}
+        </p>
+      </div>
       <div>
         <MonoLabel>Em tópicos</MonoLabel>
         <ul className="list-inside list-disc space-y-1">
