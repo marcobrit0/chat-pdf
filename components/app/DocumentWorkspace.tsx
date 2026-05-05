@@ -17,6 +17,7 @@ import type {
 import type { SummaryPayload } from "@/lib/ai/summary-schema";
 import { track } from "@/lib/analytics";
 import { extractPageHintsFromAssistantText } from "@/lib/chat-citation-hints";
+import { toPremiumChatRequestMessages } from "@/lib/chat/request-payload";
 
 /** Mensagens do chat alinhadas ao endpoint `/api/chat/premium`. */
 type ChatTurn = {
@@ -344,7 +345,7 @@ export function DocumentWorkspace({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           documentId,
-          messages: nextHistory,
+          messages: toPremiumChatRequestMessages(nextHistory),
         }),
       });
       const json = (await res.json()) as {
