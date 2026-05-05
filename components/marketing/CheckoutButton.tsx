@@ -49,11 +49,11 @@ export function CheckoutButton({ priceId, label }: CheckoutButtonProps) {
         type="button"
         onClick={onClick}
         disabled={loading || !priceId}
-        className="inline-flex min-w-[200px] items-center justify-center rounded-[length:var(--radius-buttons)] bg-apollo-gold px-5 py-3 text-base font-medium text-midnight-ink disabled:opacity-60"
+        className="inline-flex min-w-[200px] items-center justify-center rounded-lg bg-apollo-gold px-5 py-3 text-body font-medium text-midnight-ink disabled:opacity-60"
       >
         {loading ? "…" : label}
       </button>
-      {error ? <p className="mt-2 text-sm text-red-700">{error}</p> : null}
+      {error ? <p className="mt-2 text-body-sm text-red-700">{error}</p> : null}
     </div>
   );
 }

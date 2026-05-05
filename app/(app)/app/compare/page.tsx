@@ -29,16 +29,16 @@ export default async function ComparePdfPlaceholderPage() {
   const gate = await requirePremiumAccess(supabase, user.id);
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8">
-      <nav className="text-sm text-charcoal-text">
+    <div className="container-page max-w-[760px] space-y-8 py-section-md">
+      <nav className="text-body-sm text-charcoal-text">
         <Link href="/app" className="underline">
           ← Biblioteca
         </Link>
       </nav>
 
       <header>
-        <h1 className="font-display text-3xl font-semibold text-midnight-ink">Comparar PDFs</h1>
-        <p className="mt-3 text-charcoal-text">
+        <h1 className="font-display text-heading-lg font-semibold text-midnight-ink text-[clamp(28px,4vw,40px)]">Comparar PDFs</h1>
+        <p className="mt-3 text-body text-charcoal-text">
           Estamos construindo a comparação lado a lado (texto e diferenças) para assinantes Premium. Nenhum arquivo é processado nesta página até o lançamento.
         </p>
       </header>
@@ -46,12 +46,12 @@ export default async function ComparePdfPlaceholderPage() {
       {!gate.ok ? (
         <PaywallCta variant="default" reason={`${gate.reason} Quando liberarmos, estará incluído no Premium.`} />
       ) : (
-        <div className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
-          <p className="font-condensed text-sm font-semibold uppercase text-faded-stone">Status</p>
-          <p className="mt-2 text-charcoal-text">
+        <div className="rounded-lg border border-subtle-gray bg-crisp-white p-card">
+          <p className="eyebrow text-faded-stone">Status</p>
+          <p className="mt-2 text-body text-charcoal-text">
             Você tem Premium — avisaremos no produto quando a comparação estiver disponível. Até lá, use o chat por documento para checar trechos.
           </p>
-          <Link href="/app" className="mt-4 inline-block text-sm font-medium text-midnight-ink underline">
+          <Link href="/app" className="mt-4 inline-block text-body-sm font-medium text-midnight-ink underline">
             Voltar à biblioteca
           </Link>
         </div>

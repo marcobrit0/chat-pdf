@@ -27,7 +27,7 @@ export default function PrivacidadePage() {
       breadcrumbs={breadcrumbs}
     >
       <section className="space-y-4">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-subheading font-semibold text-midnight-ink">
           1. Quem somos
         </h2>
         <p>
@@ -37,7 +37,7 @@ export default function PrivacidadePage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-subheading font-semibold text-midnight-ink">
           2. Dados que tratamos
         </h2>
         <p>
@@ -49,7 +49,7 @@ export default function PrivacidadePage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-subheading font-semibold text-midnight-ink">
           3. Bases legais
         </h2>
         <p>
@@ -60,7 +60,7 @@ export default function PrivacidadePage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-subheading font-semibold text-midnight-ink">
           4. Compartilhamento
         </h2>
         <p>
@@ -71,7 +71,7 @@ export default function PrivacidadePage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-subheading font-semibold text-midnight-ink">
           5. Retenção e exclusão
         </h2>
         <p>
@@ -82,7 +82,7 @@ export default function PrivacidadePage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-subheading font-semibold text-midnight-ink">
           6. Direitos do titular
         </h2>
         <p>
@@ -93,7 +93,7 @@ export default function PrivacidadePage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-subheading font-semibold text-midnight-ink">
           7. Encarregado (DPO)
         </h2>
         <p>

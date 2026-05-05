@@ -110,13 +110,13 @@ export default function GuiaResumirPdfPage() {
         <Breadcrumbs items={breadcrumbs} />
 
         <header className="mt-6 border-b border-subtle-gray pb-8">
-          <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+          <p className="eyebrow text-faded-stone">
             Guia · ~10 min de leitura
           </p>
-          <h1 className="mt-4 font-display text-[clamp(2rem,5vw,3.25rem)] font-semibold leading-[1.05] tracking-tight text-midnight-ink">
+          <h1 className="mt-4 font-display text-[clamp(2rem,5vw,3.25rem)] font-semibold leading-[1.05]  text-midnight-ink">
             Como resumir PDF com IA
           </h1>
-          <p className="mt-5 text-base leading-relaxed text-charcoal-text sm:text-lg">
+          <p className="mt-5 text-body  text-charcoal-text sm:text-body-lg">
             Guia prático para tirar o melhor proveito de uma ferramenta de IA
             para PDFs — do envio à decisão de quando vale assinar o Premium.
             Em PT-BR, com exemplos brasileiros (CLT, editais, apólices,
@@ -124,14 +124,14 @@ export default function GuiaResumirPdfPage() {
           </p>
         </header>
 
-        <aside className="mt-10 rounded-[length:var(--radius-cards)] border border-midnight-ink bg-canvas p-6">
-          <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+        <aside className="mt-10 rounded-lg border border-midnight-ink bg-canvas p-6">
+          <p className="eyebrow text-faded-stone">
             TL;DR
           </p>
-          <p className="mt-2 font-display text-xl font-semibold leading-snug text-midnight-ink">
+          <p className="mt-2 font-display text-subheading font-semibold leading-snug text-midnight-ink">
             Use IA para triar — não para decidir
           </p>
-          <p className="mt-3 text-sm leading-relaxed text-charcoal-text">
+          <p className="mt-3 text-body-sm  text-charcoal-text">
             A IA acelera a leitura de PDFs longos extraindo o que costuma
             importar (datas, valores, partes, prazos). Trate o resumo como
             primeiro passe — vá ao texto original antes de qualquer decisão
@@ -141,12 +141,12 @@ export default function GuiaResumirPdfPage() {
 
         <nav
           aria-label="Sumário"
-          className="mt-10 rounded-[length:var(--radius-cards)] bg-crisp-white p-5"
+          className="mt-10 rounded-lg bg-crisp-white p-5"
         >
-          <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+          <p className="eyebrow text-faded-stone">
             Neste guia
           </p>
-          <ol className="mt-3 space-y-2 text-sm text-charcoal-text">
+          <ol className="mt-3 space-y-2 text-body-sm text-charcoal-text">
             {toc.map((item) => (
               <li key={item.id}>
                 <a
@@ -162,9 +162,9 @@ export default function GuiaResumirPdfPage() {
 
         <section
           id="envio"
-          className="mt-14 space-y-4 text-base leading-relaxed text-graphite"
+          className="mt-14 space-y-4 text-body  text-graphite"
         >
-          <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+          <h2 className="font-display text-heading font-semibold text-midnight-ink">
             1. Envio: o PDF certo
           </h2>
           <p>
@@ -188,9 +188,9 @@ export default function GuiaResumirPdfPage() {
 
         <section
           id="leitura"
-          className="mt-14 space-y-4 text-base leading-relaxed text-graphite"
+          className="mt-14 space-y-4 text-body  text-graphite"
         >
-          <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+          <h2 className="font-display text-heading font-semibold text-midnight-ink">
             2. Leitura: o que esperar do resumo
           </h2>
           <p>
@@ -215,9 +215,9 @@ export default function GuiaResumirPdfPage() {
 
         <section
           id="perguntas"
-          className="mt-14 space-y-4 text-base leading-relaxed text-graphite"
+          className="mt-14 space-y-4 text-body  text-graphite"
         >
-          <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+          <h2 className="font-display text-heading font-semibold text-midnight-ink">
             3. Perguntas para fazer ao texto
           </h2>
           <p>
@@ -242,9 +242,9 @@ export default function GuiaResumirPdfPage() {
 
         <section
           id="premium"
-          className="mt-14 space-y-4 text-base leading-relaxed text-graphite"
+          className="mt-14 space-y-4 text-body  text-graphite"
         >
-          <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+          <h2 className="font-display text-heading font-semibold text-midnight-ink">
             4. Quando vale subir para o Premium
           </h2>
           <p>Vale subir quando você se vê fazendo uma destas coisas:</p>
@@ -282,9 +282,9 @@ export default function GuiaResumirPdfPage() {
 
         <section
           id="checklist"
-          className="mt-14 space-y-4 text-base leading-relaxed text-graphite"
+          className="mt-14 space-y-4 text-body  text-graphite"
         >
-          <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+          <h2 className="font-display text-heading font-semibold text-midnight-ink">
             5. Checklist por tipo de documento
           </h2>
           <p>
@@ -295,12 +295,12 @@ export default function GuiaResumirPdfPage() {
             {checklist.map((c) => (
               <div
                 key={c.type}
-                className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-5"
+                className="rounded-lg border border-subtle-gray bg-crisp-white p-5"
               >
-                <p className="font-display text-base font-semibold text-midnight-ink">
+                <p className="font-display text-body font-semibold text-midnight-ink">
                   {c.type}
                 </p>
-                <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-charcoal-text">
+                <ul className="mt-3 list-disc space-y-1 pl-5 text-body-sm text-charcoal-text">
                   {c.points.map((p) => (
                     <li key={p}>{p}</li>
                   ))}
@@ -311,19 +311,19 @@ export default function GuiaResumirPdfPage() {
         </section>
 
         <section className="mt-16 border-t border-subtle-gray pt-8">
-          <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+          <p className="eyebrow text-faded-stone">
             Próximo passo
           </p>
           <div className="mt-3 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/resumir-pdf"
-              className="inline-flex items-center justify-center rounded-[length:var(--radius-buttons)] bg-apollo-gold px-5 py-3 text-base font-medium text-midnight-ink"
+              className="inline-flex items-center justify-center rounded-lg bg-apollo-gold px-5 py-3 text-body font-medium text-midnight-ink"
             >
               Resumir um PDF agora
             </Link>
             <Link
               href="/precos"
-              className="inline-flex items-center justify-center rounded-[length:var(--radius-buttons)] border border-midnight-ink px-5 py-3 text-base font-medium text-midnight-ink"
+              className="inline-flex items-center justify-center rounded-lg border border-midnight-ink px-5 py-3 text-body font-medium text-midnight-ink"
             >
               Ver planos Premium
             </Link>
@@ -331,10 +331,10 @@ export default function GuiaResumirPdfPage() {
         </section>
 
         <section className="mt-12 border-t border-subtle-gray pt-8">
-          <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+          <p className="eyebrow text-faded-stone">
             Veja também
           </p>
-          <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+          <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-body-sm">
             <li>
               <Link
                 href="/analisar-contrato-clt"

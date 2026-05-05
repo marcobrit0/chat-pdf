@@ -73,13 +73,13 @@ export default function ChatPdfPage() {
 
         <header className="mt-6 grid gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] md:items-end">
           <div>
-            <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+            <p className="eyebrow text-faded-stone">
               Chat com PDF
             </p>
-            <h1 className="mt-3 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-[1.05] tracking-tight text-midnight-ink">
+            <h1 className="mt-3 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-[1.05]  text-midnight-ink">
               Pergunte ao seu PDF e receba respostas com a página citada.
             </h1>
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-charcoal-text sm:text-lg">
+            <p className="mt-5 max-w-2xl text-body  text-charcoal-text sm:text-body-lg">
               Comece pelo resumo gratuito. Quando precisar fazer perguntas
               específicas — cláusulas de contrato, prazos do edital, exclusões
               da apólice — entre no Premium para chat com citação de página.
@@ -87,13 +87,13 @@ export default function ChatPdfPage() {
             <div className="mt-7 flex flex-wrap gap-3">
               <Link
                 href="/precos"
-                className="inline-flex items-center justify-center rounded-[length:var(--radius-buttons)] bg-apollo-gold px-5 py-3 text-base font-medium text-midnight-ink"
+                className="inline-flex items-center justify-center rounded-lg bg-apollo-gold px-5 py-3 text-body font-medium text-midnight-ink"
               >
                 Liberar chat (Premium)
               </Link>
               <Link
                 href="#resumir"
-                className="inline-flex items-center justify-center rounded-[length:var(--radius-buttons)] border border-midnight-ink px-5 py-3 text-base font-medium text-midnight-ink"
+                className="inline-flex items-center justify-center rounded-lg border border-midnight-ink px-5 py-3 text-body font-medium text-midnight-ink"
               >
                 Testar resumo grátis
               </Link>
@@ -108,18 +108,18 @@ export default function ChatPdfPage() {
           className="mt-20 grid scroll-mt-20 gap-10 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]"
         >
           <div>
-            <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+            <p className="eyebrow text-faded-stone">
               Comece pelo resumo
             </p>
-            <h2 className="mt-4 font-display text-3xl font-semibold leading-tight text-midnight-ink">
+            <h2 className="mt-4 font-display text-heading-lg font-semibold leading-tight text-midnight-ink">
               Sem cadastro. Sem promessa de chat ilimitado.
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-charcoal-text">
+            <p className="mt-4 text-body  text-charcoal-text">
               O resumo gratuito te mostra do que o documento trata em segundos.
               Se precisar de chat com fontes ou de PDFs maiores, o Premium é o
               próximo passo natural.
             </p>
-            <ul className="mt-6 space-y-3 text-sm text-charcoal-text">
+            <ul className="mt-6 space-y-3 text-body-sm text-charcoal-text">
               <li className="flex items-start gap-3">
                 <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
                 Resumo estruturado com tópicos, datas e entidades.
@@ -141,10 +141,10 @@ export default function ChatPdfPage() {
 
         <section className="mt-20 grid gap-10 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
           <div>
-            <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+            <p className="eyebrow text-faded-stone">
               Perguntas frequentes
             </p>
-            <h2 className="mt-4 font-display text-3xl font-semibold leading-tight text-midnight-ink">
+            <h2 className="mt-4 font-display text-heading-lg font-semibold leading-tight text-midnight-ink">
               Sobre chat com PDF
             </h2>
           </div>
@@ -155,7 +155,7 @@ export default function ChatPdfPage() {
                 className="group py-5 [&_summary::-webkit-details-marker]:hidden"
               >
                 <summary className="flex cursor-pointer list-none items-start justify-between gap-6">
-                  <dt className="font-display text-lg font-semibold text-midnight-ink">
+                  <dt className="font-display text-body-lg font-semibold text-midnight-ink">
                     {f.q}
                   </dt>
                   <span
@@ -165,7 +165,7 @@ export default function ChatPdfPage() {
                     +
                   </span>
                 </summary>
-                <dd className="mt-3 max-w-2xl text-base leading-relaxed text-charcoal-text">
+                <dd className="mt-3 max-w-2xl text-body  text-charcoal-text">
                   {f.a}
                 </dd>
               </details>
@@ -174,10 +174,10 @@ export default function ChatPdfPage() {
         </section>
 
         <section className="mt-16 border-t border-subtle-gray pt-10">
-          <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+          <p className="eyebrow text-faded-stone">
             Veja também
           </p>
-          <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+          <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-body-sm">
             <li>
               <Link
                 href="/resumir-pdf"
@@ -227,12 +227,12 @@ function ChatPreview({
   }>;
 }) {
   return (
-    <div className="overflow-hidden rounded-[length:var(--radius-cards)] border border-midnight-ink bg-crisp-white">
+    <div className="overflow-hidden rounded-lg border border-midnight-ink bg-crisp-white">
       <div className="flex items-center justify-between border-b border-subtle-gray px-5 py-3">
-        <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+        <p className="eyebrow text-faded-stone">
           Exemplo · contrato CLT
         </p>
-        <span className="font-condensed text-xs text-faded-stone">12 págs</span>
+        <span className="font-condensed text-caption text-faded-stone">12 págs</span>
       </div>
       <ul className="divide-y divide-subtle-gray">
         {conversation.map((m, idx) => (
@@ -243,14 +243,14 @@ function ChatPreview({
               (m.role === "user" ? "bg-canvas" : "bg-crisp-white")
             }
           >
-            <p className="font-condensed text-[10px] uppercase tracking-[0.22em] text-faded-stone">
+            <p className="eyebrow text-faded-stone">
               {m.role === "user" ? "Você" : "PDFIA"}
             </p>
-            <p className="mt-1.5 text-sm leading-relaxed text-graphite">
+            <p className="mt-1.5 text-body-sm  text-graphite">
               {m.text}
             </p>
             {m.citation ? (
-              <p className="mt-2 inline-flex font-mono text-xs text-faded-stone">
+              <p className="mt-2 inline-flex font-mono text-caption text-faded-stone">
                 {m.citation}
               </p>
             ) : null}

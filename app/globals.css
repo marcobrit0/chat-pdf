@@ -19,6 +19,12 @@
   --color-accent-green: #f8ff2c;
   --color-violet-headline: #3f3653;
 
+  /* Auxiliary tokens — promoted from inline hex usages so the palette stays
+     closed. Status dot is the live-pill green; midnight-divider is the
+     hairline used on dark surfaces (stats strip). */
+  --color-status-dot: #a3c93a;
+  --color-midnight-divider: #2a2a2a;
+
   --color-surface-canvas: #f7f5f2;
   --color-surface-primary-card: #ffffff;
   --color-surface-section: #ccc9c6;
@@ -30,23 +36,41 @@
     var(--font-abc-diatype), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-founders-grotesk-mono), ui-monospace, monospace;
 
-  /* —— Type scale —— */
+  /* —— Type scale ——
+     Paired font-size + line-height + letter-spacing using Tailwind v4's
+     `--text-{name}--line-height` / `--letter-spacing` syntax so a single
+     `text-heading` utility carries the full token. */
   --text-caption: 12px;
-  --leading-caption: 14.4;
+  --text-caption--line-height: 1.2;
+  --text-caption--letter-spacing: 0.014em;
+
   --text-body-sm: 14px;
-  --leading-body-sm: 16.8;
+  --text-body-sm--line-height: 1.4;
+  --text-body-sm--letter-spacing: 0.014em;
+
   --text-body: 16px;
-  --leading-body: 24px;
+  --text-body--line-height: 1.5;
+  --text-body--letter-spacing: 0.009em;
+
   --text-body-lg: 18px;
-  --leading-body-lg: 18px;
+  --text-body-lg--line-height: 1.55;
+  --text-body-lg--letter-spacing: 0.009em;
+
   --text-subheading: 20px;
-  --leading-subheading: 24px;
+  --text-subheading--line-height: 1.2;
+  --text-subheading--letter-spacing: -0.01em;
+
   --text-heading: 24px;
-  --leading-heading: 28.8px;
+  --text-heading--line-height: 1.2;
+  --text-heading--letter-spacing: -0.018em;
+
   --text-heading-lg: 48px;
-  --leading-heading-lg: 50.4px;
+  --text-heading-lg--line-height: 1.05;
+  --text-heading-lg--letter-spacing: -0.018em;
+
   --text-display: 88px;
-  --leading-display: 92.4px;
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.024em;
 
   /* —— Spacing (8px base) —— */
   --spacing-unit: 8px;
@@ -71,10 +95,79 @@
   --radius-default: 8px;
   --radius-smallcard: 12px;
 
-  /* —— Layout —— */
+  /* —— Layout (semantic tokens consumed by @utility blocks below) ——
+     One vertical rhythm. Three card paddings. One page width. No
+     arbitraries. */
+  --section-py-sm: 56px; /* tight: stat strips, dense rows */
+  --section-py-md: 80px; /* default for content sections */
+  --section-py-lg: 96px; /* hero, marquee, final CTA */
+
+  --card-pad-compact: 16px; /* dense list/table cells, chips */
+  --card-pad-default: 24px; /* default cards */
+  --card-pad-elevated: 40px; /* hero cards, pricing, premium banners */
+
+  --container-page: 1240px;
+  --container-pad: 32px;
+
+  /* Legacy aliases retained so existing `var(--card-padding)` / `--section-gap`
+     consumers still resolve. New code should reach for the semantic tokens
+     above. */
   --section-gap: 40px;
   --card-padding: 24px;
   --element-gap: 8px;
+}
+
+/* —— Custom utilities ——
+   These exist so JSX reads `py-section-md`, `p-card`, `eyebrow` instead of
+   `py-[88px]`, `p-6`, `font-condensed text-[11px] uppercase tracking-[0.22em]
+   text-faded-stone`. Keeping the surface tiny is the point. */
+
+@utility py-section-sm {
+  padding-top: var(--section-py-sm);
+  padding-bottom: var(--section-py-sm);
+}
+@utility py-section-md {
+  padding-top: var(--section-py-md);
+  padding-bottom: var(--section-py-md);
+}
+@utility py-section-lg {
+  padding-top: var(--section-py-lg);
+  padding-bottom: var(--section-py-lg);
+}
+
+@utility p-card-compact {
+  padding: var(--card-pad-compact);
+}
+@utility p-card {
+  padding: var(--card-pad-default);
+}
+@utility p-card-elevated {
+  padding: var(--card-pad-elevated);
+}
+
+@utility container-page {
+  margin-inline: auto;
+  width: 100%;
+  max-width: var(--container-page);
+  padding-inline: var(--container-pad);
+}
+
+/* The two repeated label patterns. Anything else uppercase/condensed is a
+   variant of these — use them, don't reinvent. Color is intentionally NOT
+   set here so consumers can pair with any `text-*` token. */
+@utility eyebrow {
+  font-family: var(--font-condensed);
+  font-size: var(--text-caption);
+  line-height: 1.2;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+@utility mono-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 body {

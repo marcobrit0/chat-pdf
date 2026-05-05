@@ -48,14 +48,16 @@ export function PaywallCta({
 }) {
   const copy = COPY[variant];
   return (
-    <div className="rounded-[length:var(--radius-smallcard)] bg-ash-gray p-6 md:p-8">
-      <p className="font-condensed text-subheading font-bold text-midnight-ink">{copy.headline}</p>
-      <p className="mt-3 text-base leading-relaxed text-charcoal-text">
+    <div className="rounded-xl bg-ash-gray p-card md:p-card-elevated">
+      <p className="font-display text-subheading font-semibold text-midnight-ink">
+        {copy.headline}
+      </p>
+      <p className="mt-3 text-body text-charcoal-text">
         {reason ?? copy.body}
       </p>
       <Link
         href="/precos"
-        className="mt-6 inline-flex rounded-[length:var(--radius-buttons)] bg-apollo-gold px-5 py-3 text-base font-medium text-midnight-ink"
+        className="mt-6 inline-flex rounded-lg bg-apollo-gold px-5 py-3 text-body font-medium text-midnight-ink"
       >
         {copy.cta}
       </Link>

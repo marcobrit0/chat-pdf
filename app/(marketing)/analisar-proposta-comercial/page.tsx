@@ -44,11 +44,11 @@ export default function AnalisarPropostaComercialPage() {
         { href: "/comparar-pdfs", label: "Comparar PDFs" },
       ]}
     >
-      <section className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
-        <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+      <section className="rounded-lg border border-subtle-gray bg-crisp-white p-6">
+        <p className="eyebrow text-faded-stone">
           O que a análise identifica
         </p>
-        <ul className="mt-4 grid gap-2 text-base text-charcoal-text">
+        <ul className="mt-4 grid gap-2 text-body text-charcoal-text">
           <li>· Escopo do serviço ou produto oferecido</li>
           <li>· Valor total, parcelas e condições de pagamento</li>
           <li>· Prazo de entrega e etapas do projeto</li>

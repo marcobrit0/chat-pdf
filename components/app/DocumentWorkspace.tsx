@@ -71,10 +71,10 @@ function formatAnalysisForCopy(parsed: AnalyzeOk): string {
  */
 function SummaryView({ data }: { data: SummaryPayload }) {
   return (
-    <div className="space-y-4 text-sm text-graphite">
-      <p className="leading-relaxed">{data.summary}</p>
+    <div className="space-y-4 text-body-sm text-graphite">
+      <p className="">{data.summary}</p>
       <div>
-        <h3 className="mb-2 text-xs font-semibold uppercase text-faded-stone">Em tópicos</h3>
+        <h3 className="mb-2 text-caption font-semibold uppercase text-faded-stone">Em tópicos</h3>
         <ul className="list-inside list-disc space-y-1">
           {data.bulletPoints.map((b) => (
             <li key={b}>{b}</li>
@@ -83,7 +83,7 @@ function SummaryView({ data }: { data: SummaryPayload }) {
       </div>
       {data.keyDatesOrValues.length > 0 ? (
         <div>
-          <h3 className="mb-2 text-xs font-semibold uppercase text-faded-stone">Datas e valores</h3>
+          <h3 className="mb-2 text-caption font-semibold uppercase text-faded-stone">Datas e valores</h3>
           <ul className="list-inside list-disc space-y-1">
             {data.keyDatesOrValues.map((b) => (
               <li key={b}>{b}</li>
@@ -93,7 +93,7 @@ function SummaryView({ data }: { data: SummaryPayload }) {
       ) : null}
       {data.entities.length > 0 ? (
         <div>
-          <h3 className="mb-2 text-xs font-semibold uppercase text-faded-stone">Nomes e entidades</h3>
+          <h3 className="mb-2 text-caption font-semibold uppercase text-faded-stone">Nomes e entidades</h3>
           <p className="text-charcoal-text">{data.entities.join(", ")}</p>
         </div>
       ) : null}
@@ -109,11 +109,11 @@ function ExtractView({ data }: { data: ExtractPayload }) {
     { title: "Obrigações e prazos", items: data.obligationsOrDeadlines },
   ];
   return (
-    <div className="space-y-4 text-sm text-graphite">
+    <div className="space-y-4 text-body-sm text-graphite">
       {blocks.map((block) =>
         block.items.length > 0 ? (
           <div key={block.title}>
-            <h3 className="mb-2 text-xs font-semibold uppercase text-faded-stone">{block.title}</h3>
+            <h3 className="mb-2 text-caption font-semibold uppercase text-faded-stone">{block.title}</h3>
             <ul className="list-inside list-disc space-y-1">
               {block.items.map((item) => (
                 <li key={item}>{item}</li>
@@ -128,21 +128,21 @@ function ExtractView({ data }: { data: ExtractPayload }) {
 
 function RiskView({ data }: { data: RiskPayload }) {
   return (
-    <div className="space-y-4 text-sm text-graphite">
+    <div className="space-y-4 text-body-sm text-graphite">
       <ul className="space-y-3">
         {data.flaggedTopics.map((t, i) => (
-          <li key={`risk-row-${i}`} className="rounded-[length:var(--radius-md)] border border-subtle-gray bg-canvas px-3 py-2">
+          <li key={`risk-row-${i}`} className="rounded-md border border-subtle-gray bg-canvas px-3 py-2">
             <span className="font-medium text-midnight-ink">{t.area}</span>
             {t.pageReference ? (
-              <span className="text-xs text-faded-stone"> · {t.pageReference}</span>
+              <span className="text-caption text-faded-stone"> · {t.pageReference}</span>
             ) : null}
-            <p className="mt-1 leading-relaxed">{t.observation}</p>
+            <p className="mt-1 ">{t.observation}</p>
           </li>
         ))}
       </ul>
       {data.missingInformation.length > 0 ? (
         <div>
-          <h3 className="mb-2 text-xs font-semibold uppercase text-faded-stone">Lacunas no texto</h3>
+          <h3 className="mb-2 text-caption font-semibold uppercase text-faded-stone">Lacunas no texto</h3>
           <ul className="list-inside list-disc space-y-1">
             {data.missingInformation.map((x) => (
               <li key={x}>{x}</li>
@@ -152,7 +152,7 @@ function RiskView({ data }: { data: RiskPayload }) {
       ) : null}
       {data.suggestedReviewQuestions.length > 0 ? (
         <div>
-          <h3 className="mb-2 text-xs font-semibold uppercase text-faded-stone">Perguntas para revisar</h3>
+          <h3 className="mb-2 text-caption font-semibold uppercase text-faded-stone">Perguntas para revisar</h3>
           <ul className="list-inside list-disc space-y-1">
             {data.suggestedReviewQuestions.map((x) => (
               <li key={x}>{x}</li>
@@ -326,15 +326,15 @@ export function DocumentWorkspace({
 
   return (
     <div className="space-y-6">
-      <nav className="text-sm text-charcoal-text">
+      <nav className="text-body-sm text-charcoal-text">
         <Link href="/app" className="underline">
           ← Biblioteca
         </Link>
       </nav>
 
       <header>
-        <h1 className="font-display text-2xl font-semibold text-midnight-ink">{title}</h1>
-        <p className="mt-1 text-sm text-faded-stone">
+        <h1 className="font-display text-heading font-semibold text-midnight-ink">{title}</h1>
+        <p className="mt-1 text-body-sm text-faded-stone">
           {pageCount != null ? `${pageCount} páginas` : "Páginas —"} · Modos de análise e chat com fontes (Premium)
         </p>
       </header>
@@ -342,7 +342,7 @@ export function DocumentWorkspace({
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(260px,340px)]">
         <div className="space-y-6">
           {/* --- Painel de modos estruturados (API `/api/documents/[id]/analyze`) --- */}
-          <section className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-4">
+          <section className="rounded-lg border border-subtle-gray bg-crisp-white p-4">
             <div className="flex flex-wrap items-center gap-2 border-b border-subtle-gray pb-3">
               {(Object.keys(MODE_LABELS) as Mode[]).map((m) => (
                 <button
@@ -351,8 +351,8 @@ export function DocumentWorkspace({
                   onClick={() => setActiveMode(m)}
                   className={
                     activeMode === m
-                      ? "rounded-[length:var(--radius-buttons)] bg-midnight-ink px-3 py-1.5 text-sm font-medium text-crisp-white"
-                      : "rounded-[length:var(--radius-buttons)] border border-ash-gray px-3 py-1.5 text-sm text-charcoal-text hover:bg-canvas"
+                      ? "rounded-lg bg-midnight-ink px-3 py-1.5 text-body-sm font-medium text-crisp-white"
+                      : "rounded-lg border border-ash-gray px-3 py-1.5 text-body-sm text-charcoal-text hover:bg-canvas"
                   }
                 >
                   {MODE_LABELS[m]}
@@ -360,9 +360,9 @@ export function DocumentWorkspace({
               ))}
             </div>
 
-            <p className="mt-3 text-sm text-charcoal-text">{modeIntro[activeMode]}</p>
+            <p className="mt-3 text-body-sm text-charcoal-text">{modeIntro[activeMode]}</p>
 
-            <label className="mt-3 flex cursor-pointer items-center gap-2 text-sm text-charcoal-text">
+            <label className="mt-3 flex cursor-pointer items-center gap-2 text-body-sm text-charcoal-text">
               <input
                 type="checkbox"
                 checked={contractFocus}
@@ -377,7 +377,7 @@ export function DocumentWorkspace({
                 type="button"
                 onClick={() => void runAnalysis()}
                 disabled={analyzeLoading}
-                className="rounded-[length:var(--radius-buttons)] bg-apollo-gold px-4 py-2 text-sm font-medium text-midnight-ink disabled:opacity-50"
+                className="rounded-lg bg-apollo-gold px-4 py-2 text-body-sm font-medium text-midnight-ink disabled:opacity-50"
               >
                 {analyzeLoading ? "Gerando…" : currentResult ? "Atualizar análise" : "Gerar análise"}
               </button>
@@ -385,28 +385,28 @@ export function DocumentWorkspace({
                 <button
                   type="button"
                   onClick={() => void copyAnalysis()}
-                  className="rounded-[length:var(--radius-buttons)] border border-midnight-ink px-4 py-2 text-sm font-medium text-midnight-ink"
+                  className="rounded-lg border border-midnight-ink px-4 py-2 text-body-sm font-medium text-midnight-ink"
                 >
                   Copiar resultado
                 </button>
               ) : null}
-              {copyHint ? <span className="self-center text-xs text-faded-stone">{copyHint}</span> : null}
+              {copyHint ? <span className="self-center text-caption text-faded-stone">{copyHint}</span> : null}
             </div>
 
             {analyzeError ? (
-              <p className="mt-3 text-sm text-red-700" role="alert">
+              <p className="mt-3 text-body-sm text-red-700" role="alert">
                 {analyzeError}
               </p>
             ) : null}
 
             {currentResult?.stub ? (
-              <p className="mt-3 text-xs text-faded-stone">
+              <p className="mt-3 text-caption text-faded-stone">
                 Modo demonstração — configure <code className="font-mono">OPENROUTER_API_KEY</code> para saída real.
               </p>
             ) : null}
 
             {activeMode === "risk" ? (
-              <p className="mt-4 rounded-[length:var(--radius-md)] bg-ash-gray p-3 text-xs leading-relaxed text-charcoal-text">
+              <p className="mt-4 rounded-md bg-ash-gray p-3 text-caption  text-charcoal-text">
                 Aviso: a seção &quot;Riscos&quot; ajuda na leitura crítica do texto; não substitui assessoria jurídica,
                 financeira ou técnica. A IA pode omitir ou interpretar incorretamente trechos.
               </p>
@@ -414,13 +414,13 @@ export function DocumentWorkspace({
 
             <div className="mt-4 border-t border-subtle-gray pt-4">
               {!currentResult && !analyzeLoading ? (
-                <p className="text-sm text-faded-stone">
+                <p className="text-body-sm text-faded-stone">
                   Clique em <span className="font-medium text-midnight-ink">Gerar análise</span> para
                   preencher este modo.
                 </p>
               ) : null}
               {!currentResult && analyzeLoading ? (
-                <p className="text-sm text-faded-stone">Lendo o documento e gerando {MODE_LABELS[activeMode].toLowerCase()}…</p>
+                <p className="text-body-sm text-faded-stone">Lendo o documento e gerando {MODE_LABELS[activeMode].toLowerCase()}…</p>
               ) : null}
               {currentResult?.mode === "summary" ? <SummaryView data={currentResult.data} /> : null}
               {currentResult?.mode === "extract" ? <ExtractView data={currentResult.data} /> : null}
@@ -429,8 +429,8 @@ export function DocumentWorkspace({
           </section>
 
           {/* --- Chat com o documento (mesmo fluxo da Fase 4) --- */}
-          <section className="flex min-h-[380px] flex-col rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white">
-            <div className="border-b border-subtle-gray px-4 py-2 text-xs font-semibold uppercase text-faded-stone">
+          <section className="flex min-h-[380px] flex-col rounded-lg border border-subtle-gray bg-crisp-white">
+            <div className="border-b border-subtle-gray px-4 py-2 text-caption font-semibold uppercase text-faded-stone">
               Chat com o PDF
             </div>
             <div className="flex flex-1 flex-col">
@@ -446,16 +446,16 @@ export function DocumentWorkspace({
                       key={`${m.role}-${i}`}
                       className={
                         m.role === "user"
-                          ? "ml-8 rounded-[length:var(--radius-md)] bg-canvas px-3 py-2 text-charcoal-text"
-                          : "mr-8 rounded-[length:var(--radius-md)] border border-subtle-gray bg-canvas px-3 py-2 text-graphite"
+                          ? "ml-8 rounded-md bg-canvas px-3 py-2 text-charcoal-text"
+                          : "mr-8 rounded-md border border-subtle-gray bg-canvas px-3 py-2 text-graphite"
                       }
                     >
-                      <span className="mb-1 block text-xs font-medium uppercase text-faded-stone">
+                      <span className="mb-1 block text-caption font-medium uppercase text-faded-stone">
                         {m.role === "user" ? "Você" : "Assistente"}
                       </span>
-                      <p className="whitespace-pre-wrap leading-relaxed">{m.content}</p>
+                      <p className="whitespace-pre-wrap ">{m.content}</p>
                       {m.role === "assistant" && m.pageHints && m.pageHints.length > 0 ? (
-                        <p className="mt-2 border-t border-subtle-gray pt-2 text-xs text-faded-stone">
+                        <p className="mt-2 border-t border-subtle-gray pt-2 text-caption text-faded-stone">
                           <span className="font-medium text-charcoal-text">Páginas citadas na resposta:</span>{" "}
                           {m.pageHints.join(" · ")}
                         </p>
@@ -463,14 +463,14 @@ export function DocumentWorkspace({
                     </div>
                   ))
                 )}
-                {loading ? <p className="text-sm text-faded-stone">Gerando resposta…</p> : null}
+                {loading ? <p className="text-body-sm text-faded-stone">Gerando resposta…</p> : null}
                 {error ? (
-                  <p className="text-sm text-red-700" role="alert">
+                  <p className="text-body-sm text-red-700" role="alert">
                     {error}
                   </p>
                 ) : null}
                 {lastStub ? (
-                  <p className="text-xs text-faded-stone">
+                  <p className="text-caption text-faded-stone">
                     Resposta em modo stub (sem OPENROUTER_API_KEY). Configure a chave para respostas reais.
                   </p>
                 ) : null}
@@ -482,7 +482,7 @@ export function DocumentWorkspace({
                     onChange={(e) => setInput(e.target.value)}
                     rows={2}
                     placeholder="Pergunte algo sobre o PDF…"
-                    className="min-h-[48px] flex-1 resize-y border border-ash-gray bg-canvas px-3 py-2 text-sm text-graphite"
+                    className="min-h-[48px] flex-1 resize-y border border-ash-gray bg-canvas px-3 py-2 text-body-sm text-graphite"
                     disabled={loading}
                     onKeyDown={(e) => {
                       if (e.key === "Enter" && !e.shiftKey) {
@@ -495,7 +495,7 @@ export function DocumentWorkspace({
                     type="button"
                     onClick={() => void send()}
                     disabled={loading || !input.trim()}
-                    className="self-end rounded-[length:var(--radius-buttons)] bg-apollo-gold px-4 py-2 text-sm font-medium text-midnight-ink disabled:opacity-50"
+                    className="self-end rounded-lg bg-apollo-gold px-4 py-2 text-body-sm font-medium text-midnight-ink disabled:opacity-50"
                   >
                     Enviar
                   </button>

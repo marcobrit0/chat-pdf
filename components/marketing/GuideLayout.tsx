@@ -62,41 +62,35 @@ export function GuideLayout({
       <JsonLd data={breadcrumbSchema(breadcrumbs)} />
       {extraSchema ? <JsonLd data={extraSchema} /> : null}
 
-      <article className="mx-auto w-full max-w-3xl px-4 py-10 sm:px-6 md:py-14">
+      <article className="mx-auto w-full max-w-[760px] px-8 py-section-md">
         <Breadcrumbs items={breadcrumbs} />
 
         <header className="mt-6 border-b border-subtle-gray pb-8">
-          <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+          <p className="eyebrow text-faded-stone">
             {eyebrow}
           </p>
-          <h1 className="mt-4 font-display text-[clamp(2rem,5vw,3.25rem)] font-semibold leading-[1.05] tracking-tight text-midnight-ink">
+          <h1 className="mt-4 font-display text-display font-semibold text-midnight-ink text-[clamp(32px,5vw,52px)]">
             {title}
           </h1>
-          <p className="mt-5 text-base leading-relaxed text-charcoal-text sm:text-lg">
+          <p className="mt-5 text-body-lg text-charcoal-text">
             {intro}
           </p>
         </header>
 
-        <aside className="mt-10 rounded-[length:var(--radius-cards)] border border-midnight-ink bg-canvas p-6">
-          <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
-            TL;DR
-          </p>
-          <p className="mt-2 font-display text-xl font-semibold leading-snug text-midnight-ink">
+        <aside className="mt-10 rounded-lg border border-midnight-ink bg-canvas p-card">
+          <p className="eyebrow text-faded-stone">TL;DR</p>
+          <p className="mt-2 font-display text-subheading font-semibold text-midnight-ink">
             {tldrTitle}
           </p>
-          <p className="mt-3 text-sm leading-relaxed text-charcoal-text">
-            {tldrBody}
-          </p>
+          <p className="mt-3 text-body-sm text-charcoal-text">{tldrBody}</p>
         </aside>
 
         <nav
           aria-label="Sumário"
-          className="mt-10 rounded-[length:var(--radius-cards)] bg-crisp-white p-5"
+          className="mt-10 rounded-lg bg-crisp-white p-card"
         >
-          <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
-            Neste guia
-          </p>
-          <ol className="mt-3 space-y-2 text-sm text-charcoal-text">
+          <p className="eyebrow text-faded-stone">Neste guia</p>
+          <ol className="mt-3 space-y-2 text-body-sm text-charcoal-text">
             {toc.map((item) => (
               <li key={item.id}>
                 <a
@@ -113,20 +107,20 @@ export function GuideLayout({
         <div className="mt-4 space-y-14">{children}</div>
 
         <section className="mt-16 border-t border-subtle-gray pt-8">
-          <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+          <p className="eyebrow text-faded-stone">
             Próximo passo
           </p>
           <div className="mt-3 flex flex-col gap-3 sm:flex-row">
             <Link
               href={primaryCta.href}
-              className="inline-flex items-center justify-center rounded-[length:var(--radius-buttons)] bg-apollo-gold px-5 py-3 text-base font-medium text-midnight-ink"
+              className="inline-flex items-center justify-center rounded-lg bg-apollo-gold px-5 py-3 text-body font-medium text-midnight-ink"
             >
               {primaryCta.label}
             </Link>
             {secondaryCta ? (
               <Link
                 href={secondaryCta.href}
-                className="inline-flex items-center justify-center rounded-[length:var(--radius-buttons)] border border-midnight-ink px-5 py-3 text-base font-medium text-midnight-ink"
+                className="inline-flex items-center justify-center rounded-lg border border-midnight-ink px-5 py-3 text-body font-medium text-midnight-ink"
               >
                 {secondaryCta.label}
               </Link>
@@ -136,10 +130,10 @@ export function GuideLayout({
 
         {related.length > 0 ? (
           <section className="mt-12 border-t border-subtle-gray pt-8">
-            <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+            <p className="eyebrow text-faded-stone">
               Veja também
             </p>
-            <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+            <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-body-sm">
               {related.map((r) => (
                 <li key={r.href}>
                   <Link
@@ -174,9 +168,9 @@ export function GuideSection({
   return (
     <section
       id={id}
-      className="space-y-4 text-base leading-relaxed text-graphite"
+      className="space-y-4 text-body text-graphite"
     >
-      <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+      <h2 className="font-display text-heading font-semibold text-midnight-ink">
         {title}
       </h2>
       {children}
@@ -199,15 +193,11 @@ export function GuideCallout({
   const border =
     tone === "warn" ? "border-midnight-ink" : "border-subtle-gray";
   return (
-    <div
-      className={`mt-2 rounded-[length:var(--radius-cards)] border ${border} bg-crisp-white p-5`}
-    >
-      <p className="font-display text-base font-semibold text-midnight-ink">
+    <div className={`mt-2 rounded-lg border ${border} bg-crisp-white p-card`}>
+      <p className="font-display text-body font-semibold text-midnight-ink">
         {title}
       </p>
-      <div className="mt-2 text-sm leading-relaxed text-charcoal-text">
-        {children}
-      </div>
+      <div className="mt-2 text-body-sm text-charcoal-text">{children}</div>
     </div>
   );
 }

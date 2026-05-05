@@ -68,7 +68,7 @@ export function OtpForm({ nextPath }: OtpFormProps) {
   if (step.name === "email" || step.name === "sending") {
     return (
       <form onSubmit={onSubmitEmail} className="space-y-4">
-        <label className="block text-sm font-medium text-midnight-ink">
+        <label className="block text-body-sm font-medium text-midnight-ink">
           E-mail
           <input
             type="email"
@@ -76,13 +76,13 @@ export function OtpForm({ nextPath }: OtpFormProps) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="voce@empresa.com"
-            className="mt-2 w-full border border-midnight-ink bg-canvas px-4 py-3 text-base text-graphite outline-none transition-shadow focus:shadow-[0_0_0_3px_#ebf212]"
+            className="mt-2 w-full border border-midnight-ink bg-canvas px-4 py-3 text-body text-graphite outline-none transition-shadow focus:shadow-[0_0_0_3px_var(--color-apollo-gold)]"
           />
         </label>
         <button
           type="submit"
           disabled={step.name === "sending"}
-          className="w-full rounded-[length:var(--radius-buttons)] bg-apollo-gold px-5 py-3 text-base font-medium text-midnight-ink disabled:opacity-60"
+          className="w-full rounded-lg bg-apollo-gold px-5 py-3 text-body font-medium text-midnight-ink disabled:opacity-60"
         >
           {step.name === "sending" ? "Enviando código…" : "Receber código de acesso"}
         </button>
@@ -93,10 +93,10 @@ export function OtpForm({ nextPath }: OtpFormProps) {
   if (step.name === "code" || step.name === "verifying") {
     return (
       <form onSubmit={onSubmitCode} className="space-y-4">
-        <p className="text-sm text-charcoal-text">
+        <p className="text-body-sm text-charcoal-text">
           Código enviado para <span className="font-medium text-midnight-ink">{step.email}</span>.
         </p>
-        <label className="block text-sm font-medium text-midnight-ink">
+        <label className="block text-body-sm font-medium text-midnight-ink">
           Código de 8 dígitos
           <input
             type="text"
@@ -107,13 +107,13 @@ export function OtpForm({ nextPath }: OtpFormProps) {
             value={token}
             onChange={(e) => setToken(e.target.value.replace(/\D/g, ""))}
             placeholder="00000000"
-            className="mt-2 w-full border border-midnight-ink bg-canvas px-4 py-3 text-center text-xl tracking-[0.4em] text-graphite outline-none transition-shadow focus:shadow-[0_0_0_3px_#ebf212]"
+            className="mt-2 w-full border border-midnight-ink bg-canvas px-4 py-3 text-center text-subheading tracking-[0.4em] text-graphite outline-none transition-shadow focus:shadow-[0_0_0_3px_var(--color-apollo-gold)]"
           />
         </label>
         <button
           type="submit"
           disabled={step.name === "verifying" || token.length < 8}
-          className="w-full rounded-[length:var(--radius-buttons)] bg-apollo-gold px-5 py-3 text-base font-medium text-midnight-ink disabled:opacity-60"
+          className="w-full rounded-lg bg-apollo-gold px-5 py-3 text-body font-medium text-midnight-ink disabled:opacity-60"
         >
           {step.name === "verifying" ? "Verificando…" : "Entrar"}
         </button>
@@ -124,7 +124,7 @@ export function OtpForm({ nextPath }: OtpFormProps) {
             setStep({ name: "sending" });
             sendCode(step.email);
           }}
-          className="w-full text-sm text-charcoal-text underline underline-offset-2"
+          className="w-full text-body-sm text-charcoal-text underline underline-offset-2"
         >
           Reenviar código
         </button>
@@ -135,7 +135,7 @@ export function OtpForm({ nextPath }: OtpFormProps) {
   // error step
   return (
     <div className="space-y-4">
-      <p className="text-sm text-red-700" role="alert">
+      <p className="text-body-sm text-red-700" role="alert">
         {step.message}
       </p>
       <button
@@ -149,7 +149,7 @@ export function OtpForm({ nextPath }: OtpFormProps) {
             sendCode(step.email);
           }
         }}
-        className="w-full rounded-[length:var(--radius-buttons)] bg-apollo-gold px-5 py-3 text-base font-medium text-midnight-ink"
+        className="w-full rounded-lg bg-apollo-gold px-5 py-3 text-body font-medium text-midnight-ink"
       >
         {step.canRetry ? "Tentar novamente" : "Solicitar novo código"}
       </button>

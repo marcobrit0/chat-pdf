@@ -74,11 +74,11 @@ export default function AlternativaAoChatpdfPage() {
       ]}
     >
       <section>
-        <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-heading font-semibold text-midnight-ink">
           Diferenças práticas
         </h2>
         <div className="mt-6 overflow-x-auto">
-          <table className="w-full border-collapse text-sm">
+          <table className="w-full border-collapse text-body-sm">
             <thead>
               <tr className="border-b border-midnight-ink text-left">
                 <th className="py-4 pr-6 font-medium text-faded-stone">

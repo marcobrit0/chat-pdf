@@ -125,11 +125,11 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
 
   return (
     <div className="space-y-8">
-      <div className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+      <div className="rounded-lg border border-subtle-gray bg-crisp-white p-card">
+        <h2 className="font-display text-subheading font-semibold text-midnight-ink">
           Enviar PDF
         </h2>
-        <p className="mt-2 text-sm text-charcoal-text">
+        <p className="mt-2 text-body-sm text-charcoal-text">
           Grátis sem cadastro: até {ANON_MAX_PAGES} páginas,{" "}
           <strong className="font-medium text-midnight-ink">
             resumo apenas
@@ -168,16 +168,16 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
                 : "border-soft-stone bg-canvas hover:border-midnight-ink hover:bg-crisp-white")
             }
           >
-            <span className="font-display text-lg font-semibold text-midnight-ink">
+            <span className="font-display text-subheading font-semibold text-midnight-ink">
               Solte um PDF aqui
             </span>
-            <span className="text-sm text-charcoal-text">
+            <span className="text-body-sm text-charcoal-text">
               ou{" "}
               <span className="underline underline-offset-4">
                 clique para selecionar
               </span>
             </span>
-            <span className="font-condensed text-xs uppercase tracking-[0.18em] text-faded-stone">
+            <span className="eyebrow text-faded-stone">
               Grátis · Sem cadastro · Até {ANON_MAX_PAGES} páginas
             </span>
             <input
@@ -192,12 +192,12 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
             />
           </label>
           {fileName ? (
-            <p className="text-sm text-graphite">
+            <p className="text-body-sm text-graphite">
               Arquivo selecionado:{" "}
               <span className="font-medium text-midnight-ink">{fileName}</span>
             </p>
           ) : (
-            <p className="text-sm text-faded-stone">
+            <p className="text-body-sm text-faded-stone">
               Selecione um PDF para gerar o resumo.
             </p>
           )}
@@ -206,7 +206,7 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
             disabled={loading || !fileName}
             aria-disabled={loading || !fileName}
             className={
-              "w-full rounded-[length:var(--radius-buttons)] px-5 py-3 text-sm font-medium transition-opacity " +
+              "w-full rounded-lg px-5 py-3 text-body-sm font-medium transition-opacity " +
               (fileName && !loading
                 ? "bg-apollo-gold text-midnight-ink hover:opacity-90"
                 : "cursor-not-allowed bg-subtle-gray text-faded-stone")
@@ -221,7 +221,7 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
         </form>
 
         {error ? (
-          <p className="mt-4 text-sm text-red-700" role="alert">
+          <p className="mt-4 text-body-sm text-red-700" role="alert">
             {error}
           </p>
         ) : null}
@@ -233,7 +233,7 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
         ) : null}
 
         {summary?.stub ? (
-          <p className="mt-4 text-xs text-faded-stone">
+          <p className="mt-4 text-caption text-faded-stone">
             Modo demonstração (sem chave de IA no servidor). Configure{" "}
             <code className="font-mono">OPENROUTER_API_KEY</code> para resumo
             real.
@@ -243,16 +243,16 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
 
       {summary ? (
         <div className="space-y-6">
-          <section className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
-            <h2 className="font-display text-xl font-semibold text-midnight-ink">
+          <section className="rounded-lg border border-subtle-gray bg-crisp-white p-card">
+            <h2 className="font-display text-subheading font-semibold text-midnight-ink">
               Seu resumo
             </h2>
-            <div className="mt-4 space-y-4 text-sm text-graphite">
-              <p className="leading-relaxed text-charcoal-text">
+            <div className="mt-4 space-y-4 text-body-sm text-graphite">
+              <p className=" text-charcoal-text">
                 {summary.summary}
               </p>
               <div>
-                <h3 className="mb-2 text-xs font-semibold uppercase text-faded-stone">
+                <h3 className="mb-2 eyebrow text-faded-stone">
                   Em tópicos
                 </h3>
                 <ul className="list-inside list-disc space-y-1">
@@ -263,7 +263,7 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
               </div>
               {summary.keyDatesOrValues.length > 0 ? (
                 <div>
-                  <h3 className="mb-2 text-xs font-semibold uppercase text-faded-stone">
+                  <h3 className="mb-2 eyebrow text-faded-stone">
                     Datas e valores
                   </h3>
                   <ul className="list-inside list-disc space-y-1">
@@ -275,7 +275,7 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
               ) : null}
               {summary.entities.length > 0 ? (
                 <div>
-                  <h3 className="mb-2 text-xs font-semibold uppercase text-faded-stone">
+                  <h3 className="mb-2 eyebrow text-faded-stone">
                     Entidades
                   </h3>
                   <p>{summary.entities.join(", ")}</p>
@@ -286,7 +286,7 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
             <div className="mt-6 flex flex-wrap gap-2 border-t border-subtle-gray pt-6">
               <button
                 type="button"
-                className="rounded-[length:var(--radius-buttons)] border border-midnight-ink px-4 py-2 text-sm font-medium text-midnight-ink"
+                className="rounded-lg border border-midnight-ink px-4 py-2 text-body-sm font-medium text-midnight-ink"
                 onClick={async () => {
                   const text = [
                     summary.summary,
@@ -307,7 +307,7 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
               </button>
               <button
                 type="button"
-                className="rounded-[length:var(--radius-buttons)] bg-midnight-ink px-4 py-2 text-sm font-medium text-crisp-white"
+                className="rounded-lg bg-midnight-ink px-4 py-2 text-body-sm font-medium text-crisp-white"
                 onClick={() => {
                   setPaywallOverride("export");
                   track("anonymous_export_attempt", {});
@@ -316,7 +316,7 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
                 Exportar pacote (Premium)
               </button>
               {copyHint ? (
-                <span className="self-center text-xs text-faded-stone">
+                <span className="self-center text-caption text-faded-stone">
                   {copyHint}
                 </span>
               ) : null}
@@ -379,29 +379,29 @@ function SuggestedQuestionsLocked({
   return (
     <section
       aria-labelledby="suggested-questions-heading"
-      className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-canvas p-6"
+      className="rounded-lg border border-subtle-gray bg-canvas p-card"
     >
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <div>
-          <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+          <p className="eyebrow text-faded-stone">
             Perguntas sugeridas pela IA
           </p>
           <h3
             id="suggested-questions-heading"
-            className="mt-2 font-display text-lg font-semibold text-midnight-ink"
+            className="mt-2 font-display text-subheading font-semibold text-midnight-ink"
           >
             Pergunte ao PDF — disponível no Premium.
           </h3>
         </div>
         <span
           aria-hidden="true"
-          className="inline-flex items-center gap-1.5 rounded-full border border-midnight-ink/20 bg-crisp-white px-3 py-1 font-condensed text-xs uppercase tracking-[0.18em] text-charcoal-text"
+          className="inline-flex items-center gap-1.5 rounded-full border border-midnight-ink/20 bg-crisp-white px-3 py-1 eyebrow text-charcoal-text"
         >
           <LockIcon /> Premium
         </span>
       </div>
 
-      <p className="mt-3 max-w-2xl text-sm leading-relaxed text-charcoal-text">
+      <p className="mt-3 max-w-2xl text-body-sm  text-charcoal-text">
         A IA mapeou estas perguntas no documento. Clique numa para entrar no
         chat com citação de página.
       </p>
@@ -412,7 +412,7 @@ function SuggestedQuestionsLocked({
             <button
               type="button"
               onClick={() => onClick(q)}
-              className="group flex w-full items-start gap-3 rounded-[length:var(--radius-md)] border border-subtle-gray bg-crisp-white px-4 py-3 text-left text-sm text-charcoal-text transition-colors hover:border-midnight-ink hover:bg-crisp-white"
+              className="group flex w-full items-start gap-3 rounded-md border border-subtle-gray bg-crisp-white px-4 py-3 text-left text-body-sm text-charcoal-text transition-colors hover:border-midnight-ink hover:bg-crisp-white"
             >
               <span
                 aria-hidden="true"

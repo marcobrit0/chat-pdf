@@ -29,16 +29,16 @@ export default async function PastaPdfPlaceholderPage() {
   const gate = await requirePremiumAccess(supabase, user.id);
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8">
-      <nav className="text-sm text-charcoal-text">
+    <div className="container-page max-w-[760px] space-y-8 py-section-md">
+      <nav className="text-body-sm text-charcoal-text">
         <Link href="/app" className="underline">
           ← Biblioteca
         </Link>
       </nav>
 
       <header>
-        <h1 className="font-display text-3xl font-semibold text-midnight-ink">Pasta de PDFs</h1>
-        <p className="mt-3 text-charcoal-text">
+        <h1 className="font-display text-heading-lg font-semibold text-midnight-ink text-[clamp(28px,4vw,40px)]">Pasta de PDFs</h1>
+        <p className="mt-3 text-body text-charcoal-text">
           Organizar vários PDFs num projeto (pastas compartilhadas, busca cruzada) está no roteiro. Hoje cada arquivo continua na sua biblioteca individual.
         </p>
       </header>
@@ -49,12 +49,12 @@ export default async function PastaPdfPlaceholderPage() {
           reason="Pastas e projetos multi-PDF serão prioridade para assinantes Premium. Por enquanto, salve documentos na biblioteca do workspace."
         />
       ) : (
-        <div className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
-          <p className="font-condensed text-sm font-semibold uppercase text-faded-stone">Em construção</p>
-          <p className="mt-2 text-charcoal-text">
+        <div className="rounded-lg border border-subtle-gray bg-crisp-white p-card">
+          <p className="eyebrow text-faded-stone">Em construção</p>
+          <p className="mt-2 text-body text-charcoal-text">
             Premium ativo — quando as pastas estiverem prontas, você verá o fluxo aqui. Nenhum dado adicional é criado nesta rota ainda.
           </p>
-          <Link href="/app" className="mt-4 inline-block text-sm font-medium text-midnight-ink underline">
+          <Link href="/app" className="mt-4 inline-block text-body-sm font-medium text-midnight-ink underline">
             Ir para a biblioteca
           </Link>
         </div>

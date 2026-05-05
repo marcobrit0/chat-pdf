@@ -43,7 +43,7 @@ export function PdfLoadingAnimation({ fileName, pageHint }: Props) {
   }, []);
 
   return (
-    <section className="relative overflow-hidden rounded-[length:var(--radius-cards)] border border-midnight-ink bg-crisp-white">
+    <section className="relative overflow-hidden rounded-lg border border-midnight-ink bg-crisp-white">
       <div className="grid gap-0 md:grid-cols-[minmax(0,260px)_1fr]">
         {/* Stylized document silhouette + scan animation while the API runs. */}
         <div className="relative border-b border-subtle-gray bg-canvas p-6 md:border-b-0 md:border-r">
@@ -76,11 +76,11 @@ export function PdfLoadingAnimation({ fileName, pageHint }: Props) {
             />
           </div>
 
-          <p className="mt-4 truncate text-center font-mono text-[11px] uppercase tracking-[0.06em] text-faded-stone">
+          <p className="mt-4 truncate text-center mono-label text-faded-stone">
             {fileName ?? "PDF.pdf"}
           </p>
           {pageHint ? (
-            <p className="text-center font-mono text-[11px] tracking-[0.06em] text-faded-stone">
+            <p className="text-center font-mono text-caption tracking-[0.06em] text-faded-stone">
               {pageHint} págs · processando
             </p>
           ) : null}
@@ -88,10 +88,10 @@ export function PdfLoadingAnimation({ fileName, pageHint }: Props) {
 
         {/* Phases + progress */}
         <div className="p-7 md:p-9">
-          <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
+          <p className="eyebrow text-faded-stone">
             Gerando seu resumo
           </p>
-          <h2 className="mt-3 font-display text-2xl font-semibold leading-tight tracking-tight text-midnight-ink sm:text-3xl">
+          <h2 className="mt-3 font-display text-heading font-semibold text-midnight-ink">
             Lendo o documento — em segundos.
           </h2>
 
@@ -120,7 +120,7 @@ export function PdfLoadingAnimation({ fileName, pageHint }: Props) {
                   <div>
                     <p
                       className={
-                        "font-display text-[15px] font-semibold tracking-tight " +
+                        "font-display text-body-sm font-semibold  " +
                         (state === "pending"
                           ? "text-faded-stone"
                           : "text-midnight-ink")
@@ -135,13 +135,13 @@ export function PdfLoadingAnimation({ fileName, pageHint }: Props) {
                         </span>
                       ) : null}
                     </p>
-                    <p className="mt-0.5 text-[13px] leading-snug text-charcoal-text">
+                    <p className="mt-0.5 text-body-sm leading-snug text-charcoal-text">
                       {p.detail}
                     </p>
                   </div>
                   <span
                     className={
-                      "font-mono text-[10px] uppercase tracking-[0.1em] " +
+                      "mono-label " +
                       (state === "active"
                         ? "text-midnight-ink"
                         : "text-faded-stone")
@@ -181,7 +181,7 @@ export function PdfLoadingAnimation({ fileName, pageHint }: Props) {
                 }}
               />
             </div>
-            <div className="mt-2 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.1em] text-faded-stone">
+            <div className="mt-2 flex items-center justify-between mono-label text-faded-stone">
               <span>Sem cadastro · pt-BR</span>
               <span>{Math.round(pct)}%</span>
             </div>

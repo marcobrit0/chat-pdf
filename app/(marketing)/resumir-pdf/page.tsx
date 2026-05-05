@@ -53,13 +53,13 @@ export default function ResumirPdfPage() {
         {/* Hero / state-aware client surface — design: padding 32px 32px 80px */}
         <div className="mx-auto w-full max-w-[1240px] px-8 pb-20 pt-8">
           <header className="mb-8 max-w-[760px]">
-            <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
+            <p className="eyebrow text-faded-stone">
               Resumo grátis · pt-BR · sem cadastro
             </p>
-            <h1 className="mt-3 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-[1.05] tracking-tight text-midnight-ink">
+            <h1 className="mt-3 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-[1.05]  text-midnight-ink">
               Seu PDF, resumido em segundos.
             </h1>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-charcoal-text sm:text-lg">
+            <p className="mt-4 max-w-2xl text-body  text-charcoal-text sm:text-body-lg">
               Parágrafo-síntese, tópicos, datas, valores e entidades — extraídos
               do documento e prontos para colar.
             </p>
@@ -70,17 +70,17 @@ export default function ResumirPdfPage() {
 
         {/* FAQ + see also */}
         <div className="border-t border-subtle-gray bg-canvas">
-          <div className="mx-auto w-full max-w-[1240px] px-8 py-[88px]">
+          <div className="container-page py-section-md">
             <div className="grid gap-16 md:grid-cols-[0.9fr_1.1fr]">
               <div>
-                <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
+                <p className="eyebrow text-faded-stone">
                   Perguntas frequentes
                 </p>
-                <h2 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight text-midnight-ink">
+                <h2 className="mt-4 font-display text-heading-lg font-semibold text-midnight-ink text-[clamp(28px,4vw,40px)]">
                   Sobre o resumo gratuito
                 </h2>
               </div>
-              <div className="overflow-hidden rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white">
+              <div className="overflow-hidden rounded-lg border border-subtle-gray bg-crisp-white">
                 {faqs.map((f, i) => (
                   <details
                     key={f.q}
@@ -90,7 +90,7 @@ export default function ResumirPdfPage() {
                     }
                   >
                     <summary className="flex cursor-pointer list-none items-center justify-between gap-6 px-5 py-5 text-left group-open:bg-canvas">
-                      <span className="font-display text-base font-semibold tracking-tight text-midnight-ink">
+                      <span className="font-display text-body font-semibold  text-midnight-ink">
                         {f.q}
                       </span>
                       <span
@@ -100,7 +100,7 @@ export default function ResumirPdfPage() {
                         +
                       </span>
                     </summary>
-                    <div className="px-5 pb-5 text-sm leading-relaxed text-charcoal-text">
+                    <div className="px-5 pb-5 text-body-sm  text-charcoal-text">
                       {f.a}
                     </div>
                   </details>
@@ -109,10 +109,10 @@ export default function ResumirPdfPage() {
             </div>
 
             <div className="mt-12 border-t border-subtle-gray pt-8">
-              <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
+              <p className="eyebrow text-faded-stone">
                 Veja também
               </p>
-              <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+              <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-body-sm">
                 {[
                   ["/chat-pdf", "Chat com PDF"],
                   ["/resumir-contrato-pdf", "Resumir contrato"],

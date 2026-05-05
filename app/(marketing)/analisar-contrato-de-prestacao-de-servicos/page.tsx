@@ -47,11 +47,11 @@ export default function AnalisarContratoPrestacaoPage() {
         { href: "/analisar-contrato-com-ia", label: "Analisar contrato" },
       ]}
     >
-      <section className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
-        <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+      <section className="rounded-lg border border-subtle-gray bg-crisp-white p-6">
+        <p className="eyebrow text-faded-stone">
           Pontos que a análise cobre
         </p>
-        <ul className="mt-4 grid gap-2 text-base text-charcoal-text">
+        <ul className="mt-4 grid gap-2 text-body text-charcoal-text">
           <li>· Partes contratantes e qualificação</li>
           <li>· Escopo e entregáveis descritos no contrato</li>
           <li>· Valor, parcelas e condições de pagamento</li>
@@ -60,7 +60,7 @@ export default function AnalisarContratoPrestacaoPage() {
           <li>· Quem fica com a propriedade intelectual do que for criado</li>
           <li>· Cláusula de sigilo e não-concorrência quando presente</li>
         </ul>
-        <p className="mt-5 text-sm text-faded-stone">
+        <p className="mt-5 text-body-sm text-faded-stone">
           Esta análise é um ponto de partida — não substitui assessoria
           jurídica para contratos com valor ou risco relevante.
         </p>

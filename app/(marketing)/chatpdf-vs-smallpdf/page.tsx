@@ -41,14 +41,14 @@ export default function ChatpdfVsSmallpdfPage() {
       ]}
     >
       <section className="grid gap-6 md:grid-cols-2">
-        <div className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
-          <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+        <div className="rounded-lg border border-subtle-gray bg-crisp-white p-6">
+          <p className="eyebrow text-faded-stone">
             Smallpdf
           </p>
-          <h2 className="mt-3 font-display text-xl font-semibold text-midnight-ink">
+          <h2 className="mt-3 font-display text-subheading font-semibold text-midnight-ink">
             Para trabalhar no arquivo
           </h2>
-          <ul className="mt-4 space-y-2 text-sm text-charcoal-text">
+          <ul className="mt-4 space-y-2 text-body-sm text-charcoal-text">
             <li>Converter PDF em Word, Excel, imagem</li>
             <li>Compactar e reduzir tamanho</li>
             <li>Assinar digitalmente</li>
@@ -56,14 +56,14 @@ export default function ChatpdfVsSmallpdfPage() {
             <li>Preencher formulários</li>
           </ul>
         </div>
-        <div className="rounded-[length:var(--radius-cards)] border border-midnight-ink bg-crisp-white p-6">
-          <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+        <div className="rounded-lg border border-midnight-ink bg-crisp-white p-6">
+          <p className="eyebrow text-faded-stone">
             PDFIA
           </p>
-          <h2 className="mt-3 font-display text-xl font-semibold text-midnight-ink">
+          <h2 className="mt-3 font-display text-subheading font-semibold text-midnight-ink">
             Para entender o conteúdo
           </h2>
-          <ul className="mt-4 space-y-2 text-sm text-charcoal-text">
+          <ul className="mt-4 space-y-2 text-body-sm text-charcoal-text">
             <li>Resumir o documento em tópicos</li>
             <li>Perguntas com respostas citadas por página</li>
             <li>Extrair datas, valores e obrigações</li>
@@ -74,10 +74,10 @@ export default function ChatpdfVsSmallpdfPage() {
       </section>
 
       <section>
-        <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-heading font-semibold text-midnight-ink">
           Qual usar?
         </h2>
-        <p className="mt-3 text-base leading-relaxed text-charcoal-text">
+        <p className="mt-3 text-body  text-charcoal-text">
           Se precisa transformar o formato do arquivo, use o Smallpdf. Se
           precisa entender o conteúdo antes de assinar, pagar ou decidir, use o
           PDFIA. Para contratos, relatórios, editais e apólices, as
