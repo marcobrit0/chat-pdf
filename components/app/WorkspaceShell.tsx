@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
 import type { DocumentRow } from "@/components/app/DocumentLibrary";
+import { PREMIUM_UPLOADS_PER_DAY } from "@/lib/constants/limits";
 
 type Props = {
   email: string | null;
@@ -360,7 +361,7 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
                 "processados",
               ],
               ["PÁGINAS", String(totalPages), "analisadas"],
-              ["LIMITE/DIA", "20", "uploads"],
+              ["LIMITE/DIA", String(PREMIUM_UPLOADS_PER_DAY), "uploads"],
             ].map(([k, v, sub]) => (
               <div
                 key={k}

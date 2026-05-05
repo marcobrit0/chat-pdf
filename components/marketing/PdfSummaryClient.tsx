@@ -286,7 +286,6 @@ function Results({
   onLockedAction: (reason: string) => void;
 }) {
   const kpis = SAMPLE_KPI(result);
-  const sizeKb = ""; // not known here; fileName is enough for the eyebrow
   const cleanTitle = fileName.replace(/\.pdf$/i, "");
 
   return (
@@ -299,7 +298,7 @@ function Results({
           </span>
           <span className="text-sm font-medium text-midnight-ink">{fileName}</span>
           <span className="rounded-[4px] border border-subtle-gray bg-canvas px-2 py-0.5 font-mono text-[11px] tracking-[0.04em] text-charcoal-text">
-            pt-BR {sizeKb}
+            {result.pageCount != null ? `${result.pageCount} págs · ` : ""}pt-BR
           </span>
         </div>
         <div className="flex items-center gap-2">
@@ -334,11 +333,6 @@ function Results({
             <span className="rounded-full border border-subtle-gray bg-canvas px-3 py-1 font-condensed text-[11px] uppercase tracking-[0.18em] text-charcoal-text">
               pt-BR
             </span>
-            {result.stub ? (
-              <span className="rounded-full border border-subtle-gray bg-canvas px-3 py-1 font-condensed text-[11px] uppercase tracking-[0.18em] text-charcoal-text">
-                Demonstração
-              </span>
-            ) : null}
           </div>
           <h1 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight text-midnight-ink sm:text-4xl">
             {cleanTitle}
@@ -349,10 +343,10 @@ function Results({
         </div>
         <div className="grid gap-2 self-start text-xs">
           {[
+            ["Páginas", result.pageCount != null ? String(result.pageCount) : "—"],
             ["Idioma", "pt-BR"],
-            ["Confiança", "~96%"],
-            ["Histórico", "Premium"],
-            ["Limite", `${ANON_MAX_PAGES} págs`],
+            ["Tópicos", String(result.bulletPoints.length)],
+            ["Entidades", String(result.entities.length)],
           ].map(([k, v]) => (
             <div
               key={k}
@@ -450,36 +444,34 @@ function Results({
           >
             <Card title="Pergunte ao PDF" eyebrow="Chat com citação · Premium">
               <div className="grid gap-3">
-                <div className="flex items-start gap-3 rounded-[length:var(--radius-md)] border border-subtle-gray bg-canvas px-4 py-3">
-                  <span className="font-mono text-[11px] uppercase text-faded-stone">
-                    VOCÊ
-                  </span>
-                  <span className="text-sm">
-                    {result.suggestedQuestions[0] ??
-                      "Qual o principal risco do documento?"}
-                  </span>
-                </div>
-                <div className="grid grid-cols-[60px_1fr] gap-3 py-2">
-                  <span className="font-mono text-[11px] uppercase text-faded-stone">
-                    PDFIA
-                  </span>
-                  <p className="text-sm leading-relaxed text-charcoal-text">
-                    No Premium, cada resposta cita a página exata onde a
-                    informação aparece, com trechos sublinhados no documento.
-                  </p>
-                </div>
-                <div className="flex flex-wrap gap-2 border-t border-subtle-gray pt-3">
-                  {result.suggestedQuestions.slice(0, 4).map((q) => (
-                    <button
-                      key={q}
-                      type="button"
-                      onClick={() => onLockedAction("anonymous_suggested_question_click")}
-                      className="rounded-[length:var(--radius-md)] border border-midnight-ink/40 px-3 py-1.5 text-xs text-charcoal-text hover:border-midnight-ink hover:text-midnight-ink"
-                    >
-                      {q}
-                    </button>
-                  ))}
-                </div>
+                {result.suggestedQuestions.length > 0 ? (
+                  <div className="flex items-start gap-3 rounded-[length:var(--radius-md)] border border-subtle-gray bg-canvas px-4 py-3">
+                    <span className="font-mono text-[11px] uppercase text-faded-stone">
+                      VOCÊ
+                    </span>
+                    <span className="text-sm">{result.suggestedQuestions[0]}</span>
+                  </div>
+                ) : null}
+                <p className="text-sm leading-relaxed text-charcoal-text">
+                  No Premium cada resposta é gerada do seu PDF e cita a página
+                  exata onde a informação aparece.
+                </p>
+                {result.suggestedQuestions.length > 1 ? (
+                  <div className="flex flex-wrap gap-2 border-t border-subtle-gray pt-3">
+                    {result.suggestedQuestions.slice(1, 5).map((q) => (
+                      <button
+                        key={q}
+                        type="button"
+                        onClick={() =>
+                          onLockedAction("anonymous_suggested_question_click")
+                        }
+                        className="rounded-[length:var(--radius-md)] border border-midnight-ink/40 px-3 py-1.5 text-xs text-charcoal-text hover:border-midnight-ink hover:text-midnight-ink"
+                      >
+                        {q}
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
               </div>
             </Card>
           </Locked>
@@ -487,7 +479,7 @@ function Results({
 
         {/* Right rail */}
         <aside className="grid gap-4 lg:sticky lg:top-24 lg:self-start">
-          <DocPreview fileName={fileName} />
+          <DocPreview fileName={fileName} pageCount={result.pageCount ?? null} />
 
           <div className="rounded-[length:var(--radius-cards)] border border-midnight-ink bg-midnight-ink p-6 text-crisp-white">
             <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-apollo-gold">
@@ -567,7 +559,13 @@ function Card({
   );
 }
 
-function DocPreview({ fileName }: { fileName: string }) {
+function DocPreview({
+  fileName,
+  pageCount,
+}: {
+  fileName: string;
+  pageCount: number | null;
+}) {
   return (
     <div className="overflow-hidden rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white">
       <div className="flex items-center justify-between border-b border-subtle-gray px-5 py-3">
@@ -575,29 +573,34 @@ function DocPreview({ fileName }: { fileName: string }) {
           Documento
         </span>
         <span className="font-mono text-[11px] tracking-[0.06em] text-faded-stone">
-          prévia
+          {pageCount != null ? `${pageCount} págs` : "—"}
         </span>
       </div>
-      <div className="bg-canvas p-4">
-        <div className="aspect-[0.77/1] overflow-hidden bg-crisp-white p-4 shadow-[0_1px_0_var(--color-subtle-gray)]">
-          <div className="space-y-1.5 font-mono text-[6px] leading-[1.5] text-faded-stone">
-            <div className="mb-1 text-[7px] font-bold text-midnight-ink">
-              {fileName.replace(/\.pdf$/i, "").slice(0, 32).toUpperCase()}
-            </div>
-            {Array.from({ length: 22 }).map((_, i) => (
-              <div
-                key={i}
-                className="h-[3px]"
-                style={{
-                  background:
-                    i % 5 === 0 ? "var(--color-midnight-ink)" : "var(--color-subtle-gray)",
-                  width: `${65 + ((i * 13) % 30)}%`,
-                }}
-              />
-            ))}
-          </div>
+      <dl className="grid gap-3 px-5 py-5 text-sm">
+        <div className="flex items-baseline justify-between gap-3">
+          <dt className="font-mono text-[10px] uppercase tracking-[0.1em] text-faded-stone">
+            Arquivo
+          </dt>
+          <dd
+            className="truncate text-right font-medium text-midnight-ink"
+            title={fileName}
+          >
+            {fileName}
+          </dd>
         </div>
-      </div>
+        <div className="flex items-baseline justify-between gap-3">
+          <dt className="font-mono text-[10px] uppercase tracking-[0.1em] text-faded-stone">
+            Idioma
+          </dt>
+          <dd className="text-midnight-ink">pt-BR</dd>
+        </div>
+        <div className="flex items-baseline justify-between gap-3">
+          <dt className="font-mono text-[10px] uppercase tracking-[0.1em] text-faded-stone">
+            Origem
+          </dt>
+          <dd className="text-midnight-ink">Upload anônimo</dd>
+        </div>
+      </dl>
     </div>
   );
 }
@@ -613,8 +616,11 @@ function Locked({
 }) {
   return (
     <div className="relative">
+      {/* `inert` removes the blurred preview from tab order AND the a11y tree —
+          required because real <button>s inside the children would otherwise
+          be focusable despite the visual blur (WCAG 4.1.2). */}
       <div
-        aria-hidden="true"
+        inert
         className="pointer-events-none select-none"
         style={{ filter: "blur(6px)", opacity: 0.55 }}
       >
