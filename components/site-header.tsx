@@ -58,7 +58,7 @@ export function SiteHeader() {
 
   return (
     <header className="border-b border-subtle-gray bg-canvas">
-      <div className="mx-auto flex w-full max-w-[1240px] items-center justify-between gap-6 px-8 py-[18px]">
+      <div className="container-page flex items-center justify-between gap-6 py-4">
         <Link
           href="/"
           aria-label="PDFIA — início"
@@ -75,7 +75,7 @@ export function SiteHeader() {
         </Link>
 
         <nav
-          className="hidden items-center gap-7 text-sm text-charcoal-text md:flex"
+          className="hidden items-center gap-7 text-body-sm text-charcoal-text md:flex"
           aria-label="Principal"
         >
           {navItems.map((item) => {
@@ -102,13 +102,13 @@ export function SiteHeader() {
         <div className="flex items-center gap-2.5">
           <Link
             href="/login"
-            className="hidden rounded-[length:var(--radius-buttons)] px-3 py-2 text-sm text-charcoal-text transition-colors hover:text-midnight-ink md:inline-flex"
+            className="hidden rounded-lg px-3 py-2 text-body-sm text-charcoal-text transition-colors hover:text-midnight-ink md:inline-flex"
           >
             Entrar
           </Link>
           <Link
             href="/resumir-pdf"
-            className="hidden items-center justify-center rounded-[length:var(--radius-buttons)] border border-midnight-ink px-3 py-2 text-sm font-medium text-midnight-ink transition-colors hover:bg-midnight-ink hover:text-crisp-white md:inline-flex"
+            className="hidden items-center justify-center rounded-lg border border-midnight-ink px-3 py-2 text-body-sm font-medium text-midnight-ink transition-colors hover:bg-midnight-ink hover:text-crisp-white md:inline-flex"
           >
             Resumir um PDF
           </Link>
@@ -118,7 +118,7 @@ export function SiteHeader() {
             aria-controls="mobile-sheet"
             aria-label={open ? "Fechar menu" : "Abrir menu"}
             onClick={() => setOpen((v) => !v)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-[length:var(--radius-buttons)] border border-midnight-ink text-midnight-ink md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-midnight-ink text-midnight-ink md:hidden"
           >
             <Hamburger open={open} />
           </button>
@@ -146,7 +146,7 @@ export function SiteHeader() {
                   <Link
                     href={item.href}
                     onClick={close}
-                    className="flex items-center justify-between border-b border-subtle-gray py-3 font-display text-2xl font-semibold text-midnight-ink"
+                    className="flex items-center justify-between border-b border-subtle-gray py-3 font-display text-heading font-semibold text-midnight-ink"
                   >
                     {item.label}
                     <span aria-hidden="true" className="text-faded-stone">
@@ -161,14 +161,14 @@ export function SiteHeader() {
               <Link
                 href="/resumir-pdf"
                 onClick={close}
-                className="inline-flex items-center justify-center rounded-[length:var(--radius-buttons)] border border-midnight-ink px-5 py-3 text-base font-medium text-midnight-ink"
+                className="inline-flex items-center justify-center rounded-lg border border-midnight-ink px-5 py-3 text-body font-medium text-midnight-ink"
               >
                 Resumir um PDF
               </Link>
               <Link
                 href="/login"
                 onClick={close}
-                className="inline-flex items-center justify-center rounded-[length:var(--radius-buttons)] bg-apollo-gold px-5 py-3 text-base font-medium text-midnight-ink"
+                className="inline-flex items-center justify-center rounded-lg bg-apollo-gold px-5 py-3 text-body font-medium text-midnight-ink"
               >
                 Entrar
               </Link>
@@ -243,16 +243,14 @@ function NavGroup({
 }) {
   return (
     <section className="mt-10">
-      <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
-        {title}
-      </p>
+      <p className="eyebrow text-faded-stone">{title}</p>
       <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2">
         {items.map((item) => (
           <li key={item.href}>
             <Link
               href={item.href}
               onClick={onLinkClick}
-              className="text-sm text-charcoal-text underline-offset-4 hover:underline"
+              className="text-body-sm text-charcoal-text underline-offset-4 hover:underline"
             >
               {item.label}
             </Link>

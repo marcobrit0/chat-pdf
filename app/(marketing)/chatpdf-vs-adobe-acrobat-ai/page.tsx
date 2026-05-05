@@ -69,11 +69,11 @@ export default function ChatpdfVsAdobePage() {
       ]}
     >
       <section>
-        <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-heading font-semibold text-midnight-ink">
           Comparação direta
         </h2>
         <div className="mt-6 overflow-x-auto">
-          <table className="w-full border-collapse text-sm">
+          <table className="w-full border-collapse text-body-sm">
             <thead>
               <tr className="border-b border-midnight-ink text-left">
                 <th className="py-4 pr-6 font-medium text-faded-stone">
@@ -103,10 +103,10 @@ export default function ChatpdfVsAdobePage() {
       </section>
 
       <section>
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-subheading font-semibold text-midnight-ink">
           Quando o Acrobat faz mais sentido
         </h2>
-        <p className="mt-3 text-base leading-relaxed text-charcoal-text">
+        <p className="mt-3 text-body  text-charcoal-text">
           Se sua equipe já usa o Adobe Acrobat para edição, assinaturas e gestão
           de PDFs em escala, o AI Assistant é um complemento natural. Para quem
           não tem licença, contratar o pacote inteiro só pelo AI raramente vale

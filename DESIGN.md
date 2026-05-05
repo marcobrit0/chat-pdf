@@ -229,6 +229,77 @@ Example Component Prompts:
 - **Supabase** — Flat, modern UI with a strong emphasis on readability and functional use of color, often a single, distinctive accent hue.
 - **Notion** — Clean, card-based layouts, focus on content organization, and a minimalist gray-scale base with limited, functional color accents.
 
+## Cheat Sheet (canonical mappings)
+
+The tokens above are authoritative. The cheat sheet below maps them to the specific decisions every screen has to make. **All values are token-aligned — no per-screen ad-hoc choices.**
+
+### Section vertical rhythm
+
+| Token            | Value | Use for                                    |
+| ---------------- | ----- | ------------------------------------------ |
+| `py-section-sm`  | 56px  | Stat strips, dense rows, compact bands     |
+| `py-section-md`  | 80px  | Default content sections                   |
+| `py-section-lg`  | 96px  | Hero, marquee, final CTA                   |
+
+### Card padding tiers
+
+| Token              | Value | Use for                                 |
+| ------------------ | ----- | --------------------------------------- |
+| `p-card-compact`   | 16px  | List rows, sidebar items, dense tables  |
+| `p-card`           | 24px  | Default content cards                   |
+| `p-card-elevated`  | 40px  | Hero cards, pricing, premium banners    |
+
+### Container
+
+`container-page` → `mx-auto w-full max-w-[1240px] px-8`. Use the `<Container>` primitive.
+
+### Type-to-element mapping
+
+| Element                         | Class                                                    |
+| ------------------------------- | -------------------------------------------------------- |
+| Hero `<h1>`                     | `font-display text-display text-[clamp(48px,8vw,88px)]`  |
+| Section `<h2>`                  | `font-display text-heading-lg text-[clamp(32px,4vw,48px)]` |
+| Card `<h3>` (primary)           | `font-display text-heading`                              |
+| Card `<h3>` (compact)           | `font-display text-subheading`                           |
+| Body lead                       | `text-body-lg`                                           |
+| Body                            | `text-body`                                              |
+| Small body / lists              | `text-body-sm`                                           |
+| Eyebrow / mono code / page nums | `text-caption` (use `eyebrow` or `mono-label` utility)   |
+
+### Eyebrow / mono-label
+
+Two label patterns, no more.
+
+```html
+<!-- Section eyebrow -->
+<p class="eyebrow text-faded-stone">Como funciona</p>
+
+<!-- Mono code/meta -->
+<span class="mono-label text-faded-stone">pág. 5</span>
+```
+
+Or use the components: `<Eyebrow>` / `<MonoLabel>`.
+
+### Border radius
+
+Three sizes, period. `rounded-md` (4px), `rounded-lg` (8px, default for cards/buttons), `rounded-xl` (12px, callout cards). No `rounded-[3px]`, `rounded-[6px]`, `rounded-[7px]`.
+
+### Color tokens — quick map
+
+| Surface / role           | Token              |
+| ------------------------ | ------------------ |
+| Page background          | `bg-canvas`        |
+| Card background          | `bg-crisp-white`   |
+| Section break / footer   | `bg-ash-gray`      |
+| Inverted (CTA strip)     | `bg-midnight-ink`  |
+| Primary action           | `bg-apollo-gold`   |
+| Body text                | `text-charcoal-text` |
+| Muted text / labels      | `text-faded-stone` |
+| Strong text / headings   | `text-midnight-ink` |
+| Hairline border          | `border-subtle-gray` |
+| Hairline on dark surface | `border-midnight-divider` |
+| Live status dot          | `bg-status-dot`    |
+
 ## Quick Start
 
 ### CSS Custom Properties

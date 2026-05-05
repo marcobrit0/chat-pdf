@@ -83,11 +83,11 @@ export function DocumentLibrary({ initialDocuments }: Props) {
 
   return (
     <div className="space-y-10">
-      <section className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+      <section className="rounded-lg border border-subtle-gray bg-crisp-white p-card">
+        <h2 className="font-display text-subheading font-semibold text-midnight-ink">
           Adicionar PDF
         </h2>
-        <p className="mt-2 text-sm text-charcoal-text">
+        <p className="mt-2 text-body-sm text-charcoal-text">
           O texto é extraído no servidor e indexado em trechos com intervalo de
           páginas para citações no chat.
         </p>
@@ -118,16 +118,16 @@ export function DocumentLibrary({ initialDocuments }: Props) {
                 : "border-soft-stone bg-canvas hover:border-midnight-ink")
             }
           >
-            <span className="font-display text-lg font-semibold text-midnight-ink">
+            <span className="font-display text-subheading font-semibold text-midnight-ink">
               Solte um PDF aqui
             </span>
-            <span className="text-sm text-charcoal-text">
+            <span className="text-body-sm text-charcoal-text">
               ou{" "}
               <span className="underline underline-offset-4">
                 clique para selecionar
               </span>
             </span>
-            <span className="font-condensed text-xs uppercase tracking-[0.18em] text-faded-stone">
+            <span className="eyebrow text-faded-stone">
               Premium · até 100 páginas · histórico salvo
             </span>
             <input
@@ -142,12 +142,12 @@ export function DocumentLibrary({ initialDocuments }: Props) {
           </label>
 
           {fileName ? (
-            <p className="text-sm text-graphite">
+            <p className="text-body-sm text-graphite">
               Arquivo selecionado:{" "}
               <span className="font-medium text-midnight-ink">{fileName}</span>
             </p>
           ) : (
-            <p className="text-sm text-faded-stone">
+            <p className="text-body-sm text-faded-stone">
               Selecione um PDF para criar um novo workspace.
             </p>
           )}
@@ -156,7 +156,7 @@ export function DocumentLibrary({ initialDocuments }: Props) {
             type="submit"
             disabled={pending || !fileName}
             className={
-              "w-full rounded-[length:var(--radius-buttons)] px-5 py-3 text-sm font-medium transition-opacity sm:w-auto " +
+              "w-full rounded-lg px-5 py-3 text-body-sm font-medium transition-opacity sm:w-auto " +
               (fileName && !pending
                 ? "bg-apollo-gold text-midnight-ink hover:opacity-90"
                 : "cursor-not-allowed bg-subtle-gray text-faded-stone")
@@ -171,14 +171,14 @@ export function DocumentLibrary({ initialDocuments }: Props) {
         </form>
 
         {error ? (
-          <p className="mt-3 text-sm text-red-700" role="alert">
+          <p className="mt-3 text-body-sm text-red-700" role="alert">
             {error}
           </p>
         ) : null}
       </section>
 
       <section>
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-subheading font-semibold text-midnight-ink">
           Seus documentos
         </h2>
         {initialDocuments.length === 0 ? (
@@ -187,11 +187,11 @@ export function DocumentLibrary({ initialDocuments }: Props) {
             fontes.
           </p>
         ) : (
-          <ul className="mt-4 divide-y divide-subtle-gray rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white">
+          <ul className="mt-4 divide-y divide-subtle-gray rounded-lg border border-subtle-gray bg-crisp-white">
             {initialDocuments.map((d) => (
               <li
                 key={d.id}
-                className="flex flex-col gap-1 px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
+                className="flex flex-col gap-1 p-card-compact sm:flex-row sm:items-center sm:justify-between"
               >
                 <div>
                   <Link
@@ -200,7 +200,7 @@ export function DocumentLibrary({ initialDocuments }: Props) {
                   >
                     {d.title ?? "Sem título"}
                   </Link>
-                  <p className="text-sm text-faded-stone">
+                  <p className="text-body-sm text-faded-stone">
                     {d.page_count != null
                       ? `${d.page_count} páginas`
                       : "Páginas —"}
@@ -210,7 +210,7 @@ export function DocumentLibrary({ initialDocuments }: Props) {
                 </div>
                 <Link
                   href={`/app/documents/${d.id}`}
-                  className="text-sm text-charcoal-text underline"
+                  className="text-body-sm text-charcoal-text underline"
                 >
                   Abrir workspace →
                 </Link>

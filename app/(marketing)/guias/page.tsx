@@ -129,20 +129,20 @@ export default function GuiasIndexPage() {
       />
 
       <header className="mt-6 max-w-3xl">
-        <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+        <p className="eyebrow text-faded-stone">
           Guias e tutoriais
         </p>
-        <h1 className="mt-3 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-[1.05] tracking-tight text-midnight-ink">
+        <h1 className="mt-3 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-[1.05]  text-midnight-ink">
           Como tirar o máximo do PDFIA.
         </h1>
-        <p className="mt-5 text-base leading-relaxed text-charcoal-text sm:text-lg">
+        <p className="mt-5 text-body  text-charcoal-text sm:text-body-lg">
           Tutoriais práticos sobre IA para PDFs em português, organizados por
           tipo de documento. Novos guias entram conforme o produto evolui.
         </p>
       </header>
 
       <section className="mt-12">
-        <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-heading font-semibold text-midnight-ink">
           Guias publicados
         </h2>
         <ul className="mt-6 grid gap-px overflow-hidden border border-subtle-gray bg-subtle-gray sm:grid-cols-2 lg:grid-cols-3">
@@ -152,16 +152,16 @@ export default function GuiasIndexPage() {
                 href={g.href}
                 className="group flex h-full flex-col gap-4 p-6 transition-colors hover:bg-crisp-white"
               >
-                <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+                <p className="eyebrow text-faded-stone">
                   ~{g.minutes} min
                 </p>
-                <h3 className="font-display text-xl font-semibold text-midnight-ink">
+                <h3 className="font-display text-subheading font-semibold text-midnight-ink">
                   {g.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-charcoal-text">
+                <p className="text-body-sm  text-charcoal-text">
                   {g.blurb}
                 </p>
-                <span className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-midnight-ink">
+                <span className="mt-auto inline-flex items-center gap-2 text-body-sm font-medium text-midnight-ink">
                   Ler guia
                   <span
                     aria-hidden="true"
@@ -177,20 +177,20 @@ export default function GuiasIndexPage() {
       </section>
 
       <section className="mt-16">
-        <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-heading font-semibold text-midnight-ink">
           Por tipo de documento
         </h2>
-        <p className="mt-3 max-w-2xl text-base leading-relaxed text-charcoal-text">
+        <p className="mt-3 max-w-2xl text-body  text-charcoal-text">
           Cada caso de uso tem uma página dedicada com explicação, FAQ e
           upload direto. Comece pelo que se parece com o seu PDF.
         </p>
         <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {TOPIC_CLUSTERS.map((c) => (
             <nav key={c.cluster} aria-label={c.cluster}>
-              <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+              <p className="eyebrow text-faded-stone">
                 {c.cluster}
               </p>
-              <ul className="mt-3 space-y-2 text-sm">
+              <ul className="mt-3 space-y-2 text-body-sm">
                 {c.items.map((item) => (
                   <li key={item.href}>
                     <Link
@@ -207,23 +207,23 @@ export default function GuiasIndexPage() {
         </div>
       </section>
 
-      <section className="mt-16 rounded-[length:var(--radius-cards)] border border-midnight-ink bg-canvas p-8">
-        <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+      <section className="mt-16 rounded-lg border border-midnight-ink bg-canvas p-8">
+        <p className="eyebrow text-faded-stone">
           Pronto para começar?
         </p>
-        <h2 className="mt-3 font-display text-2xl font-semibold text-midnight-ink">
+        <h2 className="mt-3 font-display text-heading font-semibold text-midnight-ink">
           Resumo grátis sem cadastro para PDFs até 10 páginas.
         </h2>
         <div className="mt-5 flex flex-wrap gap-3">
           <Link
             href="/resumir-pdf"
-            className="inline-flex items-center justify-center rounded-[length:var(--radius-buttons)] bg-apollo-gold px-5 py-3 text-base font-medium text-midnight-ink"
+            className="inline-flex items-center justify-center rounded-lg bg-apollo-gold px-5 py-3 text-body font-medium text-midnight-ink"
           >
             Resumir PDF grátis
           </Link>
           <Link
             href="/precos"
-            className="inline-flex items-center justify-center rounded-[length:var(--radius-buttons)] border border-midnight-ink px-5 py-3 text-base font-medium text-midnight-ink"
+            className="inline-flex items-center justify-center rounded-lg border border-midnight-ink px-5 py-3 text-body font-medium text-midnight-ink"
           >
             Ver Premium
           </Link>

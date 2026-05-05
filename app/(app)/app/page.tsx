@@ -15,11 +15,11 @@ export default async function AppHomePage({
     !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   ) {
     return (
-      <div className="mx-auto max-w-2xl px-6 py-16">
-        <p className="text-charcoal-text">
+      <div className="container-page max-w-[760px] py-section-md">
+        <p className="text-body text-charcoal-text">
           Defina{" "}
-          <code className="font-mono text-sm">NEXT_PUBLIC_SUPABASE_URL</code> e{" "}
-          <code className="font-mono text-sm">
+          <code className="font-mono text-body-sm">NEXT_PUBLIC_SUPABASE_URL</code> e{" "}
+          <code className="font-mono text-body-sm">
             NEXT_PUBLIC_SUPABASE_ANON_KEY
           </code>{" "}
           para carregar a sessão.
@@ -43,7 +43,7 @@ export default async function AppHomePage({
 
   if (!gate.ok) {
     return (
-      <div className="mx-auto w-full max-w-7xl px-4 py-10 md:px-6">
+      <div className="container-page py-section-md">
         <PremiumUpsell email={user.email ?? null} />
       </div>
     );

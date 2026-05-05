@@ -76,7 +76,7 @@ export function InlineUpload({
         onDragLeave={() => setDragging(false)}
         onDrop={onDrop}
         className={
-          "group flex cursor-pointer flex-col items-center justify-center gap-2 rounded-[length:var(--radius-md)] border border-dashed " +
+          "group flex cursor-pointer flex-col items-center justify-center gap-2 rounded-md border border-dashed " +
           padY +
           " px-5 text-center transition-colors " +
           (dragging
@@ -86,15 +86,15 @@ export function InlineUpload({
       >
         <span className="inline-flex items-center gap-2">
           <UploadGlyph />
-          <span className="font-display text-lg font-semibold tracking-tight text-midnight-ink sm:text-xl">
+          <span className="font-display text-subheading font-semibold text-midnight-ink">
             Solte um PDF aqui
           </span>
         </span>
-        <span className="text-sm text-charcoal-text">
+        <span className="text-body-sm text-charcoal-text">
           ou{" "}
           <span className="underline underline-offset-4">clique para selecionar</span>
         </span>
-        <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-faded-stone">
+        <span className="mono-label text-faded-stone">
           Grátis · Sem cadastro · Até {ANON_MAX_PAGES} páginas
         </span>
         <input
@@ -106,7 +106,7 @@ export function InlineUpload({
         />
       </label>
       {error ? (
-        <p className="text-sm text-red-700" role="alert">
+        <p className="text-body-sm text-red-700" role="alert">
           {error}
         </p>
       ) : null}

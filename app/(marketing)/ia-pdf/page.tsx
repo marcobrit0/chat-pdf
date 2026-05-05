@@ -108,7 +108,7 @@ export default function IaPdfPage() {
       ]}
     >
       <section className="space-y-4">
-        <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-heading font-semibold text-midnight-ink">
           Casos de uso por tipo de PDF
         </h2>
         <p>
@@ -120,20 +120,20 @@ export default function IaPdfPage() {
           {useCases.map((u) => (
             <li
               key={u.href}
-              className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-5"
+              className="rounded-lg border border-subtle-gray bg-crisp-white p-5"
             >
-              <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+              <p className="eyebrow text-faded-stone">
                 {u.persona}
               </p>
-              <p className="mt-2 font-display text-lg font-semibold text-midnight-ink">
+              <p className="mt-2 font-display text-body-lg font-semibold text-midnight-ink">
                 {u.docType}
               </p>
-              <p className="mt-2 text-sm leading-relaxed text-charcoal-text">
+              <p className="mt-2 text-body-sm  text-charcoal-text">
                 Extrai: {u.extracts}.
               </p>
               <Link
                 href={u.href}
-                className="mt-4 inline-flex text-sm font-medium text-midnight-ink underline underline-offset-4"
+                className="mt-4 inline-flex text-body-sm font-medium text-midnight-ink underline underline-offset-4"
               >
                 {u.label} →
               </Link>
@@ -143,7 +143,7 @@ export default function IaPdfPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-heading font-semibold text-midnight-ink">
           Não encontrou seu caso?
         </h2>
         <p>

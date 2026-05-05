@@ -76,7 +76,7 @@ export default function IaParaResumirPdfPage() {
       ]}
     >
       <section className="space-y-4">
-        <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-heading font-semibold text-midnight-ink">
           O que a IA extrai do PDF
         </h2>
         <p>
@@ -89,34 +89,34 @@ export default function IaParaResumirPdfPage() {
           {fields.map((f) => (
             <li
               key={f.label}
-              className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-4"
+              className="rounded-lg border border-subtle-gray bg-crisp-white p-4"
             >
-              <p className="font-display text-base font-semibold text-midnight-ink">
+              <p className="font-display text-body font-semibold text-midnight-ink">
                 {f.label}
               </p>
-              <p className="mt-1 text-sm text-charcoal-text">{f.note}</p>
+              <p className="mt-1 text-body-sm text-charcoal-text">{f.note}</p>
             </li>
           ))}
         </ul>
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-heading font-semibold text-midnight-ink">
           Fluxo passo a passo
         </h2>
         <ol className="grid gap-4 md:grid-cols-3">
           {steps.map((s) => (
             <li
               key={s.n}
-              className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-5"
+              className="rounded-lg border border-subtle-gray bg-crisp-white p-5"
             >
-              <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+              <p className="eyebrow text-faded-stone">
                 {s.n}
               </p>
-              <p className="mt-2 font-display text-lg font-semibold text-midnight-ink">
+              <p className="mt-2 font-display text-body-lg font-semibold text-midnight-ink">
                 {s.title}
               </p>
-              <p className="mt-2 text-sm leading-relaxed text-charcoal-text">
+              <p className="mt-2 text-body-sm  text-charcoal-text">
                 {s.body}
               </p>
             </li>
@@ -125,14 +125,14 @@ export default function IaParaResumirPdfPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-heading font-semibold text-midnight-ink">
           Exemplo: contrato de prestação de serviços (PDF de 8 páginas)
         </h2>
-        <div className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-5">
-          <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+        <div className="rounded-lg border border-subtle-gray bg-crisp-white p-5">
+          <p className="eyebrow text-faded-stone">
             Saída resumida pela IA
           </p>
-          <ul className="mt-3 space-y-2 text-sm text-charcoal-text">
+          <ul className="mt-3 space-y-2 text-body-sm text-charcoal-text">
             <li>
               <strong className="text-midnight-ink">Visão geral:</strong>{" "}
               Contrato entre Empresa X e Consultoria Y para serviços de
@@ -158,7 +158,7 @@ export default function IaParaResumirPdfPage() {
             </li>
           </ul>
         </div>
-        <p className="text-sm text-faded-stone">
+        <p className="text-body-sm text-faded-stone">
           Exemplo ilustrativo — a saída real depende do conteúdo do seu PDF.
         </p>
       </section>

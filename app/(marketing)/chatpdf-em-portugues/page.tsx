@@ -41,18 +41,18 @@ export default function ChatpdfEmPortuguesPage() {
       ]}
     >
       <section>
-        <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-heading font-semibold text-midnight-ink">
           Como funciona
         </h2>
-        <ol className="mt-4 grid gap-3 text-base text-charcoal-text">
+        <ol className="mt-4 grid gap-3 text-body text-charcoal-text">
           <li className="flex items-start gap-4">
-            <span className="font-condensed text-sm tracking-[0.16em] text-faded-stone">
+            <span className="eyebrow text-faded-stone">
               01
             </span>
             <span>Envie um PDF — sem cadastro para documentos curtos</span>
           </li>
           <li className="flex items-start gap-4">
-            <span className="font-condensed text-sm tracking-[0.16em] text-faded-stone">
+            <span className="eyebrow text-faded-stone">
               02
             </span>
             <span>
@@ -60,7 +60,7 @@ export default function ChatpdfEmPortuguesPage() {
             </span>
           </li>
           <li className="flex items-start gap-4">
-            <span className="font-condensed text-sm tracking-[0.16em] text-faded-stone">
+            <span className="eyebrow text-faded-stone">
               03
             </span>
             <span>
@@ -69,7 +69,7 @@ export default function ChatpdfEmPortuguesPage() {
             </span>
           </li>
           <li className="flex items-start gap-4">
-            <span className="font-condensed text-sm tracking-[0.16em] text-faded-stone">
+            <span className="eyebrow text-faded-stone">
               04
             </span>
             <span>Cada resposta cita a página onde a informação aparece</span>
@@ -78,28 +78,28 @@ export default function ChatpdfEmPortuguesPage() {
       </section>
 
       <section className="grid gap-6 md:grid-cols-2">
-        <div className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
-          <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+        <div className="rounded-lg border border-subtle-gray bg-crisp-white p-6">
+          <p className="eyebrow text-faded-stone">
             ChatPDF (internacional)
           </p>
-          <h3 className="mt-3 font-display text-lg font-semibold text-midnight-ink">
+          <h3 className="mt-3 font-display text-body-lg font-semibold text-midnight-ink">
             Para o mercado global
           </h3>
-          <ul className="mt-4 space-y-2 text-sm text-charcoal-text">
+          <ul className="mt-4 space-y-2 text-body-sm text-charcoal-text">
             <li>Interface em inglês por padrão</li>
             <li>Respostas dependem do idioma do prompt</li>
             <li>Sem modos para documentos brasileiros</li>
             <li>Preços em USD</li>
           </ul>
         </div>
-        <div className="rounded-[length:var(--radius-cards)] border border-midnight-ink bg-crisp-white p-6">
-          <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+        <div className="rounded-lg border border-midnight-ink bg-crisp-white p-6">
+          <p className="eyebrow text-faded-stone">
             PDFIA
           </p>
-          <h3 className="mt-3 font-display text-lg font-semibold text-midnight-ink">
+          <h3 className="mt-3 font-display text-body-lg font-semibold text-midnight-ink">
             Para o mercado brasileiro
           </h3>
-          <ul className="mt-4 space-y-2 text-sm text-charcoal-text">
+          <ul className="mt-4 space-y-2 text-body-sm text-charcoal-text">
             <li>Interface em português do Brasil</li>
             <li>Respostas em PT-BR por padrão</li>
             <li>Modos para CLT, editais e apólices</li>

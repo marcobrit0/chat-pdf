@@ -112,22 +112,22 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
     <div className="grid gap-0 md:grid-cols-[260px_minmax(0,1fr)]">
       {/* Sidebar */}
       <aside className="hidden border-r border-subtle-gray bg-canvas px-4 py-6 md:block">
-        <div className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-4">
-          <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
+        <div className="rounded-lg border border-subtle-gray bg-crisp-white p-card-compact">
+          <p className="eyebrow text-faded-stone">
             Conta
           </p>
           <p
-            className="mt-1 truncate text-[13px] text-graphite"
+            className="mt-1 truncate text-body-sm text-graphite"
             title={email ?? ""}
           >
             {email ?? "—"}
           </p>
           <div className="mt-3 flex items-center justify-between">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-subtle-gray bg-canvas px-2.5 py-1 font-condensed text-[10px] uppercase tracking-[0.18em] text-charcoal-text">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-subtle-gray bg-canvas px-2.5 py-1 eyebrow text-charcoal-text">
               <span className="inline-block h-1.5 w-1.5 rounded-full bg-apollo-gold" />
               Premium
             </span>
-            <span className="font-mono text-[10px] tracking-[0.06em] text-faded-stone">
+            <span className="font-mono text-caption tracking-[0.06em] text-faded-stone">
               R$29/mês
             </span>
           </div>
@@ -135,15 +135,15 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
 
         <div className="mt-6">
           <div className="flex items-center justify-between px-1">
-            <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
+            <p className="eyebrow text-faded-stone">
               Biblioteca
             </p>
-            <span className="font-mono text-[11px] tracking-[0.06em] text-faded-stone">
+            <span className="font-mono text-caption tracking-[0.06em] text-faded-stone">
               {documents.length}
             </span>
           </div>
           {documents.length === 0 ? (
-            <p className="mt-3 px-1 text-xs text-faded-stone">
+            <p className="mt-3 px-1 text-caption text-faded-stone">
               Sem documentos ainda.
             </p>
           ) : (
@@ -155,21 +155,21 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
                     <Link
                       href={`/app/documents/${d.id}`}
                       className={
-                        "block rounded-[6px] border px-3 py-2.5 text-left transition-colors hover:border-subtle-gray hover:bg-crisp-white " +
+                        "block rounded-md border px-3 py-2.5 text-left transition-colors hover:border-subtle-gray hover:bg-crisp-white " +
                         (i === 0
                           ? "border-subtle-gray bg-crisp-white"
                           : "border-transparent")
                       }
                     >
                       <div className="flex items-center justify-between">
-                        <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-faded-stone">
+                        <span className="mono-label text-faded-stone">
                           {code}
                         </span>
-                        <span className="font-mono text-[10px] tracking-[0.06em] text-faded-stone">
+                        <span className="font-mono text-caption tracking-[0.06em] text-faded-stone">
                           {relativeDate(d.created_at)}
                         </span>
                       </div>
-                      <p className="mt-1 truncate text-[13px] text-graphite">
+                      <p className="mt-1 truncate text-body-sm text-graphite">
                         {d.title ?? "Sem título"}
                       </p>
                     </Link>
@@ -181,7 +181,7 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
         </div>
 
         <div className="mt-6">
-          <p className="px-1 font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
+          <p className="px-1 eyebrow text-faded-stone">
             Atalhos
           </p>
           <ul className="mt-2 grid gap-1">
@@ -189,11 +189,11 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
               <li key={s.href}>
                 <Link
                   href={s.href}
-                  className="flex items-center justify-between rounded-[6px] px-3 py-2 text-[13px] text-charcoal-text hover:bg-crisp-white"
+                  className="flex items-center justify-between rounded-md px-3 py-2 text-body-sm text-charcoal-text hover:bg-crisp-white"
                 >
                   {s.label}
                   {s.badge ? (
-                    <span className="font-mono text-[10px] tracking-[0.06em] text-faded-stone">
+                    <span className="font-mono text-caption tracking-[0.06em] text-faded-stone">
                       {s.badge}
                     </span>
                   ) : null}
@@ -207,26 +207,26 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
       {/* Main */}
       <main className="px-4 py-8 sm:px-6 md:px-10 md:py-10">
         {justUpgraded ? (
-          <div className="mb-6 rounded-[length:var(--radius-cards)] border border-midnight-ink bg-midnight-ink p-5 text-crisp-white">
-            <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-apollo-gold">
+          <div className="mb-6 rounded-lg border border-midnight-ink bg-midnight-ink p-card text-crisp-white">
+            <p className="eyebrow text-apollo-gold">
               Pagamento confirmado
             </p>
-            <p className="mt-2 font-display text-lg font-semibold leading-tight">
+            <p className="mt-2 font-display text-subheading font-semibold">
               Bem-vindo ao Premium. Tudo desbloqueado.
             </p>
           </div>
         ) : null}
 
         {/* Welcome card */}
-        <section className="grid gap-8 rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-7 sm:p-8 md:grid-cols-[1fr_280px]">
+        <section className="grid gap-8 rounded-lg border border-subtle-gray bg-crisp-white p-card sm:p-card-elevated md:grid-cols-[1fr_280px]">
           <div>
-            <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
+            <p className="eyebrow text-faded-stone">
               Workspace Premium
             </p>
-            <h1 className="mt-3 font-display text-[clamp(1.75rem,3.5vw,2.5rem)] font-semibold leading-tight tracking-tight text-midnight-ink">
+            <h1 className="mt-3 font-display text-heading-lg font-semibold text-midnight-ink text-[clamp(28px,3.5vw,40px)]">
               Bom te ver de volta.
             </h1>
-            <p className="mt-3 max-w-xl text-base leading-relaxed text-charcoal-text">
+            <p className="mt-3 max-w-xl text-body text-charcoal-text">
               Solte um PDF para gerar resumo, dados-chave e abrir o chat com
               citação de página.
             </p>
@@ -239,9 +239,9 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
             ].map(([k, v]) => (
               <div
                 key={k}
-                className="flex items-center justify-between rounded-[4px] bg-canvas px-3 py-2 text-[13px]"
+                className="flex items-center justify-between rounded-md bg-canvas px-3 py-2 text-body-sm"
               >
-                <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-faded-stone">
+                <span className="mono-label text-faded-stone">
                   {k}
                 </span>
                 <span className="font-medium text-midnight-ink">{v}</span>
@@ -254,13 +254,13 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
         <section className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
           <form
             onSubmit={onSubmit}
-            className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6"
+            className="rounded-lg border border-subtle-gray bg-crisp-white p-card"
           >
             <div className="flex items-center justify-between">
-              <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
+              <p className="eyebrow text-faded-stone">
                 Novo documento
               </p>
-              <span className="font-mono text-[11px] uppercase tracking-[0.06em] text-faded-stone">
+              <span className="mono-label text-faded-stone">
                 Premium · até 100 págs
               </span>
             </div>
@@ -283,22 +283,22 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
                 }
               }}
               className={
-                "mt-3 flex cursor-pointer flex-col items-center justify-center gap-2 rounded-[length:var(--radius-md)] border border-dashed py-10 px-5 text-center transition-colors " +
+                "mt-3 flex cursor-pointer flex-col items-center justify-center gap-2 rounded-md border border-dashed py-10 px-5 text-center transition-colors " +
                 (isDragging
                   ? "border-midnight-ink bg-canvas"
                   : "border-soft-stone bg-canvas hover:border-midnight-ink hover:bg-crisp-white")
               }
             >
-              <span className="font-display text-lg font-semibold tracking-tight text-midnight-ink">
+              <span className="font-display text-subheading font-semibold text-midnight-ink">
                 Solte um PDF aqui
               </span>
-              <span className="text-sm text-charcoal-text">
+              <span className="text-body-sm text-charcoal-text">
                 ou{" "}
                 <span className="underline underline-offset-4">
                   clique para selecionar
                 </span>
               </span>
-              <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-faded-stone">
+              <span className="mono-label text-faded-stone">
                 Histórico salvo · indexação por página
               </span>
               <input
@@ -313,7 +313,7 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
             </label>
 
             {fileName ? (
-              <p className="mt-3 text-sm text-graphite">
+              <p className="mt-3 text-body-sm text-graphite">
                 Arquivo selecionado:{" "}
                 <span className="font-medium text-midnight-ink">{fileName}</span>
               </p>
@@ -323,7 +323,7 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
               type="submit"
               disabled={pending || !fileName}
               className={
-                "mt-4 w-full rounded-[length:var(--radius-buttons)] px-5 py-3 text-sm font-medium transition-opacity " +
+                "mt-4 w-full rounded-lg px-5 py-3 text-body-sm font-medium transition-opacity " +
                 (fileName && !pending
                   ? "bg-apollo-gold text-midnight-ink hover:opacity-90"
                   : "cursor-not-allowed bg-subtle-gray text-faded-stone")
@@ -337,7 +337,7 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
             </button>
 
             {error ? (
-              <p className="mt-3 text-sm text-red-700" role="alert">
+              <p className="mt-3 text-body-sm text-red-700" role="alert">
                 {error}
               </p>
             ) : null}
@@ -365,45 +365,45 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
             ].map(([k, v, sub]) => (
               <div
                 key={k}
-                className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-5"
+                className="rounded-lg border border-subtle-gray bg-crisp-white p-card"
               >
-                <p className="font-mono text-[10px] uppercase tracking-[0.1em] text-faded-stone">
+                <p className="mono-label text-faded-stone">
                   {k}
                 </p>
-                <p className="mt-2 font-display text-2xl font-semibold tracking-tight text-midnight-ink">
+                <p className="mt-2 font-display text-heading font-semibold text-midnight-ink">
                   {v}
                 </p>
-                <p className="mt-1 text-[11px] text-charcoal-text">{sub}</p>
+                <p className="mt-1 text-caption text-charcoal-text">{sub}</p>
               </div>
             ))}
           </div>
         </section>
 
         {/* Documents table */}
-        <section className="mt-4 overflow-hidden rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white">
+        <section className="mt-4 overflow-hidden rounded-lg border border-subtle-gray bg-crisp-white">
           <div className="flex items-center justify-between border-b border-subtle-gray px-5 py-4">
             <div>
-              <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
+              <p className="eyebrow text-faded-stone">
                 Documentos recentes
               </p>
-              <h2 className="mt-1 font-display text-lg font-semibold tracking-tight text-midnight-ink">
+              <h2 className="mt-1 font-display text-subheading font-semibold text-midnight-ink">
                 Sua biblioteca
               </h2>
             </div>
-            <span className="font-mono text-[11px] tracking-[0.06em] text-faded-stone">
+            <span className="font-mono text-caption tracking-[0.06em] text-faded-stone">
               {documents.length} {documents.length === 1 ? "arquivo" : "arquivos"}
             </span>
           </div>
 
           {documents.length === 0 ? (
             <div className="px-6 py-10 text-center">
-              <p className="text-sm text-charcoal-text">
+              <p className="text-body-sm text-charcoal-text">
                 Nenhum PDF ainda. Envie um arquivo acima para começar.
               </p>
             </div>
           ) : (
             <>
-              <div className="hidden grid-cols-[60px_minmax(0,1fr)_120px_140px_100px_24px] gap-4 border-b border-subtle-gray bg-canvas px-5 py-3 font-mono text-[10px] uppercase tracking-[0.1em] text-faded-stone md:grid">
+              <div className="hidden grid-cols-[60px_minmax(0,1fr)_120px_140px_100px_24px] gap-4 border-b border-subtle-gray bg-canvas px-5 py-3 mono-label text-faded-stone md:grid">
                 <span>Tipo</span>
                 <span>Documento</span>
                 <span>Páginas</span>
@@ -428,29 +428,29 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
                         className="grid grid-cols-[60px_minmax(0,1fr)_24px] items-center gap-4 px-5 py-4 transition-colors hover:bg-canvas md:grid-cols-[60px_minmax(0,1fr)_120px_140px_100px_24px]"
                       >
                         <span
-                          className="justify-self-start rounded-[3px] border border-subtle-gray bg-canvas px-2 py-1 font-mono text-[10px] uppercase tracking-[0.06em] text-midnight-ink"
+                          className="justify-self-start rounded-md border border-subtle-gray bg-canvas px-2 py-1 mono-label text-midnight-ink"
                           aria-label={tag}
                         >
                           {code}
                         </span>
                         <div className="min-w-0">
-                          <p className="truncate font-display text-[15px] font-semibold tracking-tight text-midnight-ink">
+                          <p className="truncate font-display text-body-sm font-semibold  text-midnight-ink">
                             {d.title ?? "Sem título"}
                           </p>
-                          <p className="font-mono text-[10px] uppercase tracking-[0.06em] text-faded-stone">
+                          <p className="mono-label text-faded-stone">
                             {tag}
                           </p>
                         </div>
-                        <span className="hidden font-mono text-xs text-graphite md:inline">
+                        <span className="hidden font-mono text-caption text-graphite md:inline">
                           {d.page_count != null
                             ? `${d.page_count} págs`
                             : "—"}
                         </span>
-                        <span className="hidden font-mono text-[11px] uppercase tracking-[0.06em] text-faded-stone md:inline">
+                        <span className="hidden mono-label text-faded-stone md:inline">
                           {relativeDate(d.created_at)}
                         </span>
                         <span className="hidden md:inline">
-                          <span className="inline-flex items-center gap-1.5 rounded-full border border-subtle-gray bg-canvas px-2.5 py-1 font-condensed text-[10px] uppercase tracking-[0.18em] text-charcoal-text">
+                          <span className="inline-flex items-center gap-1.5 rounded-full border border-subtle-gray bg-canvas px-2.5 py-1 eyebrow text-charcoal-text">
                             <span className="inline-block h-1.5 w-1.5 rounded-full bg-apollo-gold" />
                             Pronto
                           </span>
@@ -489,21 +489,21 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
             <Link
               key={t}
               href={href}
-              className="grid gap-3 rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6 transition-colors hover:border-midnight-ink"
+              className="grid gap-3 rounded-lg border border-subtle-gray bg-crisp-white p-card transition-colors hover:border-midnight-ink"
             >
               <div className="flex items-center justify-between">
-                <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
+                <p className="eyebrow text-faded-stone">
                   Em desenvolvimento
                 </p>
-                <span className="font-mono text-[10px] tracking-[0.06em] text-faded-stone">
+                <span className="font-mono text-caption tracking-[0.06em] text-faded-stone">
                   {badge}
                 </span>
               </div>
-              <h3 className="font-display text-xl font-semibold tracking-tight text-midnight-ink">
+              <h3 className="font-display text-subheading font-semibold text-midnight-ink">
                 {t}
               </h3>
-              <p className="text-[13px] leading-relaxed text-charcoal-text">{b}</p>
-              <div className="flex items-center justify-between border-t border-subtle-gray pt-3 text-xs">
+              <p className="text-body-sm  text-charcoal-text">{b}</p>
+              <div className="flex items-center justify-between border-t border-subtle-gray pt-3 text-caption">
                 <span className="text-charcoal-text">Abrir</span>
                 <span aria-hidden="true" className="text-midnight-ink">
                   →
@@ -516,7 +516,7 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
         <div className="mt-8 border-t border-subtle-gray pt-6">
           <Link
             href="/precos"
-            className="text-sm text-faded-stone underline-offset-4 hover:text-charcoal-text hover:underline"
+            className="text-body-sm text-faded-stone underline-offset-4 hover:text-charcoal-text hover:underline"
           >
             Gerenciar assinatura
           </Link>

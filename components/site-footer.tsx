@@ -51,23 +51,23 @@ const legalLinks = [
 export function SiteFooter() {
   return (
     <footer className="mt-auto border-t border-subtle-gray bg-ash-gray">
-      <div className="mx-auto w-full max-w-[1240px] px-8 pb-10 pt-16">
+      <div className="container-page py-section-md">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <FooterColumn title="Produto" items={[...productLinks]} />
           <FooterColumn title="Casos de uso" items={[...useCaseLinks]} />
           <FooterColumn title="Comparações" items={[...compareLinks]} />
           <div className="space-y-6">
             <FooterColumn title="Conta" items={[...legalLinks]} />
-            <div className="rounded-[length:var(--radius-cards)] bg-canvas p-4 text-sm text-charcoal-text">
-              <p className="font-display text-base font-semibold leading-tight text-midnight-ink">
+            <div className="rounded-lg bg-canvas p-card text-body-sm text-charcoal-text">
+              <p className="font-display text-body-lg font-semibold text-midnight-ink">
                 Pronto para começar?
               </p>
-              <p className="mt-2 leading-relaxed">
+              <p className="mt-2">
                 Resumo grátis, sem cadastro, em português.
               </p>
               <Link
                 href="/resumir-pdf"
-                className="mt-3 inline-flex items-center justify-center rounded-[length:var(--radius-buttons)] bg-apollo-gold px-3 py-2 text-sm font-medium text-midnight-ink"
+                className="mt-3 inline-flex items-center justify-center rounded-lg bg-apollo-gold px-3 py-2 text-body-sm font-medium text-midnight-ink"
               >
                 Resumir PDF grátis
               </Link>
@@ -75,13 +75,11 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-2 border-t border-subtle-gray pt-6 text-xs text-faded-stone sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-condensed tracking-tight">
+        <div className="mt-12 flex flex-col gap-2 border-t border-subtle-gray pt-6 text-caption text-faded-stone sm:flex-row sm:items-center sm:justify-between">
+          <p className="font-condensed">
             © {new Date().getFullYear()} PDFIA · Resumos e chat com PDFs em português
           </p>
-          <p className="font-condensed tracking-tight">
-            Pagamentos seguros via Stripe · LGPD
-          </p>
+          <p className="font-condensed">Pagamentos seguros via Stripe · LGPD</p>
         </div>
       </div>
     </footer>
@@ -97,10 +95,8 @@ function FooterColumn({
 }) {
   return (
     <nav aria-label={title}>
-      <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
-        {title}
-      </p>
-      <ul className="mt-4 space-y-2 text-sm">
+      <p className="eyebrow text-faded-stone">{title}</p>
+      <ul className="mt-4 space-y-2 text-body-sm">
         {items.map((item) => (
           <li key={item.href}>
             <Link

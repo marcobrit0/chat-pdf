@@ -50,11 +50,11 @@ export default function AnalisarContratoPage() {
         { href: "/comparar-pdfs", label: "Comparar versões" },
       ]}
     >
-      <section className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
-        <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+      <section className="rounded-lg border border-subtle-gray bg-crisp-white p-6">
+        <p className="eyebrow text-faded-stone">
           Com o Premium você pode
         </p>
-        <ul className="mt-4 grid gap-3 text-base text-charcoal-text">
+        <ul className="mt-4 grid gap-3 text-body text-charcoal-text">
           <li className="flex items-start gap-3">
             <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
             <span>
@@ -84,7 +84,7 @@ export default function AnalisarContratoPage() {
             </span>
           </li>
         </ul>
-        <p className="mt-5 text-sm text-faded-stone">
+        <p className="mt-5 text-body-sm text-faded-stone">
           IA pode errar ou omitir cláusulas. Este produto não substitui
           advogado, contador ou assessor contratual.
         </p>

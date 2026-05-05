@@ -43,11 +43,11 @@ export default function ResumirRelatorioPdfPage() {
         { href: "/chat-pdf", label: "Conversar com PDF" },
       ]}
     >
-      <section className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
-        <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+      <section className="rounded-lg border border-subtle-gray bg-crisp-white p-6">
+        <p className="eyebrow text-faded-stone">
           O que o resumo extrai
         </p>
-        <ul className="mt-4 grid gap-2 text-base text-charcoal-text">
+        <ul className="mt-4 grid gap-2 text-body text-charcoal-text">
           <li>· Conclusões e recomendações principais</li>
           <li>· Dados e indicadores centrais do documento</li>
           <li>· Períodos e datas de referência</li>

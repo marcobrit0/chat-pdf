@@ -10,10 +10,10 @@ type Props = { isPremium: boolean };
 export function PremiumRoadmapCards({ isPremium }: Props) {
   return (
     <section className="space-y-4" aria-labelledby="roadmap-heading">
-      <h2 id="roadmap-heading" className="font-display text-xl font-semibold text-midnight-ink">
+      <h2 id="roadmap-heading" className="font-display text-subheading font-semibold text-midnight-ink">
         Roteiro Premium
       </h2>
-      <p className="text-sm text-charcoal-text">
+      <p className="text-body-sm text-charcoal-text">
         Novidades em desenvolvimento — sem backend simulado; as páginas abaixo explicam o status.
       </p>
 
@@ -51,13 +51,13 @@ function RoadmapCard({
   footnote: string;
 }) {
   return (
-    <div className="flex flex-col rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-5">
-      <h3 className="font-display text-lg font-semibold text-midnight-ink">{title}</h3>
-      <p className="mt-2 flex-1 text-sm text-charcoal-text">{description}</p>
-      <p className="mt-3 text-xs text-faded-stone">{footnote}</p>
+    <div className="flex flex-col rounded-lg border border-subtle-gray bg-crisp-white p-card">
+      <h3 className="font-display text-subheading font-semibold text-midnight-ink">{title}</h3>
+      <p className="mt-2 flex-1 text-body-sm text-charcoal-text">{description}</p>
+      <p className="mt-3 text-caption text-faded-stone">{footnote}</p>
       <Link
         href={href}
-        className="mt-4 inline-flex rounded-[length:var(--radius-buttons)] border border-midnight-ink px-4 py-2 text-sm font-medium text-midnight-ink hover:bg-canvas"
+        className="mt-4 inline-flex rounded-lg border border-midnight-ink px-4 py-2 text-body-sm font-medium text-midnight-ink hover:bg-canvas"
       >
         Abrir página de status
       </Link>

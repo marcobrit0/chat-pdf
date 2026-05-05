@@ -41,14 +41,14 @@ export default function ChatgptPdfPage() {
       ]}
     >
       <section className="grid gap-6 md:grid-cols-2">
-        <div className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
-          <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+        <div className="rounded-lg border border-subtle-gray bg-crisp-white p-6">
+          <p className="eyebrow text-faded-stone">
             ChatGPT
           </p>
-          <h2 className="mt-3 font-display text-xl font-semibold text-midnight-ink">
+          <h2 className="mt-3 font-display text-subheading font-semibold text-midnight-ink">
             O que faz e o que complica
           </h2>
-          <ul className="mt-4 space-y-2 text-sm text-charcoal-text">
+          <ul className="mt-4 space-y-2 text-body-sm text-charcoal-text">
             <li>Lê PDFs via upload, mas o limite de contexto varia por plano</li>
             <li>Não cita a página de origem por padrão</li>
             <li>Pode inventar informações que não estão no documento</li>
@@ -56,14 +56,14 @@ export default function ChatgptPdfPage() {
             <li>Não salva histórico associado ao documento</li>
           </ul>
         </div>
-        <div className="rounded-[length:var(--radius-cards)] border border-midnight-ink bg-crisp-white p-6">
-          <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+        <div className="rounded-lg border border-midnight-ink bg-crisp-white p-6">
+          <p className="eyebrow text-faded-stone">
             PDFIA
           </p>
-          <h2 className="mt-3 font-display text-xl font-semibold text-midnight-ink">
+          <h2 className="mt-3 font-display text-subheading font-semibold text-midnight-ink">
             O que uma ferramenta dedicada adiciona
           </h2>
-          <ul className="mt-4 space-y-2 text-sm text-charcoal-text">
+          <ul className="mt-4 space-y-2 text-body-sm text-charcoal-text">
             <li>Upload direto — sem copiar texto ou descrever o documento</li>
             <li>Respostas com referência de página para você conferir</li>
             <li>Aviso claro quando a informação não está no PDF</li>

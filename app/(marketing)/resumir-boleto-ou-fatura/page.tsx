@@ -42,11 +42,11 @@ export default function ResumirBoletoOuFaturaPage() {
         { href: "/resumir-pdf", label: "Resumir PDF" },
       ]}
     >
-      <section className="rounded-[length:var(--radius-cards)] border border-midnight-ink bg-canvas p-6">
-        <p className="font-condensed text-xs uppercase tracking-[0.2em] text-midnight-ink">
+      <section className="rounded-lg border border-midnight-ink bg-canvas p-6">
+        <p className="font-condensed text-caption uppercase tracking-[0.2em] text-midnight-ink">
           Aviso importante
         </p>
-        <p className="mt-3 text-base leading-relaxed text-charcoal-text">
+        <p className="mt-3 text-body  text-charcoal-text">
           Nunca use a saída da IA como fonte única para executar um pagamento.
           Confirme valor, código de barras e vencimento diretamente no
           documento ou no sistema emissor antes de pagar.
@@ -54,16 +54,16 @@ export default function ResumirBoletoOuFaturaPage() {
       </section>
 
       <section>
-        <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-heading font-semibold text-midnight-ink">
           O que a IA consegue extrair
         </h2>
-        <ul className="mt-4 grid gap-2 text-base text-charcoal-text">
+        <ul className="mt-4 grid gap-2 text-body text-charcoal-text">
           <li>· Emitente e sacador</li>
           <li>· Valor e data de vencimento mencionados no texto</li>
           <li>· Descrição dos itens ou serviços na fatura</li>
           <li>· Dados do beneficiário quando presentes no texto</li>
         </ul>
-        <p className="mt-4 text-sm text-faded-stone">
+        <p className="mt-4 text-body-sm text-faded-stone">
           Códigos de barras e dados de pagamento em formato gráfico ou imagem
           escaneada podem não ser lidos corretamente.
         </p>

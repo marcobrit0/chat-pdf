@@ -47,11 +47,11 @@ export default function LerEditalComIaPage() {
         { href: "/resumir-pdf", label: "Resumir PDF (geral)" },
       ]}
     >
-      <section className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
-        <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+      <section className="rounded-lg border border-subtle-gray bg-crisp-white p-6">
+        <p className="eyebrow text-faded-stone">
           O que esperar
         </p>
-        <ul className="mt-4 grid gap-2 text-base text-charcoal-text">
+        <ul className="mt-4 grid gap-2 text-body text-charcoal-text">
           <li className="flex items-start gap-3">
             <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
             Objeto, prazos e cronograma do certame.
@@ -69,7 +69,7 @@ export default function LerEditalComIaPage() {
             Penalidades, sanções e critérios de julgamento.
           </li>
         </ul>
-        <p className="mt-5 text-sm text-faded-stone">
+        <p className="mt-5 text-body-sm text-faded-stone">
           A IA organiza o texto. Decisões sobre participação e estratégia comercial seguem com você e seu jurídico.
         </p>
       </section>

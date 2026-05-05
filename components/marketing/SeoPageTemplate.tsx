@@ -45,7 +45,7 @@ export function SeoPageTemplate({
   return (
     <>
       {faqs && faqs.length > 0 ? <JsonLd data={faqSchema(faqs)} /> : null}
-      <article className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 md:py-14">
+      <article className="container-page py-section-md">
         {breadcrumbs && breadcrumbs.length > 1 ? (
           <Breadcrumbs items={breadcrumbs} />
         ) : null}
@@ -56,10 +56,10 @@ export function SeoPageTemplate({
             (breadcrumbs ? "mt-6" : "")
           }
         >
-          <TitleTag className="font-display text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-[1.05] tracking-tight text-midnight-ink">
+          <TitleTag className="font-display text-display font-semibold text-midnight-ink text-[clamp(36px,5vw,56px)]">
             {title}
           </TitleTag>
-          <p className="mt-5 text-base leading-relaxed text-charcoal-text sm:text-lg">
+          <p className="mt-5 text-body-lg text-charcoal-text">
             {intro}
           </p>
         </header>
@@ -70,20 +70,20 @@ export function SeoPageTemplate({
               <AnonymousSummaryFlow contractIntent={contractIntent} />
             </div>
             {children ? (
-              <div className="space-y-6 text-base leading-relaxed text-graphite">
+              <div className="space-y-6 text-body text-graphite">
                 {children}
               </div>
             ) : null}
           </section>
         ) : children ? (
-          <div className="mt-10 space-y-10 text-base leading-relaxed text-graphite">
+          <div className="mt-10 space-y-10 text-body text-graphite">
             {children}
           </div>
         ) : null}
 
         {faqs && faqs.length > 0 ? (
           <section className="mt-16 grid gap-10 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-            <h2 className="font-display text-3xl font-semibold leading-tight text-midnight-ink">
+            <h2 className="font-display text-heading-lg font-semibold text-midnight-ink text-[clamp(28px,4vw,40px)]">
               Perguntas frequentes
             </h2>
             <dl className="divide-y divide-subtle-gray border-y border-subtle-gray">
@@ -93,7 +93,7 @@ export function SeoPageTemplate({
                   className="group py-5 [&_summary::-webkit-details-marker]:hidden"
                 >
                   <summary className="flex cursor-pointer list-none items-start justify-between gap-6">
-                    <dt className="font-display text-lg font-semibold text-midnight-ink">
+                    <dt className="font-display text-body-lg font-semibold text-midnight-ink">
                       {f.q}
                     </dt>
                     <span
@@ -103,7 +103,7 @@ export function SeoPageTemplate({
                       +
                     </span>
                   </summary>
-                  <dd className="mt-3 max-w-2xl text-base leading-relaxed text-charcoal-text">
+                  <dd className="mt-3 max-w-2xl text-body text-charcoal-text">
                     {f.a}
                   </dd>
                 </details>
@@ -114,10 +114,8 @@ export function SeoPageTemplate({
 
         {related && related.length > 0 ? (
           <section className="mt-12 border-t border-subtle-gray pt-8">
-            <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
-              Veja também
-            </p>
-            <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+            <p className="eyebrow text-faded-stone">Veja também</p>
+            <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-body-sm">
               {related.map((r) => (
                 <li key={r.href}>
                   <Link

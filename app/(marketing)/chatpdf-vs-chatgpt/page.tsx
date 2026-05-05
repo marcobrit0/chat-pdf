@@ -73,13 +73,13 @@ export default function ChatpdfVsChatgptPage() {
         />
 
         <header className="mt-6 max-w-3xl">
-          <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+          <p className="eyebrow text-faded-stone">
             PDFIA vs ChatGPT
           </p>
-          <h1 className="mt-3 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-[1.05] tracking-tight text-midnight-ink">
+          <h1 className="mt-3 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-[1.05]  text-midnight-ink">
             ChatGPT lê PDFs. Ferramentas dedicadas leem melhor.
           </h1>
-          <p className="mt-5 text-base leading-relaxed text-charcoal-text sm:text-lg">
+          <p className="mt-5 text-body  text-charcoal-text sm:text-body-lg">
             ChatGPT é genérico — também aceita PDFs. O PDFIA foi
             construído para isso: upload direto, respostas ancoradas no texto,
             citação de página por padrão e modos para contratos, editais e
@@ -88,27 +88,27 @@ export default function ChatpdfVsChatgptPage() {
         </header>
 
         {/* —— Verdict card —— */}
-        <section className="mt-10 grid gap-6 rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6 md:grid-cols-2 md:p-8">
+        <section className="mt-10 grid gap-6 rounded-lg border border-subtle-gray bg-crisp-white p-6 md:grid-cols-2 md:p-8">
           <div>
-            <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+            <p className="eyebrow text-faded-stone">
               Em 30 segundos
             </p>
-            <h2 className="mt-3 font-display text-xl font-semibold text-midnight-ink">
+            <h2 className="mt-3 font-display text-subheading font-semibold text-midnight-ink">
               Use PDFIA
             </h2>
-            <p className="mt-2 text-sm leading-relaxed text-charcoal-text">
+            <p className="mt-2 text-body-sm  text-charcoal-text">
               Para PDFs em português, leitura recorrente, contratos, editais e
               apólices, e quando você quer ver de onde veio cada resposta.
             </p>
           </div>
           <div>
-            <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+            <p className="eyebrow text-faded-stone">
               Em 30 segundos
             </p>
-            <h2 className="mt-3 font-display text-xl font-semibold text-midnight-ink">
+            <h2 className="mt-3 font-display text-subheading font-semibold text-midnight-ink">
               Use ChatGPT Plus
             </h2>
-            <p className="mt-2 text-sm leading-relaxed text-charcoal-text">
+            <p className="mt-2 text-body-sm  text-charcoal-text">
               Para tarefas variadas (não só PDFs) ou se já é assinante. Lembre
               que upload de PDF exige o plano Plus em USD.
             </p>
@@ -117,11 +117,11 @@ export default function ChatpdfVsChatgptPage() {
 
         {/* —— Comparison table at top of body —— */}
         <section className="mt-14">
-          <h2 className="font-display text-3xl font-semibold leading-tight text-midnight-ink">
+          <h2 className="font-display text-heading-lg font-semibold leading-tight text-midnight-ink">
             Comparação direta
           </h2>
           <div className="mt-6 overflow-x-auto">
-            <table className="w-full border-collapse text-sm">
+            <table className="w-full border-collapse text-body-sm">
               <thead>
                 <tr className="border-b border-midnight-ink text-left">
                   <th className="py-4 pr-6 font-medium text-faded-stone">
@@ -151,23 +151,23 @@ export default function ChatpdfVsChatgptPage() {
         </section>
 
         {/* —— CTA card —— */}
-        <section className="mt-14 rounded-[length:var(--radius-cards)] border border-midnight-ink bg-canvas p-8">
-          <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+        <section className="mt-14 rounded-lg border border-midnight-ink bg-canvas p-8">
+          <p className="eyebrow text-faded-stone">
             Teste sem compromisso
           </p>
-          <h2 className="mt-3 font-display text-2xl font-semibold text-midnight-ink">
+          <h2 className="mt-3 font-display text-heading font-semibold text-midnight-ink">
             Resumo gratuito sem cadastro para PDFs até 10 páginas.
           </h2>
           <div className="mt-5 flex flex-wrap gap-3">
             <Link
               href="/resumir-pdf"
-              className="inline-flex items-center justify-center rounded-[length:var(--radius-buttons)] bg-apollo-gold px-5 py-3 text-base font-medium text-midnight-ink"
+              className="inline-flex items-center justify-center rounded-lg bg-apollo-gold px-5 py-3 text-body font-medium text-midnight-ink"
             >
               Resumir PDF grátis
             </Link>
             <Link
               href="/precos"
-              className="inline-flex items-center justify-center rounded-[length:var(--radius-buttons)] border border-midnight-ink px-5 py-3 text-base font-medium text-midnight-ink"
+              className="inline-flex items-center justify-center rounded-lg border border-midnight-ink px-5 py-3 text-body font-medium text-midnight-ink"
             >
               Ver Premium
             </Link>
@@ -176,7 +176,7 @@ export default function ChatpdfVsChatgptPage() {
 
         {/* —— FAQ —— */}
         <section className="mt-16 grid gap-10 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-          <h2 className="font-display text-3xl font-semibold leading-tight text-midnight-ink">
+          <h2 className="font-display text-heading-lg font-semibold leading-tight text-midnight-ink">
             Perguntas frequentes
           </h2>
           <dl className="divide-y divide-subtle-gray border-y border-subtle-gray">
@@ -186,7 +186,7 @@ export default function ChatpdfVsChatgptPage() {
                 className="group py-5 [&_summary::-webkit-details-marker]:hidden"
               >
                 <summary className="flex cursor-pointer list-none items-start justify-between gap-6">
-                  <dt className="font-display text-lg font-semibold text-midnight-ink">
+                  <dt className="font-display text-body-lg font-semibold text-midnight-ink">
                     {f.q}
                   </dt>
                   <span
@@ -196,7 +196,7 @@ export default function ChatpdfVsChatgptPage() {
                     +
                   </span>
                 </summary>
-                <dd className="mt-3 max-w-2xl text-base leading-relaxed text-charcoal-text">
+                <dd className="mt-3 max-w-2xl text-body  text-charcoal-text">
                   {f.a}
                 </dd>
               </details>
@@ -205,10 +205,10 @@ export default function ChatpdfVsChatgptPage() {
         </section>
 
         <section className="mt-12 border-t border-subtle-gray pt-8">
-          <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+          <p className="eyebrow text-faded-stone">
             Veja também
           </p>
-          <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+          <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-body-sm">
             <li>
               <Link
                 href="/chatgpt-pdf"

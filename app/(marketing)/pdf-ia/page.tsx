@@ -85,7 +85,7 @@ export default function PdfIaPage() {
       ]}
     >
       <section className="space-y-4">
-        <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-heading font-semibold text-midnight-ink">
           As quatro camadas por trás de qualquer leitor de PDF com IA
         </h2>
         <p>
@@ -97,15 +97,15 @@ export default function PdfIaPage() {
           {layers.map((l, i) => (
             <li
               key={l.title}
-              className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-5"
+              className="rounded-lg border border-subtle-gray bg-crisp-white p-5"
             >
-              <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+              <p className="eyebrow text-faded-stone">
                 Camada 0{i + 1}
               </p>
-              <p className="mt-2 font-display text-lg font-semibold text-midnight-ink">
+              <p className="mt-2 font-display text-body-lg font-semibold text-midnight-ink">
                 {l.title}
               </p>
-              <p className="mt-2 text-sm leading-relaxed text-charcoal-text">
+              <p className="mt-2 text-body-sm  text-charcoal-text">
                 {l.body}
               </p>
             </li>
@@ -114,11 +114,11 @@ export default function PdfIaPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-heading font-semibold text-midnight-ink">
           Comparação honesta — o que cada ferramenta resolve
         </h2>
-        <div className="overflow-x-auto rounded-[length:var(--radius-cards)] border border-subtle-gray">
-          <table className="w-full min-w-[640px] text-left text-sm">
+        <div className="overflow-x-auto rounded-lg border border-subtle-gray">
+          <table className="w-full min-w-[640px] text-left text-body-sm">
             <thead className="bg-canvas">
               <tr>
                 <th scope="col" className="border-b border-subtle-gray px-4 py-3 font-display font-semibold text-midnight-ink">
@@ -152,7 +152,7 @@ export default function PdfIaPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-heading font-semibold text-midnight-ink">
           Quando IA + PDF realmente economiza tempo
         </h2>
         <p>

@@ -50,11 +50,11 @@ export default function ResumirContratoPdfPage() {
         { href: "/comparar-pdfs", label: "Comparar PDFs" },
       ]}
     >
-      <section className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
-        <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+      <section className="rounded-lg border border-subtle-gray bg-crisp-white p-6">
+        <p className="eyebrow text-faded-stone">
           No resumo você vai ver
         </p>
-        <ul className="mt-4 grid gap-2 text-base text-charcoal-text">
+        <ul className="mt-4 grid gap-2 text-body text-charcoal-text">
           <li className="flex items-start gap-3">
             <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
             Partes contratantes (contratante e contratado)
@@ -76,7 +76,7 @@ export default function ResumirContratoPdfPage() {
             Cláusulas de multa e penalidades quando presentes
           </li>
         </ul>
-        <p className="mt-5 text-sm text-faded-stone">
+        <p className="mt-5 text-body-sm text-faded-stone">
           Este é um primeiro passe para leitura — não substitui análise
           jurídica. Para contratos com consequências financeiras ou legais
           relevantes, envolva um advogado.

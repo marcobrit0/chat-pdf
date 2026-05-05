@@ -27,7 +27,7 @@ export default function TermosPage() {
       breadcrumbs={breadcrumbs}
     >
       <section className="space-y-4">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-subheading font-semibold text-midnight-ink">
           1. Serviço
         </h2>
         <p>
@@ -39,7 +39,7 @@ export default function TermosPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-subheading font-semibold text-midnight-ink">
           2. Limitações da IA
         </h2>
         <p>
@@ -51,7 +51,7 @@ export default function TermosPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-subheading font-semibold text-midnight-ink">
           3. Planos e pagamentos
         </h2>
         <p>
@@ -63,7 +63,7 @@ export default function TermosPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-subheading font-semibold text-midnight-ink">
           4. Cancelamento e reembolso
         </h2>
         <p>
@@ -75,7 +75,7 @@ export default function TermosPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-subheading font-semibold text-midnight-ink">
           5. Conteúdo do usuário
         </h2>
         <p>
@@ -86,7 +86,7 @@ export default function TermosPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-display text-xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-subheading font-semibold text-midnight-ink">
           6. Contato
         </h2>
         <p>

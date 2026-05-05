@@ -47,11 +47,11 @@ export default function AnalisarApolicePage() {
         { href: "/resumir-pdf", label: "Resumir PDF (geral)" },
       ]}
     >
-      <section className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
-        <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+      <section className="rounded-lg border border-subtle-gray bg-crisp-white p-6">
+        <p className="eyebrow text-faded-stone">
           Limites importantes
         </p>
-        <p className="mt-4 text-sm leading-relaxed text-charcoal-text">
+        <p className="mt-4 text-body-sm  text-charcoal-text">
           A IA pode errar em valores, vigência ou condições especiais. Confira
           sempre a apólice original e consulte seu corretor ou seguradora para
           dúvidas sobre cobertura, sinistro ou renovação.

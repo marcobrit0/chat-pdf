@@ -47,11 +47,11 @@ export default function EntenderLaudoMedicoPage() {
         { href: "/resumir-pdf", label: "Resumir PDF (geral)" },
       ]}
     >
-      <section className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
-        <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+      <section className="rounded-lg border border-subtle-gray bg-crisp-white p-6">
+        <p className="eyebrow text-faded-stone">
           Saúde e responsabilidade
         </p>
-        <p className="mt-4 text-sm leading-relaxed text-charcoal-text">
+        <p className="mt-4 text-body-sm  text-charcoal-text">
           Nunca use só a IA para decisões de tratamento. Em emergência, procure
           atendimento presencial ou serviço de urgência. Para acompanhamento
           contínuo, mantenha sempre o vínculo com o seu médico.

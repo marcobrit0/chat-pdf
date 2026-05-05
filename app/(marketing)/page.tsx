@@ -6,6 +6,12 @@ import {
   faqSchema,
   softwareApplicationSchema,
 } from "@/components/seo/JsonLd";
+import { ButtonLink } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Container } from "@/components/ui/container";
+import { Chip, Eyebrow, MonoLabel } from "@/components/ui/labels";
+import { Section } from "@/components/ui/section";
+import { SectionHeading } from "@/components/ui/section-heading";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
@@ -111,67 +117,50 @@ export default function HomePage() {
       <JsonLd data={softwareApplicationSchema()} />
       <JsonLd data={faqSchema(faqs.map((f) => ({ q: f.q, a: f.a })))} />
 
-      {/* —— Hero ——
-           Design: centered headline with chip badge + subtitle. */}
-      <section className="border-b border-subtle-gray bg-canvas">
-        <div className="mx-auto w-full max-w-[1240px] px-8 pt-16 text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-subtle-gray bg-crisp-white px-4 py-2 font-condensed text-[11px] uppercase tracking-[0.22em] text-charcoal-text">
-            <span aria-hidden="true" className="inline-block h-1.5 w-1.5 rounded-full bg-[#a3c93a]" />
-            Resumo grátis · Sem cadastro
-          </span>
-          <h1 className="mx-auto mt-8 max-w-[960px] font-display text-[clamp(48px,8vw,96px)] font-semibold leading-[1] tracking-[-0.03em] text-midnight-ink">
-            Cada resposta com a página de{" "}
-            <span className="bg-apollo-gold px-[0.05em]">origem</span>.
-          </h1>
-          <p className="mx-auto mt-6 max-w-[620px] text-[19px] leading-relaxed text-charcoal-text">
-            Diferente de chats genéricos, o PDFIA cita a página exata e avisa
-            quando a resposta não está no documento.
-          </p>
-        </div>
+      {/* —— Hero —— centered headline, chip badge, two-column kickoff card. */}
+      <Section bg="canvas" size="lg">
+        <Container>
+          <div className="mx-auto max-w-[960px] text-center">
+            <Chip variant="live">Resumo grátis · Sem cadastro</Chip>
+            <h1 className="mt-8 font-display text-display font-semibold text-midnight-ink text-[clamp(48px,8vw,88px)]">
+              Cada resposta com a página de{" "}
+              <span className="bg-apollo-gold px-[0.05em]">origem</span>.
+            </h1>
+            <p className="mx-auto mt-6 max-w-[620px] text-body-lg text-charcoal-text">
+              Diferente de chats genéricos, o PDFIA cita a página exata e avisa
+              quando a resposta não está no documento.
+            </p>
+          </div>
 
-        {/* Hero card: design has margin '64px auto 0' and padding '0 32px 88px'. */}
-        <div className="mx-auto mt-16 w-full max-w-[1240px] px-8 pb-[88px]">
-          <div className="grid overflow-hidden rounded-[8px] border border-midnight-ink bg-crisp-white md:grid-cols-[1.4fr_1fr]">
-            <div className="border-b border-subtle-gray p-8 md:border-b-0 md:border-r">
+          <div className="mt-16 grid overflow-hidden rounded-lg border border-midnight-ink bg-crisp-white md:grid-cols-[1.4fr_1fr]">
+            <div className="border-b border-subtle-gray p-card-elevated md:border-b-0 md:border-r">
               <div className="flex flex-wrap items-center justify-between gap-3">
-                <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
-                  Comece em segundos
-                </p>
-                <span className="font-mono text-[12px] uppercase tracking-[0.06em] text-faded-stone">
-                  Grátis · 10 págs
-                </span>
+                <Eyebrow>Comece em segundos</Eyebrow>
+                <MonoLabel>Grátis · 10 págs</MonoLabel>
               </div>
-              <div className="mt-4">
+              <div className="mt-6">
                 <InlineUpload size="large" />
               </div>
-              <div className="mt-[18px] flex flex-wrap gap-3">
-                <Link
-                  href="/resumir-pdf"
-                  className="inline-flex items-center justify-center rounded-[8px] border border-apollo-gold bg-apollo-gold px-[18px] py-3 text-sm font-medium text-midnight-ink hover:opacity-90"
-                >
+              <div className="mt-6 flex flex-wrap gap-3">
+                <ButtonLink href="/resumir-pdf" variant="primary" size="md">
                   Resumir PDF grátis
-                </Link>
-                <Link
-                  href="/login"
-                  className="inline-flex items-center justify-center rounded-[8px] border border-midnight-ink px-[18px] py-3 text-sm font-medium text-midnight-ink hover:bg-midnight-ink hover:text-crisp-white"
-                >
+                </ButtonLink>
+                <ButtonLink href="/login" variant="secondary" size="md">
                   Entrar
-                </Link>
+                </ButtonLink>
               </div>
             </div>
-            <div className="bg-canvas p-8">
+            <div className="bg-canvas p-card-elevated">
               <div className="flex items-center justify-between">
-                <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
-                  Saída esperada
-                </p>
-                <span className="rounded-[4px] border border-subtle-gray bg-crisp-white px-1.5 py-0.5 font-mono text-[11px] tracking-[0.04em] text-charcoal-text">
+                <Eyebrow>Saída esperada</Eyebrow>
+                <span className="rounded-md border border-subtle-gray bg-crisp-white px-2 py-0.5 mono-label text-charcoal-text">
                   exemplo
                 </span>
               </div>
-              <h3 className="mt-3 font-display text-lg font-semibold tracking-tight text-midnight-ink">
+              <h3 className="mt-3 font-display text-subheading font-semibold text-midnight-ink">
                 Contrato de prestação · 14 págs
               </h3>
-              <ul className="mt-4 grid gap-2.5 text-[13px] text-charcoal-text">
+              <ul className="mt-4 grid gap-2.5 text-body-sm text-charcoal-text">
                 {[
                   ["Prazo: ", "90 dias", " contados da assinatura.", 2],
                   ["", "R$ 16.000 mensais", " via boleto, dia 10.", 5],
@@ -184,11 +173,11 @@ export default function HomePage() {
                     />
                     <span>
                       {prefix as string}
-                      <strong className="font-medium text-midnight-ink">
+                      <strong className="font-display text-midnight-ink">
                         {strong as string}
                       </strong>
                       {suffix as string}{" "}
-                      <span className="ml-1 inline-flex items-center rounded-[4px] border border-subtle-gray bg-crisp-white px-1.5 py-0.5 font-mono text-[11px] tracking-[0.04em] text-charcoal-text">
+                      <span className="ml-1 inline-flex items-center rounded-md border border-subtle-gray bg-crisp-white px-2 py-0.5 mono-label text-charcoal-text">
                         pág. {page as number}
                       </span>
                     </span>
@@ -197,128 +186,103 @@ export default function HomePage() {
               </ul>
             </div>
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
-      {/* —— Stats strip ——
-           Design: bg midnight-ink, no vertical padding outer, cells 40px 28px. */}
-      <section className="border-b border-midnight-ink bg-midnight-ink">
-        <div className="mx-auto w-full max-w-[1240px] px-8">
+      {/* —— Stats strip —— inverted band, single tight rhythm. */}
+      <Section bg="midnight" size="sm" bordered={false}>
+        <Container>
           <div className="grid grid-cols-2 lg:grid-cols-4">
             {stats.map(([n, l], i) => (
               <div
                 key={l}
                 className={
-                  "px-7 py-10 " +
+                  "px-6 py-4 " +
                   (i < stats.length - 1
-                    ? "border-b border-[#2a2a2a] sm:border-b-0 lg:border-r"
+                    ? "border-b border-midnight-divider sm:border-b-0 lg:border-r"
                     : "")
                 }
               >
-                <div className="font-display text-[48px] font-semibold leading-none tracking-tight text-crisp-white">
+                <div className="font-display text-heading-lg font-semibold text-crisp-white">
                   {n}
                 </div>
-                <div className="mt-2.5 font-mono text-[11px] uppercase tracking-[0.1em] text-soft-stone">
-                  {l}
-                </div>
+                <div className="mt-2.5 mono-label text-soft-stone">{l}</div>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
-      {/* —— How it works ——  py-[88px] px-8 */}
-      <section className="border-b border-subtle-gray bg-canvas">
-        <div className="mx-auto w-full max-w-[1240px] px-8 py-[88px]">
-          <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-[540px]">
-              <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
-                Como funciona
-              </p>
-              <h2 className="mt-3.5 font-display text-[clamp(32px,4vw,44px)] font-semibold leading-[1.08] tracking-[-0.018em] text-midnight-ink">
-                Do upload à resposta com fonte em três passos.
-              </h2>
-            </div>
-            <Link
-              href="/guias/como-resumir-pdf-com-ia"
-              className="self-start rounded-[6px] border border-midnight-ink px-3 py-2 text-[13px] font-medium text-midnight-ink hover:bg-midnight-ink hover:text-crisp-white md:self-end"
-            >
-              Ver guia completo →
-            </Link>
-          </div>
+      {/* —— How it works —— */}
+      <Section bg="canvas" size="md">
+        <Container>
+          <SectionHeading
+            eyebrow="Como funciona"
+            title="Do upload à resposta com fonte em três passos."
+            maxWidth="narrow"
+            cta={
+              <ButtonLink
+                href="/guias/como-resumir-pdf-com-ia"
+                variant="secondary"
+                size="sm"
+              >
+                Ver guia completo →
+              </ButtonLink>
+            }
+            className="mb-10"
+          />
           <div className="grid gap-4 md:grid-cols-3">
             {howItWorks.map(([n, t, b]) => (
-              <article
-                key={n}
-                className="relative min-h-[200px] rounded-[8px] border border-subtle-gray bg-crisp-white p-6"
-              >
-                <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-faded-stone">
-                  {n} · passo
-                </p>
-                <h3 className="mt-3.5 font-display text-2xl font-semibold leading-tight tracking-[-0.018em] text-midnight-ink">
+              <Card key={n} as="article" className="relative min-h-[200px]">
+                <MonoLabel>{n} · passo</MonoLabel>
+                <h3 className="mt-3.5 font-display text-heading font-semibold text-midnight-ink">
                   {t}
                 </h3>
-                <p className="mt-2.5 text-[14px] leading-relaxed text-charcoal-text">
-                  {b}
-                </p>
+                <p className="mt-2.5 text-body-sm text-charcoal-text">{b}</p>
                 <span
                   aria-hidden="true"
                   className="absolute bottom-6 right-6 text-soft-stone"
                 >
                   →
                 </span>
-              </article>
+              </Card>
             ))}
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
-      {/* —— Use cases —— ash-gray, py-[88px] px-8 */}
-      <section
-        id="casos-de-uso"
-        className="scroll-mt-24 border-b border-subtle-gray bg-ash-gray"
-      >
-        <div className="mx-auto w-full max-w-[1240px] px-8 py-[88px]">
-          <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-[640px]">
-              <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
-                Casos de uso
-              </p>
-              <h2 className="mt-3.5 font-display text-[clamp(32px,4vw,44px)] font-semibold leading-[1.08] tracking-[-0.018em] text-midnight-ink">
-                Feito para os PDFs que aparecem no seu trabalho.
-              </h2>
-            </div>
-            <Link
-              href="/precos"
-              className="self-start rounded-[6px] border border-midnight-ink px-3 py-2 text-[13px] font-medium text-midnight-ink hover:bg-midnight-ink hover:text-crisp-white md:self-end"
-            >
-              Ver todos os modos →
-            </Link>
-          </div>
+      {/* —— Use cases —— */}
+      <Section id="casos-de-uso" bg="ash" size="md" className="scroll-mt-24">
+        <Container>
+          <SectionHeading
+            eyebrow="Casos de uso"
+            title="Feito para os PDFs que aparecem no seu trabalho."
+            maxWidth="default"
+            cta={
+              <ButtonLink href="/precos" variant="secondary" size="sm">
+                Ver todos os modos →
+              </ButtonLink>
+            }
+            className="mb-10"
+          />
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {useCases.map((u) => (
               <li key={u.href}>
                 <Link
                   href={u.href}
-                  className="flex h-full flex-col gap-4 rounded-[8px] border border-subtle-gray bg-crisp-white p-6 transition-colors hover:border-midnight-ink"
+                  className="flex h-full flex-col gap-4 rounded-lg border border-subtle-gray bg-crisp-white p-card transition-colors hover:border-midnight-ink"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="rounded-full border border-subtle-gray bg-canvas px-2.5 py-1.5 font-condensed text-[11px] uppercase tracking-[0.18em] text-charcoal-text">
-                      {u.eyebrow}
-                    </span>
-                    <span className="font-mono text-[11px] tracking-[0.06em] text-faded-stone">
-                      {u.code}
-                    </span>
+                    <Chip variant="outline">{u.eyebrow}</Chip>
+                    <MonoLabel casing="normal">{u.code}</MonoLabel>
                   </div>
                   <div>
-                    <h3 className="font-display text-xl font-semibold leading-snug tracking-[-0.018em] text-midnight-ink">
+                    <h3 className="font-display text-subheading font-semibold text-midnight-ink">
                       {u.title}
                     </h3>
-                    <p className="mt-2 text-[13px] leading-relaxed text-charcoal-text">
-                      {u.body}
-                    </p>
+                    <p className="mt-2 text-body-sm text-charcoal-text">{u.body}</p>
                   </div>
-                  <div className="mt-auto flex items-center justify-between border-t border-subtle-gray pt-4 text-[13px] text-midnight-ink">
+                  <div className="mt-auto flex items-center justify-between border-t border-subtle-gray pt-4 text-body-sm text-midnight-ink">
                     <span>Abrir caso</span>
                     <span aria-hidden="true">→</span>
                   </div>
@@ -326,21 +290,19 @@ export default function HomePage() {
               </li>
             ))}
           </ul>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
-      {/* —— Compare teaser —— py-[88px] px-8, gap 48 */}
-      <section className="border-b border-subtle-gray bg-canvas">
-        <div className="mx-auto w-full max-w-[1240px] px-8 py-[88px]">
+      {/* —— Compare teaser —— */}
+      <Section bg="canvas" size="md">
+        <Container>
           <div className="grid gap-12 md:grid-cols-[0.9fr_1.4fr] md:items-start">
             <div>
-              <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
-                PDFIA vs alternativas
-              </p>
-              <h2 className="mt-3.5 font-display text-[clamp(32px,4vw,44px)] font-semibold leading-[1.08] tracking-[-0.018em] text-midnight-ink">
+              <Eyebrow>PDFIA vs alternativas</Eyebrow>
+              <h2 className="mt-3.5 font-display text-heading-lg font-semibold text-midnight-ink text-[clamp(32px,4vw,48px)]">
                 Por que não usar só o ChatGPT?
               </h2>
-              <p className="mt-[18px] text-[15px] leading-relaxed text-charcoal-text">
+              <p className="mt-6 text-body text-charcoal-text">
                 Ferramentas dedicadas para PDF entregam coisas que um chat
                 genérico não entrega.
               </p>
@@ -350,26 +312,27 @@ export default function HomePage() {
                   ["/chatpdf-vs-smallpdf", "vs Smallpdf"],
                   ["/chatpdf-vs-adobe-acrobat-ai", "vs Adobe Acrobat AI"],
                 ].map(([href, label]) => (
-                  <Link
+                  <ButtonLink
                     key={href}
                     href={href}
-                    className="rounded-[6px] border border-midnight-ink px-3 py-2 text-[13px] font-medium text-midnight-ink hover:bg-midnight-ink hover:text-crisp-white"
+                    variant="secondary"
+                    size="sm"
                   >
                     {label}
-                  </Link>
+                  </ButtonLink>
                 ))}
               </div>
             </div>
 
-            <div className="overflow-hidden rounded-[8px] border border-subtle-gray bg-crisp-white">
+            <div className="overflow-hidden rounded-lg border border-subtle-gray bg-crisp-white">
               <div className="grid grid-cols-[1.4fr_1fr_1fr] border-b border-subtle-gray bg-canvas">
-                <div className="px-5 py-3.5 font-mono text-[11px] uppercase tracking-[0.06em] text-faded-stone">
+                <div className="px-5 py-3.5 mono-label text-faded-stone">
                   Recurso
                 </div>
-                <div className="border-l border-subtle-gray px-5 py-3.5 font-mono text-[11px] uppercase tracking-[0.06em] text-midnight-ink">
+                <div className="border-l border-subtle-gray px-5 py-3.5 mono-label text-midnight-ink">
                   PDFIA
                 </div>
-                <div className="border-l border-subtle-gray px-5 py-3.5 font-mono text-[11px] uppercase tracking-[0.06em] text-faded-stone">
+                <div className="border-l border-subtle-gray px-5 py-3.5 mono-label text-faded-stone">
                   ChatGPT
                 </div>
               </div>
@@ -381,117 +344,105 @@ export default function HomePage() {
                     (i < compareRows.length - 1 ? "border-b border-subtle-gray" : "")
                   }
                 >
-                  <div className="px-5 py-4 text-[14px] text-charcoal-text">
+                  <div className="px-5 py-4 text-body-sm text-charcoal-text">
                     {r[0]}
                   </div>
-                  <div className="border-l border-subtle-gray px-5 py-4 text-[14px] font-medium text-midnight-ink">
+                  <div className="border-l border-subtle-gray px-5 py-4 text-body-sm font-display text-midnight-ink">
                     {r[1]}
                   </div>
-                  <div className="border-l border-subtle-gray px-5 py-4 text-[14px] text-faded-stone">
+                  <div className="border-l border-subtle-gray px-5 py-4 text-body-sm text-faded-stone">
                     {r[2]}
                   </div>
                 </div>
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
-      {/* —— Pricing —— py-[88px] px-8, max card row 880 */}
-      <section className="border-b border-subtle-gray bg-crisp-white">
-        <div className="mx-auto w-full max-w-[1240px] px-8 py-[88px]">
-          <div className="mx-auto mb-10 max-w-[620px] text-center">
-            <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
-              Preço
-            </p>
-            <h2 className="mt-3.5 font-display text-[clamp(32px,4vw,44px)] font-semibold leading-[1.08] tracking-[-0.018em] text-midnight-ink">
-              Simples. Em real. Sem pegadinha.
-            </h2>
-          </div>
+      {/* —— Pricing —— */}
+      <Section bg="white" size="md">
+        <Container>
+          <SectionHeading
+            eyebrow="Preço"
+            title="Simples. Em real. Sem pegadinha."
+            align="center"
+            maxWidth="narrow"
+            className="mx-auto mb-10"
+          />
 
           <div className="mx-auto grid max-w-[880px] gap-4 sm:grid-cols-2">
-            <div className="rounded-[8px] border border-subtle-gray bg-canvas p-8">
+            <Card variant="elevated">
               <div className="flex items-center justify-between">
-                <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
-                  Grátis
-                </p>
-                <span className="font-mono text-[11px] uppercase tracking-[0.06em] text-faded-stone">
-                  Sem cadastro
-                </span>
+                <Eyebrow>Grátis</Eyebrow>
+                <MonoLabel>Sem cadastro</MonoLabel>
               </div>
-              <div className="mt-[18px] flex items-baseline gap-1.5">
-                <span className="font-display text-[56px] font-semibold leading-none tracking-tight text-midnight-ink">
+              <div className="mt-6 flex items-baseline gap-1.5">
+                <span className="font-display text-heading-lg font-semibold text-midnight-ink">
                   R$0
                 </span>
-                <span className="font-mono text-[12px] tracking-[0.06em] text-faded-stone">
-                  /sempre
-                </span>
+                <MonoLabel casing="normal">/sempre</MonoLabel>
               </div>
-              <ul className="mt-6 grid gap-2.5 text-[14px] text-charcoal-text">
+              <ul className="mt-6 grid gap-2.5 text-body-sm text-charcoal-text">
                 <li>· Resumo de PDFs até 10 páginas</li>
                 <li>· Tópicos, datas, valores, entidades</li>
                 <li>· Sem histórico salvo</li>
                 <li>· Sem chat com o documento</li>
               </ul>
-              <Link
+              <ButtonLink
                 href="/resumir-pdf"
-                className="mt-6 inline-flex w-full items-center justify-center rounded-[8px] border border-midnight-ink px-[18px] py-3 text-sm font-medium text-midnight-ink hover:bg-midnight-ink hover:text-crisp-white"
+                variant="secondary"
+                size="md"
+                className="mt-6 w-full"
               >
                 Resumir um PDF agora
-              </Link>
-            </div>
+              </ButtonLink>
+            </Card>
 
-            <div className="relative rounded-[8px] border-2 border-midnight-ink bg-crisp-white p-8">
-              <span className="absolute -top-3 left-6 rounded-[4px] bg-apollo-gold px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.06em] text-midnight-ink">
+            <div className="relative rounded-lg border-2 border-midnight-ink bg-crisp-white p-card-elevated">
+              <span className="absolute -top-3 left-6 rounded-md bg-apollo-gold px-2.5 py-1 mono-label text-midnight-ink">
                 Recomendado
               </span>
               <div className="flex items-center justify-between">
-                <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
-                  Premium
-                </p>
-                <span className="font-mono text-[11px] uppercase tracking-[0.06em] text-faded-stone">
-                  Stripe · BRL
-                </span>
+                <Eyebrow>Premium</Eyebrow>
+                <MonoLabel>Stripe · BRL</MonoLabel>
               </div>
-              <div className="mt-[18px] flex items-baseline gap-1.5">
-                <span className="font-display text-[56px] font-semibold leading-none tracking-tight text-midnight-ink">
+              <div className="mt-6 flex items-baseline gap-1.5">
+                <span className="font-display text-heading-lg font-semibold text-midnight-ink">
                   R$29
                 </span>
-                <span className="font-mono text-[12px] tracking-[0.06em] text-faded-stone">
-                  /mês · ou R$290/ano
-                </span>
+                <MonoLabel casing="normal">/mês · ou R$290/ano</MonoLabel>
               </div>
-              <ul className="mt-6 grid gap-2.5 text-[14px] text-charcoal-text">
+              <ul className="mt-6 grid gap-2.5 text-body-sm text-charcoal-text">
                 <li>· Tudo do grátis +</li>
                 <li>· Chat com citação de página</li>
                 <li>· PDFs até 100 páginas</li>
                 <li>· Modos: contrato, edital, apólice</li>
                 <li>· Histórico salvo na conta</li>
               </ul>
-              <Link
+              <ButtonLink
                 href="/login"
-                className="mt-6 inline-flex w-full items-center justify-center rounded-[8px] border border-apollo-gold bg-apollo-gold px-[18px] py-3 text-sm font-medium text-midnight-ink hover:opacity-90"
+                variant="primary"
+                size="md"
+                className="mt-6 w-full"
               >
                 Começar Premium
-              </Link>
+              </ButtonLink>
             </div>
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
-      {/* —— FAQ —— py-[88px] px-8, gap 64 */}
-      <section className="border-b border-subtle-gray bg-canvas">
-        <div className="mx-auto w-full max-w-[1240px] px-8 py-[88px]">
+      {/* —— FAQ —— */}
+      <Section bg="canvas" size="md">
+        <Container>
           <div className="grid gap-16 md:grid-cols-[0.9fr_1.1fr]">
-            <div>
-              <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
-                Perguntas frequentes
-              </p>
-              <h2 className="mt-3.5 font-display text-[clamp(32px,4vw,44px)] font-semibold leading-[1.08] tracking-[-0.018em] text-midnight-ink">
-                Tudo o que perguntam antes de começar.
-              </h2>
-            </div>
-            <div className="overflow-hidden rounded-[8px] border border-subtle-gray bg-crisp-white">
+            <SectionHeading
+              eyebrow="Perguntas frequentes"
+              title="Tudo o que perguntam antes de começar."
+              maxWidth="none"
+            />
+            <div className="overflow-hidden rounded-lg border border-subtle-gray bg-crisp-white">
               {faqs.map((f, i) => (
                 <details
                   key={f.q}
@@ -502,7 +453,7 @@ export default function HomePage() {
                   {...(i === 0 ? { open: true } : {})}
                 >
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-6 px-6 py-5 text-left transition-colors group-open:bg-canvas">
-                    <span className="font-display text-base font-semibold tracking-[-0.018em] text-midnight-ink">
+                    <span className="font-display text-body-lg font-semibold text-midnight-ink">
                       {f.q}
                     </span>
                     <span
@@ -512,43 +463,38 @@ export default function HomePage() {
                       +
                     </span>
                   </summary>
-                  <div className="max-w-[620px] px-6 pb-5 text-[14px] leading-relaxed text-charcoal-text">
+                  <div className="max-w-[620px] px-6 pb-5 text-body-sm text-charcoal-text">
                     {f.a}
                   </div>
                 </details>
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
-      {/* —— Final CTA —— py-20 (80) px-8 */}
-      <section className="bg-midnight-ink">
-        <div className="mx-auto flex w-full max-w-[1240px] flex-col gap-10 px-8 py-20 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-[620px]">
-            <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-apollo-gold">
-              Comece grátis
-            </p>
-            <h2 className="mt-3.5 font-display text-[clamp(32px,4vw,48px)] font-semibold leading-[1.08] tracking-[-0.018em] text-crisp-white">
-              Envie um PDF agora — o primeiro resumo sai em segundos.
-            </h2>
+      {/* —— Final CTA —— */}
+      <Section bg="midnight" size="lg" bordered={false}>
+        <Container>
+          <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+            <SectionHeading
+              eyebrow="Comece grátis"
+              title="Envie um PDF agora — o primeiro resumo sai em segundos."
+              maxWidth="default"
+              tone="white"
+              eyebrowTone="accent"
+            />
+            <div className="flex flex-wrap gap-3">
+              <ButtonLink href="/resumir-pdf" variant="primary" size="lg">
+                Resumir PDF grátis
+              </ButtonLink>
+              <ButtonLink href="/precos" variant="secondary-on-dark" size="lg">
+                Ver Premium
+              </ButtonLink>
+            </div>
           </div>
-          <div className="flex flex-wrap gap-3">
-            <Link
-              href="/resumir-pdf"
-              className="inline-flex items-center justify-center rounded-[8px] border border-apollo-gold bg-apollo-gold px-[22px] py-4 text-base font-medium text-midnight-ink hover:opacity-90"
-            >
-              Resumir PDF grátis
-            </Link>
-            <Link
-              href="/precos"
-              className="inline-flex items-center justify-center rounded-[8px] border border-crisp-white px-[22px] py-4 text-base font-medium text-crisp-white hover:bg-crisp-white hover:text-midnight-ink"
-            >
-              Ver Premium
-            </Link>
-          </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
     </div>
   );
 }

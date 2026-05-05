@@ -46,16 +46,16 @@ export default function ResumoDePdfPage() {
       ]}
     >
       <section>
-        <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-heading font-semibold text-midnight-ink">
           O que o resumo inclui
         </h2>
-        <ul className="mt-4 grid gap-2 text-base text-charcoal-text">
+        <ul className="mt-4 grid gap-2 text-body text-charcoal-text">
           <li>· Síntese do conteúdo em parágrafos curtos</li>
           <li>· Tópicos e pontos principais em lista</li>
           <li>· Datas, valores e entidades encontrados no texto</li>
           <li>· Perguntas de follow-up sugeridas</li>
         </ul>
-        <p className="mt-4 text-sm text-faded-stone">
+        <p className="mt-4 text-body-sm text-faded-stone">
           A IA trabalha com o texto do PDF. Confirme dados críticos no
           documento original antes de tomar decisões.
         </p>

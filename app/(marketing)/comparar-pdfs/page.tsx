@@ -46,11 +46,11 @@ export default function CompararPdfsPage() {
         { href: "/precos", label: "Ver planos" },
       ]}
     >
-      <section className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
-        <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+      <section className="rounded-lg border border-subtle-gray bg-crisp-white p-6">
+        <p className="eyebrow text-faded-stone">
           O que você pode fazer agora
         </p>
-        <ul className="mt-4 grid gap-2 text-base text-charcoal-text">
+        <ul className="mt-4 grid gap-2 text-body text-charcoal-text">
           <li className="flex items-start gap-3">
             <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
             Envie o primeiro documento e extraia os pontos principais
@@ -71,7 +71,7 @@ export default function CompararPdfsPage() {
         <div className="mt-6">
           <Link
             href="/app"
-            className="inline-flex items-center justify-center rounded-[length:var(--radius-buttons)] bg-apollo-gold px-5 py-3 text-sm font-medium text-midnight-ink"
+            className="inline-flex items-center justify-center rounded-lg bg-apollo-gold px-5 py-3 text-body-sm font-medium text-midnight-ink"
           >
             Abrir workspace Premium
           </Link>
@@ -79,16 +79,16 @@ export default function CompararPdfsPage() {
       </section>
 
       <section>
-        <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-heading font-semibold text-midnight-ink">
           O que a comparação direta vai entregar
         </h2>
-        <ul className="mt-4 grid gap-2 text-base text-charcoal-text">
+        <ul className="mt-4 grid gap-2 text-body text-charcoal-text">
           <li>· Diferenças lado a lado em datas, valores e obrigações</li>
           <li>· Cláusulas presentes em um documento e ausentes no outro</li>
           <li>· Mudanças em definições e termos entre versões</li>
           <li>· Resumo do que mudou, adicionou ou removeu</li>
         </ul>
-        <p className="mt-4 text-sm text-faded-stone">
+        <p className="mt-4 text-body-sm text-faded-stone">
           Casos de uso típicos: contrato novo vs antigo, proposta vs contrato
           final, edital vs resposta de esclarecimentos.
         </p>

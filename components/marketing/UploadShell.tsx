@@ -22,18 +22,18 @@ export function UploadShell() {
   }, []);
 
   return (
-    <div className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6">
-      <h2 className="font-display text-xl font-semibold">Enviar PDF</h2>
-      <p className="mt-2 text-sm text-charcoal-text">Até {ANON_MAX_PAGES} páginas (anônimo).</p>
+    <div className="rounded-lg border border-subtle-gray bg-crisp-white p-card">
+      <h2 className="font-display text-subheading font-semibold">Enviar PDF</h2>
+      <p className="mt-2 text-body-sm text-charcoal-text">Até {ANON_MAX_PAGES} páginas (anônimo).</p>
       <label className="mt-6 flex cursor-pointer flex-col items-center border border-dashed border-soft-stone py-10">
-        <span className="text-sm">Selecionar PDF</span>
+        <span className="text-body-sm">Selecionar PDF</span>
         <input type="file" accept="application/pdf" className="sr-only" onChange={(e) => {
           const f = e.target.files?.[0];
           if (f) validateFile(f);
         }} />
       </label>
-      {fileName ? <p className="mt-4 text-sm">{fileName}</p> : null}
-      {error ? <p className="mt-2 text-sm text-red-700">{error}</p> : null}
+      {fileName ? <p className="mt-4 text-body-sm">{fileName}</p> : null}
+      {error ? <p className="mt-2 text-body-sm text-red-700">{error}</p> : null}
     </div>
   );
 }

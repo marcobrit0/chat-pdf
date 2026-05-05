@@ -69,7 +69,7 @@ function renderEntry(entry: ProgrammaticEntry) {
       related={[entry.canonicalUseCase, ...entry.siblings]}
     >
       <section className="space-y-4">
-        <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+        <h2 className="font-display text-heading font-semibold text-midnight-ink">
           O que a análise cobre para {entry.personaLabel}
         </h2>
         <p>
@@ -81,12 +81,12 @@ function renderEntry(entry: ProgrammaticEntry) {
           {entry.fields.map((f) => (
             <li
               key={f.label}
-              className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-4"
+              className="rounded-lg border border-subtle-gray bg-crisp-white p-4"
             >
-              <p className="font-display text-base font-semibold text-midnight-ink">
+              <p className="font-display text-body font-semibold text-midnight-ink">
                 {f.label}
               </p>
-              <p className="mt-1 text-sm text-charcoal-text">{f.note}</p>
+              <p className="mt-1 text-body-sm text-charcoal-text">{f.note}</p>
             </li>
           ))}
         </ul>

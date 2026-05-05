@@ -17,10 +17,10 @@ export function PersonaVariantsSection({
   if (variants.length === 0) return null;
   return (
     <section className="space-y-4">
-      <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+      <h2 className="font-display text-heading font-semibold text-midnight-ink">
         Para sua função
       </h2>
-      <p className="text-base leading-relaxed text-charcoal-text">
+      <p className="text-body text-charcoal-text">
         {intro ??
           "Cada perfil costuma olhar para coisas diferentes no mesmo documento. Abra a versão pensada para você:"}
       </p>
@@ -29,9 +29,9 @@ export function PersonaVariantsSection({
           <li key={v.href}>
             <Link
               href={v.href}
-              className="block rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-4 transition-colors hover:border-midnight-ink"
+              className="block rounded-lg border border-subtle-gray bg-crisp-white p-card-compact transition-colors hover:border-midnight-ink"
             >
-              <span className="font-display text-base font-semibold text-midnight-ink">
+              <span className="font-display text-body font-semibold text-midnight-ink">
                 {v.label}
               </span>
               <span className="ml-2 text-faded-stone" aria-hidden="true">

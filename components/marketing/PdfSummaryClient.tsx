@@ -189,17 +189,17 @@ function UploadZone({
   largePdf: boolean;
 }) {
   return (
-    <div className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6 sm:p-8">
+    <div className="rounded-lg border border-subtle-gray bg-crisp-white p-card sm:p-card-elevated">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
+          <p className="eyebrow text-faded-stone">
             Comece em segundos
           </p>
-          <h2 className="mt-2 font-display text-xl font-semibold tracking-tight text-midnight-ink">
+          <h2 className="mt-2 font-display text-subheading font-semibold text-midnight-ink">
             Enviar PDF
           </h2>
         </div>
-        <span className="font-mono text-[11px] uppercase tracking-[0.06em] text-faded-stone">
+        <span className="mono-label text-faded-stone">
           Grátis · Até {ANON_MAX_PAGES} págs
         </span>
       </div>
@@ -223,14 +223,14 @@ function UploadZone({
             : "border-soft-stone bg-canvas hover:border-midnight-ink hover:bg-crisp-white")
         }
       >
-        <span className="font-display text-lg font-semibold tracking-tight text-midnight-ink sm:text-xl">
+        <span className="font-display text-subheading font-semibold text-midnight-ink">
           Solte um PDF aqui
         </span>
-        <span className="text-sm text-charcoal-text">
+        <span className="text-body-sm text-charcoal-text">
           ou{" "}
           <span className="underline underline-offset-4">clique para selecionar</span>
         </span>
-        <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-faded-stone">
+        <span className="mono-label text-faded-stone">
           Sem cadastro · PDF com texto · pt-BR
         </span>
         <input
@@ -248,7 +248,7 @@ function UploadZone({
       {errorMessage ? (
         <div
           role="alert"
-          className="mt-5 rounded-[length:var(--radius-md)] border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700"
+          className="mt-5 rounded-md border border-red-300 bg-red-50 px-4 py-3 text-body-sm text-red-700"
         >
           {errorMessage}
           {largePdf ? (
@@ -291,13 +291,13 @@ function Results({
   return (
     <div className="space-y-4">
       {/* Toolbar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white px-5 py-3">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-subtle-gray bg-crisp-white px-5 py-3">
         <div className="flex flex-wrap items-center gap-3">
-          <span className="font-mono text-[11px] uppercase tracking-[0.06em] text-faded-stone">
+          <span className="mono-label text-faded-stone">
             Início / Resumir /
           </span>
-          <span className="text-sm font-medium text-midnight-ink">{fileName}</span>
-          <span className="rounded-[4px] border border-subtle-gray bg-canvas px-2 py-0.5 font-mono text-[11px] tracking-[0.04em] text-charcoal-text">
+          <span className="text-body-sm font-medium text-midnight-ink">{fileName}</span>
+          <span className="rounded-md border border-subtle-gray bg-canvas px-2 py-0.5 font-mono text-caption tracking-[0.06em] text-charcoal-text">
             {result.pageCount != null ? `${result.pageCount} págs · ` : ""}pt-BR
           </span>
         </div>
@@ -305,43 +305,43 @@ function Results({
           <button
             type="button"
             onClick={onCopy}
-            className="rounded-[length:var(--radius-buttons)] border border-midnight-ink px-3 py-1.5 text-xs font-medium text-midnight-ink transition-colors hover:bg-midnight-ink hover:text-crisp-white"
+            className="rounded-lg border border-midnight-ink px-3 py-1.5 text-caption font-medium text-midnight-ink transition-colors hover:bg-midnight-ink hover:text-crisp-white"
           >
             Copiar resumo
           </button>
           <button
             type="button"
             onClick={onAnother}
-            className="rounded-[length:var(--radius-buttons)] bg-apollo-gold px-3 py-1.5 text-xs font-medium text-midnight-ink hover:opacity-90"
+            className="rounded-lg bg-apollo-gold px-3 py-1.5 text-caption font-medium text-midnight-ink hover:opacity-90"
           >
             Resumir outro PDF
           </button>
           {copyHint ? (
-            <span className="text-xs text-faded-stone">{copyHint}</span>
+            <span className="text-caption text-faded-stone">{copyHint}</span>
           ) : null}
         </div>
       </div>
 
       {/* Hero card */}
-      <div className="grid gap-8 rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-6 sm:p-8 md:grid-cols-[1fr_220px]">
+      <div className="grid gap-8 rounded-lg border border-subtle-gray bg-crisp-white p-card sm:p-card-elevated md:grid-cols-[1fr_220px]">
         <div>
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-subtle-gray bg-canvas px-3 py-1 font-condensed text-[11px] uppercase tracking-[0.18em] text-charcoal-text">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-subtle-gray bg-canvas px-3 py-1 eyebrow text-charcoal-text">
               <span className="inline-block h-1.5 w-1.5 rounded-full bg-apollo-gold" />
               Resumo pronto
             </span>
-            <span className="rounded-full border border-subtle-gray bg-canvas px-3 py-1 font-condensed text-[11px] uppercase tracking-[0.18em] text-charcoal-text">
+            <span className="rounded-full border border-subtle-gray bg-canvas px-3 py-1 eyebrow text-charcoal-text">
               pt-BR
             </span>
           </div>
-          <h1 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight text-midnight-ink sm:text-4xl">
+          <h1 className="mt-4 font-display text-heading-lg font-semibold text-midnight-ink text-[clamp(28px,4vw,40px)]">
             {cleanTitle}
           </h1>
-          <p className="mt-4 text-base leading-relaxed text-charcoal-text">
+          <p className="mt-4 text-body  text-charcoal-text">
             {result.summary}
           </p>
         </div>
-        <div className="grid gap-2 self-start text-xs">
+        <div className="grid gap-2 self-start text-caption">
           {[
             ["Páginas", result.pageCount != null ? String(result.pageCount) : "—"],
             ["Idioma", "pt-BR"],
@@ -350,9 +350,9 @@ function Results({
           ].map(([k, v]) => (
             <div
               key={k}
-              className="flex items-center justify-between rounded-[4px] bg-canvas px-3 py-2"
+              className="flex items-center justify-between rounded-md bg-canvas px-3 py-2"
             >
-              <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-faded-stone">
+              <span className="mono-label text-faded-stone">
                 {k}
               </span>
               <span className="font-medium text-midnight-ink">{v}</span>
@@ -366,15 +366,15 @@ function Results({
         {kpis.map(({ k, v, sub }) => (
           <div
             key={k}
-            className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-5"
+            className="rounded-lg border border-subtle-gray bg-crisp-white p-card"
           >
-            <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-faded-stone">
+            <div className="mono-label text-faded-stone">
               {k}
             </div>
-            <div className="mt-2 font-display text-2xl font-semibold tracking-tight text-midnight-ink">
+            <div className="mt-2 font-display text-heading font-semibold text-midnight-ink">
               {v}
             </div>
-            <div className="mt-1 text-xs text-charcoal-text">{sub}</div>
+            <div className="mt-1 text-caption text-charcoal-text">{sub}</div>
           </div>
         ))}
       </div>
@@ -388,13 +388,13 @@ function Results({
                 <li
                   key={b}
                   className={
-                    "grid grid-cols-[28px_1fr] items-baseline gap-3 text-sm leading-relaxed text-charcoal-text " +
+                    "grid grid-cols-[28px_1fr] items-baseline gap-3 text-body-sm  text-charcoal-text " +
                     (i < result.bulletPoints.length - 1
                       ? "border-b border-subtle-gray pb-3.5"
                       : "")
                   }
                 >
-                  <span className="font-mono text-[11px] text-faded-stone">
+                  <span className="font-mono text-caption text-faded-stone">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span>{b}</span>
@@ -410,13 +410,13 @@ function Results({
                   result.keyDatesOrValues.map((d) => (
                     <li
                       key={d}
-                      className="font-mono text-[13px] text-graphite"
+                      className="font-mono text-body-sm text-graphite"
                     >
                       {d}
                     </li>
                   ))
                 ) : (
-                  <li className="text-sm text-faded-stone">
+                  <li className="text-body-sm text-faded-stone">
                     Nenhuma data ou valor identificado.
                   </li>
                 )}
@@ -426,12 +426,12 @@ function Results({
               <ul className="grid gap-2">
                 {result.entities.length > 0 ? (
                   result.entities.map((e) => (
-                    <li key={e} className="text-sm">
+                    <li key={e} className="text-body-sm">
                       {e}
                     </li>
                   ))
                 ) : (
-                  <li className="text-sm text-faded-stone">Nenhuma entidade citada.</li>
+                  <li className="text-body-sm text-faded-stone">Nenhuma entidade citada.</li>
                 )}
               </ul>
             </Card>
@@ -445,14 +445,14 @@ function Results({
             <Card title="Pergunte ao PDF" eyebrow="Chat com citação · Premium">
               <div className="grid gap-3">
                 {result.suggestedQuestions.length > 0 ? (
-                  <div className="flex items-start gap-3 rounded-[length:var(--radius-md)] border border-subtle-gray bg-canvas px-4 py-3">
-                    <span className="font-mono text-[11px] uppercase text-faded-stone">
+                  <div className="flex items-start gap-3 rounded-md border border-subtle-gray bg-canvas px-4 py-3">
+                    <span className="mono-label text-faded-stone">
                       VOCÊ
                     </span>
-                    <span className="text-sm">{result.suggestedQuestions[0]}</span>
+                    <span className="text-body-sm">{result.suggestedQuestions[0]}</span>
                   </div>
                 ) : null}
-                <p className="text-sm leading-relaxed text-charcoal-text">
+                <p className="text-body-sm  text-charcoal-text">
                   No Premium cada resposta é gerada do seu PDF e cita a página
                   exata onde a informação aparece.
                 </p>
@@ -465,7 +465,7 @@ function Results({
                         onClick={() =>
                           onLockedAction("anonymous_suggested_question_click")
                         }
-                        className="rounded-[length:var(--radius-md)] border border-midnight-ink/40 px-3 py-1.5 text-xs text-charcoal-text hover:border-midnight-ink hover:text-midnight-ink"
+                        className="rounded-md border border-midnight-ink/40 px-3 py-1.5 text-caption text-charcoal-text hover:border-midnight-ink hover:text-midnight-ink"
                       >
                         {q}
                       </button>
@@ -481,14 +481,14 @@ function Results({
         <aside className="grid gap-4 lg:sticky lg:top-24 lg:self-start">
           <DocPreview fileName={fileName} pageCount={result.pageCount ?? null} />
 
-          <div className="rounded-[length:var(--radius-cards)] border border-midnight-ink bg-midnight-ink p-6 text-crisp-white">
-            <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-apollo-gold">
+          <div className="rounded-lg border border-midnight-ink bg-midnight-ink p-card text-crisp-white">
+            <p className="eyebrow text-apollo-gold">
               Premium · R$29/mês
             </p>
-            <h3 className="mt-3 font-display text-lg font-semibold leading-tight">
+            <h3 className="mt-3 font-display text-subheading font-semibold">
               Converse com o documento.
             </h3>
-            <ul className="mt-3 grid gap-2 text-[13px] text-subtle-gray">
+            <ul className="mt-3 grid gap-2 text-body-sm text-subtle-gray">
               <li>· Chat com citação de página</li>
               <li>· PDFs até 100 páginas</li>
               <li>· Modos: contrato, edital, apólice</li>
@@ -496,12 +496,12 @@ function Results({
             </ul>
             <Link
               href="/precos"
-              className="mt-5 inline-flex w-full items-center justify-center rounded-[length:var(--radius-buttons)] bg-apollo-gold px-4 py-3 text-sm font-medium text-midnight-ink hover:opacity-90"
+              className="mt-5 inline-flex w-full items-center justify-center rounded-lg bg-apollo-gold px-4 py-3 text-body-sm font-medium text-midnight-ink hover:opacity-90"
               onClick={() => onLockedAction("anonymous_export_attempt")}
             >
               Desbloquear Premium ↗
             </Link>
-            <p className="mt-3 text-center text-[11px] text-soft-stone">
+            <p className="mt-3 text-center text-caption text-soft-stone">
               Reembolso em até 7 dias
             </p>
           </div>
@@ -511,14 +511,14 @@ function Results({
               <button
                 type="button"
                 onClick={onCopy}
-                className="flex items-center justify-between rounded-[length:var(--radius-buttons)] border border-midnight-ink/30 px-3 py-2 text-xs text-midnight-ink hover:bg-canvas"
+                className="flex items-center justify-between rounded-lg border border-midnight-ink/30 px-3 py-2 text-caption text-midnight-ink hover:bg-canvas"
               >
                 Copiar resumo <span className="text-faded-stone">↗</span>
               </button>
               <Link
                 href="/precos"
                 onClick={() => onLockedAction("anonymous_export_attempt")}
-                className="flex items-center justify-between rounded-[length:var(--radius-buttons)] border border-midnight-ink/30 px-3 py-2 text-xs text-midnight-ink hover:bg-canvas"
+                className="flex items-center justify-between rounded-lg border border-midnight-ink/30 px-3 py-2 text-caption text-midnight-ink hover:bg-canvas"
               >
                 Pacote .zip{" "}
                 <span className="text-faded-stone" aria-label="bloqueado">
@@ -543,13 +543,13 @@ function Card({
   children: React.ReactNode;
 }) {
   return (
-    <section className="overflow-hidden rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white">
+    <section className="overflow-hidden rounded-lg border border-subtle-gray bg-crisp-white">
       <div className="flex items-center justify-between border-b border-subtle-gray px-5 py-3">
         <div>
-          <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
+          <p className="eyebrow text-faded-stone">
             {eyebrow}
           </p>
-          <h3 className="mt-1 font-display text-base font-semibold tracking-tight text-midnight-ink">
+          <h3 className="mt-1 font-display text-body font-semibold  text-midnight-ink">
             {title}
           </h3>
         </div>
@@ -567,18 +567,18 @@ function DocPreview({
   pageCount: number | null;
 }) {
   return (
-    <div className="overflow-hidden rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white">
+    <div className="overflow-hidden rounded-lg border border-subtle-gray bg-crisp-white">
       <div className="flex items-center justify-between border-b border-subtle-gray px-5 py-3">
-        <span className="font-mono text-[11px] uppercase tracking-[0.06em] text-faded-stone">
+        <span className="mono-label text-faded-stone">
           Documento
         </span>
-        <span className="font-mono text-[11px] tracking-[0.06em] text-faded-stone">
+        <span className="font-mono text-caption tracking-[0.06em] text-faded-stone">
           {pageCount != null ? `${pageCount} págs` : "—"}
         </span>
       </div>
-      <dl className="grid gap-3 px-5 py-5 text-sm">
+      <dl className="grid gap-3 px-5 py-5 text-body-sm">
         <div className="flex items-baseline justify-between gap-3">
-          <dt className="font-mono text-[10px] uppercase tracking-[0.1em] text-faded-stone">
+          <dt className="mono-label text-faded-stone">
             Arquivo
           </dt>
           <dd
@@ -589,13 +589,13 @@ function DocPreview({
           </dd>
         </div>
         <div className="flex items-baseline justify-between gap-3">
-          <dt className="font-mono text-[10px] uppercase tracking-[0.1em] text-faded-stone">
+          <dt className="mono-label text-faded-stone">
             Idioma
           </dt>
           <dd className="text-midnight-ink">pt-BR</dd>
         </div>
         <div className="flex items-baseline justify-between gap-3">
-          <dt className="font-mono text-[10px] uppercase tracking-[0.1em] text-faded-stone">
+          <dt className="mono-label text-faded-stone">
             Origem
           </dt>
           <dd className="text-midnight-ink">Upload anônimo</dd>
@@ -626,18 +626,18 @@ function Locked({
       >
         {children}
       </div>
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 p-6 text-center">
-        <span className="rounded-[4px] border border-subtle-gray bg-canvas px-3 py-1 font-mono text-[11px] uppercase tracking-[0.1em] text-charcoal-text">
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 p-card text-center">
+        <span className="rounded-md border border-subtle-gray bg-canvas px-3 py-1 mono-label text-charcoal-text">
           {label}
         </span>
-        <p className="max-w-sm text-sm text-charcoal-text">{description}</p>
-        <span className="inline-flex items-center gap-2 rounded-full bg-midnight-ink px-3 py-1.5 text-xs font-medium text-crisp-white">
+        <p className="max-w-sm text-body-sm text-charcoal-text">{description}</p>
+        <span className="inline-flex items-center gap-2 rounded-full bg-midnight-ink px-3 py-1.5 text-caption font-medium text-crisp-white">
           <span className="inline-block h-1.5 w-1.5 rounded-full bg-apollo-gold" />
           PREMIUM · R$29/mês
         </span>
         <Link
           href="/precos"
-          className="rounded-[length:var(--radius-buttons)] bg-apollo-gold px-4 py-2 text-sm font-medium text-midnight-ink hover:opacity-90"
+          className="rounded-lg bg-apollo-gold px-4 py-2 text-body-sm font-medium text-midnight-ink hover:opacity-90"
         >
           Desbloquear ↗
         </Link>

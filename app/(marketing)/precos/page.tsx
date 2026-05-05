@@ -148,13 +148,13 @@ export default function PrecosPage() {
         />
 
         <header className="mt-6 max-w-3xl">
-          <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+          <p className="eyebrow text-faded-stone">
             Planos e preços
           </p>
-          <h1 className="mt-3 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-[1.05] tracking-tight text-midnight-ink">
+          <h1 className="mt-3 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-[1.05]  text-midnight-ink">
             Comece grátis. Faça upgrade quando precisar ir fundo.
           </h1>
-          <p className="mt-5 text-base leading-relaxed text-charcoal-text sm:text-lg">
+          <p className="mt-5 text-body  text-charcoal-text sm:text-body-lg">
             Pagamento em real, cobrança via Stripe, cancele quando quiser. Sem
             taxa de cancelamento e sem fidelidade.
           </p>
@@ -163,26 +163,26 @@ export default function PrecosPage() {
         {/* —— Plan cards —— */}
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
           {/* Free */}
-          <section className="rounded-[length:var(--radius-cards)] border border-subtle-gray bg-crisp-white p-8">
+          <section className="rounded-lg border border-subtle-gray bg-crisp-white p-8">
             <div className="flex items-baseline justify-between gap-3">
-              <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+              <h2 className="font-display text-heading font-semibold text-midnight-ink">
                 Gratuito
               </h2>
-              <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+              <p className="eyebrow text-faded-stone">
                 Sem cadastro
               </p>
             </div>
             <p className="mt-6 flex items-baseline gap-2">
-              <span className="font-display text-5xl font-semibold leading-none text-midnight-ink">
+              <span className="font-display text-heading-lg font-semibold leading-none text-midnight-ink">
                 R$0
               </span>
-              <span className="text-sm text-faded-stone">/sempre</span>
+              <span className="text-body-sm text-faded-stone">/sempre</span>
             </p>
-            <p className="mt-3 text-sm text-charcoal-text">
+            <p className="mt-3 text-body-sm text-charcoal-text">
               Para testar a ferramenta e resumir PDFs curtos sem fricção.
             </p>
 
-            <ul className="mt-7 space-y-3 text-sm text-charcoal-text">
+            <ul className="mt-7 space-y-3 text-body-sm text-charcoal-text">
               <FeatureLi included>1 resumo por dia, até 10 páginas</FeatureLi>
               <FeatureLi included>
                 Tópicos, datas e entidades encontrados no texto
@@ -196,36 +196,36 @@ export default function PrecosPage() {
 
             <Link
               href="/resumir-pdf"
-              className="mt-8 inline-flex w-full items-center justify-center rounded-[length:var(--radius-buttons)] border border-midnight-ink px-5 py-3 text-base font-medium text-midnight-ink"
+              className="mt-8 inline-flex w-full items-center justify-center rounded-lg border border-midnight-ink px-5 py-3 text-body font-medium text-midnight-ink"
             >
               Começar grátis
             </Link>
           </section>
 
           {/* Premium */}
-          <section className="relative rounded-[length:var(--radius-cards)] border-2 border-midnight-ink bg-crisp-white p-8">
-            <span className="absolute -top-3 left-8 inline-flex items-center bg-midnight-ink px-3 py-1 font-condensed text-xs uppercase tracking-[0.2em] text-apollo-gold">
+          <section className="relative rounded-lg border-2 border-midnight-ink bg-crisp-white p-8">
+            <span className="absolute -top-3 left-8 inline-flex items-center bg-midnight-ink px-3 py-1 font-condensed text-caption uppercase tracking-[0.2em] text-apollo-gold">
               Mais popular
             </span>
             <div className="flex items-baseline justify-between gap-3">
-              <h2 className="font-display text-2xl font-semibold text-midnight-ink">
+              <h2 className="font-display text-heading font-semibold text-midnight-ink">
                 Premium
               </h2>
-              <p className="font-condensed text-xs uppercase tracking-[0.2em] text-faded-stone">
+              <p className="eyebrow text-faded-stone">
                 Sem fidelidade
               </p>
             </div>
             <p className="mt-6 flex items-baseline gap-2">
-              <span className="font-display text-5xl font-semibold leading-none text-midnight-ink">
+              <span className="font-display text-heading-lg font-semibold leading-none text-midnight-ink">
                 R$29
               </span>
-              <span className="text-sm text-faded-stone">/mês</span>
+              <span className="text-body-sm text-faded-stone">/mês</span>
             </p>
-            <p className="mt-3 text-sm text-charcoal-text">
+            <p className="mt-3 text-body-sm text-charcoal-text">
               Anual: R$290 (R$24,17/mês) — economize R$58.
             </p>
 
-            <ul className="mt-7 space-y-3 text-sm text-charcoal-text">
+            <ul className="mt-7 space-y-3 text-body-sm text-charcoal-text">
               <FeatureLi included>
                 Chat com o documento — respostas com citação de página
               </FeatureLi>
@@ -250,7 +250,7 @@ export default function PrecosPage() {
           </section>
         </div>
 
-        <p className="mt-6 text-center text-sm text-faded-stone">
+        <p className="mt-6 text-center text-body-sm text-faded-stone">
           Pagamento seguro via Stripe · Cancele quando quiser · Sem taxa de
           cancelamento ·{" "}
           <Link
@@ -272,21 +272,21 @@ export default function PrecosPage() {
         <section className="mt-20">
           <div className="grid gap-6 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:items-end">
             <div>
-              <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+              <p className="eyebrow text-faded-stone">
                 Compare lado a lado
               </p>
-              <h2 className="mt-4 font-display text-3xl font-semibold leading-tight text-midnight-ink">
+              <h2 className="mt-4 font-display text-heading-lg font-semibold leading-tight text-midnight-ink">
                 Tudo o que entra em cada plano.
               </h2>
             </div>
-            <p className="text-base leading-relaxed text-charcoal-text">
+            <p className="text-body  text-charcoal-text">
               O gratuito cobre o uso casual; o Premium é para quem trabalha com
               PDFs todo dia.
             </p>
           </div>
 
           <div className="mt-8 overflow-x-auto">
-            <table className="w-full border-collapse text-sm">
+            <table className="w-full border-collapse text-body-sm">
               <thead>
                 <tr className="border-b border-midnight-ink text-left">
                   <th className="py-4 pr-6 font-medium text-faded-stone">
@@ -323,21 +323,21 @@ export default function PrecosPage() {
         <section className="mt-20">
           <div className="grid gap-6 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:items-end">
             <div>
-              <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+              <p className="eyebrow text-faded-stone">
                 PDFIA vs alternativas
               </p>
-              <h2 className="mt-4 font-display text-3xl font-semibold leading-tight text-midnight-ink">
+              <h2 className="mt-4 font-display text-heading-lg font-semibold leading-tight text-midnight-ink">
                 Como nos comparamos.
               </h2>
             </div>
-            <p className="text-base leading-relaxed text-charcoal-text">
+            <p className="text-body  text-charcoal-text">
               O PDFIA compete com ChatGPT Plus, Smallpdf AI e Adobe
               Acrobat AI Assistant — cada um com seu foco.
             </p>
           </div>
 
           <div className="mt-8 overflow-x-auto">
-            <table className="w-full border-collapse text-sm">
+            <table className="w-full border-collapse text-body-sm">
               <thead>
                 <tr className="border-b border-midnight-ink text-left">
                   <th className="py-4 pr-6 font-medium text-faded-stone">
@@ -381,10 +381,10 @@ export default function PrecosPage() {
         {/* —— FAQ —— */}
         <section className="mt-20 grid gap-10 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
           <div>
-            <p className="font-condensed text-xs uppercase tracking-[0.22em] text-faded-stone">
+            <p className="eyebrow text-faded-stone">
               Perguntas frequentes
             </p>
-            <h2 className="mt-4 font-display text-3xl font-semibold leading-tight text-midnight-ink">
+            <h2 className="mt-4 font-display text-heading-lg font-semibold leading-tight text-midnight-ink">
               Sobre cobrança, conta e limites.
             </h2>
           </div>
@@ -395,7 +395,7 @@ export default function PrecosPage() {
                 className="group py-5 [&_summary::-webkit-details-marker]:hidden"
               >
                 <summary className="flex cursor-pointer list-none items-start justify-between gap-6">
-                  <dt className="font-display text-lg font-semibold text-midnight-ink">
+                  <dt className="font-display text-body-lg font-semibold text-midnight-ink">
                     {f.q}
                   </dt>
                   <span
@@ -405,7 +405,7 @@ export default function PrecosPage() {
                     +
                   </span>
                 </summary>
-                <dd className="mt-3 max-w-2xl text-base leading-relaxed text-charcoal-text">
+                <dd className="mt-3 max-w-2xl text-body  text-charcoal-text">
                   {f.a}
                 </dd>
               </details>
