@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 type Props = {
@@ -17,10 +18,17 @@ export function AppShellHeader({ isPremium, email }: Props) {
         <div className="flex items-center gap-6">
           <Link
             href="/app"
-            className="whitespace-nowrap font-display text-subheading font-semibold text-midnight-ink"
+            aria-label="PDFIA — biblioteca"
+            className="flex items-center"
           >
-            <span>ChatPDF</span>
-            <span className="hidden sm:inline"> Brasil</span>
+            <Image
+              src="/pdfia-logo.png"
+              alt="PDFIA"
+              width={809}
+              height={172}
+              className="h-[22px] w-auto"
+              priority
+            />
           </Link>
           <span
             aria-hidden="true"
