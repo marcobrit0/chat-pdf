@@ -112,23 +112,20 @@ export default function HomePage() {
       <JsonLd data={faqSchema(faqs.map((f) => ({ q: f.q, a: f.a })))} />
 
       {/* —— Hero ——
-           Design: outer top block has padding 64px 32px 0; max-width 1240. */}
+           Design: centered headline with chip badge + subtitle. */}
       <section className="border-b border-subtle-gray bg-canvas">
-        <div className="mx-auto w-full max-w-[1240px] px-8 pt-16">
-          <p className="font-condensed text-[11px] uppercase tracking-[0.22em] text-faded-stone">
-            Para quem trabalha com PDFs todo dia
-          </p>
-          <h1 className="mt-6 font-display text-[clamp(72px,11vw,168px)] font-semibold leading-[0.92] tracking-[-0.04em] text-midnight-ink">
-            PDF, em
-            <br />
-            português,
-            <br />
-            com{" "}
-            <span className="bg-apollo-gold px-[0.05em]">fonte</span>.
+        <div className="mx-auto w-full max-w-[1240px] px-8 pt-16 text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-subtle-gray bg-crisp-white px-4 py-2 font-condensed text-[11px] uppercase tracking-[0.22em] text-charcoal-text">
+            <span aria-hidden="true" className="inline-block h-1.5 w-1.5 rounded-full bg-[#a3c93a]" />
+            Resumo grátis · Sem cadastro
+          </span>
+          <h1 className="mx-auto mt-8 max-w-[960px] font-display text-[clamp(48px,8vw,96px)] font-semibold leading-[1] tracking-[-0.03em] text-midnight-ink">
+            Cada resposta com a página de{" "}
+            <span className="bg-apollo-gold px-[0.05em]">origem</span>.
           </h1>
-          <p className="mt-8 max-w-[620px] text-[19px] leading-relaxed text-charcoal-text">
-            Resumo grátis sem cadastro. Chat com citação de página no Premium.
-            Modos prontos para contratos, editais e apólices brasileiras.
+          <p className="mx-auto mt-6 max-w-[620px] text-[19px] leading-relaxed text-charcoal-text">
+            Diferente de chats genéricos, o PDFIA cita a página exata e avisa
+            quando a resposta não está no documento.
           </p>
         </div>
 
