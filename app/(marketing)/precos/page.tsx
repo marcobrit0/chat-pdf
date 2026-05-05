@@ -3,6 +3,12 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/marketing/Breadcrumbs";
 import { CheckoutButton } from "@/components/marketing/CheckoutButton";
 import { JsonLd, faqSchema, productSchema } from "@/components/seo/JsonLd";
+import { ButtonLink } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Container } from "@/components/ui/container";
+import { Chip, Eyebrow, MonoLabel } from "@/components/ui/labels";
+import { Section } from "@/components/ui/section";
+import { SectionHeading } from "@/components/ui/section-heading";
 import { absoluteUrl, buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
@@ -117,7 +123,7 @@ export default function PrecosPage() {
   const yearly = process.env.NEXT_PUBLIC_STRIPE_PRICE_YEARLY ?? "";
 
   return (
-    <>
+    <div className="flex flex-1 flex-col">
       <JsonLd
         data={productSchema({
           name: "PDFIA Premium",
@@ -139,281 +145,408 @@ export default function PrecosPage() {
       />
       <JsonLd data={faqSchema(faqs)} />
 
-      <article className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 md:py-14">
-        <Breadcrumbs
-          items={[
-            { label: "Início", path: "/" },
-            { label: "Preços", path: "/precos" },
-          ]}
-        />
+      <Section bg="canvas" size="md">
+        <Container>
+          <Breadcrumbs
+            items={[
+              { label: "Início", path: "/" },
+              { label: "Preços", path: "/precos" },
+            ]}
+          />
 
-        <header className="mt-6 max-w-3xl">
-          <p className="eyebrow text-faded-stone">
-            Planos e preços
-          </p>
-          <h1 className="mt-3 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-[1.05]  text-midnight-ink">
-            Comece grátis. Faça upgrade quando precisar ir fundo.
-          </h1>
-          <p className="mt-5 text-body  text-charcoal-text sm:text-body-lg">
-            Pagamento em real, cobrança via Stripe, cancele quando quiser. Sem
-            taxa de cancelamento e sem fidelidade.
-          </p>
-        </header>
-
-        {/* —— Plan cards —— */}
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          {/* Free */}
-          <section className="rounded-lg border border-subtle-gray bg-crisp-white p-8">
-            <div className="flex items-baseline justify-between gap-3">
-              <h2 className="font-display text-heading font-semibold text-midnight-ink">
-                Gratuito
-              </h2>
-              <p className="eyebrow text-faded-stone">
-                Sem cadastro
+          <div className="mt-10 grid gap-16 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
+            <header className="motion-rise">
+              <Chip variant="live">Resumo grátis · Premium em BRL</Chip>
+              <h1 className="mt-8 font-display text-heading-lg font-semibold text-midnight-ink md:text-display">
+                Preço simples para PDFs que precisam virar resposta.
+              </h1>
+              <p className="mt-6 max-w-[620px] text-body-lg text-charcoal-text">
+                Comece sem cadastro. Assine quando precisar de chat com citação,
+                histórico e documentos maiores.
               </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <ButtonLink href="/resumir-pdf" variant="primary" size="lg">
+                  Começar grátis
+                </ButtonLink>
+                <ButtonLink href="#planos" variant="secondary" size="lg">
+                  Comparar planos
+                </ButtonLink>
+              </div>
+            </header>
+
+            <div className="motion-rise-late rounded-lg border border-midnight-ink bg-crisp-white md:hidden">
+              <div className="grid grid-cols-2 border-b border-subtle-gray">
+                <div className="p-card-compact">
+                  <MonoLabel>Grátis</MonoLabel>
+                  <div className="mt-2 font-display text-heading font-semibold text-midnight-ink">
+                    R$0
+                  </div>
+                </div>
+                <div className="border-l border-subtle-gray bg-apollo-gold p-card-compact">
+                  <MonoLabel tone="ink">Premium</MonoLabel>
+                  <div className="mt-2 font-display text-heading font-semibold text-midnight-ink">
+                    R$29/mês
+                  </div>
+                </div>
+              </div>
+              <div className="grid divide-y divide-subtle-gray">
+                {[
+                  ["Páginas", "10 no grátis", "100 no Premium"],
+                  ["Chat citado", "Premium"],
+                  ["Histórico salvo", "Premium"],
+                  ["Modos por PDF", "Contrato, edital e apólice no Premium"],
+                ].map(([label, detail, extra]) => (
+                  <div key={label} className="p-card-compact">
+                    <MonoLabel>{label}</MonoLabel>
+                    <p className="mt-2 text-body-sm text-charcoal-text">
+                      {detail}
+                      {extra ? ` · ${extra}` : ""}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
-            <p className="mt-6 flex items-baseline gap-2">
-              <span className="font-display text-heading-lg font-semibold leading-none text-midnight-ink">
-                R$0
-              </span>
-              <span className="text-body-sm text-faded-stone">/sempre</span>
-            </p>
-            <p className="mt-3 text-body-sm text-charcoal-text">
-              Para testar a ferramenta e resumir PDFs curtos sem fricção.
-            </p>
 
-            <ul className="mt-7 space-y-3 text-body-sm text-charcoal-text">
-              <FeatureLi included>1 resumo por dia, até 10 páginas</FeatureLi>
-              <FeatureLi included>
-                Tópicos, datas e entidades encontrados no texto
-              </FeatureLi>
-              <FeatureLi included>Perguntas de follow-up sugeridas</FeatureLi>
-              <FeatureLi included>Sem cadastro</FeatureLi>
-              <FeatureLi>Chat com o documento</FeatureLi>
-              <FeatureLi>Histórico salvo na conta</FeatureLi>
-              <FeatureLi>Modos para contratos, editais, apólices</FeatureLi>
-            </ul>
+            <div className="motion-rise-late hidden rounded-lg border border-midnight-ink bg-crisp-white md:block">
+              <div className="grid grid-cols-[1fr_1fr] border-b border-subtle-gray bg-canvas">
+                <div className="p-card-compact">
+                  <MonoLabel>Grátis</MonoLabel>
+                  <div className="mt-2 font-display text-heading font-semibold text-midnight-ink">
+                    R$0
+                  </div>
+                </div>
+                <div className="border-l border-subtle-gray bg-apollo-gold p-card-compact">
+                  <MonoLabel tone="ink">Premium</MonoLabel>
+                  <div className="mt-2 font-display text-heading font-semibold text-midnight-ink">
+                    R$29/mês
+                  </div>
+                </div>
+              </div>
+              {[
+                ["Páginas", "10", "100"],
+                ["Chat citado", "Não", "Sim"],
+                ["Histórico", "Não", "Sim"],
+                ["Modos por PDF", "Básico", "Contrato · edital · apólice"],
+              ].map(([label, free, premium]) => (
+                <div
+                  key={label}
+                  className="grid grid-cols-[0.9fr_0.8fr_1fr] border-b border-subtle-gray last:border-b-0"
+                >
+                  <div className="p-card-compact text-body-sm text-faded-stone">
+                    {label}
+                  </div>
+                  <div className="border-l border-subtle-gray p-card-compact text-body-sm text-charcoal-text">
+                    {free}
+                  </div>
+                  <div className="border-l border-subtle-gray p-card-compact font-display text-body-sm text-midnight-ink">
+                    {premium}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Container>
+      </Section>
 
-            <Link
-              href="/resumir-pdf"
-              className="mt-8 inline-flex w-full items-center justify-center rounded-lg border border-midnight-ink px-5 py-3 text-body font-medium text-midnight-ink"
+      <Section id="planos" bg="white" size="md">
+        <Container>
+          <SectionHeading
+            eyebrow="Planos"
+            title="O gratuito prova valor. O Premium remove os limites."
+            description="Sem fidelidade, pagamento seguro via Stripe e cancelamento direto na conta."
+            maxWidth="wide"
+            className="mb-10"
+          />
+
+          <div className="grid gap-4 lg:grid-cols-[0.85fr_1.15fr]">
+            <Card
+              variant="elevated"
+              className="flex flex-col transition-transform hover:-translate-y-1"
             >
-              Começar grátis
-            </Link>
-          </section>
-
-          {/* Premium */}
-          <section className="relative rounded-lg border-2 border-midnight-ink bg-crisp-white p-8">
-            <span className="absolute -top-3 left-8 inline-flex items-center bg-midnight-ink px-3 py-1 font-condensed text-caption uppercase tracking-[0.2em] text-apollo-gold">
-              Mais popular
-            </span>
-            <div className="flex items-baseline justify-between gap-3">
-              <h2 className="font-display text-heading font-semibold text-midnight-ink">
-                Premium
-              </h2>
-              <p className="eyebrow text-faded-stone">
-                Sem fidelidade
+              <div className="flex items-center justify-between gap-4">
+                <Eyebrow>Gratuito</Eyebrow>
+                <MonoLabel>Sem cadastro</MonoLabel>
+              </div>
+              <div className="mt-8 flex items-end gap-2">
+                <span className="font-display text-heading-lg font-semibold text-midnight-ink">
+                  R$0
+                </span>
+                <MonoLabel casing="normal">/sempre</MonoLabel>
+              </div>
+              <p className="mt-4 text-body text-charcoal-text">
+                Para resumir PDFs curtos e entender a saída do PDFIA antes de
+                criar conta.
               </p>
-            </div>
-            <p className="mt-6 flex items-baseline gap-2">
-              <span className="font-display text-heading-lg font-semibold leading-none text-midnight-ink">
-                R$29
-              </span>
-              <span className="text-body-sm text-faded-stone">/mês</span>
-            </p>
-            <p className="mt-3 text-body-sm text-charcoal-text">
-              Anual: R$290 (R$24,17/mês) — economize R$58.
-            </p>
-
-            <ul className="mt-7 space-y-3 text-body-sm text-charcoal-text">
-              <FeatureLi included>
-                Chat com o documento — respostas com citação de página
-              </FeatureLi>
-              <FeatureLi included>PDFs até 100 páginas</FeatureLi>
-              <FeatureLi included>
-                Modos: resumo detalhado, extrair dados, revisão de riscos
-              </FeatureLi>
-              <FeatureLi included>Histórico de documentos salvo</FeatureLi>
-              <FeatureLi included>
-                Modos para contratos CLT, editais, apólices
-              </FeatureLi>
-              <FeatureLi included>
-                Aviso claro quando a informação não está no PDF
-              </FeatureLi>
-              <FeatureLi included>Exportar pacote (PDF + Markdown)</FeatureLi>
-            </ul>
-
-            <div className="mt-8 grid gap-3">
-              <CheckoutButton priceId={monthly} label="Assinar por R$29/mês" />
-              <CheckoutButton priceId={yearly} label="Assinar por R$290/ano" />
-            </div>
-          </section>
-        </div>
-
-        <p className="mt-6 text-center text-body-sm text-faded-stone">
-          Pagamento seguro via Stripe · Cancele quando quiser · Sem taxa de
-          cancelamento ·{" "}
-          <Link
-            href="/termos"
-            className="underline underline-offset-4 hover:text-charcoal-text"
-          >
-            Termos
-          </Link>{" "}
-          ·{" "}
-          <Link
-            href="/privacidade"
-            className="underline underline-offset-4 hover:text-charcoal-text"
-          >
-            Privacidade
-          </Link>
-        </p>
-
-        {/* —— Detailed comparison —— */}
-        <section className="mt-20">
-          <div className="grid gap-6 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:items-end">
-            <div>
-              <p className="eyebrow text-faded-stone">
-                Compare lado a lado
-              </p>
-              <h2 className="mt-4 font-display text-heading-lg font-semibold leading-tight text-midnight-ink">
-                Tudo o que entra em cada plano.
-              </h2>
-            </div>
-            <p className="text-body  text-charcoal-text">
-              O gratuito cobre o uso casual; o Premium é para quem trabalha com
-              PDFs todo dia.
-            </p>
-          </div>
-
-          <div className="mt-8 overflow-x-auto">
-            <table className="w-full border-collapse text-body-sm">
-              <thead>
-                <tr className="border-b border-midnight-ink text-left">
-                  <th className="py-4 pr-6 font-medium text-faded-stone">
-                    Recurso
-                  </th>
-                  <th className="py-4 pr-6 font-medium text-charcoal-text">
-                    Gratuito
-                  </th>
-                  <th className="py-4 font-medium text-midnight-ink">
-                    Premium
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-subtle-gray">
-                {planFeatures.map((row) => (
-                  <tr key={row.label}>
-                    <td className="py-4 pr-6 text-charcoal-text">
-                      {row.label}
-                    </td>
-                    <td className="py-4 pr-6 text-charcoal-text">
-                      {row.free}
-                    </td>
-                    <td className="py-4 font-medium text-midnight-ink">
-                      {row.premium}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* —— Vs competitors —— */}
-        <section className="mt-20">
-          <div className="grid gap-6 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:items-end">
-            <div>
-              <p className="eyebrow text-faded-stone">
-                PDFIA vs alternativas
-              </p>
-              <h2 className="mt-4 font-display text-heading-lg font-semibold leading-tight text-midnight-ink">
-                Como nos comparamos.
-              </h2>
-            </div>
-            <p className="text-body  text-charcoal-text">
-              O PDFIA compete com ChatGPT Plus, Smallpdf AI e Adobe
-              Acrobat AI Assistant — cada um com seu foco.
-            </p>
-          </div>
-
-          <div className="mt-8 overflow-x-auto">
-            <table className="w-full border-collapse text-body-sm">
-              <thead>
-                <tr className="border-b border-midnight-ink text-left">
-                  <th className="py-4 pr-6 font-medium text-faded-stone">
-                    Item
-                  </th>
-                  <th className="py-4 pr-6 font-medium text-midnight-ink">
-                    PDFIA
-                  </th>
-                  <th className="py-4 pr-6 font-medium text-faded-stone">
-                    ChatGPT Plus
-                  </th>
-                  <th className="py-4 pr-6 font-medium text-faded-stone">
-                    Smallpdf
-                  </th>
-                  <th className="py-4 font-medium text-faded-stone">
-                    Adobe Acrobat AI
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-subtle-gray text-charcoal-text">
-                {competitorComparison.map((row) => (
-                  <tr key={row.label}>
-                    <td className="py-4 pr-6">{row.label}</td>
-                    <td className="py-4 pr-6 font-medium text-midnight-ink">
-                      {row.you}
-                    </td>
-                    <td className="py-4 pr-6 text-faded-stone">
-                      {row.chatgpt}
-                    </td>
-                    <td className="py-4 pr-6 text-faded-stone">
-                      {row.smallpdf}
-                    </td>
-                    <td className="py-4 text-faded-stone">{row.adobe}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* —— FAQ —— */}
-        <section className="mt-20 grid gap-10 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-          <div>
-            <p className="eyebrow text-faded-stone">
-              Perguntas frequentes
-            </p>
-            <h2 className="mt-4 font-display text-heading-lg font-semibold leading-tight text-midnight-ink">
-              Sobre cobrança, conta e limites.
-            </h2>
-          </div>
-          <dl className="divide-y divide-subtle-gray border-y border-subtle-gray">
-            {faqs.map((f) => (
-              <details
-                key={f.q}
-                className="group py-5 [&_summary::-webkit-details-marker]:hidden"
+              <ul className="mt-8 grid gap-3 text-body-sm text-charcoal-text">
+                <FeatureLi included>1 resumo por dia, até 10 páginas</FeatureLi>
+                <FeatureLi included>
+                  Tópicos, datas, valores e entidades
+                </FeatureLi>
+                <FeatureLi included>
+                  Perguntas sugeridas para aprofundar
+                </FeatureLi>
+                <FeatureLi>Chat com o documento</FeatureLi>
+                <FeatureLi>Histórico salvo</FeatureLi>
+              </ul>
+              <ButtonLink
+                href="/resumir-pdf"
+                variant="secondary"
+                size="md"
+                className="mt-8 w-full"
               >
-                <summary className="flex cursor-pointer list-none items-start justify-between gap-6">
-                  <dt className="font-display text-body-lg font-semibold text-midnight-ink">
-                    {f.q}
-                  </dt>
-                  <span
-                    aria-hidden="true"
-                    className="mt-1 font-condensed text-faded-stone transition-transform group-open:rotate-45"
-                  >
-                    +
-                  </span>
-                </summary>
-                <dd className="mt-3 max-w-2xl text-body  text-charcoal-text">
-                  {f.a}
-                </dd>
-              </details>
+                Resumir PDF grátis
+              </ButtonLink>
+            </Card>
+
+            <div className="relative overflow-hidden rounded-lg border-2 border-midnight-ink bg-crisp-white transition-transform hover:-translate-y-1">
+              <div className="grid gap-8 bg-midnight-ink p-card-elevated text-crisp-white md:grid-cols-[1fr_auto] md:items-start">
+                <div>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <Eyebrow tone="accent">Premium</Eyebrow>
+                    <Chip variant="accent">Mais usado</Chip>
+                  </div>
+                  <div className="mt-8 flex flex-wrap items-end gap-3">
+                    <span className="font-display text-display font-semibold text-crisp-white">
+                      R$29
+                    </span>
+                    <MonoLabel tone="white" casing="normal">
+                      /mês · ou R$290/ano
+                    </MonoLabel>
+                  </div>
+                  <p className="mt-4 max-w-[560px] text-body text-soft-stone">
+                    Para quem trabalha com PDF todo dia e precisa voltar ao
+                    documento, perguntar e citar a página de origem.
+                  </p>
+                </div>
+                <div className="rounded-lg border border-midnight-divider p-card-compact">
+                  <MonoLabel tone="accent">Anual</MonoLabel>
+                  <p className="mt-2 font-display text-heading text-crisp-white">
+                    R$24,17/mês
+                  </p>
+                  <p className="mt-2 text-body-sm text-soft-stone">
+                    Economia de R$58.
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid gap-8 p-card-elevated md:grid-cols-[1fr_0.85fr]">
+                <ul className="grid gap-3 text-body-sm text-charcoal-text">
+                  <FeatureLi included>
+                    Chat com respostas citadas por página
+                  </FeatureLi>
+                  <FeatureLi included>PDFs até 100 páginas</FeatureLi>
+                  <FeatureLi included>
+                    Modos: resumo detalhado, extrair dados, revisão de riscos
+                  </FeatureLi>
+                  <FeatureLi included>
+                    Contratos CLT, editais, apólices e laudos
+                  </FeatureLi>
+                  <FeatureLi included>Histórico de documentos salvo</FeatureLi>
+                  <FeatureLi included>Exportação em PDF + Markdown</FeatureLi>
+                </ul>
+
+                <div className="flex flex-col justify-between gap-4 border-t border-subtle-gray pt-6 md:border-l md:border-t-0 md:pl-8 md:pt-0">
+                  <div>
+                    <MonoLabel>Checkout</MonoLabel>
+                    <p className="mt-3 text-body-sm text-charcoal-text">
+                      Cartão via Stripe. Não armazenamos dados de cartão na
+                      infraestrutura do PDFIA.
+                    </p>
+                  </div>
+                  <div className="grid gap-3">
+                    <CheckoutButton
+                      priceId={monthly}
+                      label="Assinar mensal"
+                      className="w-full"
+                    />
+                    <CheckoutButton
+                      priceId={yearly}
+                      label="Assinar anual"
+                      variant="secondary"
+                      className="w-full"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p className="mt-8 text-center text-body-sm text-faded-stone">
+            Cancele quando quiser · Sem taxa de cancelamento ·{" "}
+            <Link
+              href="/termos"
+              className="underline underline-offset-4 hover:text-charcoal-text"
+            >
+              Termos
+            </Link>{" "}
+            ·{" "}
+            <Link
+              href="/privacidade"
+              className="underline underline-offset-4 hover:text-charcoal-text"
+            >
+              Privacidade
+            </Link>
+          </p>
+        </Container>
+      </Section>
+
+      <Section bg="canvas" size="md">
+        <Container>
+          <SectionHeading
+            eyebrow="Compare"
+            title="Tudo o que entra em cada plano."
+            description="O gratuito cobre o uso casual. O Premium é para quem precisa consultar, guardar e exportar."
+            className="mb-10"
+          />
+
+          <ComparisonTable
+            headers={["Recurso", "Gratuito", "Premium"]}
+            rows={planFeatures.map((row) => [row.label, row.free, row.premium])}
+            highlightColumn={2}
+          />
+        </Container>
+      </Section>
+
+      <Section bg="ash" size="md">
+        <Container>
+          <SectionHeading
+            eyebrow="PDFIA vs alternativas"
+            title="A diferença está no foco: PDF em português, fonte citada e preço em real."
+            description="ChatGPT, Smallpdf e Adobe têm escopos maiores. PDFIA foi desenhado para ler documento e voltar à página certa."
+            maxWidth="wide"
+            className="mb-10"
+          />
+
+          <ComparisonTable
+            headers={["Item", "PDFIA", "ChatGPT Plus", "Smallpdf", "Adobe"]}
+            rows={competitorComparison.map((row) => [
+              row.label,
+              row.you,
+              row.chatgpt,
+              row.smallpdf,
+              row.adobe,
+            ])}
+            highlightColumn={1}
+          />
+        </Container>
+      </Section>
+
+      <Section bg="white" size="md">
+        <Container>
+          <div className="grid gap-16 md:grid-cols-[0.85fr_1.15fr]">
+            <SectionHeading
+              eyebrow="Perguntas frequentes"
+              title="Cobrança, conta e limites sem letra miúda."
+              maxWidth="none"
+            />
+            <div className="overflow-hidden rounded-lg border border-subtle-gray bg-crisp-white">
+              {faqs.map((f, i) => (
+                <details
+                  key={f.q}
+                  className={
+                    "group [&_summary::-webkit-details-marker]:hidden " +
+                    (i < faqs.length - 1 ? "border-b border-subtle-gray" : "")
+                  }
+                  {...(i === 0 ? { open: true } : {})}
+                >
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-6 px-6 py-5 transition-colors group-open:bg-canvas">
+                    <span className="font-display text-body-lg font-semibold text-midnight-ink">
+                      {f.q}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="font-mono text-faded-stone transition-transform group-open:rotate-45"
+                    >
+                      +
+                    </span>
+                  </summary>
+                  <div className="max-w-[720px] px-6 pb-5 text-body-sm text-charcoal-text">
+                    {f.a}
+                  </div>
+                </details>
+              ))}
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      <Section bg="midnight" size="lg" bordered={false}>
+        <Container>
+          <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+            <SectionHeading
+              eyebrow="Comece grátis"
+              title="Envie um PDF agora. Assine só quando precisar perguntar mais."
+              maxWidth="wide"
+              tone="white"
+              eyebrowTone="accent"
+            />
+            <div className="flex flex-wrap gap-3">
+              <ButtonLink href="/resumir-pdf" variant="primary" size="lg">
+                Resumir PDF grátis
+              </ButtonLink>
+              <ButtonLink href="#planos" variant="secondary-on-dark" size="lg">
+                Ver Premium
+              </ButtonLink>
+            </div>
+          </div>
+        </Container>
+      </Section>
+    </div>
+  );
+}
+
+function ComparisonTable({
+  headers,
+  rows,
+  highlightColumn,
+}: {
+  headers: string[];
+  rows: string[][];
+  highlightColumn: number;
+}) {
+  return (
+    <div className="overflow-x-auto rounded-lg border border-subtle-gray bg-crisp-white">
+      <table className="w-full border-collapse text-body-sm">
+        <thead>
+          <tr className="border-b border-midnight-ink bg-canvas text-left">
+            {headers.map((header, i) => (
+              <th
+                key={header}
+                className={
+                  "p-card-compact mono-label " +
+                  (i === highlightColumn
+                    ? "text-midnight-ink"
+                    : "text-faded-stone")
+                }
+              >
+                {header}
+              </th>
             ))}
-          </dl>
-        </section>
-      </article>
-    </>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-subtle-gray">
+          {rows.map((row) => (
+            <tr key={row[0]}>
+              {row.map((cell, i) => (
+                <td
+                  key={`${row[0]}-${headers[i]}`}
+                  className={
+                    "p-card-compact " +
+                    (i === highlightColumn
+                      ? "font-display text-midnight-ink"
+                      : i === 0
+                        ? "text-charcoal-text"
+                        : "text-faded-stone")
+                  }
+                >
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
