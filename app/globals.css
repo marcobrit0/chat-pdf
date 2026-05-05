@@ -95,9 +95,25 @@
   --radius-default: 8px;
   --radius-smallcard: 12px;
 
-  /* —— Layout (semantic tokens consumed by @utility blocks below) ——
-     One vertical rhythm. Three card paddings. One page width. No
-     arbitraries. */
+  /* Legacy aliases retained so existing `var(--card-padding)` / `--section-gap`
+     consumers still resolve. New code should reach for the semantic tokens
+     in `:root` below. */
+  --section-gap: 40px;
+  --card-padding: 24px;
+  --element-gap: 8px;
+}
+
+/* —— Layout tokens consumed by @utility blocks below ——
+   These intentionally live OUTSIDE `@theme inline`. The `inline` modifier on
+   the `@theme` block above causes Tailwind to substitute token values directly
+   into the utilities it generates (text-display, bg-canvas, etc.) rather than
+   exposing them as CSS custom properties on `:root`. Declaring layout tokens
+   on `:root` guarantees `var(--container-page)` etc. resolve at runtime —
+   without this, the @utility blocks silently emit `padding: var(--…)` that
+   evaluates to nothing and every section/card collapses to zero padding.
+
+   One vertical rhythm. Three card paddings. One page width. No arbitraries. */
+:root {
   --section-py-sm: 56px; /* tight: stat strips, dense rows */
   --section-py-md: 80px; /* default for content sections */
   --section-py-lg: 96px; /* hero, marquee, final CTA */
@@ -108,13 +124,6 @@
 
   --container-page: 1240px;
   --container-pad: 32px;
-
-  /* Legacy aliases retained so existing `var(--card-padding)` / `--section-gap`
-     consumers still resolve. New code should reach for the semantic tokens
-     above. */
-  --section-gap: 40px;
-  --card-padding: 24px;
-  --element-gap: 8px;
 }
 
 /* —— Custom utilities ——
