@@ -2,10 +2,21 @@
 
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { Button } from "@/components/ui/button";
 
-type CheckoutButtonProps = { priceId: string; label: string };
+type CheckoutButtonProps = {
+  priceId: string;
+  label: string;
+  className?: string;
+  variant?: "primary" | "secondary";
+};
 
-export function CheckoutButton({ priceId, label }: CheckoutButtonProps) {
+export function CheckoutButton({
+  priceId,
+  label,
+  className = "",
+  variant = "primary",
+}: CheckoutButtonProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -45,15 +56,19 @@ export function CheckoutButton({ priceId, label }: CheckoutButtonProps) {
 
   return (
     <div>
-      <button
+      <Button
         type="button"
         onClick={onClick}
         disabled={loading || !priceId}
-        className="inline-flex min-w-[200px] items-center justify-center rounded-lg bg-apollo-gold px-5 py-3 text-body font-medium text-midnight-ink disabled:opacity-60"
+        variant={variant}
+        size="md"
+        className={className}
       >
         {loading ? "…" : label}
-      </button>
-      {error ? <p className="mt-2 text-body-sm text-red-700">{error}</p> : null}
+      </Button>
+      {error ? (
+        <p className="mt-2 text-body-sm text-charcoal-text">{error}</p>
+      ) : null}
     </div>
   );
 }
