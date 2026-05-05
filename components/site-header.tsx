@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -61,17 +62,16 @@ export function SiteHeader() {
         <Link
           href="/"
           aria-label="PDFIA — início"
-          className="flex items-center gap-2.5"
+          className="flex items-center"
         >
-          <span
-            aria-hidden="true"
-            className="grid h-[22px] w-[22px] place-items-center rounded-[5px] bg-midnight-ink font-mono text-[11px] font-bold leading-none text-apollo-gold"
-          >
-            P
-          </span>
-          <span className="font-display text-base font-semibold tracking-[-0.01em] text-midnight-ink">
-            PDFIA
-          </span>
+          <Image
+            src="/pdfia-logo.png"
+            alt="PDFIA"
+            width={809}
+            height={172}
+            className="h-[22px] w-auto"
+            priority
+          />
         </Link>
 
         <nav
