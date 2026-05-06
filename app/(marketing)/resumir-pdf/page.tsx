@@ -7,32 +7,32 @@ import { JsonLd, faqSchema } from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Resumir PDF online em português — grátis e sem cadastro",
+  title: "Resumir PDF online grátis em português — sem cadastro | PDFIA",
   description:
-    "Resuma PDFs de até 10 páginas em segundos: tópicos, datas, entidades e perguntas sugeridas, em português. Sem cadastro. Premium para arquivos grandes.",
+    "Resuma PDF em segundos, em português, sem criar conta. Tópicos, datas, valores e perguntas sugeridas — feito pra contrato, edital, laudo e relatório. Premium pra PDFs maiores e chat com o documento.",
   path: "/resumir-pdf",
 });
 
 const faqs = [
   {
-    q: "Quanto custa para resumir um PDF?",
-    a: "Nada. PDFs de até 10 páginas são resumidos gratuitamente, sem cadastro. Para PDFs maiores, chat com o documento e exportações organizadas, o Premium é R$29/mês ou R$290/ano.",
+    q: "Quanto custa pra resumir um PDF?",
+    a: "Nada. PDF de até 10 páginas você resume sem pagar e sem criar conta. Pra PDFs maiores, chat com o documento e exportar resumo, o Premium é R$29/mês (ou R$290/ano, dá R$24/mês).",
   },
   {
-    q: "O que vem no resumo gratuito?",
-    a: "Um parágrafo-síntese, tópicos principais, datas e valores encontrados no texto, entidades citadas (pessoas, empresas, locais) e perguntas de follow-up sugeridas para você aprofundar.",
+    q: "O que vem no resumo grátis?",
+    a: "Parágrafo de visão geral, tópicos principais, todas as datas e valores que aparecem, nomes citados (pessoas, empresas, órgãos) e perguntas que você pode fazer pra ir mais fundo no documento.",
   },
   {
-    q: "Quanto tempo demora?",
-    a: "Em geral, entre 5 e 20 segundos para um PDF de até 10 páginas. Documentos com muito texto técnico podem levar um pouco mais.",
+    q: "Quanto tempo leva?",
+    a: "Geralmente entre 5 e 20 segundos pra um PDF de até 10 páginas. Documento com texto técnico pesado pode levar um pouco mais — mas dificilmente passa de 1 minuto.",
   },
   {
-    q: "Funciona com PDFs digitalizados?",
-    a: "Hoje precisamos de PDFs com texto selecionável. Documentos puramente em imagem precisam de OCR antes — está no roadmap.",
+    q: "Funciona com PDF digitalizado (escaneado)?",
+    a: "Hoje só com texto selecionável. Se o PDF é uma foto/imagem, ele precisa passar por OCR antes. Estamos colocando OCR automático no Premium em breve.",
   },
   {
-    q: "Meu PDF fica salvo no servidor?",
-    a: "Não no plano gratuito. O arquivo é processado e descartado depois do resumo. No Premium o documento fica vinculado à sua conta para você voltar e fazer mais perguntas.",
+    q: "Meu PDF fica salvo onde?",
+    a: "No grátis, não fica — o arquivo é processado, vira resumo e some. No Premium, o documento fica salvo na sua conta pra você voltar e perguntar mais coisas depois.",
   },
 ];
 
@@ -57,11 +57,12 @@ export default function ResumirPdfPage() {
               Resumo grátis · pt-BR · sem cadastro
             </p>
             <h1 className="mt-3 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-[1.05]  text-midnight-ink">
-              Seu PDF, resumido em segundos.
+              Resumir PDF em português, em segundos.
             </h1>
             <p className="mt-4 max-w-2xl text-body  text-charcoal-text sm:text-body-lg">
-              Parágrafo-síntese, tópicos, datas, valores e entidades — extraídos
-              do documento e prontos para colar.
+              Solte o PDF aqui embaixo. A gente devolve um resumo direto, com
+              tópicos, datas, valores e nomes — pronto pra você copiar pro
+              Slack, e-mail ou onde precisar.
             </p>
           </header>
 

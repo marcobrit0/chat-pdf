@@ -4,9 +4,9 @@ import { buildPageMetadata } from "@/lib/seo";
 import { personaVariantsByCanonical } from "@/lib/seo/programmatic-seo-data";
 
 export const metadata = buildPageMetadata({
-  title: "Entender laudo médico com IA",
+  title: "Entender laudo médico com IA — termo técnico em português que dá pra entender | PDFIA",
   description:
-    "Apoio à leitura de laudos em PDF em português — termos técnicos traduzidos para linguagem que paciente e família entendem. Não é diagnóstico nem conduta clínica.",
+    "Laudo de exame cheio de termo clínico? A IA traduz pra linguagem normal e te ajuda a montar perguntas pro médico. Não é diagnóstico — é apoio pra você entender o que está no papel.",
   path: "/entender-laudo-medico",
 });
 
@@ -33,7 +33,7 @@ export default function EntenderLaudoMedicoPage() {
   return (
     <SeoPageTemplate
       title="Entender laudo médico com IA"
-      intro="Transforme termos técnicos em explicações acessíveis e prepare perguntas para o seu médico. Este serviço é educativo: não interpreta exames no lugar de um profissional de saúde."
+      intro="Pegou o laudo, leu três vezes e ainda não entendeu? A IA traduz cada termo técnico pra linguagem que dá pra entender e te ajuda a chegar na consulta com perguntas certas. É apoio pra você entender o papel — não substitui médico, nunca."
       showUpload
       breadcrumbs={[
         { label: "Início", path: "/" },

@@ -2,9 +2,9 @@ import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Alternativa ao ChatPDF para o mercado brasileiro",
+  title: "Alternativa ao ChatPDF feita pro Brasil — em real e em português | PDFIA",
   description:
-    "ChatPDF funciona, mas foi feito para o mercado global. PDFIA tem UX em PT-BR, modos para documentos brasileiros (CLT, editais, apólices) e preços em reais.",
+    "ChatPDF funciona, mas foi feito pro mercado global. PDFIA tem interface em PT-BR, modos prontos pra contrato CLT, edital e apólice brasileira, e pagamento em real. Sem dólar, sem traduzir prompt.",
   path: "/alternativa-ao-chatpdf",
 });
 
@@ -59,8 +59,8 @@ const faqs = [
 export default function AlternativaAoChatpdfPage() {
   return (
     <SeoPageTemplate
-      title="Alternativa ao ChatPDF em português"
-      intro="ChatPDF funciona bem para o mercado global, mas não foi feito para o Brasil. PDFIA tem interface e respostas em PT-BR, modos prontos para CLT, editais e apólices, e preços em reais."
+      title="Alternativa ao ChatPDF, feita pro Brasil"
+      intro="O ChatPDF funciona bem pro mundo todo. Mas pra quem trabalha com documento brasileiro — contrato CLT, edital de licitação, apólice nacional — falta tratamento dedicado, fica em inglês por padrão e cobra em dólar. O PDFIA é pensado pro Brasil desde o primeiro dia."
       breadcrumbs={[
         { label: "Início", path: "/" },
         { label: "Comparações", path: "/precos" },

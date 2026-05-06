@@ -5,15 +5,15 @@ import {
 } from "@/components/seo/og-image";
 
 export const runtime = "edge";
-export const alt = "Entender laudo médico com IA em português";
+export const alt = "Entender laudo médico com IA em português — sem virar dr. Google";
 export const size = ogImageSize;
 export const contentType = ogImageContentType;
 
 export default function Image() {
   return renderOgImage({
-    eyebrow: "Caso de uso",
+    eyebrow: "Antes da consulta",
     title: "Entender laudo médico em português",
     subtitle:
-      "Tradução de termos clínicos, achados destacados, recomendações citadas",
+      "Termo técnico em linguagem que dá pra entender, achados destacados, perguntas pra consulta",
   });
 }

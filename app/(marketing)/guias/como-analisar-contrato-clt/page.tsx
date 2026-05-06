@@ -7,9 +7,9 @@ import { howToSchema } from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Como analisar contrato CLT antes de assinar — guia em PT-BR",
+  title: "Como analisar contrato CLT antes de assinar — guia direto em PT-BR | PDFIA",
   description:
-    "Antes de assinar a CLT: o que ler primeiro (jornada, salário, benefícios), o que costuma surpreender (não-concorrência, exclusividade) e o que negociar.",
+    "Antes de assinar contrato CLT: o que ler primeiro (jornada, salário, benefícios), o que costuma surpreender (não-concorrência, exclusividade, multa) e o que ainda dá pra negociar com o RH.",
   path: "/guias/como-analisar-contrato-clt",
 });
 

@@ -119,7 +119,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error:
-            "Não foi possível ler o PDF (arquivo corrompido ou protegido por senha).",
+            "Não rolou ler esse PDF — pode estar corrompido ou protegido por senha.",
         },
         { status: 400 },
       );
@@ -128,7 +128,7 @@ export async function POST(request: Request) {
     if (pageCount > ANON_MAX_PAGES) {
       return NextResponse.json(
         {
-          error: `Este PDF tem ${pageCount} páginas. O resumo anônimo gratuito aceita até ${ANON_MAX_PAGES} páginas.`,
+          error: `Esse PDF tem ${pageCount} páginas. O grátis vai até ${ANON_MAX_PAGES} — pra arquivos maiores, vai de Premium.`,
           pageCount,
         },
         { status: 400 },
@@ -139,7 +139,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error:
-            "Texto insuficiente (PDF escaneado ou vazio). Tente um PDF com texto selecionável.",
+            "Texto insuficiente — esse PDF parece escaneado ou vazio. Tenta um com texto selecionável.",
         },
         { status: 400 },
       );
@@ -154,7 +154,7 @@ export async function POST(request: Request) {
         return NextResponse.json(
           {
             error:
-              "Resumos temporariamente indisponíveis. Tente novamente em alguns minutos.",
+              "Resumos fora do ar por uns minutos. Tenta de novo em alguns minutos?",
           },
           { status: 503 },
         );
@@ -169,7 +169,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error:
-            "Limite diário de resumos anônimos atingido. Tente amanhã ou assine o Premium.",
+            "Você bateu o limite diário do grátis. Tenta amanhã ou assina o Premium pra resumir sem limite.",
         },
         { status: 429 },
       );
@@ -184,7 +184,7 @@ export async function POST(request: Request) {
         {
           error: userFacingMessage(
             e,
-            "A IA não conseguiu concluir o resumo. Tente outro PDF ou mais tarde.",
+            "A IA não conseguiu finalizar o resumo agora. Tenta outro PDF ou volta em alguns minutos.",
           ),
         },
         { status: 502 },
@@ -193,7 +193,7 @@ export async function POST(request: Request) {
   } catch (e) {
     logApiError(ROUTE, e);
     return NextResponse.json(
-      { error: userFacingMessage(e, "Não foi possível processar o pedido.") },
+      { error: userFacingMessage(e, "Não rolou processar agora. Tenta de novo?") },
       { status: 500 },
     );
   }

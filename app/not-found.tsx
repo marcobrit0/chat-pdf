@@ -3,14 +3,14 @@ import Link from "next/link";
 import { MarketingShell } from "@/components/marketing-shell";
 
 const destinations = [
-  { href: "/resumir-pdf", label: "Resumir PDF grátis", hint: "Comece sem cadastro" },
-  { href: "/chat-pdf", label: "Chat com PDF", hint: "Respostas com citação de página" },
-  { href: "/precos", label: "Preços", hint: "Gratuito ou Premium R$29/mês" },
-  { href: "/chatpdf-vs-chatgpt", label: "PDFIA vs ChatGPT", hint: "Comparação direta" },
+  { href: "/resumir-pdf", label: "Resumir PDF grátis", hint: "Sem cadastro, em segundos" },
+  { href: "/chat-pdf", label: "Chat com PDF", hint: "Resposta com a página citada" },
+  { href: "/precos", label: "Preços", hint: "Grátis ou Premium R$29/mês" },
+  { href: "/chatpdf-vs-chatgpt", label: "PDFIA vs ChatGPT", hint: "Comparação direta, sem floreio" },
   { href: "/analisar-contrato-clt", label: "Contrato CLT", hint: "Salário, jornada, rescisão" },
-  { href: "/ler-edital-com-ia", label: "Editais", hint: "Objeto, prazos, penalidades" },
+  { href: "/ler-edital-com-ia", label: "Editais", hint: "Objeto, prazo, penalidade" },
   { href: "/analisar-apolice-de-seguro", label: "Apólice de seguro", hint: "Coberturas e exclusões" },
-  { href: "/entender-laudo-medico", label: "Laudo médico", hint: "Termos clínicos em PT-BR" },
+  { href: "/entender-laudo-medico", label: "Laudo médico", hint: "Termo clínico em PT-BR" },
 ];
 
 export default function NotFound() {
@@ -21,11 +21,11 @@ export default function NotFound() {
           404
         </p>
         <h1 className="mt-6 max-w-2xl font-display text-[clamp(2rem,5vw,3rem)] font-semibold font-display text-midnight-ink">
-          Não encontramos esta página.
+          Essa página não existe (ou não existe mais).
         </h1>
         <p className="mt-4 max-w-xl text-body  text-charcoal-text sm:text-body-lg">
-          O link pode ter sido movido ou o endereço digitado está incorreto.
-          Talvez você esteja procurando uma destas:
+          Talvez o link mudou, ou o endereço veio com erro. Quem sabe você
+          tava procurando uma dessas?
         </p>
 
         <ul className="mt-10 grid gap-4 sm:grid-cols-2">
@@ -49,13 +49,13 @@ export default function NotFound() {
             href="/"
             className="inline-flex items-center justify-center rounded-lg bg-apollo-gold px-5 py-3 text-body font-medium text-midnight-ink"
           >
-            Voltar à página inicial
+            Voltar pro início
           </Link>
           <Link
             href="/guias"
             className="inline-flex items-center justify-center rounded-lg border border-midnight-ink px-5 py-3 text-body font-medium text-midnight-ink"
           >
-            Explorar guias
+            Ver os guias
           </Link>
         </div>
       </section>

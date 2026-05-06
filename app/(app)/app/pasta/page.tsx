@@ -12,7 +12,7 @@ export default async function PastaPdfPlaceholderPage() {
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
     return (
       <p className="text-charcoal-text">
-        Defina variáveis Supabase públicas para usar esta rota.
+        Defina as variáveis públicas do Supabase pra usar essa rota.
       </p>
     );
   }
@@ -39,23 +39,23 @@ export default async function PastaPdfPlaceholderPage() {
       <header>
         <h1 className="font-display text-heading-lg font-semibold text-midnight-ink text-[clamp(28px,4vw,40px)]">Pasta de PDFs</h1>
         <p className="mt-3 text-body text-charcoal-text">
-          Organizar vários PDFs num projeto (pastas compartilhadas, busca cruzada) está no roteiro. Hoje cada arquivo continua na sua biblioteca individual.
+          Logo logo você vai poder agrupar vários PDFs num projeto só (todos os contratos do RH, todos os editais do trimestre) e perguntar como se fossem um documento único. Por enquanto, cada arquivo fica na sua biblioteca individual.
         </p>
       </header>
 
       {!gate.ok ? (
         <PaywallCta
           variant="default"
-          reason="Pastas e projetos multi-PDF serão prioridade para assinantes Premium. Por enquanto, salve documentos na biblioteca do workspace."
+          reason="As pastas vão entrar como prioridade no Premium quando soltarmos. Hoje, salva os PDFs na biblioteca e usa o chat por documento."
         />
       ) : (
         <div className="rounded-lg border border-subtle-gray bg-crisp-white p-card">
           <p className="eyebrow text-faded-stone">Em construção</p>
           <p className="mt-2 text-body text-charcoal-text">
-            Premium ativo — quando as pastas estiverem prontas, você verá o fluxo aqui. Nenhum dado adicional é criado nesta rota ainda.
+            Premium ativo — vamos te avisar no app assim que as pastas estiverem prontas. Nada é guardado aqui enquanto a feature não solta.
           </p>
           <Link href="/app" className="mt-4 inline-block text-body-sm font-medium text-midnight-ink underline">
-            Ir para a biblioteca
+            Ir pra biblioteca
           </Link>
         </div>
       )}

@@ -5,17 +5,17 @@ import { OtpForm } from "@/components/auth/OtpForm";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Entrar",
+  title: "Entrar no PDFIA — sem senha, em segundos",
   description:
-    "Entre no PDFIA com um código seguro enviado por e-mail.",
+    "Entre no PDFIA com código de uso único enviado por e-mail. Sem senha pra esquecer, sem cadastro complicado.",
   path: "/login",
 });
 
 const benefits = [
-  ["01", "Chat com citação", "Cada resposta cita a página exata."],
-  ["02", "PDFs até 100 págs", "Contratos longos, editais, apólices."],
-  ["03", "Modos por tipo", "Contrato, edital, apólice, laudo."],
-  ["04", "Histórico salvo", "Sua biblioteca persiste na conta."],
+  ["01", "Chat com a página citada", "Toda resposta vem com a página exata do PDF."],
+  ["02", "PDFs até 100 páginas", "Contratos longos, editais, apólices grandes."],
+  ["03", "Modos por tipo de PDF", "Contrato CLT, edital, apólice, laudo — prontos."],
+  ["04", "Biblioteca salva", "Volte ao PDF quando quiser, sem subir de novo."],
 ] as const;
 
 export default async function LoginPage({
@@ -42,10 +42,10 @@ export default async function LoginPage({
                 </span>
               </div>
               <h1 className="mt-4 font-display text-heading font-semibold text-midnight-ink">
-                Receber código de acesso
+                Receber código por e-mail
               </h1>
               <p className="mt-2 text-body-sm  text-charcoal-text">
-                Use um código enviado por e-mail. Sem senha; expira em 10 minutos.
+                A gente manda um código de 8 dígitos pro seu e-mail. Sem senha, expira em 10 minutos.
               </p>
 
               <div className="mt-6">
@@ -56,17 +56,17 @@ export default async function LoginPage({
             <div className="mt-4 flex items-center justify-between gap-4 rounded-lg border border-subtle-gray bg-canvas p-4">
               <div>
                 <p className="eyebrow text-faded-stone">
-                  Sem conta?
+                  Sem conta ainda?
                 </p>
                 <p className="mt-1 text-body-sm text-charcoal-text">
-                  Resuma um PDF grátis sem cadastro.
+                  Resume um PDF grátis sem precisar cadastrar.
                 </p>
               </div>
               <Link
                 href="/resumir-pdf"
                 className="rounded-lg border border-midnight-ink px-3 py-2 text-caption font-medium text-midnight-ink hover:bg-midnight-ink hover:text-crisp-white"
               >
-                Tentar grátis
+                Testar de graça
               </Link>
             </div>
 
@@ -82,10 +82,10 @@ export default async function LoginPage({
         <aside className="border-t border-subtle-gray bg-ash-gray px-4 py-12 sm:px-8 md:border-l md:border-t-0 md:py-16">
           <div className="mx-auto w-full max-w-lg">
             <p className="eyebrow text-faded-stone">
-              Premium · o que você desbloqueia
+              Premium · o que você libera
             </p>
             <h2 className="mt-3 font-display text-heading-lg font-semibold text-midnight-ink text-[clamp(28px,4vw,40px)]">
-              R$29/mês. BRL. Cancele quando quiser.
+              R$29/mês, em real. Cancele quando quiser.
             </h2>
 
             <div className="mt-6 grid gap-3">

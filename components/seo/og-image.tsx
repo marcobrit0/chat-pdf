@@ -121,7 +121,7 @@ export function renderOgImage({ eyebrow, title, subtitle }: OgImageInput) {
               whiteSpace: "nowrap",
             }}
           >
-            chatpdf.com.br
+            pdfia.com.br
           </span>
         </div>
       </div>

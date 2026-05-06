@@ -6,28 +6,28 @@ type Props = {
 
 const featurePreview = [
   {
-    label: "Chat com citação de página",
-    body: "Pergunte em linguagem natural; cada resposta cita a página exata do PDF.",
+    label: "Chat com o PDF, com a página citada",
+    body: "Pergunta em português normal; a resposta vem com a página exata de onde a IA tirou. Toda vez.",
   },
   {
-    label: "Modos de análise",
-    body: "Resumo detalhado, extrair dados (datas, valores, partes) e revisão de riscos.",
+    label: "Modos prontos por tipo de PDF",
+    body: "Resumo aprofundado, extrair dados (datas, valores, partes) e mapear riscos — sem montar prompt.",
   },
   {
-    label: "PDFs até 100 páginas",
-    body: "Contratos longos, editais, apólices — sem cortar pelo meio.",
+    label: "PDFs longos, até 100 páginas",
+    body: "Contrato de 60 páginas, edital de 80, apólice cheia de cláusula — não corta no meio.",
   },
   {
-    label: "Histórico salvo",
-    body: "Sua biblioteca persiste na conta — volte a qualquer documento.",
+    label: "Biblioteca salva na conta",
+    body: "Tudo o que você já analisou fica disponível pra voltar e perguntar de novo depois.",
   },
   {
-    label: "Modos especializados PT-BR",
-    body: "Contrato CLT, edital de licitação, apólice de seguro, laudo médico.",
+    label: "Feito pra documento brasileiro",
+    body: "Contrato CLT, edital de licitação, apólice de seguro e laudo médico têm modos dedicados.",
   },
   {
-    label: "Exportação organizada",
-    body: "Pacote em PDF + Markdown pronto para compartilhar com o time.",
+    label: "Exportar pro time",
+    body: "Resumo + perguntas em PDF + Markdown, prontos pra compartilhar no Slack ou no e-mail.",
   },
 ] as const;
 
@@ -42,16 +42,16 @@ export function PremiumUpsell({ email }: Props) {
       <section className="grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)] lg:items-start">
         <div className="space-y-6">
           <p className="eyebrow text-faded-stone">
-            {email ? `Conectado como ${email}` : "Conta criada"} · Sem Premium
-            ativo
+            {email ? `Logado como ${email}` : "Conta criada"} · Ainda no grátis
           </p>
           <h1 className="font-display text-display font-semibold text-midnight-ink text-[clamp(36px,5vw,60px)]">
-            Você está a um passo do workspace completo.
+            Falta um clique pra usar de verdade.
           </h1>
           <p className="max-w-xl text-body-lg text-charcoal-text">
-            O resumo gratuito é só a porta de entrada. Premium libera o chat com
-            citação de página, modos de análise e biblioteca persistente — tudo
-            pelo equivalente a um café por semana.
+            O resumo grátis é só pra você ver como funciona. O Premium libera o
+            chat com o PDF (com a página citada em cada resposta), os modos pra
+            contrato e edital e a biblioteca salva — por menos que um delivery
+            por semana.
           </p>
 
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -59,18 +59,18 @@ export function PremiumUpsell({ email }: Props) {
               href="/precos"
               className="inline-flex items-center justify-center rounded-lg bg-apollo-gold px-6 py-3.5 text-body font-medium text-midnight-ink hover:opacity-90"
             >
-              Ver planos a partir de R$29/mês
+              Assinar Premium · R$29/mês
             </Link>
             <Link
               href="/resumir-pdf"
               className="inline-flex items-center justify-center rounded-lg border border-midnight-ink px-5 py-3 text-body-sm font-medium text-midnight-ink hover:bg-canvas"
             >
-              Continuar com resumo grátis
+              Continuar com o grátis
             </Link>
           </div>
 
           <p className="text-caption text-faded-stone">
-            Cancele quando quiser · Pagamento em BRL via Stripe · Reembolso em
+            Cancele quando quiser · Pagamento em real pelo Stripe · Reembolso em
             até 7 dias
           </p>
         </div>
@@ -111,12 +111,12 @@ export function PremiumUpsell({ email }: Props) {
         aria-labelledby="full-features"
         className="rounded-lg bg-crisp-white p-card md:p-card-elevated"
       >
-        <p className="eyebrow text-faded-stone">Tudo que entra no Premium</p>
+        <p className="eyebrow text-faded-stone">Tudo o que entra no Premium</p>
         <h2
           id="full-features"
           className="mt-3 font-display text-heading font-semibold text-midnight-ink"
         >
-          Pensado para quem trabalha com PDFs todo dia.
+          Feito pra quem mexe com PDF toda semana.
         </h2>
         <div className="mt-8 grid gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
           {featurePreview.map((f) => (
@@ -134,18 +134,18 @@ export function PremiumUpsell({ email }: Props) {
         <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
           <div className="space-y-2">
             <p className="font-display text-subheading font-semibold text-midnight-ink">
-              Pronto para começar?
+              Bora ativar?
             </p>
             <p className="text-body-sm text-charcoal-text">
-              Assine em menos de 1 minuto. Volta direto para o seu workspace
-              após confirmar o pagamento.
+              Assina em menos de 1 minuto e volta direto pro seu workspace assim
+              que o pagamento confirma.
             </p>
           </div>
           <Link
             href="/precos"
             className="inline-flex items-center justify-center rounded-lg bg-apollo-gold px-5 py-3 text-body font-medium text-midnight-ink"
           >
-            Assinar Premium
+            Assinar Premium · R$29/mês
           </Link>
         </div>
       </section>

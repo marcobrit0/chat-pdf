@@ -32,8 +32,8 @@ type Props = {
 
 const MODE_LABELS: Record<Mode, string> = {
   summary: "Resumo",
-  extract: "Extrair",
-  risk: "Riscos",
+  extract: "Extrair dados",
+  risk: "Mapear riscos",
 };
 
 /**
@@ -44,24 +44,24 @@ function formatAnalysisForCopy(parsed: AnalyzeOk): string {
   if (parsed.mode === "summary") {
     const d = parsed.data;
     lines.push(d.summary, "");
-    lines.push("Pontos:", ...d.bulletPoints.map((b) => `• ${b}`));
-    lines.push("", "Datas / valores:", ...d.keyDatesOrValues.map((x) => `• ${x}`));
-    lines.push("", "Entidades:", ...d.entities.map((x) => `• ${x}`));
-    lines.push("", "Perguntas sugeridas:", ...d.suggestedQuestions.map((x) => `• ${x}`));
+    lines.push("Em tópicos:", ...d.bulletPoints.map((b) => `• ${b}`));
+    lines.push("", "Datas e valores:", ...d.keyDatesOrValues.map((x) => `• ${x}`));
+    lines.push("", "Nomes e entidades:", ...d.entities.map((x) => `• ${x}`));
+    lines.push("", "Perguntas pra ir mais fundo:", ...d.suggestedQuestions.map((x) => `• ${x}`));
   } else if (parsed.mode === "extract") {
     const d = parsed.data;
     lines.push("Fatos principais:", ...d.keyFacts.map((x) => `• ${x}`));
     lines.push("", "Datas, valores e quantias:", ...d.datesValuesAndAmounts.map((x) => `• ${x}`));
-    lines.push("", "Partes / entidades:", ...d.partiesOrEntities.map((x) => `• ${x}`));
-    lines.push("", "Obrigações / prazos:", ...d.obligationsOrDeadlines.map((x) => `• ${x}`));
+    lines.push("", "Partes envolvidas:", ...d.partiesOrEntities.map((x) => `• ${x}`));
+    lines.push("", "Obrigações e prazos:", ...d.obligationsOrDeadlines.map((x) => `• ${x}`));
   } else {
     const d = parsed.data;
     lines.push("Pontos de atenção:");
     for (const t of d.flaggedTopics) {
       lines.push(`• [${t.area}] ${t.observation}${t.pageReference ? ` (${t.pageReference})` : ""}`);
     }
-    lines.push("", "Informação ausente ou pouco clara:", ...d.missingInformation.map((x) => `• ${x}`));
-    lines.push("", "Perguntas para revisão:", ...d.suggestedReviewQuestions.map((x) => `• ${x}`));
+    lines.push("", "O que está faltando ou pouco claro:", ...d.missingInformation.map((x) => `• ${x}`));
+    lines.push("", "Perguntas pra revisar com a equipe:", ...d.suggestedReviewQuestions.map((x) => `• ${x}`));
   }
   return lines.join("\n");
 }
@@ -93,7 +93,7 @@ function SummaryView({ data }: { data: SummaryPayload }) {
       ) : null}
       {data.entities.length > 0 ? (
         <div>
-          <h3 className="mb-2 text-caption font-semibold uppercase text-faded-stone">Nomes e entidades</h3>
+          <h3 className="mb-2 text-caption font-semibold uppercase text-faded-stone">Nomes que aparecem</h3>
           <p className="text-charcoal-text">{data.entities.join(", ")}</p>
         </div>
       ) : null}
@@ -105,7 +105,7 @@ function ExtractView({ data }: { data: ExtractPayload }) {
   const blocks: { title: string; items: string[] }[] = [
     { title: "Fatos principais", items: data.keyFacts },
     { title: "Datas, valores e quantias", items: data.datesValuesAndAmounts },
-    { title: "Partes ou entidades", items: data.partiesOrEntities },
+    { title: "Partes envolvidas", items: data.partiesOrEntities },
     { title: "Obrigações e prazos", items: data.obligationsOrDeadlines },
   ];
   return (
@@ -142,7 +142,7 @@ function RiskView({ data }: { data: RiskPayload }) {
       </ul>
       {data.missingInformation.length > 0 ? (
         <div>
-          <h3 className="mb-2 text-caption font-semibold uppercase text-faded-stone">Lacunas no texto</h3>
+          <h3 className="mb-2 text-caption font-semibold uppercase text-faded-stone">O que está faltando no PDF</h3>
           <ul className="list-inside list-disc space-y-1">
             {data.missingInformation.map((x) => (
               <li key={x}>{x}</li>
@@ -152,7 +152,7 @@ function RiskView({ data }: { data: RiskPayload }) {
       ) : null}
       {data.suggestedReviewQuestions.length > 0 ? (
         <div>
-          <h3 className="mb-2 text-caption font-semibold uppercase text-faded-stone">Perguntas para revisar</h3>
+          <h3 className="mb-2 text-caption font-semibold uppercase text-faded-stone">Perguntas pra revisar com a equipe</h3>
           <ul className="list-inside list-disc space-y-1">
             {data.suggestedReviewQuestions.map((x) => (
               <li key={x}>{x}</li>
@@ -213,12 +213,12 @@ export function DocumentWorkspace({
       };
 
       if (!res.ok) {
-        setAnalyzeError(json.error ?? "Não foi possível gerar a análise.");
+        setAnalyzeError(json.error ?? "Não rolou rodar a análise. Tenta de novo?");
         return;
       }
 
       if (!json.mode || !json.data) {
-        setAnalyzeError("Resposta inválida do servidor.");
+        setAnalyzeError("Resposta estranha do servidor. Tenta de novo em um minuto.");
         return;
       }
 
@@ -226,7 +226,7 @@ export function DocumentWorkspace({
       setCached((prev) => ({ ...prev, [payload.mode]: payload }));
       track("document_analyze_ok", { mode: payload.mode, stub: Boolean(json.stub) });
     } catch {
-      setAnalyzeError("Erro de rede.");
+      setAnalyzeError("Sem conexão. Confere a internet e tenta de novo.");
     } finally {
       setAnalyzeLoading(false);
     }
@@ -250,11 +250,11 @@ export function DocumentWorkspace({
     if (!currentResult) return;
     try {
       await navigator.clipboard.writeText(formatAnalysisForCopy(currentResult));
-      setCopyHint("Copiado.");
+      setCopyHint("Copiado pra área de transferência.");
       setTimeout(() => setCopyHint(null), 2500);
       track("document_analysis_copy", { mode: currentResult.mode });
     } catch {
-      setCopyHint("Não foi possível copiar.");
+      setCopyHint("Não rolou copiar — copia manual mesmo.");
     }
   }, [currentResult]);
 
@@ -286,7 +286,7 @@ export function DocumentWorkspace({
       };
 
       if (!res.ok) {
-        setError(json.error ?? "Não foi possível responder.");
+        setError(json.error ?? "Não rolou responder agora. Tenta de novo?");
         setMessages(messages);
         track("premium_chat_blocked", { status: res.status });
         return;
@@ -307,7 +307,7 @@ export function DocumentWorkspace({
       ]);
       track("premium_chat_ok", { stub: Boolean(json.stub) });
     } catch {
-      setError("Erro de rede.");
+      setError("Sem conexão. Confere a internet e tenta de novo.");
       setMessages(messages);
     } finally {
       setLoading(false);
@@ -317,9 +317,9 @@ export function DocumentWorkspace({
   const modeIntro = useMemo(
     () =>
       ({
-        summary: "Visão geral em texto e tópicos, com sugestões de perguntas.",
-        extract: "Fatos objetivos: datas, valores, partes e obrigações encontradas no PDF.",
-        risk: "Pontos para revisão humana — não é parecer jurídico nem auditoria.",
+        summary: "Visão geral em texto e tópicos, com perguntas pra você se aprofundar.",
+        extract: "Datas, valores, partes envolvidas e obrigações — direto e estruturado.",
+        risk: "Pontos pra você revisar com calma. Não é parecer jurídico nem auditoria.",
       }) satisfies Record<Mode, string>,
     [],
   );
@@ -335,7 +335,7 @@ export function DocumentWorkspace({
       <header>
         <h1 className="font-display text-heading font-semibold text-midnight-ink">{title}</h1>
         <p className="mt-1 text-body-sm text-faded-stone">
-          {pageCount != null ? `${pageCount} páginas` : "Páginas —"} · Modos de análise e chat com fontes (Premium)
+          {pageCount != null ? `${pageCount} páginas` : "Páginas —"} · análise e chat com fontes
         </p>
       </header>
 
@@ -369,7 +369,7 @@ export function DocumentWorkspace({
                 onChange={(e) => setContractFocus(e.target.checked)}
                 className="size-4 rounded border-ash-gray"
               />
-              Priorizar leitura de contrato (partes, prazos, valores)
+              Tratar como contrato (partes, prazos, valores e cláusulas)
             </label>
 
             <div className="mt-4 flex flex-wrap gap-2">
@@ -379,7 +379,7 @@ export function DocumentWorkspace({
                 disabled={analyzeLoading}
                 className="rounded-lg bg-apollo-gold px-4 py-2 text-body-sm font-medium text-midnight-ink disabled:opacity-50"
               >
-                {analyzeLoading ? "Gerando…" : currentResult ? "Atualizar análise" : "Gerar análise"}
+                {analyzeLoading ? "Lendo PDF…" : currentResult ? "Rodar de novo" : "Analisar PDF"}
               </button>
               {currentResult ? (
                 <button
@@ -401,26 +401,24 @@ export function DocumentWorkspace({
 
             {currentResult?.stub ? (
               <p className="mt-3 text-caption text-faded-stone">
-                Modo demonstração — configure <code className="font-mono">OPENROUTER_API_KEY</code> para saída real.
+                Saída de demonstração — configure <code className="font-mono">OPENROUTER_API_KEY</code> pra rodar com a IA real.
               </p>
             ) : null}
 
             {activeMode === "risk" ? (
               <p className="mt-4 rounded-md bg-ash-gray p-3 text-caption  text-charcoal-text">
-                Aviso: a seção &quot;Riscos&quot; ajuda na leitura crítica do texto; não substitui assessoria jurídica,
-                financeira ou técnica. A IA pode omitir ou interpretar incorretamente trechos.
+                Lembrete: o modo &quot;Mapear riscos&quot; serve pra te dar um norte na leitura — não é parecer jurídico, financeiro nem técnico. Confirme com gente da área antes de decidir.
               </p>
             ) : null}
 
             <div className="mt-4 border-t border-subtle-gray pt-4">
               {!currentResult && !analyzeLoading ? (
                 <p className="text-body-sm text-faded-stone">
-                  Clique em <span className="font-medium text-midnight-ink">Gerar análise</span> para
-                  preencher este modo.
+                  Clica em <span className="font-medium text-midnight-ink">Analisar PDF</span> pra ver os resultados aqui.
                 </p>
               ) : null}
               {!currentResult && analyzeLoading ? (
-                <p className="text-body-sm text-faded-stone">Lendo o documento e gerando {MODE_LABELS[activeMode].toLowerCase()}…</p>
+                <p className="text-body-sm text-faded-stone">Lendo o PDF e gerando o {MODE_LABELS[activeMode].toLowerCase()}…</p>
               ) : null}
               {currentResult?.mode === "summary" ? <SummaryView data={currentResult.data} /> : null}
               {currentResult?.mode === "extract" ? <ExtractView data={currentResult.data} /> : null}
@@ -437,8 +435,8 @@ export function DocumentWorkspace({
               <div className="flex-1 space-y-4 overflow-y-auto p-4">
                 {messages.length === 0 ? (
                   <p className="text-charcoal-text">
-                    Faça uma pergunta sobre o documento. O modelo usa os trechos indexados e deve citar páginas quando
-                    usar um trecho.
+                    Pergunta o que quiser sobre o PDF — em português normal. Toda
+                    resposta vem com a página de onde a informação saiu.
                   </p>
                 ) : (
                   messages.map((m, i) => (
@@ -451,19 +449,19 @@ export function DocumentWorkspace({
                       }
                     >
                       <span className="mb-1 block text-caption font-medium uppercase text-faded-stone">
-                        {m.role === "user" ? "Você" : "Assistente"}
+                        {m.role === "user" ? "Você" : "PDFIA"}
                       </span>
                       <p className="whitespace-pre-wrap ">{m.content}</p>
                       {m.role === "assistant" && m.pageHints && m.pageHints.length > 0 ? (
                         <p className="mt-2 border-t border-subtle-gray pt-2 text-caption text-faded-stone">
-                          <span className="font-medium text-charcoal-text">Páginas citadas na resposta:</span>{" "}
+                          <span className="font-medium text-charcoal-text">De qual página veio:</span>{" "}
                           {m.pageHints.join(" · ")}
                         </p>
                       ) : null}
                     </div>
                   ))
                 )}
-                {loading ? <p className="text-body-sm text-faded-stone">Gerando resposta…</p> : null}
+                {loading ? <p className="text-body-sm text-faded-stone">Pensando…</p> : null}
                 {error ? (
                   <p className="text-body-sm text-red-700" role="alert">
                     {error}
@@ -471,7 +469,7 @@ export function DocumentWorkspace({
                 ) : null}
                 {lastStub ? (
                   <p className="text-caption text-faded-stone">
-                    Resposta em modo stub (sem OPENROUTER_API_KEY). Configure a chave para respostas reais.
+                    Resposta de demonstração (sem OPENROUTER_API_KEY). Configure a chave pra rodar com a IA real.
                   </p>
                 ) : null}
               </div>
@@ -481,7 +479,7 @@ export function DocumentWorkspace({
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     rows={2}
-                    placeholder="Pergunte algo sobre o PDF…"
+                    placeholder="Pergunta qualquer coisa sobre o PDF…"
                     className="min-h-[48px] flex-1 resize-y border border-ash-gray bg-canvas px-3 py-2 text-body-sm text-graphite"
                     disabled={loading}
                     onKeyDown={(e) => {
@@ -497,7 +495,7 @@ export function DocumentWorkspace({
                     disabled={loading || !input.trim()}
                     className="self-end rounded-lg bg-apollo-gold px-4 py-2 text-body-sm font-medium text-midnight-ink disabled:opacity-50"
                   >
-                    Enviar
+                    Perguntar
                   </button>
                 </div>
               </div>

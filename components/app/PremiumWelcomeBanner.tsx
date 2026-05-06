@@ -31,11 +31,11 @@ export function PremiumWelcomeBanner() {
         <div className="space-y-1">
           <p className="eyebrow text-midnight-ink">Premium ativo</p>
           <p className="font-display text-heading font-semibold text-midnight-ink">
-            Bem-vindo ao Premium. Tudo liberado.
+            Bem-vindo. Tá tudo liberado.
           </p>
           <p className="text-body-sm text-midnight-ink/80">
-            Suba seu primeiro PDF abaixo — chat com citação de página, modos de
-            análise e biblioteca já estão prontos.
+            Sobe seu primeiro PDF aí embaixo — chat com a página citada, modos
+            por tipo de documento e biblioteca já estão prontos pra você.
           </p>
         </div>
         <button
@@ -43,7 +43,7 @@ export function PremiumWelcomeBanner() {
           onClick={() => setVisible(false)}
           className="self-start rounded-lg border border-midnight-ink bg-crisp-white px-4 py-2 text-body-sm font-medium text-midnight-ink hover:bg-canvas md:self-center"
         >
-          Começar
+          Bora
         </button>
       </div>
     </div>

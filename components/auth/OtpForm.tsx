@@ -26,7 +26,7 @@ export function OtpForm({ nextPath }: OtpFormProps) {
       setStep({
         name: "error",
         email: emailToSend,
-        message: "Não foi possível enviar o código. Confira o e-mail e tente novamente.",
+        message: "Não rolou enviar o código. Confere o e-mail e tenta de novo.",
         canRetry: true,
       });
       return;
@@ -56,7 +56,7 @@ export function OtpForm({ nextPath }: OtpFormProps) {
       setStep({
         name: "error",
         email: currentEmail,
-        message: "Código inválido ou expirado. Solicite um novo código.",
+        message: "Código inválido ou expirado. Pede um novo aqui embaixo.",
         canRetry: false,
       });
       return;
@@ -84,7 +84,7 @@ export function OtpForm({ nextPath }: OtpFormProps) {
           disabled={step.name === "sending"}
           className="w-full rounded-lg bg-apollo-gold px-5 py-3 text-body font-medium text-midnight-ink disabled:opacity-60"
         >
-          {step.name === "sending" ? "Enviando código…" : "Receber código de acesso"}
+          {step.name === "sending" ? "Enviando…" : "Me manda o código"}
         </button>
       </form>
     );
@@ -94,7 +94,7 @@ export function OtpForm({ nextPath }: OtpFormProps) {
     return (
       <form onSubmit={onSubmitCode} className="space-y-4">
         <p className="text-body-sm text-charcoal-text">
-          Código enviado para <span className="font-medium text-midnight-ink">{step.email}</span>.
+          Código mandado pra <span className="font-medium text-midnight-ink">{step.email}</span>. Verifica também o spam.
         </p>
         <label className="block text-body-sm font-medium text-midnight-ink">
           Código de 8 dígitos

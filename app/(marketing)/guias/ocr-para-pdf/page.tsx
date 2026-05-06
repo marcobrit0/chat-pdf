@@ -6,9 +6,9 @@ import {
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "OCR para PDF — quando precisa, como saber se funcionou",
+  title: "OCR pra PDF: quando precisa e como saber se funcionou | PDFIA",
   description:
-    "Guia técnico em PT-BR sobre OCR (reconhecimento óptico de caracteres) para PDF: quando precisa, como testar se seu PDF tem texto, ferramentas e limitações.",
+    "Guia técnico em PT-BR sobre OCR pra PDF: quando precisa, como testar se seu PDF já tem texto, quais ferramentas usar, como julgar a qualidade e cuidados ao misturar OCR com IA.",
   path: "/guias/ocr-para-pdf",
 });
 
@@ -32,8 +32,8 @@ export default function GuiaOcrParaPdfPage() {
     <GuideLayout
       breadcrumbs={breadcrumbs}
       eyebrow="Guia técnico · ~9 min de leitura"
-      title="OCR para PDF — quando precisa, como saber se funcionou"
-      intro="OCR (reconhecimento óptico de caracteres) é o que transforma uma imagem de texto em texto pesquisável. PDFs digitalizados precisam — e sem isso, ferramentas de IA leem o documento como se fosse uma foto em branco. Este guia cobre o essencial em ~9 minutos."
+      title="OCR pra PDF: quando você precisa e como saber se funcionou"
+      intro="OCR (reconhecimento óptico de caracteres) é o que transforma imagem de texto em texto pesquisável. PDF digitalizado precisa, sim — sem isso, qualquer ferramenta de IA enxerga o documento como uma foto em branco. Em 9 minutos, o que importa saber."
       tldrTitle="Tente selecionar uma frase no seu PDF"
       tldrBody="Abra o PDF, tente selecionar uma palavra com o cursor. Se a palavra fica destacada, o PDF tem texto — não precisa de OCR. Se só a página inteira fica selecionada (como uma imagem), você precisa de OCR antes de qualquer ferramenta de IA dar resultado."
       toc={toc}

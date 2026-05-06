@@ -12,7 +12,7 @@ export const contentType = ogImageContentType;
 export default function Image() {
   return renderOgImage({
     eyebrow: "Resumir PDF grátis",
-    title: "Visão geral, datas, valores e entidades",
-    subtitle: "PDFs até 10 páginas · sem cadastro · em PT-BR",
+    title: "Resumo de PDF em segundos, em português",
+    subtitle: "PDF até 10 páginas · sem cadastro · tópicos, datas, valores e nomes",
   });
 }

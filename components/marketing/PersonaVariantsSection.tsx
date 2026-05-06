@@ -18,11 +18,11 @@ export function PersonaVariantsSection({
   return (
     <section className="space-y-4">
       <h2 className="font-display text-heading font-semibold text-midnight-ink">
-        Para sua função
+        Pro seu papel
       </h2>
       <p className="text-body text-charcoal-text">
         {intro ??
-          "Cada perfil costuma olhar para coisas diferentes no mesmo documento. Abra a versão pensada para você:"}
+          "Cada papel olha pra coisas diferentes no mesmo documento. Abre a versão pensada pra você:"}
       </p>
       <ul className="grid gap-3 sm:grid-cols-2">
         {variants.map((v) => (

@@ -12,29 +12,29 @@ const COPY: Record<
   { headline: string; body: string; cta: string }
 > = {
   default: {
-    headline: "Limites do uso gratuito",
-    body: "O resumo anônimo cobre PDFs menores (até 10 páginas). PDFs maiores, chat com fontes no documento, histórico e exportações organizadas exigem PDFIA Premium.",
-    cta: "Ver planos Premium",
+    headline: "Tá no limite do grátis",
+    body: "O resumo grátis cobre PDF de até 10 páginas, sem cadastro. Pra documentos maiores, chat com o PDF, biblioteca salva e exportar pro time, vai precisar do Premium.",
+    cta: "Ver Premium · R$29/mês",
   },
   after_summary: {
-    headline: "Converse com este PDF",
-    body: "O resumo gratuito termina aqui — sem chat. Para perguntar ao documento, ver citações por página e aprofundar a análise (extrair dados, riscos, contratos), você precisa do Premium.",
-    cta: "Desbloquear Premium",
+    headline: "Quer perguntar ao PDF?",
+    body: "O resumo grátis para por aqui. Pra conversar com o documento, receber a página de origem em cada resposta e usar os modos pra contrato, edital ou apólice, é Premium.",
+    cta: "Liberar chat com o PDF",
   },
   blocked_chat: {
-    headline: "Chat exclusivo Premium",
-    body: "Perguntas em linguagem natural e respostas com trechos do PDF são Premium. O plano gratuito oferece apenas o resumo automático.",
-    cta: "Assinar Premium",
+    headline: "Chat com o PDF é Premium",
+    body: "Perguntar em português e receber resposta com a página exata do PDF é parte do Premium. No grátis você tem só o resumo automático.",
+    cta: "Assinar Premium · R$29",
   },
   large_pdf: {
-    headline: "PDF acima do limite gratuito",
-    body: "Para documentos longos, conversas com contexto completo e modos de análise (extrair, riscos), use o Premium.",
-    cta: "Ver preços",
+    headline: "PDF passou de 10 páginas",
+    body: "PDF longo (contrato, edital, relatório) precisa do Premium — até 100 páginas, com chat e modos de análise prontos. Cancele quando quiser.",
+    cta: "Ver planos",
   },
   export: {
-    headline: "Exportação Premium",
-    body: "Pacotes de exportação e histórico permanente fazem parte do Premium. Copie o resumo na tela gratuitamente; exportações estruturadas exigem plano pago.",
-    cta: "Quero Premium",
+    headline: "Exportar é Premium",
+    body: "Pra baixar resumo + perguntas em PDF/Markdown e manter o histórico salvo, é Premium. No grátis dá pra copiar o resumo da tela.",
+    cta: "Quero exportar · R$29/mês",
   },
 };
 

@@ -7,9 +7,9 @@ import { howToSchema } from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Como ler edital de licitação passo a passo",
+  title: "Como ler edital de licitação passo a passo — guia em PT-BR | PDFIA",
   description:
-    "Guia em PT-BR para empresas que vão participar de licitação: o que ler primeiro, como triar o edital, prazos críticos, habilitação e penalidades. ~10 min.",
+    "Guia direto pra empresa que vai participar de licitação: o que ler primeiro, como triar edital em 10 minutos, prazos críticos, habilitação, julgamento e penalidades.",
   path: "/guias/como-ler-edital-de-licitacao",
 });
 

@@ -19,8 +19,7 @@ export function AppShellHeader({ isPremium, email }: Props) {
             href="/app"
             className="whitespace-nowrap font-display text-subheading font-semibold text-midnight-ink"
           >
-            <span>ChatPDF</span>
-            <span className="hidden sm:inline"> Brasil</span>
+            <span>PDFIA</span>
           </Link>
           <span
             aria-hidden="true"
@@ -56,7 +55,7 @@ export function AppShellHeader({ isPremium, email }: Props) {
                 href="/precos"
                 className="rounded-lg bg-apollo-gold px-4 py-2 text-body-sm font-medium text-midnight-ink hover:opacity-90"
               >
-                Fazer upgrade
+                Liberar Premium
               </Link>
             </>
           )}

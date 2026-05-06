@@ -4,9 +4,9 @@ import { buildPageMetadata } from "@/lib/seo";
 import { personaVariantsByCanonical } from "@/lib/seo/programmatic-seo-data";
 
 export const metadata = buildPageMetadata({
-  title: "Analisar proposta comercial com IA",
+  title: "Analisar proposta comercial com IA — antes de aceitar ou contrapropor | PDFIA",
   description:
-    "Entenda escopo, preço, prazo, condições e o que não está explícito antes de aceitar ou contrapropor. Resumo gratuito; chat aprofundado no Premium.",
+    "Proposta chegou? Em segundos: escopo, valor, prazo, condições, validade e o que não está incluído. Pra você aceitar, negociar ou contrapropor com base no que tá escrito.",
   path: "/analisar-proposta-comercial",
 });
 
@@ -29,7 +29,7 @@ export default function AnalisarPropostaComercialPage() {
   return (
     <SeoPageTemplate
       title="Analisar proposta comercial com IA"
-      intro="Entenda o que a proposta oferece, o que está incluído, o que não está e quais condições se aplicam antes de aceitar ou contrapropor. Resumo gratuito para propostas curtas; chat com citações no Premium."
+      intro="Antes de aceitar ou negociar, em minutos: o que a proposta cobre, o que ficou de fora, qual o prazo, qual o valor, quais condições se aplicam. A IA destrincha o PDF pra você não descobrir surpresa só na hora do contrato."
       showUpload
       contractIntent
       breadcrumbs={[

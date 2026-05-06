@@ -4,9 +4,9 @@ import { buildPageMetadata } from "@/lib/seo";
 import { personaVariantsByCanonical } from "@/lib/seo/programmatic-seo-data";
 
 export const metadata = buildPageMetadata({
-  title: "Resumir boleto ou fatura em PDF — IA em português",
+  title: "Resumir boleto ou fatura em PDF com IA | PDFIA",
   description:
-    "Identifique emitente, valor, vencimento e descrição dos itens em um boleto ou fatura PDF. Confirme sempre os dados no documento original antes de pagar.",
+    "Boleto ou fatura difícil de ler? Em segundos: emitente, valor, vencimento, descrição dos itens. Pra você bater o olho e entender — mas confirme sempre o código de barras no documento original antes de pagar.",
   path: "/resumir-boleto-ou-fatura",
 });
 
@@ -29,7 +29,7 @@ export default function ResumirBoletoOuFaturaPage() {
   return (
     <SeoPageTemplate
       title="Resumir boleto ou fatura em PDF"
-      intro="Identifique emitente, valor, vencimento e descrição dos itens em um boleto ou fatura PDF. Confirme sempre os dados no documento original antes de qualquer pagamento — nunca pague baseado apenas na resposta da IA."
+      intro="Quem paga o boleto? Quanto? Quando vence? Quais itens estão na fatura? Em segundos a IA extrai isso pra você. Importante: pra pagar, sempre confira o código de barras no documento original ou no app do banco — a IA é triagem, não substituto do cuidado."
       showUpload
       breadcrumbs={[
         { label: "Início", path: "/" },

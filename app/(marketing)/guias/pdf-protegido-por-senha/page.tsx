@@ -6,9 +6,9 @@ import {
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "PDF protegido por senha — como abrir, processar e quando não dá",
+  title: "PDF protegido por senha: como abrir, processar e o que não rola | PDFIA",
   description:
-    "Guia em PT-BR sobre PDF com senha: tipos de proteção, como remover quando você é o dono, o que ferramentas de IA conseguem ler, e o limite ético/legal.",
+    "Guia em PT-BR sobre PDF com senha: dois tipos de proteção, como abrir o que é seu, como remover a senha do seu PDF, o que IA consegue (e o que não consegue) processar — e o limite ético.",
   path: "/guias/pdf-protegido-por-senha",
 });
 
@@ -32,8 +32,8 @@ export default function GuiaPdfProtegidoPage() {
     <GuideLayout
       breadcrumbs={breadcrumbs}
       eyebrow="Guia técnico · ~8 min de leitura"
-      title="PDF protegido por senha — o que dá pra fazer"
-      intro="PDF com senha é situação comum: extrato bancário, boleto, contrato enviado pelo RH. Este guia explica os tipos de proteção, como abrir o que é seu, e por que ferramentas de IA não conseguem processar PDF com senha sem você passar a senha."
+      title="PDF protegido por senha: o que dá pra fazer (e o que não)"
+      intro="PDF com senha é situação corriqueira — extrato bancário, boleto, contrato do RH, holerite. Este guia explica os dois tipos de proteção, como abrir o que é seu por direito, e por que ferramenta de IA não consegue processar PDF com senha enquanto você não passa a senha."
       tldrTitle="Senha é proteção, não paranoia"
       tldrBody="PDF com senha existe pra impedir leitura sem autorização — inclusive por ferramentas. Antes de processar, você precisa abrir o PDF com a senha e (em geral) salvá-lo sem senha pra que a ferramenta consiga ler. Não há atalho legítimo."
       toc={toc}

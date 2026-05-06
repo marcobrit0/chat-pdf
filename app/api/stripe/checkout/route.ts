@@ -46,14 +46,14 @@ export async function POST(request: Request) {
     if (subscriptionError) {
       logApiError("api/stripe/checkout", subscriptionError);
       return NextResponse.json(
-        { error: "Não foi possível verificar sua assinatura." },
+        { error: "Não rolou conferir sua assinatura agora. Tenta de novo em um minuto." },
         { status: 500 },
       );
     }
 
     if (isPaidSubscriptionStatus(existingSubscription?.status)) {
       return NextResponse.json(
-        { error: "Sua assinatura Premium já está ativa." },
+        { error: "Seu Premium já tá ativo — tudo liberado pra você." },
         { status: 409 },
       );
     }
@@ -91,7 +91,7 @@ export async function POST(request: Request) {
 
     if (!session.url) {
       return NextResponse.json(
-        { error: "Falha ao criar sessão" },
+        { error: "Não rolou abrir o checkout. Tenta de novo?" },
         { status: 500 },
       );
     }
@@ -100,7 +100,7 @@ export async function POST(request: Request) {
   } catch (e) {
     logApiError("api/stripe/checkout", e);
     return NextResponse.json(
-      { error: "Não foi possível iniciar o checkout." },
+      { error: "Não rolou começar o checkout. Tenta de novo em um minuto." },
       { status: 400 },
     );
   }

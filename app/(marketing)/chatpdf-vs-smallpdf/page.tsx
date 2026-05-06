@@ -2,9 +2,9 @@ import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "PDFIA vs Smallpdf — editar ou entender PDFs?",
+  title: "PDFIA vs Smallpdf — editar ou entender PDF? | PDFIA",
   description:
-    "Smallpdf edita, converte e compacta PDFs. PDFIA lê, resume e responde com fonte. São categorias complementares — entenda quando usar cada um.",
+    "Smallpdf edita, converte e compacta PDF. PDFIA lê, resume e responde com a página citada. Não competem — se complementam. Veja qual usar quando.",
   path: "/chatpdf-vs-smallpdf",
 });
 
@@ -26,8 +26,8 @@ const faqs = [
 export default function ChatpdfVsSmallpdfPage() {
   return (
     <SeoPageTemplate
-      title="PDFIA vs Smallpdf — editar ou entender?"
-      intro="Smallpdf resolve edição, conversão e compactação. PDFIA resolve leitura, resumo e perguntas sobre o conteúdo. São categorias complementares — você usa o primeiro para mexer no arquivo, o segundo para entender o que ele diz."
+      title="PDFIA vs Smallpdf — editar ou entender o PDF?"
+      intro="Spoiler: não competem. Smallpdf é pra mexer no arquivo (converter, compactar, juntar, assinar). O PDFIA é pra entender o que está dentro (resumir, perguntar, extrair dados). O fluxo comum é usar os dois: Smallpdf primeiro pra preparar, PDFIA depois pra ler."
       breadcrumbs={[
         { label: "Início", path: "/" },
         { label: "Comparações", path: "/precos" },
@@ -46,14 +46,14 @@ export default function ChatpdfVsSmallpdfPage() {
             Smallpdf
           </p>
           <h2 className="mt-3 font-display text-subheading font-semibold text-midnight-ink">
-            Para trabalhar no arquivo
+            Pra mexer no arquivo
           </h2>
           <ul className="mt-4 space-y-2 text-body-sm text-charcoal-text">
             <li>Converter PDF em Word, Excel, imagem</li>
             <li>Compactar e reduzir tamanho</li>
             <li>Assinar digitalmente</li>
-            <li>Mesclar e dividir PDFs</li>
-            <li>Preencher formulários</li>
+            <li>Juntar ou separar páginas</li>
+            <li>Preencher formulário</li>
           </ul>
         </div>
         <div className="rounded-lg border border-midnight-ink bg-crisp-white p-6">
@@ -61,28 +61,28 @@ export default function ChatpdfVsSmallpdfPage() {
             PDFIA
           </p>
           <h2 className="mt-3 font-display text-subheading font-semibold text-midnight-ink">
-            Para entender o conteúdo
+            Pra entender o que está dentro
           </h2>
           <ul className="mt-4 space-y-2 text-body-sm text-charcoal-text">
-            <li>Resumir o documento em tópicos</li>
-            <li>Perguntas com respostas citadas por página</li>
-            <li>Extrair datas, valores e obrigações</li>
-            <li>Análise de riscos para revisão humana</li>
-            <li>Modos para contratos, editais e apólices</li>
+            <li>Resumir o documento em tópicos diretos</li>
+            <li>Perguntar e receber resposta com a página citada</li>
+            <li>Extrair datas, valores e obrigações estruturadas</li>
+            <li>Mapear riscos pra revisão com a equipe</li>
+            <li>Modos prontos pra contrato, edital e apólice</li>
           </ul>
         </div>
       </section>
 
       <section>
         <h2 className="font-display text-heading font-semibold text-midnight-ink">
-          Qual usar?
+          Qual usar quando?
         </h2>
         <p className="mt-3 text-body  text-charcoal-text">
-          Se precisa transformar o formato do arquivo, use o Smallpdf. Se
-          precisa entender o conteúdo antes de assinar, pagar ou decidir, use o
-          PDFIA. Para contratos, relatórios, editais e apólices, as
-          duas em sequência é o fluxo mais comum: Smallpdf para preparar,
-          PDFIA para entender.
+          Precisa converter ou compactar o arquivo? Smallpdf. Precisa entender o
+          que está escrito antes de assinar, pagar ou decidir? PDFIA. Pra
+          contrato, edital, apólice, relatório, o fluxo comum é os dois em
+          sequência: Smallpdf pra preparar o arquivo, PDFIA pra entender o
+          conteúdo.
         </p>
       </section>
     </SeoPageTemplate>

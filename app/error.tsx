@@ -13,9 +13,9 @@ export default function AppError({
 }) {
   return (
     <div className="mx-auto flex max-w-lg flex-col px-4 py-24 text-center">
-      <h1 className="font-display text-heading font-semibold text-midnight-ink">Algo deu errado</h1>
+      <h1 className="font-display text-heading font-semibold text-midnight-ink">Algo quebrou aqui</h1>
       <p className="mt-3 text-charcoal-text">
-        Não foi possível carregar esta página. Você pode tentar novamente ou voltar ao início.
+        A gente não conseguiu carregar essa página. Tenta de novo ou volta pro início.
       </p>
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         <button
@@ -29,7 +29,7 @@ export default function AppError({
           href="/"
           className="rounded-lg border border-midnight-ink px-5 py-3 text-body-sm font-medium text-midnight-ink"
         >
-          Ir ao início
+          Voltar pro início
         </Link>
       </div>
     </div>

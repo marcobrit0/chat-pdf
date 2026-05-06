@@ -4,36 +4,36 @@ import { buildPageMetadata } from "@/lib/seo";
 import { personaVariantsByCanonical } from "@/lib/seo/programmatic-seo-data";
 
 export const metadata = buildPageMetadata({
-  title: "Ler edital de licitação com IA",
+  title: "Ler edital de licitação com IA — antes de gastar dias na proposta | PDFIA",
   description:
-    "Decifre prazos, exigências e critérios de julgamento de editais brasileiros com IA. Resumo gratuito para leitura inicial; Premium para chat com trechos.",
+    "Edital de licitação chegou? Em minutos, identifique objeto, prazo, exigências de habilitação, garantias e penalidades — antes de montar proposta. Resumo grátis pra triagem; chat com a página citada no Premium.",
   path: "/ler-edital-com-ia",
 });
 
 const faqs = [
   {
-    q: "Funciona com editais do ComprasNet, BEC e Licitações-e?",
-    a: "Sim, qualquer edital em PDF com texto selecionável. Para PDFs digitalizados (imagem), é preciso OCR primeiro — está no roadmap.",
+    q: "Funciona com edital do ComprasNet, BEC, Licitações-e?",
+    a: "Funciona — qualquer edital em PDF com texto selecionável. Pra PDF digitalizado (imagem), tem que rodar OCR antes (estamos colocando OCR automático no Premium).",
   },
   {
-    q: "A IA aponta riscos no edital?",
-    a: "Ela organiza o que está escrito (objeto, prazos, garantias, exigências, penalidades) e sinaliza pontos atípicos quando os reconhece, mas não substitui análise jurídica.",
+    q: "A IA aponta risco do edital?",
+    a: "Ela organiza o que está escrito (objeto, prazo, garantia, exigência, penalidade) e sinaliza pontos atípicos quando reconhece — mas a análise jurídica fina cabe ao seu time.",
   },
   {
-    q: "Posso usar para responder a impugnações?",
-    a: "A ferramenta ajuda a entender e localizar cláusulas. A redação da impugnação ou pedido de esclarecimento exige assessoria jurídica.",
+    q: "Dá pra usar pra escrever impugnação?",
+    a: "A IA ajuda a entender e localizar a cláusula. A redação da impugnação ou pedido de esclarecimento é trabalho de jurídico — passa pra eles depois da triagem.",
   },
   {
-    q: "Quantos editais posso analisar por dia?",
-    a: "No gratuito, 1 resumo por dia (até 10 páginas). No Premium, sem limite prático para PDFs até 100 páginas.",
+    q: "Quantos editais por dia?",
+    a: "No grátis, 1 resumo por dia (até 10 páginas). No Premium, sem limite na prática pra PDFs até 100 páginas — você pode triar dezenas em uma manhã.",
   },
 ];
 
 export default function LerEditalComIaPage() {
   return (
     <SeoPageTemplate
-      title="Ler edital com IA"
-      intro="Decifre prazos, exigências, garantias e critérios de julgamento com apoio da IA. O resumo gratuito cobre um primeiro passe; no Premium você conversa com o PDF e vê a página de origem em cada resposta."
+      title="Ler edital de licitação com IA"
+      intro="Antes de gastar dias preparando proposta, vale uma triagem rápida do edital: objeto, prazo de envio, exigência de habilitação que você consegue cumprir, critério de julgamento, penalidade, garantia. A IA destrincha tudo isso em minutos — pra você decidir se entra ou desiste cedo."
       showUpload
       breadcrumbs={[
         { label: "Início", path: "/" },

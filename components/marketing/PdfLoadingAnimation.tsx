@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 
 const PHASES = [
-  { key: "read", label: "Lendo páginas", detail: "Extraindo texto selecionável" },
-  { key: "structure", label: "Identificando entidades", detail: "Datas, valores e partes" },
-  { key: "compose", label: "Compondo resumo", detail: "Tópicos, citações e perguntas sugeridas" },
+  { key: "read", label: "Lendo o PDF", detail: "Extraindo o texto que dá pra processar" },
+  { key: "structure", label: "Identificando o que importa", detail: "Datas, valores, nomes e cláusulas" },
+  { key: "compose", label: "Montando o resumo", detail: "Tópicos, perguntas sugeridas e estrutura" },
 ] as const;
 
 type Props = {
@@ -92,7 +92,7 @@ export function PdfLoadingAnimation({ fileName, pageHint }: Props) {
             Gerando seu resumo
           </p>
           <h2 className="mt-3 font-display text-heading font-semibold text-midnight-ink">
-            Lendo o documento — em segundos.
+            Lendo seu PDF — não vai demorar.
           </h2>
 
           <ol className="mt-7 space-y-4">

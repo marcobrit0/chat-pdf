@@ -14,8 +14,8 @@ type Props = {
 };
 
 const SHORTCUTS = [
-  { href: "/app/compare", label: "Comparar PDFs", badge: "BETA" },
-  { href: "/app/pasta", label: "Pasta de PDFs", badge: "BETA" },
+  { href: "/app/compare", label: "Comparar PDFs", badge: "EM BREVE" },
+  { href: "/app/pasta", label: "Pasta de PDFs", badge: "EM BREVE" },
   { href: "/precos", label: "Assinatura", badge: null },
   { href: "/privacidade", label: "Privacidade", badge: null },
 ] as const;
@@ -61,7 +61,7 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
       return;
     }
     if (file.type !== "application/pdf") {
-      setError("Envie apenas arquivos PDF.");
+      setError("Esse arquivo não é PDF. Envie um .pdf pra continuar.");
       return;
     }
     setError(null);
@@ -77,7 +77,7 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
       const res = await fetch("/api/documents", { method: "POST", body });
       const json = (await res.json()) as { id?: string; error?: string };
       if (!res.ok) {
-        setError(json.error ?? "Falha no envio");
+        setError(json.error ?? "Não rolou enviar o PDF. Tenta de novo?");
         return;
       }
       if (json.id) {
@@ -87,7 +87,7 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
         router.refresh();
       }
     } catch {
-      setError("Erro de rede. Tente novamente.");
+      setError("Sem conexão. Confere a internet e tenta de novo.");
     } finally {
       setPending(false);
     }
@@ -97,7 +97,7 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
     e.preventDefault();
     const file = inputRef.current?.files?.[0];
     if (!file) {
-      setError("Selecione um arquivo PDF.");
+      setError("Solte um PDF aí em cima primeiro.");
       return;
     }
     await uploadFile(file);
@@ -144,7 +144,7 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
           </div>
           {documents.length === 0 ? (
             <p className="mt-3 px-1 text-caption text-faded-stone">
-              Sem documentos ainda.
+              Sua biblioteca tá vazia. Sobe o primeiro PDF aí ao lado.
             </p>
           ) : (
             <ul className="mt-2 grid gap-1">
@@ -212,7 +212,7 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
               Pagamento confirmado
             </p>
             <p className="mt-2 font-display text-subheading font-semibold">
-              Bem-vindo ao Premium. Tudo desbloqueado.
+              Premium ativo. Tá tudo liberado pra você usar.
             </p>
           </div>
         ) : null}
@@ -227,8 +227,8 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
               Bom te ver de volta.
             </h1>
             <p className="mt-3 max-w-xl text-body text-charcoal-text">
-              Solte um PDF para gerar resumo, dados-chave e abrir o chat com
-              citação de página.
+              Solte um PDF aí pra gerar resumo, mapear datas e valores e abrir o
+              chat com a página de origem em cada resposta.
             </p>
           </div>
           <div className="grid content-start gap-2">
@@ -295,11 +295,11 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
               <span className="text-body-sm text-charcoal-text">
                 ou{" "}
                 <span className="underline underline-offset-4">
-                  clique para selecionar
+                  clica pra escolher do computador
                 </span>
               </span>
               <span className="mono-label text-faded-stone">
-                Histórico salvo · indexação por página
+                Fica salvo na biblioteca · indexado por página
               </span>
               <input
                 ref={inputRef}
@@ -314,7 +314,7 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
 
             {fileName ? (
               <p className="mt-3 text-body-sm text-graphite">
-                Arquivo selecionado:{" "}
+                Arquivo escolhido:{" "}
                 <span className="font-medium text-midnight-ink">{fileName}</span>
               </p>
             ) : null}
@@ -330,10 +330,10 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
               }
             >
               {pending
-                ? "Enviando…"
+                ? "Subindo…"
                 : fileName
-                  ? "Enviar e abrir workspace"
-                  : "Selecione um PDF primeiro"}
+                  ? "Subir e abrir workspace"
+                  : "Solte um PDF primeiro"}
             </button>
 
             {error ? (
@@ -398,7 +398,7 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
           {documents.length === 0 ? (
             <div className="px-6 py-10 text-center">
               <p className="text-body-sm text-charcoal-text">
-                Nenhum PDF ainda. Envie um arquivo acima para começar.
+                Sua biblioteca tá vazia. Sobe um PDF aí em cima pra começar.
               </p>
             </div>
           ) : (
@@ -474,15 +474,15 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
         <section className="mt-4 grid gap-4 md:grid-cols-2">
           {[
             [
-              "Comparar PDFs",
-              "Alinhar dois documentos e destacar diferenças por seção.",
-              "BETA",
+              "Comparar dois PDFs",
+              "Coloque a v1 e a v2 lado a lado e veja o que mudou — pra contrato renegociado e edital corrigido.",
+              "EM BREVE",
               "/app/compare",
             ],
             [
               "Pasta de PDFs",
-              "Agrupar arquivos num projeto com busca compartilhada.",
-              "BETA",
+              "Agrupe vários arquivos num projeto e pergunte como se fossem um só (todos os contratos do RH).",
+              "EM BREVE",
               "/app/pasta",
             ],
           ].map(([t, b, badge, href]) => (
@@ -493,7 +493,7 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
             >
               <div className="flex items-center justify-between">
                 <p className="eyebrow text-faded-stone">
-                  Em desenvolvimento
+                  A caminho
                 </p>
                 <span className="font-mono text-caption tracking-[0.06em] text-faded-stone">
                   {badge}
@@ -504,7 +504,7 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
               </h3>
               <p className="text-body-sm  text-charcoal-text">{b}</p>
               <div className="flex items-center justify-between border-t border-subtle-gray pt-3 text-caption">
-                <span className="text-charcoal-text">Abrir</span>
+                <span className="text-charcoal-text">Ver status</span>
                 <span aria-hidden="true" className="text-midnight-ink">
                   →
                 </span>

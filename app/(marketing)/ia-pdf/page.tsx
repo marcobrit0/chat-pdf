@@ -4,9 +4,9 @@ import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "IA para PDF — escolha o caso de uso e abra a ferramenta certa",
+  title: "IA para PDF em português — escolha o tipo de documento | PDFIA",
   description:
-    "IA para PDF em PT-BR organizada por caso de uso: contratos CLT, editais, apólices, laudos médicos, propostas e mais. Veja o que cada modo extrai.",
+    "IA para PDF brasileiro: modos prontos pra contrato CLT, edital de licitação, apólice de seguro, laudo médico, proposta e relatório. Veja o que cada modo extrai e abra a ferramenta certa.",
   path: "/ia-pdf",
 });
 
@@ -96,8 +96,8 @@ const faqs = [
 export default function IaPdfPage() {
   return (
     <SeoPageTemplate
-      title="IA para PDF — encontre a ferramenta certa"
-      intro="Cada tipo de PDF pede um foco diferente. Esta página é um índice: clique no caso que se parece com o seu e abra a ferramenta com o modo já configurado."
+      title="IA para PDF: escolha o tipo de documento"
+      intro="Cada tipo de PDF pede um foco diferente — contrato olha pra cláusulas, edital olha pra prazo e habilitação, laudo olha pra termos clínicos. Clica no caso que parece com o seu e abre a ferramenta com o modo certo já ativado."
       breadcrumbs={breadcrumbs}
       faqs={faqs}
       related={[
@@ -109,12 +109,12 @@ export default function IaPdfPage() {
     >
       <section className="space-y-4">
         <h2 className="font-display text-heading font-semibold text-midnight-ink">
-          Casos de uso por tipo de PDF
+          Tipos de PDF que a gente cobre bem
         </h2>
         <p>
-          A IA não muda — o que muda é o que ela é orientada a procurar. Para
-          cada tipo de documento abaixo, há uma página dedicada que abre a
-          ferramenta com o modo correspondente já ativo.
+          A IA é a mesma — o que muda é pra onde ela é orientada a olhar. Pra
+          cada tipo de documento aqui embaixo tem uma página dedicada que abre a
+          ferramenta com o modo certo já ativado.
         </p>
         <ul className="mt-6 grid gap-4 md:grid-cols-2">
           {useCases.map((u) => (
@@ -144,20 +144,20 @@ export default function IaPdfPage() {
 
       <section className="space-y-4">
         <h2 className="font-display text-heading font-semibold text-midnight-ink">
-          Não encontrou seu caso?
+          Seu PDF não tá na lista?
         </h2>
         <p>
-          Comece pelo{" "}
+          Sem stress — começa pelo{" "}
           <Link href="/resumir-pdf" className="underline underline-offset-4">
-            resumo gratuito
+            resumo grátis
           </Link>{" "}
-          (modo padrão). A IA identifica o tipo de documento e ajusta a saída.
-          Se você usa muito um tipo específico que não está listado, o{" "}
+          (modo padrão). A IA identifica o tipo de PDF e ajusta a saída
+          sozinha. Se você usa muito um tipo que não tá listado aqui, no{" "}
           <Link href="/precos" className="underline underline-offset-4">
             Premium
           </Link>{" "}
-          permite criar perguntas customizadas que rodam toda vez que você
-          envia um PDF parecido.
+          dá pra montar perguntas que rodam toda vez que você sobe um PDF
+          parecido.
         </p>
       </section>
     </SeoPageTemplate>

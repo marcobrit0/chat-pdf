@@ -16,14 +16,14 @@ type Props = {
 export function CitationPanel({ items }: Props) {
   return (
     <aside className="flex h-full min-h-[320px] flex-col border-l border-subtle-gray bg-surface-primary-card pl-4 md:pl-6">
-      <h2 className="eyebrow text-faded-stone">Trechos indexados</h2>
+      <h2 className="eyebrow text-faded-stone">Trechos do PDF</h2>
       <p className="mt-1 text-caption text-faded-stone">
-        O chat usa estes blocos (com rótulo de página). Citações no estilo [p. 2]
-        referem-se a eles.
+        Estes são os pedaços do documento que a IA usa pra responder. Quando você
+        ver [p. 2] na resposta, é daqui que veio.
       </p>
       <ol className="mt-4 flex max-h-[60vh] flex-col gap-3 overflow-y-auto pr-1 text-body-sm">
         {items.length === 0 ? (
-          <li className="text-charcoal-text">Nenhum trecho carregado.</li>
+          <li className="text-charcoal-text">Nenhum trecho carregado ainda.</li>
         ) : (
           items.map((c, i) => (
             <li

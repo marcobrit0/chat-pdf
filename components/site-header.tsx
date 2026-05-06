@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 const navItems = [
   { href: "/", label: "Início" },
   { href: "/resumir-pdf", label: "Resumir PDF" },
-  { href: "/#casos-de-uso", label: "Casos de uso" },
+  { href: "/chat-pdf", label: "Chat com PDF" },
   { href: "/guias", label: "Guias" },
   { href: "/precos", label: "Preços" },
 ] as const;
@@ -110,7 +110,7 @@ export function SiteHeader() {
             href="/resumir-pdf"
             className="hidden items-center justify-center rounded-lg border border-midnight-ink px-3 py-2 text-body-sm font-medium text-midnight-ink transition-colors hover:bg-midnight-ink hover:text-crisp-white md:inline-flex"
           >
-            Resumir um PDF
+            Resumir PDF grátis
           </Link>
           <button
             type="button"
@@ -163,7 +163,7 @@ export function SiteHeader() {
                 onClick={close}
                 className="inline-flex items-center justify-center rounded-lg border border-midnight-ink px-5 py-3 text-body font-medium text-midnight-ink"
               >
-                Resumir um PDF
+                Resumir PDF grátis
               </Link>
               <Link
                 href="/login"

@@ -70,11 +70,11 @@ function renderEntry(entry: ProgrammaticEntry) {
     >
       <section className="space-y-4">
         <h2 className="font-display text-heading font-semibold text-midnight-ink">
-          O que a análise cobre para {entry.personaLabel}
+          O que a análise cobre pra {entry.personaLabel}
         </h2>
         <p>
-          A IA orienta a leitura para o que costuma importar quando você é{" "}
-          {entry.personaLabel} lendo {entry.docTypeLabel}. Use como triagem
+          A IA orienta a leitura pro que costuma importar quando você, como{" "}
+          {entry.personaLabel}, lê um {entry.docTypeLabel}. Use como triagem
           antes da decisão final — não substitui parecer profissional.
         </p>
         <ul className="mt-4 grid gap-3 sm:grid-cols-2">

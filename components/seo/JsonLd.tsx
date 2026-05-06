@@ -32,7 +32,7 @@ export function softwareApplicationSchema(input?: {
     "@type": "SoftwareApplication",
     name: "PDFIA",
     description:
-      "Resuma PDFs e converse com documentos em português, com citações por página.",
+      "Resuma PDF em português e converse com o documento — com a página de origem citada em cada resposta. Feito pra contrato, edital, apólice e laudo brasileiro.",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
     url: getSiteUrl(),
@@ -40,17 +40,17 @@ export function softwareApplicationSchema(input?: {
     offers: [
       {
         "@type": "Offer",
-        name: "Gratuito",
+        name: "Grátis",
         price: "0",
         priceCurrency: "BRL",
-        description: "Resumo gratuito sem cadastro para PDFs até 10 páginas.",
+        description: "Resumo grátis sem cadastro pra PDF de até 10 páginas.",
       },
       {
         "@type": "Offer",
         name: "Premium mensal",
         price: "29",
         priceCurrency: "BRL",
-        description: "Chat com citação de página, PDFs até 100 páginas.",
+        description: "Chat com a página citada, PDFs até 100 páginas, biblioteca salva.",
         url: absoluteUrl("/precos"),
       },
       {
@@ -58,7 +58,7 @@ export function softwareApplicationSchema(input?: {
         name: "Premium anual",
         price: "290",
         priceCurrency: "BRL",
-        description: "Plano anual com economia de R$58.",
+        description: "R$24,17/mês no anual — economia de R$58 no ano.",
         url: absoluteUrl("/precos"),
       },
     ],

@@ -9,9 +9,9 @@ import {
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Como resumir PDF com IA — guia completo em português",
+  title: "Como resumir PDF com IA: guia completo em português | PDFIA",
   description:
-    "Guia prático em PT-BR: como escolher o PDF certo, o que esperar do resumo, perguntas para fazer ao texto e quando vale assinar Premium. ~10 min de leitura.",
+    "Guia direto em PT-BR: como escolher o PDF certo, o que esperar do resumo, quais perguntas fazer ao documento e quando vale assinar Premium. 10 min de leitura, sem encheção.",
   path: "/guias/como-resumir-pdf-com-ia",
 });
 
@@ -117,10 +117,9 @@ export default function GuiaResumirPdfPage() {
             Como resumir PDF com IA
           </h1>
           <p className="mt-5 text-body  text-charcoal-text sm:text-body-lg">
-            Guia prático para tirar o melhor proveito de uma ferramenta de IA
-            para PDFs — do envio à decisão de quando vale assinar o Premium.
-            Em PT-BR, com exemplos brasileiros (CLT, editais, apólices,
-            laudos).
+            Guia direto pra você tirar mais de uma ferramenta de IA pra PDF —
+            do envio até decidir se vale assinar o Premium. Em português, com
+            exemplos brasileiros (contrato CLT, edital, apólice, laudo).
           </p>
         </header>
 
@@ -129,13 +128,13 @@ export default function GuiaResumirPdfPage() {
             TL;DR
           </p>
           <p className="mt-2 font-display text-subheading font-semibold leading-snug text-midnight-ink">
-            Use IA para triar — não para decidir
+            IA pra triar, gente pra decidir
           </p>
           <p className="mt-3 text-body-sm  text-charcoal-text">
-            A IA acelera a leitura de PDFs longos extraindo o que costuma
-            importar (datas, valores, partes, prazos). Trate o resumo como
-            primeiro passe — vá ao texto original antes de qualquer decisão
-            jurídica, médica ou financeira.
+            A IA acelera a leitura de PDF longo tirando o que costuma importar
+            (datas, valores, partes, prazos). Trata o resumo como primeiro
+            passe — vai no texto original antes de qualquer decisão jurídica,
+            médica ou financeira.
           </p>
         </aside>
 

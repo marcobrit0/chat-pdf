@@ -43,12 +43,12 @@ export function CheckoutButton({
       });
       const data = (await res.json()) as { url?: string; error?: string };
       if (!res.ok) {
-        setError(data.error ?? "Erro no checkout");
+        setError(data.error ?? "Não rolou abrir o checkout. Tenta de novo?");
         return;
       }
       if (data.url) window.location.href = data.url;
     } catch {
-      setError("Erro de rede");
+      setError("Sem conexão. Confere a internet e tenta de novo.");
     } finally {
       setLoading(false);
     }

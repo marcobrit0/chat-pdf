@@ -12,9 +12,9 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { absoluteUrl, buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Preços do PDFIA — grátis ou Premium R$29/mês",
+  title: "Preços PDFIA — grátis pra testar, R$29/mês pra usar de verdade",
   description:
-    "Resumo gratuito sem cadastro. Premium a partir de R$29/mês: chat com citação de página, PDFs até 100 páginas e modos de análise para contratos, editais e apólices.",
+    "Resumo de PDF grátis e sem cadastro pra você ver se serve. Premium a R$29/mês desbloqueia chat com a página citada, PDFs de até 100 páginas e modos pra contrato, edital e apólice. Pague em real, cancele quando quiser.",
   path: "/precos",
 });
 
@@ -22,99 +22,99 @@ const planFeatures = [
   {
     label: "Resumo de PDF",
     free: "Até 10 páginas, 1 por dia",
-    premium: "Até 100 páginas, ilimitado",
+    premium: "Até 100 páginas, sem limite por dia",
   },
   {
-    label: "Tópicos, datas, entidades",
-    free: "Sim",
-    premium: "Sim, com mais profundidade",
+    label: "Tópicos, datas, valores e nomes",
+    free: "Sim, no resumo",
+    premium: "Sim, com profundidade extra",
   },
   {
     label: "Chat com o documento",
-    free: "—",
-    premium: "Respostas com citação de página",
+    free: "Não",
+    premium: "Sim — toda resposta cita a página",
   },
   {
-    label: "Modos especializados",
-    free: "—",
+    label: "Modos prontos por tipo de PDF",
+    free: "Não",
     premium: "Contrato CLT, edital, apólice, laudo",
   },
   {
-    label: "Histórico de documentos",
-    free: "—",
-    premium: "Salvo na conta",
+    label: "Biblioteca salva na conta",
+    free: "Não — o arquivo some depois do resumo",
+    premium: "Sim — volte ao PDF quando quiser",
   },
   {
-    label: "Exportar pacote organizado",
-    free: "—",
-    premium: "PDF + Markdown",
+    label: "Exportar resumo + perguntas",
+    free: "Não",
+    premium: "PDF + Markdown, prontos pra compartilhar",
   },
   {
-    label: "Aviso quando não está no PDF",
-    free: "Sim",
-    premium: "Sim",
+    label: "Aviso quando a info não está no PDF",
+    free: "Sim — a gente nunca inventa",
+    premium: "Sim — a gente nunca inventa",
   },
 ];
 
 const competitorComparison = [
   {
-    label: "Plano gratuito",
+    label: "Tem plano grátis?",
     you: "Sim, sem cadastro",
     chatgpt: "Limitado, exige conta",
     smallpdf: "Limitado",
     adobe: "Não",
   },
   {
-    label: "Citação de página",
-    you: "Padrão",
-    chatgpt: "Só sob pedido",
-    smallpdf: "—",
+    label: "Cita a página de origem",
+    you: "Em toda resposta",
+    chatgpt: "Só se você pedir",
+    smallpdf: "Não",
     adobe: "Em alguns recursos",
   },
   {
-    label: "Pagamento em BRL",
+    label: "Pagamento em real",
     you: "Sim (R$29/mês)",
     chatgpt: "Não (USD)",
     smallpdf: "Sim",
     adobe: "Sim",
   },
   {
-    label: "Foco em PDFs em PT-BR",
-    you: "Sim",
-    chatgpt: "Genérico",
-    smallpdf: "Edição de PDF",
+    label: "Pensado pra PDF brasileiro",
+    you: "É a língua-mãe",
+    chatgpt: "Tradução do inglês",
+    smallpdf: "Foco em editar PDF",
     adobe: "Genérico",
   },
 ];
 
 const faqs = [
   {
-    q: "Posso cancelar a qualquer momento?",
-    a: "Sim. O Premium pode ser cancelado direto na sua conta sem taxa de cancelamento. O acesso continua até o fim do período pago.",
+    q: "Cancelo quando quiser, mesmo?",
+    a: "Sim. Sem fidelidade, sem multa, sem ligar pra ninguém. Cancela direto na conta e o Premium vale até o fim do período já pago.",
   },
   {
-    q: "O plano anual tem desconto?",
-    a: "Sim. R$290/ano equivale a R$24,17/mês — economia de R$58 frente ao mensal.",
+    q: "Anual sai mais barato?",
+    a: "Sai. R$290/ano dá R$24,17/mês — economia de R$58 comparado ao mensal. Vale se você usa toda semana.",
   },
   {
-    q: "Quais formas de pagamento vocês aceitam?",
-    a: "Cartão de crédito (Visa, Mastercard, American Express, Elo) via Stripe. Pagamento seguro, sem armazenamento de dados de cartão na nossa infraestrutura.",
+    q: "Como pago?",
+    a: "Cartão (Visa, Mastercard, Amex, Elo) pelo Stripe. Pagamento em real, processado no Brasil. A gente não guarda dado de cartão — quem cuida é o Stripe.",
   },
   {
-    q: "Vocês emitem nota fiscal?",
-    a: "Sim, sob pedido. Após o pagamento, fale conosco com o CNPJ e o recibo do Stripe.",
+    q: "Tem nota fiscal?",
+    a: "Tem. Manda o CNPJ e o recibo do Stripe pra gente depois do pagamento que a NF sai.",
   },
   {
-    q: "Posso usar o Premium em mais de um computador?",
-    a: "Sim. A conta é pessoal e funciona em qualquer dispositivo via login com link mágico.",
+    q: "Posso usar em vários dispositivos?",
+    a: "Pode. A conta é sua e funciona em qualquer navegador — entra com o link mágico no e-mail.",
   },
   {
-    q: "Vocês têm reembolso?",
-    a: "Sim, dentro de 7 dias após a contratação, conforme o Código de Defesa do Consumidor para serviços contratados online.",
+    q: "E se eu não gostar?",
+    a: "Reembolso integral em até 7 dias, conforme o Código de Defesa do Consumidor pra serviço online. Sem perguntas estranhas.",
   },
   {
-    q: "O que acontece com meus PDFs depois que eu cancelo?",
-    a: "Você mantém acesso de leitura até o fim do período pago. Depois disso, os documentos ficam arquivados por 30 dias antes de serem excluídos definitivamente.",
+    q: "Cancelei. O que acontece com meus PDFs?",
+    a: "Você continua vendo até o fim do período pago. Depois, deixamos os arquivos arquivados por 30 dias pra você baixar — só então excluímos definitivamente.",
   },
 ];
 
@@ -156,20 +156,21 @@ export default function PrecosPage() {
 
           <div className="mt-10 grid gap-16 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
             <header className="motion-rise">
-              <Chip variant="live">Resumo grátis · Premium em BRL</Chip>
+              <Chip variant="live">Grátis pra testar · R$29 pra usar</Chip>
               <h1 className="mt-8 font-display text-heading-lg font-semibold text-midnight-ink md:text-display">
-                Preço simples para PDFs que precisam virar resposta.
+                Um preço, em real, sem letra miúda.
               </h1>
               <p className="mt-6 max-w-[620px] text-body-lg text-charcoal-text">
-                Comece sem cadastro. Assine quando precisar de chat com citação,
-                histórico e documentos maiores.
+                Resume um PDF de graça pra ver se serve. Quando precisar conversar
+                com o documento e voltar à página exata, o Premium é R$29/mês —
+                cancele na hora que quiser.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <ButtonLink href="/resumir-pdf" variant="primary" size="lg">
-                  Começar grátis
+                  Resumir um PDF agora
                 </ButtonLink>
                 <ButtonLink href="#planos" variant="secondary" size="lg">
-                  Comparar planos
+                  Comparar grátis × Premium
                 </ButtonLink>
               </div>
             </header>
@@ -252,8 +253,8 @@ export default function PrecosPage() {
         <Container>
           <SectionHeading
             eyebrow="Planos"
-            title="O gratuito prova valor. O Premium remove os limites."
-            description="Sem fidelidade, pagamento seguro via Stripe e cancelamento direto na conta."
+            title="Grátis prova que funciona. Premium serve quando você usa de verdade."
+            description="Sem fidelidade, pagamento em real pelo Stripe, cancelamento direto na conta. Sem ligar pra ninguém."
             maxWidth="wide"
             className="mb-10"
           />
@@ -264,7 +265,7 @@ export default function PrecosPage() {
               className="flex flex-col transition-transform hover:-translate-y-1"
             >
               <div className="flex items-center justify-between gap-4">
-                <Eyebrow>Gratuito</Eyebrow>
+                <Eyebrow>Grátis</Eyebrow>
                 <MonoLabel>Sem cadastro</MonoLabel>
               </div>
               <div className="mt-8 flex items-end gap-2">
@@ -274,19 +275,19 @@ export default function PrecosPage() {
                 <MonoLabel casing="normal">/sempre</MonoLabel>
               </div>
               <p className="mt-4 text-body text-charcoal-text">
-                Para resumir PDFs curtos e entender a saída do PDFIA antes de
-                criar conta.
+                Pra ver como funciona antes de criar conta — resumo de PDF curto,
+                em segundos, sem dar e-mail.
               </p>
               <ul className="mt-8 grid gap-3 text-body-sm text-charcoal-text">
-                <FeatureLi included>1 resumo por dia, até 10 páginas</FeatureLi>
+                <FeatureLi included>1 PDF por dia, até 10 páginas</FeatureLi>
                 <FeatureLi included>
-                  Tópicos, datas, valores e entidades
+                  Tópicos, datas, valores e nomes em destaque
                 </FeatureLi>
                 <FeatureLi included>
-                  Perguntas sugeridas para aprofundar
+                  Perguntas sugeridas pra você se aprofundar
                 </FeatureLi>
-                <FeatureLi>Chat com o documento</FeatureLi>
-                <FeatureLi>Histórico salvo</FeatureLi>
+                <FeatureLi>Chat com o PDF (perguntar e receber página)</FeatureLi>
+                <FeatureLi>Biblioteca salva — voltar ao documento</FeatureLi>
               </ul>
               <ButtonLink
                 href="/resumir-pdf"
@@ -294,7 +295,7 @@ export default function PrecosPage() {
                 size="md"
                 className="mt-8 w-full"
               >
-                Resumir PDF grátis
+                Resumir um PDF agora
               </ButtonLink>
             </Card>
 
@@ -303,7 +304,7 @@ export default function PrecosPage() {
                 <div>
                   <div className="flex flex-wrap items-center gap-3">
                     <Eyebrow tone="accent">Premium</Eyebrow>
-                    <Chip variant="accent">Mais usado</Chip>
+                    <Chip variant="accent">Mais escolhido</Chip>
                   </div>
                   <div className="mt-8 flex flex-wrap items-end gap-3">
                     <span className="font-display text-display font-semibold text-crisp-white">
@@ -314,8 +315,9 @@ export default function PrecosPage() {
                     </MonoLabel>
                   </div>
                   <p className="mt-4 max-w-[560px] text-body text-soft-stone">
-                    Para quem trabalha com PDF todo dia e precisa voltar ao
-                    documento, perguntar e citar a página de origem.
+                    Pra quem trabalha com PDF toda semana — contrato, edital,
+                    laudo, relatório — e precisa voltar ao documento, perguntar e
+                    saber de qual página veio a resposta.
                   </p>
                 </div>
                 <div className="rounded-lg border border-midnight-divider p-card-compact">
@@ -324,7 +326,7 @@ export default function PrecosPage() {
                     R$24,17/mês
                   </p>
                   <p className="mt-2 text-body-sm text-soft-stone">
-                    Economia de R$58.
+                    Você economiza R$58 no ano.
                   </p>
                 </div>
               </div>
@@ -332,36 +334,36 @@ export default function PrecosPage() {
               <div className="grid gap-8 p-card-elevated md:grid-cols-[1fr_0.85fr]">
                 <ul className="grid gap-3 text-body-sm text-charcoal-text">
                   <FeatureLi included>
-                    Chat com respostas citadas por página
+                    Chat com o PDF — toda resposta cita a página
                   </FeatureLi>
-                  <FeatureLi included>PDFs até 100 páginas</FeatureLi>
+                  <FeatureLi included>PDFs longos, até 100 páginas</FeatureLi>
                   <FeatureLi included>
-                    Modos: resumo detalhado, extrair dados, revisão de riscos
+                    Modos: resumo profundo, extrair dados, mapear riscos
                   </FeatureLi>
                   <FeatureLi included>
-                    Contratos CLT, editais, apólices e laudos
+                    Contrato CLT, edital, apólice, laudo — prontos pra usar
                   </FeatureLi>
-                  <FeatureLi included>Histórico de documentos salvo</FeatureLi>
-                  <FeatureLi included>Exportação em PDF + Markdown</FeatureLi>
+                  <FeatureLi included>Biblioteca salva — volte quando quiser</FeatureLi>
+                  <FeatureLi included>Exportar resumo em PDF + Markdown</FeatureLi>
                 </ul>
 
                 <div className="flex flex-col justify-between gap-4 border-t border-subtle-gray pt-6 md:border-l md:border-t-0 md:pl-8 md:pt-0">
                   <div>
                     <MonoLabel>Checkout</MonoLabel>
                     <p className="mt-3 text-body-sm text-charcoal-text">
-                      Cartão via Stripe. Não armazenamos dados de cartão na
-                      infraestrutura do PDFIA.
+                      Cartão pelo Stripe, em real. A gente não guarda dado de
+                      cartão — quem cuida disso é o Stripe.
                     </p>
                   </div>
                   <div className="grid gap-3">
                     <CheckoutButton
                       priceId={monthly}
-                      label="Assinar mensal"
+                      label="Assinar mensal · R$29"
                       className="w-full"
                     />
                     <CheckoutButton
                       priceId={yearly}
-                      label="Assinar anual"
+                      label="Assinar anual · R$290"
                       variant="secondary"
                       className="w-full"
                     />
@@ -393,9 +395,9 @@ export default function PrecosPage() {
       <Section bg="canvas" size="md">
         <Container>
           <SectionHeading
-            eyebrow="Compare"
-            title="Tudo o que entra em cada plano."
-            description="O gratuito cobre o uso casual. O Premium é para quem precisa consultar, guardar e exportar."
+            eyebrow="Compare lado a lado"
+            title="O que entra em cada plano, sem letra miúda."
+            description="O grátis serve pra um PDF aqui e ali. O Premium é pra quem precisa voltar, perguntar de novo e exportar pro time."
             className="mb-10"
           />
 
@@ -410,9 +412,9 @@ export default function PrecosPage() {
       <Section bg="ash" size="md">
         <Container>
           <SectionHeading
-            eyebrow="PDFIA vs alternativas"
-            title="A diferença está no foco: PDF em português, fonte citada e preço em real."
-            description="ChatGPT, Smallpdf e Adobe têm escopos maiores. PDFIA foi desenhado para ler documento e voltar à página certa."
+            eyebrow="PDFIA vs ChatGPT, Smallpdf, Adobe"
+            title="O que muda? Foco em PDF brasileiro, página citada e preço em real."
+            description="ChatGPT é generalista. Smallpdf edita PDF. Adobe faz tudo um pouco. O PDFIA foi feito pra uma coisa só: ler PDF e responder com a página de origem."
             maxWidth="wide"
             className="mb-10"
           />
@@ -436,7 +438,7 @@ export default function PrecosPage() {
           <div className="grid gap-16 md:grid-cols-[0.85fr_1.15fr]">
             <SectionHeading
               eyebrow="Perguntas frequentes"
-              title="Cobrança, conta e limites sem letra miúda."
+              title="Cobrança, conta e o que ninguém gosta de descobrir depois."
               maxWidth="none"
             />
             <div className="overflow-hidden rounded-lg border border-subtle-gray bg-crisp-white">
@@ -475,7 +477,7 @@ export default function PrecosPage() {
           <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
             <SectionHeading
               eyebrow="Comece grátis"
-              title="Envie um PDF agora. Assine só quando precisar perguntar mais."
+              title="Solte um PDF antes de assinar. A gente prefere assim."
               maxWidth="wide"
               tone="white"
               eyebrowTone="accent"
@@ -485,7 +487,7 @@ export default function PrecosPage() {
                 Resumir PDF grátis
               </ButtonLink>
               <ButtonLink href="#planos" variant="secondary-on-dark" size="lg">
-                Ver Premium
+                Ver o Premium
               </ButtonLink>
             </div>
           </div>

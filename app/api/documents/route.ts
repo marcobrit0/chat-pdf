@@ -133,7 +133,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error:
-            "Não foi possível ler o PDF (arquivo corrompido ou protegido por senha).",
+            "Não rolou ler esse PDF — pode estar corrompido ou protegido por senha.",
         },
         { status: 400 },
       );
@@ -143,7 +143,7 @@ export async function POST(request: Request) {
     if (pageCount > PREMIUM_MAX_PAGES) {
       return NextResponse.json(
         {
-          error: `Este PDF tem ${pageCount} páginas; o limite do Premium é ${PREMIUM_MAX_PAGES}.`,
+          error: `Esse PDF tem ${pageCount} páginas. O Premium aguenta até ${PREMIUM_MAX_PAGES} — divide o arquivo em partes ou fala com a gente.`,
         },
         { status: 400 },
       );
@@ -152,7 +152,7 @@ export async function POST(request: Request) {
     const chunks = chunkPagesForStorage(pages);
     if (chunks.length === 0) {
       return NextResponse.json(
-        { error: "Não foi possível extrair texto deste PDF." },
+        { error: "Não conseguimos extrair texto desse PDF — provavelmente é uma imagem escaneada." },
         { status: 422 },
       );
     }

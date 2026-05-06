@@ -7,9 +7,9 @@ import { howToSchema } from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Como entender laudo médico em português — guia para paciente e família",
+  title: "Como entender laudo médico em português — guia pra paciente e família | PDFIA",
   description:
-    "Recebeu um laudo médico cheio de termos técnicos? Este guia em PT-BR mostra como ler, perguntas pra levar pra consulta e quando vale segunda opinião.",
+    "Pegou o laudo cheio de termo técnico e ficou perdido? Veja como ler com calma, quais perguntas levar pra consulta e quando vale uma segunda opinião. Sem virar dr. Google.",
   path: "/guias/como-entender-laudo-medico",
 });
 
