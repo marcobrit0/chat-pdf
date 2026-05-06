@@ -30,10 +30,15 @@ describe("chatRequestSchema", () => {
 
     const tooLongMessage = {
       documentId,
-      messages: [{ role: "user", content: "x".repeat(MAX_CHAT_MESSAGE_CHARS + 1) }],
+      messages: [
+        { role: "user", content: "x".repeat(MAX_CHAT_MESSAGE_CHARS + 1) },
+      ],
     };
 
-    expect(chatRequestSchema.safeParse({ documentId, messages: tooManyTurns }).success).toBe(false);
+    expect(
+      chatRequestSchema.safeParse({ documentId, messages: tooManyTurns })
+        .success,
+    ).toBe(false);
     expect(chatRequestSchema.safeParse(tooLongMessage).success).toBe(false);
   });
 
@@ -48,20 +53,52 @@ describe("chatRequestSchema", () => {
 
     expect(result.success).toBe(false);
   });
+
+  it("rejects UI-only metadata on chat turns", () => {
+    const result = chatRequestSchema.safeParse({
+      documentId,
+      messages: [
+        { role: "user", content: "pergunta" },
+        {
+          role: "assistant",
+          content: "resposta anterior",
+          pageHints: ["p. 2"],
+        },
+        { role: "user", content: "outra pergunta" },
+      ],
+    });
+
+    expect(result.success).toBe(false);
+  });
 });
 
 describe("analyzeRequestSchema", () => {
   it("accepts only known analysis modes and strict boolean contract intent", () => {
-    expect(analyzeRequestSchema.safeParse({ mode: "risk", contractIntent: true }).success).toBe(true);
-    expect(analyzeRequestSchema.safeParse({ mode: "admin", contractIntent: true }).success).toBe(false);
-    expect(analyzeRequestSchema.safeParse({ mode: "risk", contractIntent: "true" }).success).toBe(false);
+    expect(
+      analyzeRequestSchema.safeParse({ mode: "risk", contractIntent: true })
+        .success,
+    ).toBe(true);
+    expect(
+      analyzeRequestSchema.safeParse({ mode: "admin", contractIntent: true })
+        .success,
+    ).toBe(false);
+    expect(
+      analyzeRequestSchema.safeParse({ mode: "risk", contractIntent: "true" })
+        .success,
+    ).toBe(false);
   });
 });
 
 describe("checkoutRequestSchema", () => {
   it("accepts Stripe Price IDs and rejects arbitrary strings", () => {
-    expect(checkoutRequestSchema.safeParse({ priceId: "price_123ABC" }).success).toBe(true);
-    expect(checkoutRequestSchema.safeParse({ priceId: "prod_123ABC" }).success).toBe(false);
-    expect(checkoutRequestSchema.safeParse({ priceId: "" }).success).toBe(false);
+    expect(
+      checkoutRequestSchema.safeParse({ priceId: "price_123ABC" }).success,
+    ).toBe(true);
+    expect(
+      checkoutRequestSchema.safeParse({ priceId: "prod_123ABC" }).success,
+    ).toBe(false);
+    expect(checkoutRequestSchema.safeParse({ priceId: "" }).success).toBe(
+      false,
+    );
   });
 });

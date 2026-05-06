@@ -2,11 +2,22 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { ExtractPayload, RiskPayload } from "@/lib/ai/document-modes-schema";
+import {
+  CitationPanel,
+  type CitationRef,
+} from "@/components/app/CitationPanel";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Container } from "@/components/ui/container";
+import { Eyebrow, MonoLabel } from "@/components/ui/labels";
+import type {
+  ExtractPayload,
+  RiskPayload,
+} from "@/lib/ai/document-modes-schema";
 import type { SummaryPayload } from "@/lib/ai/summary-schema";
 import { track } from "@/lib/analytics";
 import { extractPageHintsFromAssistantText } from "@/lib/chat-citation-hints";
-import { CitationPanel, type CitationRef } from "@/components/app/CitationPanel";
+import { toPremiumChatRequestMessages } from "@/lib/chat/request-payload";
 
 /** Mensagens do chat alinhadas ao endpoint `/api/chat/premium`. */
 type ChatTurn = {
@@ -43,25 +54,56 @@ function formatAnalysisForCopy(parsed: AnalyzeOk): string {
   const lines: string[] = [`Modo: ${MODE_LABELS[parsed.mode]}`, ""];
   if (parsed.mode === "summary") {
     const d = parsed.data;
-    lines.push(d.summary, "");
-    lines.push("Em tópicos:", ...d.bulletPoints.map((b) => `• ${b}`));
-    lines.push("", "Datas e valores:", ...d.keyDatesOrValues.map((x) => `• ${x}`));
+    lines.push("Resumo curto:", d.shortSummary ?? d.summary, "");
+    lines.push("Resumo completo:", d.detailedSummary ?? d.summary, "");
+    lines.push("Pontos:", ...d.bulletPoints.map((b) => `• ${b}`));
+    lines.push(
+      "",
+      "Datas e valores:",
+      ...d.keyDatesOrValues.map((x) => `• ${x}`),
+    );
     lines.push("", "Nomes e entidades:", ...d.entities.map((x) => `• ${x}`));
-    lines.push("", "Perguntas pra ir mais fundo:", ...d.suggestedQuestions.map((x) => `• ${x}`));
+    lines.push(
+      "",
+      "Perguntas pra ir mais fundo:",
+      ...d.suggestedQuestions.map((x) => `• ${x}`),
+    );
   } else if (parsed.mode === "extract") {
     const d = parsed.data;
     lines.push("Fatos principais:", ...d.keyFacts.map((x) => `• ${x}`));
-    lines.push("", "Datas, valores e quantias:", ...d.datesValuesAndAmounts.map((x) => `• ${x}`));
-    lines.push("", "Partes envolvidas:", ...d.partiesOrEntities.map((x) => `• ${x}`));
-    lines.push("", "Obrigações e prazos:", ...d.obligationsOrDeadlines.map((x) => `• ${x}`));
+    lines.push(
+      "",
+      "Datas, valores e quantias:",
+      ...d.datesValuesAndAmounts.map((x) => `• ${x}`),
+    );
+    lines.push(
+      "",
+      "Partes envolvidas:",
+      ...d.partiesOrEntities.map((x) => `• ${x}`),
+    );
+    lines.push(
+      "",
+      "Obrigações e prazos:",
+      ...d.obligationsOrDeadlines.map((x) => `• ${x}`),
+    );
   } else {
     const d = parsed.data;
     lines.push("Pontos de atenção:");
     for (const t of d.flaggedTopics) {
-      lines.push(`• [${t.area}] ${t.observation}${t.pageReference ? ` (${t.pageReference})` : ""}`);
+      lines.push(
+        `• [${t.area}] ${t.observation}${t.pageReference ? ` (${t.pageReference})` : ""}`,
+      );
     }
-    lines.push("", "O que está faltando ou pouco claro:", ...d.missingInformation.map((x) => `• ${x}`));
-    lines.push("", "Perguntas pra revisar com a equipe:", ...d.suggestedReviewQuestions.map((x) => `• ${x}`));
+    lines.push(
+      "",
+      "O que está faltando ou pouco claro:",
+      ...d.missingInformation.map((x) => `• ${x}`),
+    );
+    lines.push(
+      "",
+      "Perguntas pra revisar com a equipe:",
+      ...d.suggestedReviewQuestions.map((x) => `• ${x}`),
+    );
   }
   return lines.join("\n");
 }
@@ -72,9 +114,20 @@ function formatAnalysisForCopy(parsed: AnalyzeOk): string {
 function SummaryView({ data }: { data: SummaryPayload }) {
   return (
     <div className="space-y-4 text-body-sm text-graphite">
-      <p className="">{data.summary}</p>
+      <div className="border-b border-subtle-gray pb-4">
+        <MonoLabel>Resumo curto</MonoLabel>
+        <p className="mt-2 text-body text-midnight-ink">
+          {data.shortSummary ?? data.summary}
+        </p>
+      </div>
       <div>
-        <h3 className="mb-2 text-caption font-semibold uppercase text-faded-stone">Em tópicos</h3>
+        <MonoLabel>Resumo completo</MonoLabel>
+        <p className="mt-2 text-charcoal-text">
+          {data.detailedSummary ?? data.summary}
+        </p>
+      </div>
+      <div>
+        <MonoLabel>Em tópicos</MonoLabel>
         <ul className="list-inside list-disc space-y-1">
           {data.bulletPoints.map((b) => (
             <li key={b}>{b}</li>
@@ -83,7 +136,7 @@ function SummaryView({ data }: { data: SummaryPayload }) {
       </div>
       {data.keyDatesOrValues.length > 0 ? (
         <div>
-          <h3 className="mb-2 text-caption font-semibold uppercase text-faded-stone">Datas e valores</h3>
+          <MonoLabel>Datas e valores</MonoLabel>
           <ul className="list-inside list-disc space-y-1">
             {data.keyDatesOrValues.map((b) => (
               <li key={b}>{b}</li>
@@ -93,7 +146,7 @@ function SummaryView({ data }: { data: SummaryPayload }) {
       ) : null}
       {data.entities.length > 0 ? (
         <div>
-          <h3 className="mb-2 text-caption font-semibold uppercase text-faded-stone">Nomes que aparecem</h3>
+          <MonoLabel>Nomes e entidades</MonoLabel>
           <p className="text-charcoal-text">{data.entities.join(", ")}</p>
         </div>
       ) : null}
@@ -105,7 +158,7 @@ function ExtractView({ data }: { data: ExtractPayload }) {
   const blocks: { title: string; items: string[] }[] = [
     { title: "Fatos principais", items: data.keyFacts },
     { title: "Datas, valores e quantias", items: data.datesValuesAndAmounts },
-    { title: "Partes envolvidas", items: data.partiesOrEntities },
+    { title: "Partes ou entidades", items: data.partiesOrEntities },
     { title: "Obrigações e prazos", items: data.obligationsOrDeadlines },
   ];
   return (
@@ -113,7 +166,7 @@ function ExtractView({ data }: { data: ExtractPayload }) {
       {blocks.map((block) =>
         block.items.length > 0 ? (
           <div key={block.title}>
-            <h3 className="mb-2 text-caption font-semibold uppercase text-faded-stone">{block.title}</h3>
+            <MonoLabel>{block.title}</MonoLabel>
             <ul className="list-inside list-disc space-y-1">
               {block.items.map((item) => (
                 <li key={item}>{item}</li>
@@ -131,18 +184,26 @@ function RiskView({ data }: { data: RiskPayload }) {
     <div className="space-y-4 text-body-sm text-graphite">
       <ul className="space-y-3">
         {data.flaggedTopics.map((t, i) => (
-          <li key={`risk-row-${i}`} className="rounded-md border border-subtle-gray bg-canvas px-3 py-2">
-            <span className="font-medium text-midnight-ink">{t.area}</span>
+          <li
+            key={`risk-row-${i}`}
+            className="rounded-md border border-subtle-gray bg-canvas p-card-compact"
+          >
+            <span className="font-display text-body-sm font-semibold text-midnight-ink">
+              {t.area}
+            </span>
             {t.pageReference ? (
-              <span className="text-caption text-faded-stone"> · {t.pageReference}</span>
+              <span className="text-caption text-faded-stone">
+                {" "}
+                · {t.pageReference}
+              </span>
             ) : null}
-            <p className="mt-1 ">{t.observation}</p>
+            <p className="mt-1">{t.observation}</p>
           </li>
         ))}
       </ul>
       {data.missingInformation.length > 0 ? (
         <div>
-          <h3 className="mb-2 text-caption font-semibold uppercase text-faded-stone">O que está faltando no PDF</h3>
+          <MonoLabel>Lacunas no texto</MonoLabel>
           <ul className="list-inside list-disc space-y-1">
             {data.missingInformation.map((x) => (
               <li key={x}>{x}</li>
@@ -152,7 +213,7 @@ function RiskView({ data }: { data: RiskPayload }) {
       ) : null}
       {data.suggestedReviewQuestions.length > 0 ? (
         <div>
-          <h3 className="mb-2 text-caption font-semibold uppercase text-faded-stone">Perguntas pra revisar com a equipe</h3>
+          <MonoLabel>Perguntas para revisar</MonoLabel>
           <ul className="list-inside list-disc space-y-1">
             {data.suggestedReviewQuestions.map((x) => (
               <li key={x}>{x}</li>
@@ -222,9 +283,16 @@ export function DocumentWorkspace({
         return;
       }
 
-      const payload = { mode: json.mode, data: json.data, stub: json.stub } as AnalyzeOk;
+      const payload = {
+        mode: json.mode,
+        data: json.data,
+        stub: json.stub,
+      } as AnalyzeOk;
       setCached((prev) => ({ ...prev, [payload.mode]: payload }));
-      track("document_analyze_ok", { mode: payload.mode, stub: Boolean(json.stub) });
+      track("document_analyze_ok", {
+        mode: payload.mode,
+        stub: Boolean(json.stub),
+      });
     } catch {
       setAnalyzeError("Sem conexão. Confere a internet e tenta de novo.");
     } finally {
@@ -254,7 +322,7 @@ export function DocumentWorkspace({
       setTimeout(() => setCopyHint(null), 2500);
       track("document_analysis_copy", { mode: currentResult.mode });
     } catch {
-      setCopyHint("Não rolou copiar — copia manual mesmo.");
+      setCopyHint("Não rolou copiar. Copia manual mesmo.");
     }
   }, [currentResult]);
 
@@ -264,7 +332,10 @@ export function DocumentWorkspace({
 
     setError(null);
     setInput("");
-    const nextHistory: ChatTurn[] = [...messages, { role: "user", content: trimmed }];
+    const nextHistory: ChatTurn[] = [
+      ...messages,
+      { role: "user", content: trimmed },
+    ];
     setMessages(nextHistory);
     setLoading(true);
 
@@ -274,7 +345,7 @@ export function DocumentWorkspace({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           documentId,
-          messages: nextHistory,
+          messages: toPremiumChatRequestMessages(nextHistory),
         }),
       });
       const json = (await res.json()) as {
@@ -318,193 +389,242 @@ export function DocumentWorkspace({
     () =>
       ({
         summary: "Visão geral em texto e tópicos, com perguntas pra você se aprofundar.",
-        extract: "Datas, valores, partes envolvidas e obrigações — direto e estruturado.",
+        extract:
+          "Datas, valores, partes envolvidas e obrigações, direto e estruturado.",
         risk: "Pontos pra você revisar com calma. Não é parecer jurídico nem auditoria.",
       }) satisfies Record<Mode, string>,
     [],
   );
 
   return (
-    <div className="space-y-6">
-      <nav className="text-body-sm text-charcoal-text">
-        <Link href="/app" className="underline">
-          ← Biblioteca
-        </Link>
-      </nav>
+    <Container className="py-section-sm">
+      <div className="space-y-8">
+        <nav className="text-body-sm text-charcoal-text">
+          <Link href="/app" className="underline underline-offset-4">
+            ← Biblioteca
+          </Link>
+        </nav>
 
-      <header>
-        <h1 className="font-display text-heading font-semibold text-midnight-ink">{title}</h1>
-        <p className="mt-1 text-body-sm text-faded-stone">
-          {pageCount != null ? `${pageCount} páginas` : "Páginas —"} · análise e chat com fontes
-        </p>
-      </header>
+        <header className="grid gap-3 border-b border-subtle-gray pb-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+          <div>
+            <Eyebrow>Documento Premium</Eyebrow>
+            <h1 className="mt-3 font-display text-heading font-semibold text-midnight-ink">
+              {title}
+            </h1>
+          </div>
+          <p className="text-body-sm text-faded-stone">
+            {pageCount != null ? `${pageCount} páginas` : "Páginas —"} · análise
+            e chat com fontes
+          </p>
+        </header>
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(260px,340px)]">
-        <div className="space-y-6">
-          {/* --- Painel de modos estruturados (API `/api/documents/[id]/analyze`) --- */}
-          <section className="rounded-lg border border-subtle-gray bg-crisp-white p-4">
-            <div className="flex flex-wrap items-center gap-2 border-b border-subtle-gray pb-3">
-              {(Object.keys(MODE_LABELS) as Mode[]).map((m) => (
-                <button
-                  key={m}
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,360px)]">
+          <div className="space-y-6">
+            {/* --- Painel de modos estruturados (API `/api/documents/[id]/analyze`) --- */}
+            <Card as="section">
+              <div className="flex flex-wrap items-center gap-2 border-b border-subtle-gray pb-3">
+                {(Object.keys(MODE_LABELS) as Mode[]).map((m) => (
+                  <Button
+                    key={m}
+                    type="button"
+                    onClick={() => setActiveMode(m)}
+                    variant={activeMode === m ? "primary" : "secondary"}
+                    size="sm"
+                    className={
+                      activeMode === m
+                        ? "border-midnight-ink bg-midnight-ink text-crisp-white hover:bg-midnight-ink"
+                        : ""
+                    }
+                  >
+                    {MODE_LABELS[m]}
+                  </Button>
+                ))}
+              </div>
+
+              <p className="mt-3 text-body-sm text-charcoal-text">
+                {modeIntro[activeMode]}
+              </p>
+
+              <label className="mt-3 flex cursor-pointer items-center gap-2 text-body-sm text-charcoal-text">
+                <input
+                  type="checkbox"
+                  checked={contractFocus}
+                  onChange={(e) => setContractFocus(e.target.checked)}
+                  className="size-4 rounded border-ash-gray"
+                />
+                Tratar como contrato (partes, prazos, valores e cláusulas)
+              </label>
+
+              <div className="mt-4 flex flex-wrap gap-2">
+                <Button
                   type="button"
-                  onClick={() => setActiveMode(m)}
-                  className={
-                    activeMode === m
-                      ? "rounded-lg bg-midnight-ink px-3 py-1.5 text-body-sm font-medium text-crisp-white"
-                      : "rounded-lg border border-ash-gray px-3 py-1.5 text-body-sm text-charcoal-text hover:bg-canvas"
-                  }
+                  onClick={() => void runAnalysis()}
+                  disabled={analyzeLoading}
+                  size="sm"
                 >
-                  {MODE_LABELS[m]}
-                </button>
-              ))}
-            </div>
+                  {analyzeLoading
+                    ? "Lendo PDF…"
+                    : currentResult
+                      ? "Rodar de novo"
+                      : "Analisar PDF"}
+                </Button>
+                {currentResult ? (
+                  <Button
+                    type="button"
+                    onClick={() => void copyAnalysis()}
+                    variant="secondary"
+                    size="sm"
+                  >
+                    Copiar resultado
+                  </Button>
+                ) : null}
+                {copyHint ? (
+                  <span className="self-center text-caption text-faded-stone">
+                    {copyHint}
+                  </span>
+                ) : null}
+              </div>
 
-            <p className="mt-3 text-body-sm text-charcoal-text">{modeIntro[activeMode]}</p>
-
-            <label className="mt-3 flex cursor-pointer items-center gap-2 text-body-sm text-charcoal-text">
-              <input
-                type="checkbox"
-                checked={contractFocus}
-                onChange={(e) => setContractFocus(e.target.checked)}
-                className="size-4 rounded border-ash-gray"
-              />
-              Tratar como contrato (partes, prazos, valores e cláusulas)
-            </label>
-
-            <div className="mt-4 flex flex-wrap gap-2">
-              <button
-                type="button"
-                onClick={() => void runAnalysis()}
-                disabled={analyzeLoading}
-                className="rounded-lg bg-apollo-gold px-4 py-2 text-body-sm font-medium text-midnight-ink disabled:opacity-50"
-              >
-                {analyzeLoading ? "Lendo PDF…" : currentResult ? "Rodar de novo" : "Analisar PDF"}
-              </button>
-              {currentResult ? (
-                <button
-                  type="button"
-                  onClick={() => void copyAnalysis()}
-                  className="rounded-lg border border-midnight-ink px-4 py-2 text-body-sm font-medium text-midnight-ink"
-                >
-                  Copiar resultado
-                </button>
-              ) : null}
-              {copyHint ? <span className="self-center text-caption text-faded-stone">{copyHint}</span> : null}
-            </div>
-
-            {analyzeError ? (
-              <p className="mt-3 text-body-sm text-red-700" role="alert">
-                {analyzeError}
-              </p>
-            ) : null}
-
-            {currentResult?.stub ? (
-              <p className="mt-3 text-caption text-faded-stone">
-                Saída de demonstração — configure <code className="font-mono">OPENROUTER_API_KEY</code> pra rodar com a IA real.
-              </p>
-            ) : null}
-
-            {activeMode === "risk" ? (
-              <p className="mt-4 rounded-md bg-ash-gray p-3 text-caption  text-charcoal-text">
-                Lembrete: o modo &quot;Mapear riscos&quot; serve pra te dar um norte na leitura — não é parecer jurídico, financeiro nem técnico. Confirme com gente da área antes de decidir.
-              </p>
-            ) : null}
-
-            <div className="mt-4 border-t border-subtle-gray pt-4">
-              {!currentResult && !analyzeLoading ? (
-                <p className="text-body-sm text-faded-stone">
-                  Clica em <span className="font-medium text-midnight-ink">Analisar PDF</span> pra ver os resultados aqui.
+              {analyzeError ? (
+                <p className="mt-3 text-body-sm text-red-700" role="alert">
+                  {analyzeError}
                 </p>
               ) : null}
-              {!currentResult && analyzeLoading ? (
-                <p className="text-body-sm text-faded-stone">Lendo o PDF e gerando o {MODE_LABELS[activeMode].toLowerCase()}…</p>
-              ) : null}
-              {currentResult?.mode === "summary" ? <SummaryView data={currentResult.data} /> : null}
-              {currentResult?.mode === "extract" ? <ExtractView data={currentResult.data} /> : null}
-              {currentResult?.mode === "risk" ? <RiskView data={currentResult.data} /> : null}
-            </div>
-          </section>
 
-          {/* --- Chat com o documento (mesmo fluxo da Fase 4) --- */}
-          <section className="flex min-h-[380px] flex-col rounded-lg border border-subtle-gray bg-crisp-white">
-            <div className="border-b border-subtle-gray px-4 py-2 text-caption font-semibold uppercase text-faded-stone">
-              Chat com o PDF
-            </div>
-            <div className="flex flex-1 flex-col">
-              <div className="flex-1 space-y-4 overflow-y-auto p-4">
-                {messages.length === 0 ? (
-                  <p className="text-charcoal-text">
-                    Pergunta o que quiser sobre o PDF — em português normal. Toda
-                    resposta vem com a página de onde a informação saiu.
-                  </p>
-                ) : (
-                  messages.map((m, i) => (
-                    <div
-                      key={`${m.role}-${i}`}
-                      className={
-                        m.role === "user"
-                          ? "ml-8 rounded-md bg-canvas px-3 py-2 text-charcoal-text"
-                          : "mr-8 rounded-md border border-subtle-gray bg-canvas px-3 py-2 text-graphite"
-                      }
-                    >
-                      <span className="mb-1 block text-caption font-medium uppercase text-faded-stone">
-                        {m.role === "user" ? "Você" : "PDFIA"}
-                      </span>
-                      <p className="whitespace-pre-wrap ">{m.content}</p>
-                      {m.role === "assistant" && m.pageHints && m.pageHints.length > 0 ? (
-                        <p className="mt-2 border-t border-subtle-gray pt-2 text-caption text-faded-stone">
-                          <span className="font-medium text-charcoal-text">De qual página veio:</span>{" "}
-                          {m.pageHints.join(" · ")}
-                        </p>
-                      ) : null}
-                    </div>
-                  ))
-                )}
-                {loading ? <p className="text-body-sm text-faded-stone">Pensando…</p> : null}
-                {error ? (
-                  <p className="text-body-sm text-red-700" role="alert">
-                    {error}
+              {currentResult?.stub ? (
+                <p className="mt-3 text-caption text-faded-stone">
+                  Saída de demonstração — configure{" "}
+                  <code className="font-mono">OPENROUTER_API_KEY</code> pra
+                  rodar com a IA real.
+                </p>
+              ) : null}
+
+              {activeMode === "risk" ? (
+                <p className="mt-4 rounded-md bg-ash-gray p-card-compact text-caption text-charcoal-text">
+                  Lembrete: o modo &quot;Mapear riscos&quot; serve pra te dar um
+                  norte na leitura, mas não é parecer jurídico, financeiro nem
+                  técnico. Confirme com gente da área antes de decidir.
+                </p>
+              ) : null}
+
+              <div className="mt-4 border-t border-subtle-gray pt-4">
+                {!currentResult && !analyzeLoading ? (
+                  <p className="text-body-sm text-faded-stone">
+                    Clique em{" "}
+                    <span className="font-display font-semibold text-midnight-ink">
+                      Analisar PDF
+                    </span>{" "}
+                    pra ver os resultados aqui.
                   </p>
                 ) : null}
-                {lastStub ? (
-                  <p className="text-caption text-faded-stone">
-                    Resposta de demonstração (sem OPENROUTER_API_KEY). Configure a chave pra rodar com a IA real.
+                {!currentResult && analyzeLoading ? (
+                  <p className="text-body-sm text-faded-stone">
+                    Lendo o documento e gerando{" "}
+                    {MODE_LABELS[activeMode].toLowerCase()}…
                   </p>
+                ) : null}
+                {currentResult?.mode === "summary" ? (
+                  <SummaryView data={currentResult.data} />
+                ) : null}
+                {currentResult?.mode === "extract" ? (
+                  <ExtractView data={currentResult.data} />
+                ) : null}
+                {currentResult?.mode === "risk" ? (
+                  <RiskView data={currentResult.data} />
                 ) : null}
               </div>
-              <div className="border-t border-subtle-gray p-4">
-                <div className="flex gap-2">
-                  <textarea
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    rows={2}
-                    placeholder="Pergunta qualquer coisa sobre o PDF…"
-                    className="min-h-[48px] flex-1 resize-y border border-ash-gray bg-canvas px-3 py-2 text-body-sm text-graphite"
-                    disabled={loading}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" && !e.shiftKey) {
-                        e.preventDefault();
-                        void send();
-                      }
-                    }}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => void send()}
-                    disabled={loading || !input.trim()}
-                    className="self-end rounded-lg bg-apollo-gold px-4 py-2 text-body-sm font-medium text-midnight-ink disabled:opacity-50"
-                  >
-                    Perguntar
-                  </button>
+            </Card>
+
+            {/* --- Chat com o documento (mesmo fluxo da Fase 4) --- */}
+            <Card as="section" className="flex min-h-[380px] flex-col">
+              <div className="border-b border-subtle-gray pb-3">
+                <MonoLabel>Chat com o PDF</MonoLabel>
+              </div>
+              <div className="flex flex-1 flex-col">
+                <div className="flex-1 space-y-4 overflow-y-auto py-4">
+                  {messages.length === 0 ? (
+                    <p className="text-charcoal-text">
+                      Pergunta o que quiser sobre o PDF em português normal.
+                      Toda resposta vem com a página de onde a informação saiu.
+                    </p>
+                  ) : (
+                    messages.map((m, i) => (
+                      <div
+                        key={`${m.role}-${i}`}
+                        className={
+                          m.role === "user"
+                            ? "ml-8 rounded-md bg-canvas p-card-compact text-charcoal-text"
+                            : "mr-8 rounded-md border border-subtle-gray bg-canvas p-card-compact text-graphite"
+                        }
+                      >
+                        <MonoLabel className="mb-1 block">
+                          {m.role === "user" ? "Você" : "PDFIA"}
+                        </MonoLabel>
+                        <p className="whitespace-pre-wrap">{m.content}</p>
+                        {m.role === "assistant" &&
+                        m.pageHints &&
+                        m.pageHints.length > 0 ? (
+                          <p className="mt-2 border-t border-subtle-gray pt-2 text-caption text-faded-stone">
+                            <span className="font-display font-semibold text-charcoal-text">
+                              De qual página veio:
+                            </span>{" "}
+                            {m.pageHints.join(" · ")}
+                          </p>
+                        ) : null}
+                      </div>
+                    ))
+                  )}
+                  {loading ? (
+                    <p className="text-body-sm text-faded-stone">
+                      Pensando…
+                    </p>
+                  ) : null}
+                  {error ? (
+                    <p className="text-body-sm text-red-700" role="alert">
+                      {error}
+                    </p>
+                  ) : null}
+                  {lastStub ? (
+                    <p className="text-caption text-faded-stone">
+                      Resposta de demonstração (sem OPENROUTER_API_KEY).
+                      Configure a chave pra rodar com a IA real.
+                    </p>
+                  ) : null}
+                </div>
+                <div className="border-t border-subtle-gray pt-4">
+                  <div className="flex gap-2">
+                    <textarea
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      rows={2}
+                      placeholder="Pergunta qualquer coisa sobre o PDF…"
+                      className="min-h-[56px] flex-1 resize-y rounded-md border border-ash-gray bg-canvas p-card-compact text-body-sm text-graphite"
+                      disabled={loading}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" && !e.shiftKey) {
+                          e.preventDefault();
+                          void send();
+                        }
+                      }}
+                    />
+                    <Button
+                      type="button"
+                      onClick={() => void send()}
+                      disabled={loading || !input.trim()}
+                      size="sm"
+                      className="self-end"
+                    >
+                      Perguntar
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
-        </div>
+            </Card>
+          </div>
 
-        <CitationPanel items={citationRefs} />
+          <CitationPanel items={citationRefs} />
+        </div>
       </div>
-    </div>
+    </Container>
   );
 }

@@ -5,7 +5,10 @@ import {
   type ExtractPayload,
   type RiskPayload,
 } from "@/lib/ai/document-modes-schema";
-import { summarySchema, type SummaryPayload } from "@/lib/ai/summary-schema";
+import {
+  normalizeSummaryPayload,
+  type SummaryPayload,
+} from "@/lib/ai/summary-schema";
 
 /** Default matches build spec; override via OPENROUTER_SUMMARY_MODEL. */
 const DEFAULT_MODEL = "google/gemini-2.5-flash-lite";
@@ -74,8 +77,12 @@ export async function summarizePdfText(
 
   const model = process.env.OPENROUTER_SUMMARY_MODEL ?? DEFAULT_MODEL;
 
-  const systemBase =
-    "Você resume PDFs em pt-BR. Responda apenas JSON válido no schema pedido, sem markdown.";
+  const systemBase = [
+    "Você resume PDFs em pt-BR.",
+    "Responda apenas JSON válido no schema pedido, sem markdown.",
+    "O resumo deve ser em camadas: shortSummary para leitura rápida, detailedSummary para contexto completo e seções com a quantidade de itens que for relevante ao documento.",
+    "Não use limites arbitrários de tópicos; inclua poucos ou muitos itens conforme a densidade real do texto.",
+  ].join(" ");
   const systemContract =
     options?.contractIntent === true
       ? `${systemBase} Se o texto parecer um contrato, destaque partes, objeto, prazo, preço/valores, rescisão e responsabilidades quando existirem no texto.`
@@ -91,7 +98,7 @@ export async function summarizePdfText(
       {
         role: "user",
         content: [
-          "Extraia um resumo do texto abaixo. Retorne JSON com chaves: summary (string), bulletPoints (array de strings), keyDatesOrValues (array), entities (array de nomes importantes), suggestedQuestions (perguntas de follow-up).",
+          "Extraia um resumo do texto abaixo. Retorne JSON com chaves: shortSummary (string curta), detailedSummary (string mais completa), summary (mesmo valor de detailedSummary para compatibilidade), bulletPoints (array de pontos relevantes), keyDatesOrValues (array), entities (array de nomes importantes), suggestedQuestions (perguntas de follow-up).",
           "",
           trimmed,
         ].join("\n"),
@@ -117,7 +124,7 @@ export async function summarizePdfText(
   }
 
   const parsed = JSON.parse(raw) as unknown;
-  return summarySchema.parse(parsed);
+  return normalizeSummaryPayload(parsed);
 }
 
 /** Label like "p. 3–5" for prompt + UI; `id` matches DB chunk id for citation panel. */
@@ -305,7 +312,9 @@ function modeSystemPrompt(mode: DocumentMode, contractIntent: boolean): string {
     return [
       "Você analisa documentos em pt-BR usando **somente** o material fornecido.",
       contractHint,
-      "Responda apenas JSON válido com chaves: summary, bulletPoints, keyDatesOrValues, entities, suggestedQuestions (mesmo formato do resumo anônimo).",
+      "Responda apenas JSON válido com chaves: shortSummary, detailedSummary, summary, bulletPoints, keyDatesOrValues, entities, suggestedQuestions.",
+      "shortSummary deve orientar rapidamente em poucas frases; detailedSummary deve explicar o documento com mais contexto; summary deve repetir detailedSummary para compatibilidade.",
+      "As listas devem ter a quantidade de itens que for relevante para a densidade do documento, sem teto fixo.",
     ]
       .filter((s) => s.trim().length > 0)
       .join(" ");
@@ -337,7 +346,8 @@ function modeUserContent(mode: DocumentMode, docBody: string): string {
       instruction = "Extraia fatos e dados objetivos do documento.";
       break;
     case "summary":
-      instruction = "Faça um resumo estruturado completo do documento.";
+      instruction =
+        "Faça um resumo em camadas do documento: primeiro uma síntese curta, depois uma visão mais completa e listas com os pontos relevantes.";
       break;
   }
 
@@ -397,7 +407,7 @@ export async function premiumDocumentModeAnalysis(options: {
 
   const parsed = JSON.parse(raw) as unknown;
   if (options.mode === "summary") {
-    return { mode: "summary", data: summarySchema.parse(parsed) };
+    return { mode: "summary", data: normalizeSummaryPayload(parsed) };
   }
   if (options.mode === "extract") {
     return { mode: "extract", data: extractSchema.parse(parsed) };
@@ -416,6 +426,10 @@ function stubModeResult(mode: DocumentMode): PremiumModeAnalysisResult {
       mode: "summary",
       data: {
         summary:
+          "[Stub — configure OPENROUTER_API_KEY] Resumo de exemplo para desenvolvimento.",
+        shortSummary:
+          "[Stub — configure OPENROUTER_API_KEY] Síntese curta de exemplo.",
+        detailedSummary:
           "[Stub — configure OPENROUTER_API_KEY] Resumo de exemplo para desenvolvimento.",
         bulletPoints: ["Trecho indexado disponível para o modelo."],
         keyDatesOrValues: [],
