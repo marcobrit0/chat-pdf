@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { PremiumUpsell } from "@/components/app/PremiumUpsell";
 import { WorkspaceShell } from "@/components/app/WorkspaceShell";
 import { requirePremiumAccess } from "@/lib/entitlements";
@@ -34,7 +35,7 @@ export default async function AppHomePage({
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return null;
+    redirect("/login");
   }
 
   const gate = await requirePremiumAccess(supabase, user.id);
