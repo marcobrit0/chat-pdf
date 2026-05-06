@@ -2,9 +2,9 @@ import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Resumir contrato em PDF — IA em português",
+  title: "Resumir contrato em PDF com IA em português | PDFIA",
   description:
-    "Identifique partes, objeto, prazo, valores e cláusulas-chave do contrato antes de negociar ou assinar. Resumo gratuito; chat com citação de página no Premium.",
+    "Resuma contrato em PDF em segundos: partes, objeto, prazo, valores, cláusulas de multa e renovação. Grátis pra contrato curto; Premium pra chat com a página citada e contratos longos.",
   path: "/resumir-contrato-pdf",
 });
 
@@ -31,7 +31,7 @@ export default function ResumirContratoPdfPage() {
   return (
     <SeoPageTemplate
       title="Resumir contrato em PDF"
-      intro="Identifique partes, objeto, prazo, valores e cláusulas principais antes de negociar ou assinar. O resumo gratuito cobre contratos curtos; o Premium adiciona chat com citações de página, extração estruturada e revisão de riscos."
+      intro="Antes de negociar ou assinar, em segundos: quem são as partes, o que está sendo contratado, quanto, por quanto tempo, com qual multa de saída. O resumo grátis dá conta de contrato curto; pra chat com a página citada, modos de extrair dados e mapear riscos, é Premium."
       showUpload
       contractIntent
       breadcrumbs={[

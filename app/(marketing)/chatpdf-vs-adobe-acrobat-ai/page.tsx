@@ -2,9 +2,9 @@ import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "PDFIA vs Adobe Acrobat AI Assistant",
+  title: "PDFIA vs Adobe Acrobat AI Assistant — qual escolher? | PDFIA",
   description:
-    "Adobe Acrobat AI exige assinatura do pacote Adobe. PDFIA é independente, com resumo gratuito e Premium em BRL. Veja qual faz sentido para você.",
+    "Adobe Acrobat AI exige assinar o pacote Adobe inteiro, em dólar. PDFIA é independente, tem resumo grátis e Premium a R$29 em real. Veja qual faz mais sentido pro seu uso.",
   path: "/chatpdf-vs-adobe-acrobat-ai",
 });
 
@@ -55,7 +55,7 @@ export default function ChatpdfVsAdobePage() {
   return (
     <SeoPageTemplate
       title="PDFIA vs Adobe Acrobat AI Assistant"
-      intro="O AI Assistant do Adobe Acrobat faz parte de um pacote completo de software — útil se você já usa Acrobat, mas não vale contratar só para chat com PDFs. O PDFIA é independente: upload direto, sem licença Adobe."
+      intro="O AI Assistant do Adobe Acrobat vem dentro do pacote Adobe — útil se sua empresa já usa Acrobat pra editar e assinar. Mas não compensa assinar o pacote inteiro só pra chat com PDF. O PDFIA é independente: upload direto, sem licença Adobe, em real."
       breadcrumbs={[
         { label: "Início", path: "/" },
         { label: "Comparações", path: "/precos" },
@@ -107,10 +107,10 @@ export default function ChatpdfVsAdobePage() {
           Quando o Acrobat faz mais sentido
         </h2>
         <p className="mt-3 text-body  text-charcoal-text">
-          Se sua equipe já usa o Adobe Acrobat para edição, assinaturas e gestão
-          de PDFs em escala, o AI Assistant é um complemento natural. Para quem
-          não tem licença, contratar o pacote inteiro só pelo AI raramente vale
-          a pena.
+          Se sua empresa já paga o Adobe pra edição, assinatura e gestão de PDF
+          em escala, o AI Assistant é um complemento natural — vai junto. Pra
+          quem não tem licença, assinar o pacote inteiro só pelo AI dificilmente
+          compensa.
         </p>
       </section>
     </SeoPageTemplate>

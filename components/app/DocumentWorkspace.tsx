@@ -43,8 +43,8 @@ type Props = {
 
 const MODE_LABELS: Record<Mode, string> = {
   summary: "Resumo",
-  extract: "Extrair",
-  risk: "Riscos",
+  extract: "Extrair dados",
+  risk: "Mapear riscos",
 };
 
 /**
@@ -59,13 +59,13 @@ function formatAnalysisForCopy(parsed: AnalyzeOk): string {
     lines.push("Pontos:", ...d.bulletPoints.map((b) => `• ${b}`));
     lines.push(
       "",
-      "Datas / valores:",
+      "Datas e valores:",
       ...d.keyDatesOrValues.map((x) => `• ${x}`),
     );
-    lines.push("", "Entidades:", ...d.entities.map((x) => `• ${x}`));
+    lines.push("", "Nomes e entidades:", ...d.entities.map((x) => `• ${x}`));
     lines.push(
       "",
-      "Perguntas sugeridas:",
+      "Perguntas pra ir mais fundo:",
       ...d.suggestedQuestions.map((x) => `• ${x}`),
     );
   } else if (parsed.mode === "extract") {
@@ -78,12 +78,12 @@ function formatAnalysisForCopy(parsed: AnalyzeOk): string {
     );
     lines.push(
       "",
-      "Partes / entidades:",
+      "Partes envolvidas:",
       ...d.partiesOrEntities.map((x) => `• ${x}`),
     );
     lines.push(
       "",
-      "Obrigações / prazos:",
+      "Obrigações e prazos:",
       ...d.obligationsOrDeadlines.map((x) => `• ${x}`),
     );
   } else {
@@ -96,12 +96,12 @@ function formatAnalysisForCopy(parsed: AnalyzeOk): string {
     }
     lines.push(
       "",
-      "Informação ausente ou pouco clara:",
+      "O que está faltando ou pouco claro:",
       ...d.missingInformation.map((x) => `• ${x}`),
     );
     lines.push(
       "",
-      "Perguntas para revisão:",
+      "Perguntas pra revisar com a equipe:",
       ...d.suggestedReviewQuestions.map((x) => `• ${x}`),
     );
   }
@@ -274,12 +274,12 @@ export function DocumentWorkspace({
       };
 
       if (!res.ok) {
-        setAnalyzeError(json.error ?? "Não foi possível gerar a análise.");
+        setAnalyzeError(json.error ?? "Não rolou rodar a análise. Tenta de novo?");
         return;
       }
 
       if (!json.mode || !json.data) {
-        setAnalyzeError("Resposta inválida do servidor.");
+        setAnalyzeError("Resposta estranha do servidor. Tenta de novo em um minuto.");
         return;
       }
 
@@ -294,7 +294,7 @@ export function DocumentWorkspace({
         stub: Boolean(json.stub),
       });
     } catch {
-      setAnalyzeError("Erro de rede.");
+      setAnalyzeError("Sem conexão. Confere a internet e tenta de novo.");
     } finally {
       setAnalyzeLoading(false);
     }
@@ -318,11 +318,11 @@ export function DocumentWorkspace({
     if (!currentResult) return;
     try {
       await navigator.clipboard.writeText(formatAnalysisForCopy(currentResult));
-      setCopyHint("Copiado.");
+      setCopyHint("Copiado pra área de transferência.");
       setTimeout(() => setCopyHint(null), 2500);
       track("document_analysis_copy", { mode: currentResult.mode });
     } catch {
-      setCopyHint("Não foi possível copiar.");
+      setCopyHint("Não rolou copiar. Copia manual mesmo.");
     }
   }, [currentResult]);
 
@@ -357,7 +357,7 @@ export function DocumentWorkspace({
       };
 
       if (!res.ok) {
-        setError(json.error ?? "Não foi possível responder.");
+        setError(json.error ?? "Não rolou responder agora. Tenta de novo?");
         setMessages(messages);
         track("premium_chat_blocked", { status: res.status });
         return;
@@ -378,7 +378,7 @@ export function DocumentWorkspace({
       ]);
       track("premium_chat_ok", { stub: Boolean(json.stub) });
     } catch {
-      setError("Erro de rede.");
+      setError("Sem conexão. Confere a internet e tenta de novo.");
       setMessages(messages);
     } finally {
       setLoading(false);
@@ -388,10 +388,10 @@ export function DocumentWorkspace({
   const modeIntro = useMemo(
     () =>
       ({
-        summary: "Visão geral em texto e tópicos, com sugestões de perguntas.",
+        summary: "Visão geral em texto e tópicos, com perguntas pra você se aprofundar.",
         extract:
-          "Fatos objetivos: datas, valores, partes e obrigações encontradas no PDF.",
-        risk: "Pontos para revisão humana — não é parecer jurídico nem auditoria.",
+          "Datas, valores, partes envolvidas e obrigações, direto e estruturado.",
+        risk: "Pontos pra você revisar com calma. Não é parecer jurídico nem auditoria.",
       }) satisfies Record<Mode, string>,
     [],
   );
@@ -452,7 +452,7 @@ export function DocumentWorkspace({
                   onChange={(e) => setContractFocus(e.target.checked)}
                   className="size-4 rounded border-ash-gray"
                 />
-                Priorizar leitura de contrato (partes, prazos, valores)
+                Tratar como contrato (partes, prazos, valores e cláusulas)
               </label>
 
               <div className="mt-4 flex flex-wrap gap-2">
@@ -463,10 +463,10 @@ export function DocumentWorkspace({
                   size="sm"
                 >
                   {analyzeLoading
-                    ? "Gerando…"
+                    ? "Lendo PDF…"
                     : currentResult
-                      ? "Atualizar análise"
-                      : "Gerar análise"}
+                      ? "Rodar de novo"
+                      : "Analisar PDF"}
                 </Button>
                 {currentResult ? (
                   <Button
@@ -493,18 +493,17 @@ export function DocumentWorkspace({
 
               {currentResult?.stub ? (
                 <p className="mt-3 text-caption text-faded-stone">
-                  Modo demonstração — configure{" "}
-                  <code className="font-mono">OPENROUTER_API_KEY</code> para
-                  saída real.
+                  Saída de demonstração — configure{" "}
+                  <code className="font-mono">OPENROUTER_API_KEY</code> pra
+                  rodar com a IA real.
                 </p>
               ) : null}
 
               {activeMode === "risk" ? (
                 <p className="mt-4 rounded-md bg-ash-gray p-card-compact text-caption text-charcoal-text">
-                  Aviso: a seção &quot;Riscos&quot; ajuda na leitura crítica do
-                  texto; não substitui assessoria jurídica, financeira ou
-                  técnica. A IA pode omitir ou interpretar incorretamente
-                  trechos.
+                  Lembrete: o modo &quot;Mapear riscos&quot; serve pra te dar um
+                  norte na leitura, mas não é parecer jurídico, financeiro nem
+                  técnico. Confirme com gente da área antes de decidir.
                 </p>
               ) : null}
 
@@ -513,9 +512,9 @@ export function DocumentWorkspace({
                   <p className="text-body-sm text-faded-stone">
                     Clique em{" "}
                     <span className="font-display font-semibold text-midnight-ink">
-                      Gerar análise
+                      Analisar PDF
                     </span>{" "}
-                    para preencher este modo.
+                    pra ver os resultados aqui.
                   </p>
                 ) : null}
                 {!currentResult && analyzeLoading ? (
@@ -545,9 +544,8 @@ export function DocumentWorkspace({
                 <div className="flex-1 space-y-4 overflow-y-auto py-4">
                   {messages.length === 0 ? (
                     <p className="text-charcoal-text">
-                      Faça uma pergunta sobre o documento. O modelo usa os
-                      trechos indexados e deve citar páginas quando usar um
-                      trecho.
+                      Pergunta o que quiser sobre o PDF em português normal.
+                      Toda resposta vem com a página de onde a informação saiu.
                     </p>
                   ) : (
                     messages.map((m, i) => (
@@ -560,7 +558,7 @@ export function DocumentWorkspace({
                         }
                       >
                         <MonoLabel className="mb-1 block">
-                          {m.role === "user" ? "Você" : "Assistente"}
+                          {m.role === "user" ? "Você" : "PDFIA"}
                         </MonoLabel>
                         <p className="whitespace-pre-wrap">{m.content}</p>
                         {m.role === "assistant" &&
@@ -568,7 +566,7 @@ export function DocumentWorkspace({
                         m.pageHints.length > 0 ? (
                           <p className="mt-2 border-t border-subtle-gray pt-2 text-caption text-faded-stone">
                             <span className="font-display font-semibold text-charcoal-text">
-                              Páginas citadas na resposta:
+                              De qual página veio:
                             </span>{" "}
                             {m.pageHints.join(" · ")}
                           </p>
@@ -578,7 +576,7 @@ export function DocumentWorkspace({
                   )}
                   {loading ? (
                     <p className="text-body-sm text-faded-stone">
-                      Gerando resposta…
+                      Pensando…
                     </p>
                   ) : null}
                   {error ? (
@@ -588,8 +586,8 @@ export function DocumentWorkspace({
                   ) : null}
                   {lastStub ? (
                     <p className="text-caption text-faded-stone">
-                      Resposta em modo stub (sem OPENROUTER_API_KEY). Configure
-                      a chave para respostas reais.
+                      Resposta de demonstração (sem OPENROUTER_API_KEY).
+                      Configure a chave pra rodar com a IA real.
                     </p>
                   ) : null}
                 </div>
@@ -599,7 +597,7 @@ export function DocumentWorkspace({
                       value={input}
                       onChange={(e) => setInput(e.target.value)}
                       rows={2}
-                      placeholder="Pergunte algo sobre o PDF…"
+                      placeholder="Pergunta qualquer coisa sobre o PDF…"
                       className="min-h-[56px] flex-1 resize-y rounded-md border border-ash-gray bg-canvas p-card-compact text-body-sm text-graphite"
                       disabled={loading}
                       onKeyDown={(e) => {
@@ -616,7 +614,7 @@ export function DocumentWorkspace({
                       size="sm"
                       className="self-end"
                     >
-                      Enviar
+                      Perguntar
                     </Button>
                   </div>
                 </div>

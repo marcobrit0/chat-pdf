@@ -47,12 +47,12 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
     if (
       !PDF_MIME_TYPES.includes(file.type as (typeof PDF_MIME_TYPES)[number])
     ) {
-      setError("Envie apenas um arquivo PDF.");
+      setError("Esse arquivo não é PDF. Envie um .pdf pra continuar.");
       return false;
     }
     if (file.size > ANON_MAX_FILE_BYTES) {
       setError(
-        `Arquivo grande demais para o nível gratuito (máx. ${Math.round(ANON_MAX_FILE_BYTES / (1024 * 1024))} MB).`,
+        `Arquivo grande demais pro grátis (máx. ${Math.round(ANON_MAX_FILE_BYTES / (1024 * 1024))} MB). Pra PDF maior, vai de Premium.`,
       );
       return false;
     }
@@ -93,7 +93,7 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
         };
 
         if (!res.ok) {
-          setError(json.error ?? "Não foi possível gerar o resumo.");
+          setError(json.error ?? "Não rolou gerar o resumo agora. Tenta de novo?");
           const pc =
             typeof json.pageCount === "number" ? json.pageCount : undefined;
           setLargePdfBlocked(pc != null && pc > ANON_MAX_PAGES);
@@ -112,7 +112,7 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
           contractIntent,
         });
       } catch {
-        setError("Erro de rede. Tente novamente.");
+        setError("Sem conexão. Confere a internet e tenta de novo.");
       } finally {
         setLoading(false);
       }
@@ -127,14 +127,14 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
     <div className="space-y-8">
       <div className="rounded-lg border border-subtle-gray bg-crisp-white p-card">
         <h2 className="font-display text-subheading font-semibold text-midnight-ink">
-          Enviar PDF
+          Solta um PDF aí
         </h2>
         <p className="mt-2 text-body-sm text-charcoal-text">
-          Grátis sem cadastro: até {ANON_MAX_PAGES} páginas,{" "}
+          Grátis e sem cadastro: até {ANON_MAX_PAGES} páginas,{" "}
           <strong className="font-medium text-midnight-ink">
-            resumo apenas
+            só o resumo
           </strong>
-          . O chat com o documento e análises longas são{" "}
+          . Pra conversar com o PDF e analisar documento longo, vai de{" "}
           <LinkInline href="/precos" label="Premium" />.
         </p>
 
@@ -174,7 +174,7 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
             <span className="text-body-sm text-charcoal-text">
               ou{" "}
               <span className="underline underline-offset-4">
-                clique para selecionar
+                clica pra escolher do computador
               </span>
             </span>
             <span className="eyebrow text-faded-stone">
@@ -193,12 +193,12 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
           </label>
           {fileName ? (
             <p className="text-body-sm text-graphite">
-              Arquivo selecionado:{" "}
+              Arquivo escolhido:{" "}
               <span className="font-medium text-midnight-ink">{fileName}</span>
             </p>
           ) : (
             <p className="text-body-sm text-faded-stone">
-              Selecione um PDF para gerar o resumo.
+              Solte um PDF pra gerar o resumo.
             </p>
           )}
           <button
@@ -213,10 +213,10 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
             }
           >
             {loading
-              ? "Gerando resumo…"
+              ? "Lendo o PDF…"
               : fileName
-                ? "Gerar resumo gratuito"
-                : "Selecione um PDF primeiro"}
+                ? "Resumir grátis"
+                : "Solte um PDF primeiro"}
           </button>
         </form>
 
@@ -234,9 +234,9 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
 
         {summary?.stub ? (
           <p className="mt-4 text-caption text-faded-stone">
-            Modo demonstração (sem chave de IA no servidor). Configure{" "}
-            <code className="font-mono">OPENROUTER_API_KEY</code> para resumo
-            real.
+            Saída de demonstração (sem chave de IA no servidor). Configure{" "}
+            <code className="font-mono">OPENROUTER_API_KEY</code> pra rodar com
+            a IA real.
           </p>
         ) : null}
       </div>
@@ -276,7 +276,7 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
               {summary.entities.length > 0 ? (
                 <div>
                   <h3 className="mb-2 eyebrow text-faded-stone">
-                    Entidades
+                    Nomes que aparecem
                   </h3>
                   <p>{summary.entities.join(", ")}</p>
                 </div>
@@ -295,11 +295,11 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
                   ].join("\n");
                   try {
                     await navigator.clipboard.writeText(text);
-                    setCopyHint("Resumo copiado.");
+                    setCopyHint("Copiado pra área de transferência.");
                     setTimeout(() => setCopyHint(null), 2000);
                     track("anonymous_summary_copy", {});
                   } catch {
-                    setCopyHint("Não foi possível copiar.");
+                    setCopyHint("Não rolou copiar — copia manual mesmo.");
                   }
                 }}
               >
@@ -313,7 +313,7 @@ export function AnonymousSummaryFlow({ contractIntent = false }: Props) {
                   track("anonymous_export_attempt", {});
                 }}
               >
-                Exportar pacote (Premium)
+                Exportar em PDF (Premium)
               </button>
               {copyHint ? (
                 <span className="self-center text-caption text-faded-stone">
@@ -390,7 +390,7 @@ function SuggestedQuestionsLocked({
             id="suggested-questions-heading"
             className="mt-2 font-display text-subheading font-semibold text-midnight-ink"
           >
-            Pergunte ao PDF — disponível no Premium.
+            Pergunte ao PDF — só no Premium.
           </h3>
         </div>
         <span
@@ -402,8 +402,8 @@ function SuggestedQuestionsLocked({
       </div>
 
       <p className="mt-3 max-w-2xl text-body-sm  text-charcoal-text">
-        A IA mapeou estas perguntas no documento. Clique numa para entrar no
-        chat com citação de página.
+        A IA já mapeou essas perguntas no seu PDF. Clica numa pra abrir o chat
+        com a página citada em cada resposta.
       </p>
 
       <ul className="mt-5 grid gap-2 sm:grid-cols-2">

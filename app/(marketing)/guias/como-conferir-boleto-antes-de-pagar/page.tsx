@@ -7,9 +7,9 @@ import { howToSchema } from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Como conferir um boleto antes de pagar — checklist anti-fraude",
+  title: "Como conferir boleto antes de pagar — checklist anti-fraude | PDFIA",
   description:
-    "Boleto chegou no e-mail e você desconfia? Este guia em PT-BR mostra como conferir beneficiário, valor, código de barras e linha digitável antes de pagar.",
+    "Boleto suspeito no e-mail? Antes de pagar: confira beneficiário, código de barras, linha digitável, valor e vencimento. Checklist direto pra evitar golpe.",
   path: "/guias/como-conferir-boleto-antes-de-pagar",
 });
 

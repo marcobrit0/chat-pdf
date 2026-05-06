@@ -4,36 +4,36 @@ import { buildPageMetadata } from "@/lib/seo";
 import { personaVariantsByCanonical } from "@/lib/seo/programmatic-seo-data";
 
 export const metadata = buildPageMetadata({
-  title: "Analisar contrato de trabalho CLT com IA",
+  title: "Analisar contrato CLT com IA — antes de assinar | PDFIA",
   description:
-    "Entenda salário, jornada, benefícios, aviso prévio e condições de rescisão no seu contrato CLT antes de assinar. A IA lê o texto — não é assessoria trabalhista.",
+    "Receba o contrato CLT pra assinar e queira entender em minutos o que está ali? Salário, jornada, benefícios, aviso prévio e cláusulas que costumam pegar — a IA lê e organiza pra você. Não substitui assessoria trabalhista.",
   path: "/analisar-contrato-clt",
 });
 
 const faqs = [
   {
-    q: "Posso usar para contratos de experiência, intermitente ou temporário?",
-    a: "Sim. A ferramenta funciona para qualquer tipo de contrato de trabalho em PDF com texto selecionável.",
+    q: "Funciona com contrato de experiência, intermitente ou temporário?",
+    a: "Sim. A ferramenta lê qualquer contrato de trabalho em PDF com texto selecionável — experiência, prazo determinado, intermitente, temporário, todos rolam.",
   },
   {
     q: "A IA sabe se uma cláusula é ilegal?",
-    a: "Não. Ela lê e organiza o que está escrito, mas não avalia conformidade com a CLT ou jurisprudência. Para isso, consulte um advogado trabalhista.",
+    a: "Não. Ela lê e organiza o que está escrito, mas não avalia se está dentro da CLT ou da jurisprudência. Pra isso, advogado trabalhista — a IA é triagem, não parecer.",
   },
   {
-    q: "O documento fica salvo?",
-    a: "O resumo gratuito não salva o arquivo. No Premium, o documento fica vinculado à sua conta para você voltar e fazer mais perguntas.",
+    q: "O contrato fica salvo?",
+    a: "No grátis, não — o resumo é gerado e o arquivo é descartado. No Premium, fica salvo na sua conta pra você voltar e perguntar mais coisas depois.",
   },
   {
-    q: "Funciona para contratos PJ?",
-    a: "Para contratos de prestação de serviços (PJ), use a página específica — o modo de análise é diferente do CLT.",
+    q: "E pra contrato PJ?",
+    a: "Use a página de contrato de prestação de serviços — o modo de análise é outro, com foco em escopo, multa, exclusividade e indícios de pejotização.",
   },
 ];
 
 export default function AnalisarContratoCltPage() {
   return (
     <SeoPageTemplate
-      title="Analisar contrato de trabalho CLT com IA"
-      intro="Entenda o que o contrato diz sobre salário, jornada, benefícios, aviso prévio e rescisão antes de assinar ou contestar. A IA extrai e organiza o texto — não interpreta conformidade legal nem substitui assessoria trabalhista."
+      title="Analisar contrato CLT com IA"
+      intro="Recebeu o contrato CLT pra assinar e tem 10 minutos pra entender o que tem ali? A IA lê o PDF e te entrega salário, jornada, benefícios, aviso prévio e as cláusulas que costumam surpreender — em segundos. Não substitui assessoria trabalhista, mas economiza muita reunião."
       showUpload
       contractIntent
       breadcrumbs={[

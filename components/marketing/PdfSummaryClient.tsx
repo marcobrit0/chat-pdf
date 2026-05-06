@@ -25,13 +25,13 @@ type Props = {
 const SAMPLE_KPI = (summary: SummaryPayload) => {
   const v = summary.keyDatesOrValues;
   return [
-    { k: "Tópicos", v: String(summary.bulletPoints.length), sub: "extraídos" },
-    { k: "Datas/Valores", v: String(v.length), sub: "encontrados" },
-    { k: "Entidades", v: String(summary.entities.length), sub: "citadas" },
+    { k: "Tópicos", v: String(summary.bulletPoints.length), sub: "no resumo" },
+    { k: "Datas/Valores", v: String(v.length), sub: "no PDF" },
+    { k: "Nomes", v: String(summary.entities.length), sub: "que aparecem" },
     {
       k: "Perguntas",
       v: String(summary.suggestedQuestions.length),
-      sub: "sugeridas (Premium)",
+      sub: "sugeridas · Premium",
     },
   ];
 };
@@ -65,7 +65,7 @@ export function PdfSummaryClient({ contractIntent = false }: Props) {
           const pc = typeof json.pageCount === "number" ? json.pageCount : 0;
           setPhase({
             kind: "error",
-            message: json.error ?? "Não foi possível gerar o resumo.",
+            message: json.error ?? "Não rolou gerar o resumo. Tenta de novo?",
             largePdf: pc > ANON_MAX_PAGES,
           });
           track("anonymous_summary_fail", { status: res.status });
@@ -83,7 +83,7 @@ export function PdfSummaryClient({ contractIntent = false }: Props) {
       } catch {
         setPhase({
           kind: "error",
-          message: "Erro de rede. Tente novamente.",
+          message: "Sem conexão. Confere a internet e tenta de novo.",
           largePdf: false,
         });
       }
@@ -109,7 +109,7 @@ export function PdfSummaryClient({ contractIntent = false }: Props) {
       if (!PDF_MIME_TYPES.includes(file.type as (typeof PDF_MIME_TYPES)[number])) {
         setPhase({
           kind: "error",
-          message: "Envie apenas um arquivo PDF.",
+          message: "Esse arquivo não é PDF. Envie um .pdf pra continuar.",
           largePdf: false,
         });
         return;
@@ -118,7 +118,7 @@ export function PdfSummaryClient({ contractIntent = false }: Props) {
         const mb = Math.round(ANON_MAX_FILE_BYTES / (1024 * 1024));
         setPhase({
           kind: "error",
-          message: `Arquivo grande demais para o nível gratuito (máx. ${mb} MB).`,
+          message: `Grande demais pro grátis (máx. ${mb} MB). Vai de Premium pra arquivos maiores.`,
           largePdf: false,
         });
         return;
@@ -146,11 +146,11 @@ export function PdfSummaryClient({ contractIntent = false }: Props) {
           ].join("\n");
           try {
             await navigator.clipboard.writeText(text);
-            setCopyHint("Resumo copiado.");
+            setCopyHint("Copiado pra área de transferência.");
             setTimeout(() => setCopyHint(null), 2000);
             track("anonymous_summary_copy", {});
           } catch {
-            setCopyHint("Não foi possível copiar.");
+            setCopyHint("Não rolou copiar — copia manual mesmo.");
           }
         }}
         onAnother={() => setPhase({ kind: "idle" })}
@@ -193,10 +193,10 @@ function UploadZone({
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="eyebrow text-faded-stone">
-            Comece em segundos
+            Em 30 segundos
           </p>
           <h2 className="mt-2 font-display text-subheading font-semibold text-midnight-ink">
-            Enviar PDF
+            Solta um PDF aí
           </h2>
         </div>
         <span className="mono-label text-faded-stone">
@@ -228,10 +228,10 @@ function UploadZone({
         </span>
         <span className="text-body-sm text-charcoal-text">
           ou{" "}
-          <span className="underline underline-offset-4">clique para selecionar</span>
+          <span className="underline underline-offset-4">clica pra escolher do computador</span>
         </span>
         <span className="mono-label text-faded-stone">
-          Sem cadastro · PDF com texto · pt-BR
+          Sem cadastro · PDF com texto selecionável · pt-BR
         </span>
         <input
           name="file"
@@ -258,7 +258,7 @@ function UploadZone({
                 href="/precos"
                 className="font-medium text-midnight-ink underline underline-offset-2"
               >
-                Ver Premium para PDFs até 100 páginas →
+                Ver Premium pra PDFs até 100 páginas →
               </Link>
             </>
           ) : null}
@@ -314,7 +314,7 @@ function Results({
             onClick={onAnother}
             className="rounded-lg bg-apollo-gold px-3 py-1.5 text-caption font-medium text-midnight-ink hover:opacity-90"
           >
-            Resumir outro PDF
+            Resumir outro
           </button>
           {copyHint ? (
             <span className="text-caption text-faded-stone">{copyHint}</span>
@@ -404,7 +404,7 @@ function Results({
           </Card>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <Card title="Datas e valores" eyebrow="Cronologia">
+            <Card title="Datas e valores" eyebrow="O que acontece quando">
               <ul className="grid gap-2">
                 {result.keyDatesOrValues.length > 0 ? (
                   result.keyDatesOrValues.map((d) => (
@@ -417,12 +417,12 @@ function Results({
                   ))
                 ) : (
                   <li className="text-body-sm text-faded-stone">
-                    Nenhuma data ou valor identificado.
+                    Nenhuma data ou valor identificado nesse PDF.
                   </li>
                 )}
               </ul>
             </Card>
-            <Card title="Entidades" eyebrow="Citadas">
+            <Card title="Nomes que aparecem" eyebrow="Pessoas, empresas, órgãos">
               <ul className="grid gap-2">
                 {result.entities.length > 0 ? (
                   result.entities.map((e) => (
@@ -431,7 +431,7 @@ function Results({
                     </li>
                   ))
                 ) : (
-                  <li className="text-body-sm text-faded-stone">Nenhuma entidade citada.</li>
+                  <li className="text-body-sm text-faded-stone">Nenhum nome citado nesse PDF.</li>
                 )}
               </ul>
             </Card>
@@ -439,10 +439,10 @@ function Results({
 
           {/* Locked: Chat with PDF */}
           <Locked
-            label="Chat com fonte · Premium"
-            description="Pergunte ao documento e receba respostas com a página de origem."
+            label="Chat com a página citada · Premium"
+            description="Pergunta ao PDF e recebe a resposta com a página de origem em cada turno."
           >
-            <Card title="Pergunte ao PDF" eyebrow="Chat com citação · Premium">
+            <Card title="Pergunte ao PDF" eyebrow="Chat com a página citada · Premium">
               <div className="grid gap-3">
                 {result.suggestedQuestions.length > 0 ? (
                   <div className="flex items-start gap-3 rounded-md border border-subtle-gray bg-canvas px-4 py-3">
@@ -453,8 +453,8 @@ function Results({
                   </div>
                 ) : null}
                 <p className="text-body-sm  text-charcoal-text">
-                  No Premium cada resposta é gerada do seu PDF e cita a página
-                  exata onde a informação aparece.
+                  No Premium, cada resposta é tirada do seu PDF e mostra a
+                  página exata de onde a informação saiu.
                 </p>
                 {result.suggestedQuestions.length > 1 ? (
                   <div className="flex flex-wrap gap-2 border-t border-subtle-gray pt-3">
@@ -486,23 +486,23 @@ function Results({
               Premium · R$29/mês
             </p>
             <h3 className="mt-3 font-display text-subheading font-semibold">
-              Converse com o documento.
+              Bora conversar com o PDF.
             </h3>
             <ul className="mt-3 grid gap-2 text-body-sm text-subtle-gray">
-              <li>· Chat com citação de página</li>
-              <li>· PDFs até 100 páginas</li>
-              <li>· Modos: contrato, edital, apólice</li>
-              <li>· Histórico salvo</li>
+              <li>· Chat com a página citada em toda resposta</li>
+              <li>· PDFs longos, até 100 páginas</li>
+              <li>· Modos pra contrato CLT, edital, apólice, laudo</li>
+              <li>· Biblioteca salva — volte ao PDF quando quiser</li>
             </ul>
             <Link
               href="/precos"
               className="mt-5 inline-flex w-full items-center justify-center rounded-lg bg-apollo-gold px-4 py-3 text-body-sm font-medium text-midnight-ink hover:opacity-90"
               onClick={() => onLockedAction("anonymous_export_attempt")}
             >
-              Desbloquear Premium ↗
+              Liberar Premium ↗
             </Link>
             <p className="mt-3 text-center text-caption text-soft-stone">
-              Reembolso em até 7 dias
+              Reembolso em até 7 dias · sem fidelidade
             </p>
           </div>
 
@@ -639,7 +639,7 @@ function Locked({
           href="/precos"
           className="rounded-lg bg-apollo-gold px-4 py-2 text-body-sm font-medium text-midnight-ink hover:opacity-90"
         >
-          Desbloquear ↗
+          Liberar Premium ↗
         </Link>
       </div>
     </div>

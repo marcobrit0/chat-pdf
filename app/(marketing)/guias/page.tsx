@@ -4,9 +4,9 @@ import { Breadcrumbs } from "@/components/marketing/Breadcrumbs";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Guias e tutoriais — PDFIA",
+  title: "Guias práticos: como usar IA pra ler PDF em português | PDFIA",
   description:
-    "Guias práticos sobre como resumir, ler e analisar PDFs com IA em português. Casos de uso reais para contratos, editais, apólices e relatórios.",
+    "Tutoriais diretos pra resumir, ler e analisar PDF com IA em português. Casos reais pra contrato, edital, apólice, laudo, boleto e relatório — escritos pra quem precisa resolver, não pra quem quer estudar.",
   path: "/guias",
 });
 
@@ -133,11 +133,12 @@ export default function GuiasIndexPage() {
           Guias e tutoriais
         </p>
         <h1 className="mt-3 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-[1.05]  text-midnight-ink">
-          Como tirar o máximo do PDFIA.
+          Como tirar mais do PDFIA, sem perder tempo.
         </h1>
         <p className="mt-5 text-body  text-charcoal-text sm:text-body-lg">
-          Tutoriais práticos sobre IA para PDFs em português, organizados por
-          tipo de documento. Novos guias entram conforme o produto evolui.
+          Tutoriais práticos sobre IA pra PDF em português, organizados por
+          tipo de documento. Escritos pra quem tá resolvendo um problema agora,
+          não pra quem quer estudar IA.
         </p>
       </header>
 
@@ -178,11 +179,11 @@ export default function GuiasIndexPage() {
 
       <section className="mt-16">
         <h2 className="font-display text-heading font-semibold text-midnight-ink">
-          Por tipo de documento
+          Por tipo de PDF
         </h2>
         <p className="mt-3 max-w-2xl text-body  text-charcoal-text">
-          Cada caso de uso tem uma página dedicada com explicação, FAQ e
-          upload direto. Comece pelo que se parece com o seu PDF.
+          Cada caso de uso tem página dedicada com explicação, FAQ e upload
+          direto. Começa pelo que se parece com o seu documento.
         </p>
         <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {TOPIC_CLUSTERS.map((c) => (
@@ -209,10 +210,10 @@ export default function GuiasIndexPage() {
 
       <section className="mt-16 rounded-lg border border-midnight-ink bg-canvas p-8">
         <p className="eyebrow text-faded-stone">
-          Pronto para começar?
+          Pra começar agora
         </p>
         <h2 className="mt-3 font-display text-heading font-semibold text-midnight-ink">
-          Resumo grátis sem cadastro para PDFs até 10 páginas.
+          Resumo grátis, sem cadastro, pra PDF de até 10 páginas.
         </h2>
         <div className="mt-5 flex flex-wrap gap-3">
           <Link
@@ -225,7 +226,7 @@ export default function GuiasIndexPage() {
             href="/precos"
             className="inline-flex items-center justify-center rounded-lg border border-midnight-ink px-5 py-3 text-body font-medium text-midnight-ink"
           >
-            Ver Premium
+            Ver o Premium
           </Link>
         </div>
       </section>

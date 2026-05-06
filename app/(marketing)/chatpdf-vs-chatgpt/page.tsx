@@ -5,9 +5,9 @@ import { JsonLd, faqSchema } from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "PDFIA vs ChatGPT — qual usar para PDFs?",
+  title: "PDFIA vs ChatGPT pra ler PDF — qual escolher? | PDFIA",
   description:
-    "Comparação direta entre PDFIA e ChatGPT para ler PDFs: citação de página, modos por tipo de documento, plano gratuito e preço em BRL.",
+    "Comparação honesta entre PDFIA e ChatGPT pra trabalhar com PDF: citação de página em toda resposta, modos prontos por tipo de documento, plano grátis sem cadastro e pagamento em real.",
   path: "/chatpdf-vs-chatgpt",
 });
 
@@ -77,13 +77,13 @@ export default function ChatpdfVsChatgptPage() {
             PDFIA vs ChatGPT
           </p>
           <h1 className="mt-3 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-[1.05]  text-midnight-ink">
-            ChatGPT lê PDFs. Ferramentas dedicadas leem melhor.
+            ChatGPT lê PDF. Ferramenta dedicada lê melhor.
           </h1>
           <p className="mt-5 text-body  text-charcoal-text sm:text-body-lg">
-            ChatGPT é genérico — também aceita PDFs. O PDFIA foi
-            construído para isso: upload direto, respostas ancoradas no texto,
-            citação de página por padrão e modos para contratos, editais e
-            apólices.
+            ChatGPT é generalista — também aceita PDF. O PDFIA foi feito do
+            zero pra isso: upload direto, resposta ancorada no texto, citação de
+            página em toda resposta e modos prontos pra contrato, edital e
+            apólice brasileira.
           </p>
         </header>
 
@@ -94,11 +94,12 @@ export default function ChatpdfVsChatgptPage() {
               Em 30 segundos
             </p>
             <h2 className="mt-3 font-display text-subheading font-semibold text-midnight-ink">
-              Use PDFIA
+              Vai de PDFIA se…
             </h2>
             <p className="mt-2 text-body-sm  text-charcoal-text">
-              Para PDFs em português, leitura recorrente, contratos, editais e
-              apólices, e quando você quer ver de onde veio cada resposta.
+              Você trabalha com PDF brasileiro toda semana, quer ver a página de
+              origem em cada resposta e prefere pagar em real, sem ter que
+              traduzir prompt nem configurar idioma.
             </p>
           </div>
           <div>
@@ -106,11 +107,12 @@ export default function ChatpdfVsChatgptPage() {
               Em 30 segundos
             </p>
             <h2 className="mt-3 font-display text-subheading font-semibold text-midnight-ink">
-              Use ChatGPT Plus
+              Vai de ChatGPT Plus se…
             </h2>
             <p className="mt-2 text-body-sm  text-charcoal-text">
-              Para tarefas variadas (não só PDFs) ou se já é assinante. Lembre
-              que upload de PDF exige o plano Plus em USD.
+              Você já é assinante e usa o ChatGPT pra mil outras coisas (código,
+              imagem, brainstorm). Lembrando: upload de PDF exige o Plus, em
+              dólar.
             </p>
           </div>
         </section>
@@ -153,10 +155,10 @@ export default function ChatpdfVsChatgptPage() {
         {/* —— CTA card —— */}
         <section className="mt-14 rounded-lg border border-midnight-ink bg-canvas p-8">
           <p className="eyebrow text-faded-stone">
-            Teste sem compromisso
+            Testa antes de assinar nada
           </p>
           <h2 className="mt-3 font-display text-heading font-semibold text-midnight-ink">
-            Resumo gratuito sem cadastro para PDFs até 10 páginas.
+            Resumo grátis, sem cadastro, pra PDF de até 10 páginas.
           </h2>
           <div className="mt-5 flex flex-wrap gap-3">
             <Link
@@ -169,7 +171,7 @@ export default function ChatpdfVsChatgptPage() {
               href="/precos"
               className="inline-flex items-center justify-center rounded-lg border border-midnight-ink px-5 py-3 text-body font-medium text-midnight-ink"
             >
-              Ver Premium
+              Ver o Premium
             </Link>
           </div>
         </section>

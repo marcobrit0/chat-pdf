@@ -15,99 +15,99 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "PDFIA — Resumir e conversar com PDFs em português",
+  title: "Chat PDF em português — resuma e converse com qualquer PDF | PDFIA",
   description:
-    "Resuma PDFs grátis em português. Premium converte contratos, editais, laudos e relatórios em respostas com citação de página. Pagamento em BRL.",
+    "Resumo de PDF grátis, sem cadastro. Premium para conversar com contratos, editais, laudos e relatórios — com a página de origem em cada resposta. R$29/mês em BRL.",
   path: "/",
-  ogTitle: "PDFIA",
+  ogTitle: "PDFIA · Chat com PDF em português",
 });
 
 const stats = [
-  ["12.4M", "Páginas processadas"],
-  ["1.4s", "Tempo médio de resumo"],
-  ["96%", "Acerto em citação de página"],
-  ["R$29", "Premium · BRL/mês"],
+  ["100", "Páginas por PDF no Premium"],
+  ["seg.", "Resumo em segundos, não minutos"],
+  ["pág.", "Origem citada em cada resposta"],
+  ["R$29", "Premium em BRL · cancele quando quiser"],
 ] as const;
 
 const howItWorks = [
-  ["01", "Envie", "Solte um PDF com texto selecionável. Sem cadastro para começar."],
-  ["02", "Leia", "Receba parágrafo-síntese, tópicos, datas, valores e entidades — em português."],
-  ["03", "Pergunte", "No Premium, aprofunde com respostas citadas por página exata."],
+  ["01", "Solte o PDF", "Arraste o arquivo. Sem cadastro pra começar — você vê o resumo antes de criar conta."],
+  ["02", "Leia em segundos", "Resumo direto, com tópicos, datas, valores e nomes que importam — tudo em português."],
+  ["03", "Pergunte ao PDF", "No Premium, converse com o documento. Cada resposta vem com a página de onde a IA tirou."],
 ] as const;
 
 const useCases = [
   {
     href: "/analisar-contrato-clt",
     eyebrow: "RH · Jurídico",
-    title: "Contrato de trabalho CLT",
-    body: "Salário, jornada, benefícios, aviso prévio e cláusulas atípicas.",
+    title: "Contrato CLT",
+    body: "Salário, jornada, benefícios, aviso prévio e cláusulas que costumam pegar.",
     code: "CLT",
   },
   {
     href: "/ler-edital-com-ia",
     eyebrow: "Licitações",
     title: "Edital de licitação",
-    body: "Objeto, prazos, garantias, exigências de habilitação e penalidades.",
+    body: "Objeto, prazos, habilitação, garantias e penalidades — antes de montar proposta.",
     code: "EDT",
   },
   {
     href: "/analisar-apolice-de-seguro",
     eyebrow: "Seguros",
     title: "Apólice de seguro",
-    body: "Coberturas, exclusões, franquias e prazos.",
+    body: "O que cobre, o que exclui, franquia, carência e prazo de aviso.",
     code: "APL",
   },
   {
     href: "/entender-laudo-medico",
     eyebrow: "Saúde",
     title: "Laudo médico",
-    body: "Tradução de termos técnicos para linguagem do paciente.",
+    body: "Termo técnico em linguagem que dá pra entender — sem virar dr. Google.",
     code: "LDM",
   },
   {
     href: "/resumir-relatorio-pdf",
     eyebrow: "Negócios",
     title: "Relatório executivo",
-    body: "Pontos-chave, números relevantes e conclusões.",
+    body: "Pontos-chave, números que importam e conclusão — sem ler 80 páginas.",
     code: "REL",
   },
   {
     href: "/resumir-boleto-ou-fatura",
     eyebrow: "Finanças",
     title: "Boleto ou fatura",
-    body: "Vencimento, valor, juros, multa e linha digitável.",
+    body: "Vencimento, valor, juros, multa e linha digitável em segundos.",
     code: "BLT",
   },
 ] as const;
 
 const compareRows = [
-  ["Citação de página", "Padrão", "Só sob pedido"],
-  ["Modos para contratos / editais", "Sim", "Prompt manual"],
+  ["Cita a página de origem", "Em toda resposta", "Só se você pedir"],
+  ["Pronto pra contrato CLT, edital, apólice", "Sim, com modo dedicado", "Você precisa montar o prompt"],
   ["Resumo grátis sem cadastro", "Sim", "Não"],
-  ["Pagamento", "R$29/mês BRL", "USD (ChatGPT Plus)"],
-  ["Suporte em pt-BR", "Padrão", "Limitado"],
+  ["Pagamento em real", "R$29/mês", "USD no ChatGPT Plus"],
+  ["Atendimento em português", "É a língua-mãe da ferramenta", "Tradução do inglês"],
 ] as const;
 
 const faqs = [
   {
     q: "É realmente grátis?",
-    a: "Sim. PDFs até 10 páginas são gratuitos e não exigem cadastro. Premium (R$29/mês) libera chat com citação, PDFs até 100 páginas e modos por tipo de documento.",
+    a: "É. PDFs de até 10 páginas você resume sem pagar e sem criar conta — pra ver se a saída serve antes de assinar. Premium (R$29/mês) entra quando você quer chat com o documento, citação por página e PDFs maiores (até 100 páginas).",
   },
   {
-    q: "Em que difere do ChatGPT?",
-    a: "PDFIA cita a página de origem em cada resposta, avisa quando a informação não está no documento e tem modos prontos para contratos CLT, editais e apólices brasileiras.",
+    q: "Qual a diferença pro ChatGPT?",
+    a: "Três coisas. Toda resposta no PDFIA aponta a página de onde veio — ChatGPT só faz isso se você pedir, e mesmo assim alucina. Quando a informação não está no PDF, a gente avisa em vez de inventar. E temos modos prontos pra contrato CLT, edital de licitação e apólice brasileira — você não precisa montar prompt.",
   },
   {
-    q: "Meu PDF fica salvo?",
-    a: "No grátis o arquivo não é armazenado. No Premium o documento fica vinculado à sua conta.",
+    q: "Meu PDF fica salvo onde?",
+    a: "No grátis, o arquivo não é guardado — vira resumo e some. No Premium, o documento fica na sua biblioteca pra você voltar e perguntar mais depois. Cancelando o Premium, você tem 30 dias pra baixar tudo antes de excluirmos.",
   },
   {
-    q: "Funciona com PDFs digitalizados?",
-    a: "Hoje o motor exige texto selecionável. PDFs em imagem precisam de OCR antes — está no roadmap.",
+    q: "Funciona com PDF digitalizado (escaneado)?",
+    a: "Hoje só com texto selecionável. Se o PDF é uma foto/imagem, ele precisa passar por OCR antes — estamos colocando OCR automático no Premium em breve.",
   },
   {
-    q: "Posso cancelar quando quiser?",
-    a: "Sim. Premium é mensal ou anual via Stripe; cancele direto na sua conta.",
+    q: "Dá pra cancelar a qualquer hora?",
+    a: "Dá. Premium é mensal ou anual via Stripe, sem fidelidade — cancela direto na conta e o acesso continua até o fim do período pago.",
   },
 ] as const;
 
@@ -123,30 +123,31 @@ export default function HomePage() {
           <div className="mx-auto max-w-[960px] text-center">
             <Chip variant="live">Resumo grátis · Sem cadastro</Chip>
             <h1 className="mt-8 font-display text-display font-semibold text-midnight-ink text-[clamp(48px,8vw,88px)]">
-              Cada resposta com a página de{" "}
-              <span className="bg-apollo-gold px-[0.05em]">origem</span>.
+              Resuma e converse com qualquer{" "}
+              <span className="bg-apollo-gold px-[0.05em]">PDF</span> em português.
             </h1>
             <p className="mx-auto mt-6 max-w-[620px] text-body-lg text-charcoal-text">
-              Diferente de chats genéricos, o PDFIA cita a página exata e avisa
-              quando a resposta não está no documento.
+              Solte o PDF, leia o resumo em segundos e pergunte o que quiser ao
+              documento — com a página exata em cada resposta. Feito pra contrato,
+              edital, laudo e relatório que aparecem na sua semana.
             </p>
           </div>
 
           <div className="mt-16 grid overflow-hidden rounded-lg border border-midnight-ink bg-crisp-white md:grid-cols-[1.4fr_1fr]">
             <div className="border-b border-subtle-gray p-card-elevated md:border-b-0 md:border-r">
               <div className="flex flex-wrap items-center justify-between gap-3">
-                <Eyebrow>Comece em segundos</Eyebrow>
-                <MonoLabel>Grátis · 10 págs</MonoLabel>
+                <Eyebrow>Comece em 30 segundos</Eyebrow>
+                <MonoLabel>Grátis · até 10 págs</MonoLabel>
               </div>
               <div className="mt-6">
                 <InlineUpload size="large" />
               </div>
               <div className="mt-6 flex flex-wrap gap-3">
                 <ButtonLink href="/resumir-pdf" variant="primary" size="md">
-                  Resumir PDF grátis
+                  Resumir um PDF agora
                 </ButtonLink>
                 <ButtonLink href="/login" variant="secondary" size="md">
-                  Entrar
+                  Já tenho conta
                 </ButtonLink>
               </div>
             </div>
@@ -218,7 +219,7 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="Como funciona"
-            title="Do upload à resposta com fonte em três passos."
+            title="Três passos. Sem prompt, sem instalar nada."
             maxWidth="narrow"
             cta={
               <ButtonLink
@@ -226,7 +227,7 @@ export default function HomePage() {
                 variant="secondary"
                 size="sm"
               >
-                Ver guia completo →
+                Ver guia passo a passo →
               </ButtonLink>
             }
             className="mb-10"
@@ -255,8 +256,8 @@ export default function HomePage() {
       <Section id="casos-de-uso" bg="ash" size="md" className="scroll-mt-24">
         <Container>
           <SectionHeading
-            eyebrow="Casos de uso"
-            title="Feito para os PDFs que aparecem no seu trabalho."
+            eyebrow="Pra que tipo de PDF"
+            title="Feito pros documentos chatos que aparecem na sua semana."
             maxWidth="default"
             cta={
               <ButtonLink href="/precos" variant="secondary" size="sm">
@@ -298,13 +299,14 @@ export default function HomePage() {
         <Container>
           <div className="grid gap-12 md:grid-cols-[0.9fr_1.4fr] md:items-start">
             <div>
-              <Eyebrow>PDFIA vs alternativas</Eyebrow>
+              <Eyebrow>PDFIA vs ChatGPT</Eyebrow>
               <h2 className="mt-3.5 font-display text-heading-lg font-semibold text-midnight-ink text-[clamp(32px,4vw,48px)]">
-                Por que não usar só o ChatGPT?
+                Por que não resolver no ChatGPT?
               </h2>
               <p className="mt-6 text-body text-charcoal-text">
-                Ferramentas dedicadas para PDF entregam coisas que um chat
-                genérico não entrega.
+                Você pode — mas vai gastar o dobro do tempo montando prompt,
+                conferindo se a resposta está mesmo no PDF e converrtendo dólar
+                pra real. Ferramenta dedicada custa menos e erra menos.
               </p>
               <div className="mt-6 flex flex-wrap gap-2">
                 {[
@@ -365,7 +367,7 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="Preço"
-            title="Simples. Em real. Sem pegadinha."
+            title="Simples, em real, sem fidelidade."
             align="center"
             maxWidth="narrow"
             className="mx-auto mb-10"
@@ -385,9 +387,9 @@ export default function HomePage() {
               </div>
               <ul className="mt-6 grid gap-2.5 text-body-sm text-charcoal-text">
                 <li>· Resumo de PDFs até 10 páginas</li>
-                <li>· Tópicos, datas, valores, entidades</li>
-                <li>· Sem histórico salvo</li>
+                <li>· Tópicos, datas, valores e nomes em destaque</li>
                 <li>· Sem chat com o documento</li>
+                <li>· Sem histórico — o arquivo não fica salvo</li>
               </ul>
               <ButtonLink
                 href="/resumir-pdf"
@@ -395,7 +397,7 @@ export default function HomePage() {
                 size="md"
                 className="mt-6 w-full"
               >
-                Resumir um PDF agora
+                Testar de graça
               </ButtonLink>
             </Card>
 
@@ -415,18 +417,18 @@ export default function HomePage() {
               </div>
               <ul className="mt-6 grid gap-2.5 text-body-sm text-charcoal-text">
                 <li>· Tudo do grátis +</li>
-                <li>· Chat com citação de página</li>
-                <li>· PDFs até 100 páginas</li>
-                <li>· Modos: contrato, edital, apólice</li>
-                <li>· Histórico salvo na conta</li>
+                <li>· Chat com o PDF — cada resposta cita a página</li>
+                <li>· PDFs até 100 páginas (contratos longos, editais)</li>
+                <li>· Modos prontos: contrato CLT, edital, apólice, laudo</li>
+                <li>· Biblioteca salva — volte a qualquer documento</li>
               </ul>
               <ButtonLink
-                href="/login"
+                href="/precos"
                 variant="primary"
                 size="md"
                 className="mt-6 w-full"
               >
-                Começar Premium
+                Assinar Premium · R$29/mês
               </ButtonLink>
             </div>
           </div>
@@ -439,7 +441,7 @@ export default function HomePage() {
           <div className="grid gap-16 md:grid-cols-[0.9fr_1.1fr]">
             <SectionHeading
               eyebrow="Perguntas frequentes"
-              title="Tudo o que perguntam antes de começar."
+              title="O que a galera pergunta antes de assinar."
               maxWidth="none"
             />
             <div className="overflow-hidden rounded-lg border border-subtle-gray bg-crisp-white">
@@ -479,7 +481,7 @@ export default function HomePage() {
           <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
             <SectionHeading
               eyebrow="Comece grátis"
-              title="Envie um PDF agora — o primeiro resumo sai em segundos."
+              title="Solte um PDF aí em cima. O resumo sai antes do café esfriar."
               maxWidth="default"
               tone="white"
               eyebrowTone="accent"
@@ -489,7 +491,7 @@ export default function HomePage() {
                 Resumir PDF grátis
               </ButtonLink>
               <ButtonLink href="/precos" variant="secondary-on-dark" size="lg">
-                Ver Premium
+                Ver o Premium
               </ButtonLink>
             </div>
           </div>

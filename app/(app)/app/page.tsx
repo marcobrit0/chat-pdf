@@ -17,12 +17,12 @@ export default async function AppHomePage({
     return (
       <div className="container-page max-w-[760px] py-section-md">
         <p className="text-body text-charcoal-text">
-          Defina{" "}
+          Pra carregar sua sessão, defina{" "}
           <code className="font-mono text-body-sm">NEXT_PUBLIC_SUPABASE_URL</code> e{" "}
           <code className="font-mono text-body-sm">
             NEXT_PUBLIC_SUPABASE_ANON_KEY
-          </code>{" "}
-          para carregar a sessão.
+          </code>
+          .
         </p>
       </div>
     );

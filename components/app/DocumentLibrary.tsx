@@ -36,7 +36,7 @@ export function DocumentLibrary({ initialDocuments }: Props) {
       return;
     }
     if (file.type !== "application/pdf") {
-      setError("Envie apenas arquivos PDF.");
+      setError("Esse arquivo não é PDF. Envie um .pdf pra continuar.");
       return;
     }
     setError(null);
@@ -55,7 +55,7 @@ export function DocumentLibrary({ initialDocuments }: Props) {
       });
       const json = (await res.json()) as { id?: string; error?: string };
       if (!res.ok) {
-        setError(json.error ?? "Falha no envio");
+        setError(json.error ?? "Não rolou enviar o PDF. Tenta de novo?");
         return;
       }
       if (json.id) {
@@ -65,7 +65,7 @@ export function DocumentLibrary({ initialDocuments }: Props) {
         router.refresh();
       }
     } catch {
-      setError("Erro de rede. Tente novamente.");
+      setError("Sem conexão. Confere a internet e tenta de novo.");
     } finally {
       setPending(false);
     }
@@ -75,7 +75,7 @@ export function DocumentLibrary({ initialDocuments }: Props) {
     e.preventDefault();
     const file = inputRef.current?.files?.[0];
     if (!file) {
-      setError("Selecione um arquivo PDF.");
+      setError("Solte um PDF aí em cima primeiro.");
       return;
     }
     await uploadFile(file);
@@ -85,11 +85,11 @@ export function DocumentLibrary({ initialDocuments }: Props) {
     <div className="space-y-10">
       <section className="rounded-lg border border-subtle-gray bg-crisp-white p-card">
         <h2 className="font-display text-subheading font-semibold text-midnight-ink">
-          Adicionar PDF
+          Adicionar um PDF novo
         </h2>
         <p className="mt-2 text-body-sm text-charcoal-text">
-          O texto é extraído no servidor e indexado em trechos com intervalo de
-          páginas para citações no chat.
+          A gente lê o PDF e indexa por página — assim, quando você perguntar no
+          chat, a resposta vem com a página exata de onde a informação saiu.
         </p>
 
         <form onSubmit={onSubmit} className="mt-5 space-y-4">
@@ -124,11 +124,11 @@ export function DocumentLibrary({ initialDocuments }: Props) {
             <span className="text-body-sm text-charcoal-text">
               ou{" "}
               <span className="underline underline-offset-4">
-                clique para selecionar
+                clica pra escolher do computador
               </span>
             </span>
             <span className="eyebrow text-faded-stone">
-              Premium · até 100 páginas · histórico salvo
+              Premium · até 100 páginas · fica salvo na sua biblioteca
             </span>
             <input
               ref={inputRef}
@@ -143,12 +143,12 @@ export function DocumentLibrary({ initialDocuments }: Props) {
 
           {fileName ? (
             <p className="text-body-sm text-graphite">
-              Arquivo selecionado:{" "}
+              Arquivo escolhido:{" "}
               <span className="font-medium text-midnight-ink">{fileName}</span>
             </p>
           ) : (
             <p className="text-body-sm text-faded-stone">
-              Selecione um PDF para criar um novo workspace.
+              Solte um PDF pra abrir o workspace dele.
             </p>
           )}
 
@@ -163,10 +163,10 @@ export function DocumentLibrary({ initialDocuments }: Props) {
             }
           >
             {pending
-              ? "Enviando…"
+              ? "Subindo…"
               : fileName
-                ? "Enviar e abrir workspace"
-                : "Selecione um PDF primeiro"}
+                ? "Subir e abrir workspace"
+                : "Solte um PDF primeiro"}
           </button>
         </form>
 
@@ -179,12 +179,12 @@ export function DocumentLibrary({ initialDocuments }: Props) {
 
       <section>
         <h2 className="font-display text-subheading font-semibold text-midnight-ink">
-          Seus documentos
+          Sua biblioteca
         </h2>
         {initialDocuments.length === 0 ? (
           <p className="mt-3 text-charcoal-text">
-            Nenhum PDF ainda. Envie um arquivo acima para começar o chat com
-            fontes.
+            Ainda sem PDF aqui. Sobe um arquivo acima pra começar a conversar com
+            o documento.
           </p>
         ) : (
           <ul className="mt-4 divide-y divide-subtle-gray rounded-lg border border-subtle-gray bg-crisp-white">
@@ -198,7 +198,7 @@ export function DocumentLibrary({ initialDocuments }: Props) {
                     href={`/app/documents/${d.id}`}
                     className="font-medium text-midnight-ink underline-offset-2 hover:underline"
                   >
-                    {d.title ?? "Sem título"}
+                    {d.title ?? "PDF sem título"}
                   </Link>
                   <p className="text-body-sm text-faded-stone">
                     {d.page_count != null
@@ -212,7 +212,7 @@ export function DocumentLibrary({ initialDocuments }: Props) {
                   href={`/app/documents/${d.id}`}
                   className="text-body-sm text-charcoal-text underline"
                 >
-                  Abrir workspace →
+                  Abrir →
                 </Link>
               </li>
             ))}

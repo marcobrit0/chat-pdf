@@ -16,7 +16,7 @@ export default async function DocumentWorkspacePage({
   ) {
     return (
       <p className="text-charcoal-text">
-        Defina variáveis Supabase públicas para carregar o workspace.
+        Defina as variáveis públicas do Supabase pra carregar o workspace.
       </p>
     );
   }
@@ -37,7 +37,7 @@ export default async function DocumentWorkspacePage({
       <div className="space-y-4">
         <p className="text-charcoal-text">{gate.reason}</p>
         <Link href="/precos" className="text-midnight-ink underline">
-          Ver planos Premium
+          Ver o Premium
         </Link>
       </div>
     );
@@ -50,14 +50,14 @@ export default async function DocumentWorkspacePage({
     .maybeSingle();
 
   if (error) {
-    return <p className="text-charcoal-text">Erro ao carregar documento.</p>;
+    return <p className="text-charcoal-text">Não rolou carregar esse PDF. Tenta de novo em um minuto.</p>;
   }
   if (!doc) {
     return (
       <div className="space-y-4">
-        <p className="text-charcoal-text">Documento não encontrado.</p>
+        <p className="text-charcoal-text">Esse PDF não existe ou foi removido.</p>
         <Link href="/app" className="underline">
-          ← Voltar à biblioteca
+          ← Voltar pra biblioteca
         </Link>
       </div>
     );
@@ -82,7 +82,7 @@ export default async function DocumentWorkspacePage({
   return (
     <DocumentWorkspace
       documentId={doc.id}
-      title={doc.title ?? "Documento"}
+      title={doc.title ?? "PDF sem título"}
       pageCount={doc.page_count}
       citationRefs={citationRefs}
     />

@@ -36,12 +36,12 @@ export function InlineUpload({
   const handleFile = useCallback(
     (file: File) => {
       if (!PDF_MIME_TYPES.includes(file.type as (typeof PDF_MIME_TYPES)[number])) {
-        setError("Envie um arquivo PDF.");
+        setError("Esse arquivo não é PDF. Envie um .pdf.");
         return;
       }
       if (file.size > ANON_MAX_FILE_BYTES) {
         const mb = Math.round(ANON_MAX_FILE_BYTES / (1024 * 1024));
-        setError(`Arquivo grande demais (limite gratuito: ${mb} MB).`);
+        setError(`Grande demais pro grátis (máx. ${mb} MB). Vai de Premium pra arquivos maiores.`);
         return;
       }
       // Hand the actual File to the summary client across the route change so
@@ -92,7 +92,7 @@ export function InlineUpload({
         </span>
         <span className="text-body-sm text-charcoal-text">
           ou{" "}
-          <span className="underline underline-offset-4">clique para selecionar</span>
+          <span className="underline underline-offset-4">clica pra escolher do computador</span>
         </span>
         <span className="mono-label text-faded-stone">
           Grátis · Sem cadastro · Até {ANON_MAX_PAGES} páginas

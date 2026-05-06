@@ -2,36 +2,36 @@ import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "ChatGPT para PDF — alternativa dedicada em português",
+  title: "ChatGPT pra PDF: por que ter uma ferramenta dedicada vale mais | PDFIA",
   description:
-    "ChatGPT lê PDFs mas é genérico. Veja por que uma ferramenta dedicada como o PDFIA entrega respostas com fonte, modos para contratos e preços em BRL.",
+    "ChatGPT lê PDF, sim — mas é generalista. Veja por que uma ferramenta dedicada como o PDFIA cita a página, tem modo pronto pra contrato e custa em real, sem ter que pagar dólar.",
   path: "/chatgpt-pdf",
 });
 
 const faqs = [
   {
-    q: "ChatGPT Plus lê PDFs grandes?",
-    a: "Sim, mas com limite de contexto. Em documentos muito longos, partes podem ser truncadas ou perder coerência. Ferramentas dedicadas fazem chunking do documento e selecionam o contexto relevante por pergunta.",
+    q: "O ChatGPT Plus aguenta PDF grande?",
+    a: "Aguenta, mas tem limite de contexto. Em documento longo, partes podem ser truncadas ou perder coerência. Ferramenta dedicada faz chunking do PDF e seleciona o contexto certo pra cada pergunta — você não precisa pensar nisso.",
   },
   {
-    q: "Preciso de conta no ChatGPT para usar o PDFIA?",
-    a: "Não. O resumo gratuito do PDFIA funciona sem cadastro — só faça upload do PDF.",
+    q: "Preciso ter conta no ChatGPT pra usar o PDFIA?",
+    a: "Não. O resumo grátis do PDFIA funciona sem cadastro nenhum — só sobe o PDF e pronto.",
   },
   {
-    q: "A IA pode inventar coisas que não estão no PDF?",
-    a: "Pode, se não for instruída a citar fonte. O PDFIA instrui o modelo a só responder com base no documento e a avisar quando a informação não estiver lá.",
+    q: "A IA pode inventar coisa que não está no PDF?",
+    a: "Pode, quando não é instruída a citar fonte. O PDFIA é configurado pra só responder com base no que está no PDF e avisar quando a informação não está lá. Sem alucinação.",
   },
 ];
 
 export default function ChatgptPdfPage() {
   return (
     <SeoPageTemplate
-      title="ChatGPT para PDF: como funciona e quando usar outra ferramenta"
-      intro="ChatGPT consegue ler PDFs — mas exige engenharia de prompt, não cita páginas por padrão e perde contexto em documentos longos. Ferramentas dedicadas resolvem isso com upload direto, respostas ancoradas no texto e modos prontos para contratos, editais e laudos."
+      title="ChatGPT pra PDF: dá pra fazer, mas tem alternativa melhor"
+      intro="ChatGPT lê PDF, sim — mas exige montar prompt, não cita página por padrão e perde contexto em documento longo. Ferramenta dedicada resolve com upload direto, resposta ancorada no texto e modos prontos pra contrato, edital, apólice e laudo."
       breadcrumbs={[
         { label: "Início", path: "/" },
         { label: "Comparações", path: "/precos" },
-        { label: "ChatGPT para PDF", path: "/chatgpt-pdf" },
+        { label: "ChatGPT pra PDF", path: "/chatgpt-pdf" },
       ]}
       faqs={faqs}
       related={[
@@ -46,14 +46,14 @@ export default function ChatgptPdfPage() {
             ChatGPT
           </p>
           <h2 className="mt-3 font-display text-subheading font-semibold text-midnight-ink">
-            O que faz e o que complica
+            O que faz bem e o que complica
           </h2>
           <ul className="mt-4 space-y-2 text-body-sm text-charcoal-text">
-            <li>Lê PDFs via upload, mas o limite de contexto varia por plano</li>
-            <li>Não cita a página de origem por padrão</li>
-            <li>Pode inventar informações que não estão no documento</li>
-            <li>Sem modos prontos para CLT, editais ou apólices</li>
-            <li>Não salva histórico associado ao documento</li>
+            <li>Lê PDF via upload, mas o limite de contexto muda por plano</li>
+            <li>Não cita a página de origem por padrão (você precisa pedir)</li>
+            <li>Pode inventar coisa que não está no PDF</li>
+            <li>Sem modo pronto pra CLT, edital ou apólice — você monta o prompt</li>
+            <li>Não salva histórico vinculado ao documento</li>
           </ul>
         </div>
         <div className="rounded-lg border border-midnight-ink bg-crisp-white p-6">
@@ -61,14 +61,14 @@ export default function ChatgptPdfPage() {
             PDFIA
           </p>
           <h2 className="mt-3 font-display text-subheading font-semibold text-midnight-ink">
-            O que uma ferramenta dedicada adiciona
+            O que uma ferramenta dedicada acrescenta
           </h2>
           <ul className="mt-4 space-y-2 text-body-sm text-charcoal-text">
-            <li>Upload direto — sem copiar texto ou descrever o documento</li>
-            <li>Respostas com referência de página para você conferir</li>
-            <li>Aviso claro quando a informação não está no PDF</li>
-            <li>Modos prontos: resumo, extração de dados, revisão de riscos</li>
-            <li>Histórico do documento salvo (Premium)</li>
+            <li>Upload direto — sem copiar texto, sem descrever o documento</li>
+            <li>Resposta sempre vem com a página de origem pra você conferir</li>
+            <li>Aviso claro quando a info não está no PDF (zero invenção)</li>
+            <li>Modos prontos: resumo, extrair dados, mapear riscos</li>
+            <li>Biblioteca salva — volte ao PDF quando quiser (Premium)</li>
           </ul>
         </div>
       </section>

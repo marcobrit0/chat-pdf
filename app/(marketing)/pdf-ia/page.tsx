@@ -2,9 +2,9 @@ import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "PDF e IA — o que muda quando uma ferramenta de PDF tem inteligência artificial",
+  title: "PDF e IA: o que muda na prática | PDFIA",
   description:
-    "PDF + IA explicado em PT-BR: o que é diferente em relação ao Acrobat clássico, como funciona o LLM por trás, o que é OCR e quando vale a pena usar.",
+    "PDF + IA explicado em português, sem mágica: o que é diferente do Acrobat tradicional, como o LLM funciona por dentro, o que é OCR e quando vale mesmo a pena usar.",
   path: "/pdf-ia",
 });
 
@@ -72,8 +72,8 @@ const faqs = [
 export default function PdfIaPage() {
   return (
     <SeoPageTemplate
-      title="PDF + IA"
-      intro="Em vez de prometer mágica, esta página explica o que muda quando uma ferramenta de PDF tem IA — as camadas técnicas, as comparações honestas e as limitações reais."
+      title="PDF + IA: o que isso quer dizer na prática"
+      intro="Em vez de prometer mágica, vamos explicar o que muda de verdade quando um leitor de PDF tem IA por dentro — as camadas técnicas (sem virar aula), comparações honestas com o ChatGPT e Acrobat, e as limitações reais que ninguém comenta."
       breadcrumbs={breadcrumbs}
       faqs={faqs}
       related={[
@@ -86,12 +86,12 @@ export default function PdfIaPage() {
     >
       <section className="space-y-4">
         <h2 className="font-display text-heading font-semibold text-midnight-ink">
-          As quatro camadas por trás de qualquer leitor de PDF com IA
+          As quatro camadas por trás de qualquer PDF com IA
         </h2>
         <p>
-          Quando você envia um PDF para uma ferramenta de IA, o documento passa
-          por quatro etapas. Entender as etapas ajuda a saber o que esperar — e
-          quando uma resposta provavelmente está errada.
+          Quando você sobe um PDF numa ferramenta de IA, o arquivo passa por
+          quatro etapas. Entender essas etapas ajuda a saber o que esperar — e
+          a desconfiar quando uma resposta provavelmente está errada.
         </p>
         <ul className="mt-4 space-y-3">
           {layers.map((l, i) => (
@@ -115,7 +115,7 @@ export default function PdfIaPage() {
 
       <section className="space-y-4">
         <h2 className="font-display text-heading font-semibold text-midnight-ink">
-          Comparação honesta — o que cada ferramenta resolve
+          O que cada ferramenta resolve, sem rodeio
         </h2>
         <div className="overflow-x-auto rounded-lg border border-subtle-gray">
           <table className="w-full min-w-[640px] text-left text-body-sm">
@@ -153,19 +153,19 @@ export default function PdfIaPage() {
 
       <section className="space-y-4">
         <h2 className="font-display text-heading font-semibold text-midnight-ink">
-          Quando IA + PDF realmente economiza tempo
+          Quando IA + PDF economiza tempo de verdade
         </h2>
         <p>
-          Contratos &gt; 5 páginas que você precisa triar antes de uma reunião.
-          Editais de licitação onde os prazos e exigências estão espalhados em
-          dezenas de páginas. Apólices de seguro onde a exclusão importante
-          mora num parágrafo lateral. Laudos médicos cheios de termos clínicos
-          que o paciente precisa entender antes da consulta.
+          Contrato com mais de 5 páginas que você precisa triar antes da
+          reunião. Edital de licitação onde prazo e exigência se escondem em
+          dezenas de páginas. Apólice de seguro onde a exclusão importante mora
+          num parágrafo lateral. Laudo médico cheio de termo técnico que o
+          paciente precisa entender antes da consulta.
         </p>
         <p>
-          Em todos esses casos, o ganho é a triagem — você decide rapidamente
-          se vale a leitura completa, e em qual seção focar. A IA não te
-          dispensa de ler o que importa; ela só corta o caminho até lá.
+          Em todos esses casos, o ganho é a triagem — você decide rápido se
+          vale a leitura completa e em qual seção focar. A IA não te dispensa
+          de ler o que importa; ela só corta o caminho até lá.
         </p>
       </section>
     </SeoPageTemplate>

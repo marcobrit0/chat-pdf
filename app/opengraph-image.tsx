@@ -6,15 +6,15 @@ import {
 
 export const runtime = "edge";
 export const alt =
-  "PDFIA — resumir e conversar com PDFs em português";
+  "PDFIA — Chat com PDF em português, com a página citada";
 export const size = ogImageSize;
 export const contentType = ogImageContentType;
 
 export default function Image() {
   return renderOgImage({
-    eyebrow: "App de IA para PDFs em PT-BR",
-    title: "Resumir e conversar com PDFs em português",
+    eyebrow: "Chat com PDF em português",
+    title: "Resuma e converse com qualquer PDF.",
     subtitle:
-      "Resumo grátis sem cadastro · Premium R$29/mês com chat e citações",
+      "Resumo grátis · Premium R$29/mês com chat e a página citada em cada resposta",
   });
 }

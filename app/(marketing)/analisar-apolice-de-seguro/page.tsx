@@ -4,9 +4,9 @@ import { buildPageMetadata } from "@/lib/seo";
 import { personaVariantsByCanonical } from "@/lib/seo/programmatic-seo-data";
 
 export const metadata = buildPageMetadata({
-  title: "Analisar apólice de seguro com IA",
+  title: "Analisar apólice de seguro com IA — entenda o que cobre e o que exclui | PDFIA",
   description:
-    "Leia apólices em PDF com IA: coberturas, exclusões, franquias, carências e prazos em linguagem direta. Não é recomendação financeira nem parecer jurídico.",
+    "Apólice de seguro em português direto: coberturas, exclusões, franquia, carência e prazos em segundos. Auto, vida, residencial, viagem, saúde — qualquer apólice em PDF.",
   path: "/analisar-apolice-de-seguro",
 });
 
@@ -33,7 +33,7 @@ export default function AnalisarApolicePage() {
   return (
     <SeoPageTemplate
       title="Analisar apólice de seguro com IA"
-      intro="Identifique coberturas, exclusões, franquias, carências e prazos num primeiro panorama. A IA ajuda na leitura; decisões de contratação ou sinistro exigem profissional habilitado."
+      intro="A apólice tem 60 páginas e a parte que importa mora num parágrafo lateral. Em segundos: o que está coberto, o que está excluído, qual a franquia, qual a carência, qual o prazo de aviso de sinistro. Pra você decidir contratar, renovar ou acionar — sem ler tudo."
       showUpload
       breadcrumbs={[
         { label: "Início", path: "/" },

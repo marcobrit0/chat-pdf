@@ -11,29 +11,29 @@ export function PremiumRoadmapCards({ isPremium }: Props) {
   return (
     <section className="space-y-4" aria-labelledby="roadmap-heading">
       <h2 id="roadmap-heading" className="font-display text-subheading font-semibold text-midnight-ink">
-        Roteiro Premium
+        Em breve no Premium
       </h2>
       <p className="text-body-sm text-charcoal-text">
-        Novidades em desenvolvimento — sem backend simulado; as páginas abaixo explicam o status.
+        Novidades a caminho — vamos avisar no app assim que liberarmos. Sem teaser de feature que não existe.
       </p>
 
       <div className="grid gap-4 md:grid-cols-2">
         <RoadmapCard
-          title="Comparar PDFs"
-          description="Alinhar dois documentos e destacar diferenças (legível por humanos)."
+          title="Comparar dois PDFs"
+          description="Coloque a v1 e a v2 lado a lado e veja o que mudou — útil pra contrato renegociado e edital corrigido."
           href="/app/compare"
-          footnote={isPremium ? "Placeholder até o motor de diff." : "Exige assinatura para uso futuro."}
+          footnote={isPremium ? "Em construção — vamos avisar quando soltar." : "Vai entrar no Premium quando liberarmos."}
         />
         <RoadmapCard
           title="Pasta de PDFs"
-          description="Agrupar arquivos num projeto com busca e contexto compartilhado."
+          description="Agrupe vários arquivos num projeto único e pergunte como se fossem um só (todos os contratos do RH, por exemplo)."
           href="/app/pasta"
-          footnote={isPremium ? "Placeholder — sem armazenamento extra ainda." : "Será prioridade no Premium."}
+          footnote={isPremium ? "Em construção — vamos avisar quando soltar." : "Próxima prioridade no Premium."}
         />
       </div>
 
       {!isPremium ? (
-        <PaywallCta variant="default" reason="Comparação e pastas fazem parte do plano pago quando estiverem prontas. Desbloqueie para usar o workspace completo hoje." />
+        <PaywallCta variant="default" reason="Comparar PDFs e pastas vão entrar no Premium quando estiverem prontas. Já dá pra usar o resto do workspace agora — chat com a página citada, modos de análise e biblioteca." />
       ) : null}
     </section>
   );
@@ -59,7 +59,7 @@ function RoadmapCard({
         href={href}
         className="mt-4 inline-flex rounded-lg border border-midnight-ink px-4 py-2 text-body-sm font-medium text-midnight-ink hover:bg-canvas"
       >
-        Abrir página de status
+        Ver status
       </Link>
     </div>
   );

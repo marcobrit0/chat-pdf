@@ -4,9 +4,9 @@ import { buildPageMetadata } from "@/lib/seo";
 import { personaVariantsByCanonical } from "@/lib/seo/programmatic-seo-data";
 
 export const metadata = buildPageMetadata({
-  title: "Analisar contrato de prestação de serviços com IA",
+  title: "Analisar contrato de prestação de serviços com IA | PDFIA",
   description:
-    "Entenda escopo, preço, prazo, condições de rescisão e propriedade intelectual antes de assinar. Útil para autônomos, MEIs e empresas para uma leitura rápida.",
+    "Antes de assinar contrato PJ ou de freelancer: escopo, preço, prazo, multa, propriedade intelectual e cláusula de não-concorrência em segundos. Útil pra autônomo, MEI, agência e empresa pequena.",
   path: "/analisar-contrato-de-prestacao-de-servicos",
 });
 
@@ -28,8 +28,8 @@ const faqs = [
 export default function AnalisarContratoPrestacaoPage() {
   return (
     <SeoPageTemplate
-      title="Analisar contrato de prestação de serviços"
-      intro="Identifique escopo, valor, forma de pagamento, prazo, condições de rescisão e cláusulas de propriedade intelectual antes de assinar. O resumo gratuito cobre contratos curtos; o chat com citações fica no Premium."
+      title="Analisar contrato de prestação de serviços com IA"
+      intro="Recebeu o contrato 'padrão da empresa' e tem que assinar até amanhã? Solta aqui pra ver escopo, valor, forma de pagamento, prazo, multa de saída, cláusula de exclusividade e quem fica com a propriedade intelectual. Sem advogado pra cada projeto novo."
       showUpload
       contractIntent
       breadcrumbs={[

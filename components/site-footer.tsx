@@ -60,10 +60,10 @@ export function SiteFooter() {
             <FooterColumn title="Conta" items={[...legalLinks]} />
             <div className="rounded-lg bg-canvas p-card text-body-sm text-charcoal-text">
               <p className="font-display text-body-lg font-semibold text-midnight-ink">
-                Pronto para começar?
+                Solta o PDF, a gente faz o resto.
               </p>
               <p className="mt-2">
-                Resumo grátis, sem cadastro, em português.
+                Grátis, em português, sem cadastro pra começar.
               </p>
               <Link
                 href="/resumir-pdf"
@@ -77,9 +77,9 @@ export function SiteFooter() {
 
         <div className="mt-12 flex flex-col gap-2 border-t border-subtle-gray pt-6 text-caption text-faded-stone sm:flex-row sm:items-center sm:justify-between">
           <p className="font-condensed">
-            © {new Date().getFullYear()} PDFIA · Resumos e chat com PDFs em português
+            © {new Date().getFullYear()} PDFIA · Chat com PDF em português, feito no Brasil
           </p>
-          <p className="font-condensed">Pagamentos seguros via Stripe · LGPD</p>
+          <p className="font-condensed">Pagamento via Stripe · LGPD · Cancele quando quiser</p>
         </div>
       </div>
     </footer>

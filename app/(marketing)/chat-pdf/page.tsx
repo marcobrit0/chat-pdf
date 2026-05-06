@@ -7,32 +7,32 @@ import { JsonLd, faqSchema } from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Chat PDF — converse com seus documentos em português",
+  title: "Chat PDF em português — pergunte ao documento e receba a página citada | PDFIA",
   description:
-    "Faça perguntas ao seu PDF e receba respostas com citação de página. Resumo gratuito sem cadastro; Premium para chat com o documento e PDFs longos.",
+    "Chat com PDF em português: pergunta o que quiser e a IA responde citando a página exata do documento. Resumo grátis sem cadastro. Premium pra chat completo, PDFs longos e biblioteca salva.",
   path: "/chat-pdf",
 });
 
 const faqs = [
   {
     q: "O chat com PDF é grátis?",
-    a: "O resumo é grátis e não exige cadastro. O chat com o documento — perguntas e respostas com citação de página — é Premium (R$29/mês ou R$290/ano).",
+    a: "O resumo é grátis e não pede cadastro. Já o chat — perguntar ao documento e receber a página de origem — é Premium (R$29/mês ou R$290/ano). É o que paga a infraestrutura por trás.",
   },
   {
-    q: "Toda resposta vem com fonte?",
-    a: "Sim. Cada resposta no Premium cita a página de origem dentro do PDF. Quando a informação não está no documento, o PDFIA avisa em vez de inventar.",
+    q: "Toda resposta vem com a página de fonte?",
+    a: "Vem. Cada resposta no Premium aponta a página de onde a informação saiu. E quando a info não está no PDF, a gente avisa em vez de inventar — alucinação aqui não tem espaço.",
   },
   {
-    q: "Funciona em quais tipos de PDF?",
-    a: "Contratos (CLT, prestação de serviços), editais de licitação, apólices de seguro, laudos médicos, relatórios, manuais e qualquer PDF com texto selecionável em português.",
+    q: "Funciona em qual tipo de PDF?",
+    a: "Contrato CLT, contrato de prestação de serviços, edital de licitação, apólice de seguro, laudo médico, relatório, manual técnico — qualquer PDF com texto selecionável em português.",
   },
   {
-    q: "Posso voltar e perguntar mais depois?",
-    a: "Sim no Premium: o documento fica vinculado à sua conta com histórico das conversas. No plano gratuito, o resumo é gerado uma vez e o arquivo descartado.",
+    q: "Dá pra voltar e perguntar mais depois?",
+    a: "No Premium, sim — o PDF fica salvo na sua conta com todo o histórico de conversa. No grátis, o resumo é gerado uma vez e o arquivo é descartado na sequência.",
   },
   {
     q: "Quantas páginas o chat aguenta?",
-    a: "PDFs até 100 páginas no Premium. Para documentos maiores, divida em partes ou fale conosco.",
+    a: "Até 100 páginas no Premium — cobre contrato longo, edital de licitação, apólice grande. Pra documentos maiores que isso, divida em partes ou fala com a gente.",
   },
 ];
 
@@ -74,28 +74,29 @@ export default function ChatPdfPage() {
         <header className="mt-6 grid gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] md:items-end">
           <div>
             <p className="eyebrow text-faded-stone">
-              Chat com PDF
+              Chat com PDF · em português
             </p>
             <h1 className="mt-3 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-[1.05]  text-midnight-ink">
-              Pergunte ao seu PDF e receba respostas com a página citada.
+              Converse com qualquer PDF — em português, com a página citada.
             </h1>
             <p className="mt-5 max-w-2xl text-body  text-charcoal-text sm:text-body-lg">
-              Comece pelo resumo gratuito. Quando precisar fazer perguntas
-              específicas — cláusulas de contrato, prazos do edital, exclusões
-              da apólice — entre no Premium para chat com citação de página.
+              Faça pergunta normal, em português, sobre o seu PDF. A IA responde
+              direto e mostra de qual página da fonte ela tirou — pra você
+              conferir antes de tomar qualquer decisão. Funciona pra contrato,
+              edital, apólice, laudo, relatório.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Link
                 href="/precos"
                 className="inline-flex items-center justify-center rounded-lg bg-apollo-gold px-5 py-3 text-body font-medium text-midnight-ink"
               >
-                Liberar chat (Premium)
+                Conversar com o PDF · Premium R$29
               </Link>
               <Link
                 href="#resumir"
                 className="inline-flex items-center justify-center rounded-lg border border-midnight-ink px-5 py-3 text-body font-medium text-midnight-ink"
               >
-                Testar resumo grátis
+                Testar o resumo grátis
               </Link>
             </div>
           </div>
@@ -109,28 +110,28 @@ export default function ChatPdfPage() {
         >
           <div>
             <p className="eyebrow text-faded-stone">
-              Comece pelo resumo
+              Comece pelo resumo grátis
             </p>
             <h2 className="mt-4 font-display text-heading-lg font-semibold leading-tight text-midnight-ink">
               Sem cadastro. Sem promessa de chat ilimitado.
             </h2>
             <p className="mt-4 text-body  text-charcoal-text">
-              O resumo gratuito te mostra do que o documento trata em segundos.
-              Se precisar de chat com fontes ou de PDFs maiores, o Premium é o
-              próximo passo natural.
+              O resumo grátis já te mostra do que o PDF trata em segundos.
+              Quando precisar perguntar mais, o Premium é o próximo passo
+              natural — e você só assina depois de ver que serve.
             </p>
             <ul className="mt-6 space-y-3 text-body-sm text-charcoal-text">
               <li className="flex items-start gap-3">
                 <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
-                Resumo estruturado com tópicos, datas e entidades.
+                Resumo direto, com tópicos, datas e nomes em destaque.
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
-                Perguntas de follow-up sugeridas para você aprofundar.
+                Perguntas sugeridas pra você ir mais fundo no documento.
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
-                Aviso claro quando a resposta não está no PDF.
+                A gente nunca inventa: avisa claro quando não está no PDF.
               </li>
             </ul>
           </div>
@@ -145,7 +146,7 @@ export default function ChatPdfPage() {
               Perguntas frequentes
             </p>
             <h2 className="mt-4 font-display text-heading-lg font-semibold leading-tight text-midnight-ink">
-              Sobre chat com PDF
+              O que perguntam antes de assinar
             </h2>
           </div>
           <dl className="divide-y divide-subtle-gray border-y border-subtle-gray">

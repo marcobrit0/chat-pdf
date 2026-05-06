@@ -2,28 +2,28 @@ import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Analisar contrato com IA — leitura rápida e modo riscos",
+  title: "Analisar contrato com IA em português — sem advogado a cada cláusula | PDFIA",
   description:
-    "Use IA para ler contratos mais rápido: partes, objeto, prazos, valores e pontos de atenção. Resumo gratuito; chat com citação de página no Premium. Não é aconselhamento jurídico.",
+    "Analise contrato em PDF com IA: partes, objeto, prazo, valores e cláusulas que costumam pegar — em segundos. Resumo grátis pra triagem; chat com a página citada e modo de riscos no Premium. Não substitui advogado.",
   path: "/analisar-contrato-com-ia",
 });
 
 const faqs = [
   {
-    q: "Para que tipo de contrato funciona?",
-    a: "Qualquer contrato em PDF com texto selecionável: prestação de serviços, compra e venda, parceria, NDA, distribuição, locação. Para CLT use a página específica.",
+    q: "Pra que tipo de contrato funciona?",
+    a: "Qualquer contrato em PDF com texto selecionável — prestação de serviços, compra e venda, parceria, NDA, distribuição, locação, SaaS. Pra CLT, use a página dedicada (o modo é diferente).",
   },
   {
-    q: "A IA aponta cláusulas problemáticas?",
-    a: "No modo Riscos do Premium, ela sinaliza pontos de atenção comuns (multas elevadas, prazos curtos, cláusulas atípicas) para revisão humana. Não é parecer jurídico.",
+    q: "A IA aponta cláusula problemática?",
+    a: "No modo Mapear riscos do Premium, ela sinaliza pontos comuns que costumam virar passivo (multa alta, prazo curto, cláusula atípica, foro distante) pra você revisar. Não é parecer jurídico — é triagem.",
   },
   {
-    q: "Quantas páginas de contrato posso enviar?",
-    a: "Até 10 páginas no gratuito, 100 no Premium. Para contratos maiores, divida em partes ou fale conosco.",
+    q: "Qual o limite de páginas?",
+    a: "10 no grátis, 100 no Premium. Pra contrato maior que isso, divide em partes ou fala com a gente.",
   },
   {
-    q: "Vocês armazenam meu contrato?",
-    a: "No gratuito, não. No Premium, fica vinculado à sua conta com criptografia em repouso e excluído conforme sua política — você controla.",
+    q: "O contrato fica salvo?",
+    a: "No grátis, não — o arquivo é descartado depois do resumo. No Premium, fica na sua conta criptografado, e você decide quando excluir. Cancelando, dá pra baixar por 30 dias antes da exclusão.",
   },
 ];
 
@@ -31,7 +31,7 @@ export default function AnalisarContratoPage() {
   return (
     <SeoPageTemplate
       title="Analisar contrato com IA"
-      intro="Identifique partes, objeto, prazos, valores e pontos de atenção num primeiro passe. O resumo gratuito ajuda na leitura inicial; revisão detalhada, modos Extrair e Riscos e chat com citações ficam no Premium."
+      intro="Antes de assinar, antes de mandar o RH ou o jurídico, antes de gastar reunião: solte o contrato aqui e veja partes, objeto, prazo, valores e cláusulas que costumam pegar. Resumo grátis pra triagem; pra chat com a página citada e modo de mapeamento de riscos, é Premium."
       showUpload
       contractIntent
       breadcrumbs={[
@@ -52,41 +52,39 @@ export default function AnalisarContratoPage() {
     >
       <section className="rounded-lg border border-subtle-gray bg-crisp-white p-6">
         <p className="eyebrow text-faded-stone">
-          Com o Premium você pode
+          O que abre quando você assina o Premium
         </p>
         <ul className="mt-4 grid gap-3 text-body text-charcoal-text">
           <li className="flex items-start gap-3">
             <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
             <span>
               <strong className="font-medium text-midnight-ink">
-                Chat com fontes
+                Chat com a página citada
               </strong>{" "}
-              — pergunte sobre cláusulas e veja trechos com a página citada.
+              — pergunta sobre cláusulas e a IA mostra o trecho exato, com a página de origem.
             </span>
           </li>
           <li className="flex items-start gap-3">
             <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
             <span>
               <strong className="font-medium text-midnight-ink">
-                Modos Extrair e Riscos
+                Modos Extrair dados e Mapear riscos
               </strong>{" "}
-              — dados objetivos e pontos para checagem humana (não é parecer
-              jurídico).
+              — dados estruturados (datas, valores, partes) e pontos pra revisão humana. Não é parecer jurídico.
             </span>
           </li>
           <li className="flex items-start gap-3">
             <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
             <span>
               <strong className="font-medium text-midnight-ink">
-                PDFs longos
-              </strong>{" "}
-              acima do limite gratuito, salvos na sua conta.
+                Contrato longo, até 100 páginas
+              </strong>
+              {" "}— sem cortar pelo meio, salvo na sua conta pra você voltar quando quiser.
             </span>
           </li>
         </ul>
         <p className="mt-5 text-body-sm text-faded-stone">
-          IA pode errar ou omitir cláusulas. Este produto não substitui
-          advogado, contador ou assessor contratual.
+          A IA pode errar ou pular cláusula. Pra contrato com peso financeiro ou jurídico relevante, envolve um advogado.
         </p>
       </section>
     </SeoPageTemplate>

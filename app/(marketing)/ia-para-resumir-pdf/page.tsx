@@ -2,9 +2,9 @@ import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "IA para resumir PDF em português",
+  title: "IA para resumir PDF em português, em 3 passos | PDFIA",
   description:
-    "Resuma PDFs em PT-BR em três passos: envie, leia o resumo estruturado, faça perguntas. Veja o que a IA extrai, exemplo real e quando vale Premium.",
+    "Resuma PDF em português em 3 passos: solta o arquivo, lê o resumo estruturado, pergunta o que quiser. Veja exatamente o que a IA extrai, com exemplo real, e quando vale subir pro Premium.",
   path: "/ia-para-resumir-pdf",
 });
 
@@ -62,8 +62,8 @@ const faqs = [
 export default function IaParaResumirPdfPage() {
   return (
     <SeoPageTemplate
-      title="IA para resumir PDF"
-      intro="Três passos do envio à conclusão. Veja o que a IA realmente extrai, um exemplo real e quando faz sentido subir para o Premium."
+      title="IA pra resumir PDF, em 3 passos"
+      intro="Do upload à conclusão em três passos. Mostramos exatamente o que a IA extrai, um exemplo real de saída, e em que momento faz sentido subir pro Premium."
       showUpload
       breadcrumbs={breadcrumbs}
       faqs={faqs}
@@ -77,13 +77,12 @@ export default function IaParaResumirPdfPage() {
     >
       <section className="space-y-4">
         <h2 className="font-display text-heading font-semibold text-midnight-ink">
-          O que a IA extrai do PDF
+          O que a IA tira do seu PDF
         </h2>
         <p>
-          Não é apenas um resumo de texto livre. A saída é estruturada para que
-          você localize a informação rapidamente — em PDFs longos, o tempo
-          médio para encontrar um valor ou prazo cai de 5–10 minutos para
-          segundos.
+          Não é só um resumo solto em texto. A saída vem estruturada pra você
+          achar a informação rapidinho — em PDF longo, o tempo pra encontrar um
+          valor ou prazo cai de 5-10 minutos pra segundos.
         </p>
         <ul className="mt-4 grid gap-3 sm:grid-cols-2">
           {fields.map((f) => (
@@ -102,7 +101,7 @@ export default function IaParaResumirPdfPage() {
 
       <section className="space-y-4">
         <h2 className="font-display text-heading font-semibold text-midnight-ink">
-          Fluxo passo a passo
+          Os três passos, sem mistério
         </h2>
         <ol className="grid gap-4 md:grid-cols-3">
           {steps.map((s) => (
@@ -126,7 +125,7 @@ export default function IaParaResumirPdfPage() {
 
       <section className="space-y-4">
         <h2 className="font-display text-heading font-semibold text-midnight-ink">
-          Exemplo: contrato de prestação de serviços (PDF de 8 páginas)
+          Exemplo real: contrato de prestação de 8 páginas
         </h2>
         <div className="rounded-lg border border-subtle-gray bg-crisp-white p-5">
           <p className="eyebrow text-faded-stone">

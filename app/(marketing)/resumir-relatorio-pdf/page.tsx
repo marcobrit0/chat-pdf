@@ -4,9 +4,9 @@ import { buildPageMetadata } from "@/lib/seo";
 import { personaVariantsByCanonical } from "@/lib/seo/programmatic-seo-data";
 
 export const metadata = buildPageMetadata({
-  title: "Resumir relatório em PDF com IA",
+  title: "Resumir relatório em PDF com IA — sem ler 80 páginas | PDFIA",
   description:
-    "Extraia conclusões, dados e indicadores de relatórios técnicos, financeiros ou corporativos sem ler o documento inteiro. Gratuito para relatórios curtos; Premium para arquivos longos e chat.",
+    "Relatório técnico, financeiro ou corporativo em resumo direto: conclusões, números que importam, períodos e recomendações. Pra reunião de board, briefing pro time ou decisão executiva — sem ler o documento inteiro.",
   path: "/resumir-relatorio-pdf",
 });
 
@@ -28,8 +28,8 @@ const faqs = [
 export default function ResumirRelatorioPdfPage() {
   return (
     <SeoPageTemplate
-      title="Resumir relatório em PDF"
-      intro="Extraia os pontos centrais de relatórios técnicos, financeiros ou corporativos sem ler o documento inteiro. Ideal para briefings, apresentações e tomada de decisão rápida."
+      title="Resumir relatório em PDF com IA"
+      intro="Relatório técnico, financeiro ou corporativo de 80 páginas: você precisa entender o que importa em 5 minutos pra reunião que começa agora. A IA puxa as conclusões, números e recomendações principais — pronto pra você usar no briefing ou na decisão."
       showUpload
       breadcrumbs={[
         { label: "Início", path: "/" },

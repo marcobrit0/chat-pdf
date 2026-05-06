@@ -4,9 +4,9 @@ import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Comparar dois PDFs com IA — diferenças entre versões",
+  title: "Comparar dois PDFs com IA — o que mudou entre as versões | PDFIA",
   description:
-    "Compare versões de contratos, propostas ou editais e encontre o que mudou em datas, valores, cláusulas e obrigações. Comparação direta em desenvolvimento.",
+    "Compare versões de contrato, proposta ou edital e veja o que mudou em datas, valores, cláusulas e obrigações. Lado a lado direto está em construção — por enquanto, dá pra rodar análise de cada PDF separado.",
   path: "/comparar-pdfs",
 });
 
@@ -33,7 +33,7 @@ export default function CompararPdfsPage() {
   return (
     <SeoPageTemplate
       title="Comparar dois PDFs com IA"
-      intro="Compare versões de contratos, propostas, editais ou qualquer documento para identificar mudanças em datas, valores, cláusulas e obrigações. A comparação direta está em desenvolvimento — por enquanto, analise cada PDF separadamente no workspace."
+      intro="Contrato renegociado, proposta v2, edital com aditivo: o que mudou entre uma versão e outra? A comparação lado a lado tá em construção — vai entrar como bônus do Premium quando soltar. Por enquanto, dá pra rodar análise de cada PDF separado e bater na mão."
       breadcrumbs={[
         { label: "Início", path: "/" },
         { label: "Casos de uso", path: "/" },
@@ -48,24 +48,24 @@ export default function CompararPdfsPage() {
     >
       <section className="rounded-lg border border-subtle-gray bg-crisp-white p-6">
         <p className="eyebrow text-faded-stone">
-          O que você pode fazer agora
+          Como dá pra fazer hoje
         </p>
         <ul className="mt-4 grid gap-2 text-body text-charcoal-text">
           <li className="flex items-start gap-3">
             <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
-            Envie o primeiro documento e extraia os pontos principais
+            Sobe o primeiro PDF e roda a análise
           </li>
           <li className="flex items-start gap-3">
             <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
-            Repita com o segundo documento
+            Repete com a segunda versão
           </li>
           <li className="flex items-start gap-3">
             <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
-            Use o modo <strong className="font-medium text-midnight-ink">Extrair</strong> nos dois para listar datas, valores e obrigações lado a lado
+            Usa o modo <strong className="font-medium text-midnight-ink">Extrair dados</strong> nos dois pra ter datas, valores e obrigações lado a lado
           </li>
           <li className="flex items-start gap-3">
             <span className="mt-1 inline-block h-2 w-2 shrink-0 bg-apollo-gold" />
-            Use o modo <strong className="font-medium text-midnight-ink">Riscos</strong> para ver pontos de atenção em cada versão
+            Usa o modo <strong className="font-medium text-midnight-ink">Mapear riscos</strong> pra ver os pontos de atenção em cada versão
           </li>
         </ul>
         <div className="mt-6">
@@ -73,7 +73,7 @@ export default function CompararPdfsPage() {
             href="/app"
             className="inline-flex items-center justify-center rounded-lg bg-apollo-gold px-5 py-3 text-body-sm font-medium text-midnight-ink"
           >
-            Abrir workspace Premium
+            Abrir o workspace Premium
           </Link>
         </div>
       </section>

@@ -7,9 +7,9 @@ import { howToSchema } from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Como entender uma apólice de seguro — guia para o segurado",
+  title: "Como entender apólice de seguro — guia pro segurado em PT-BR | PDFIA",
   description:
-    "Recebeu a apólice e travou nos termos? Este guia em PT-BR mostra como ler coberturas, exclusões, carência e franquia, e o que conferir antes de qualquer sinistro.",
+    "Recebeu a apólice e travou no juridiquês? Veja como ler coberturas, exclusões, carência e franquia — e o que confirmar antes de precisar acionar o seguro.",
   path: "/guias/como-entender-apolice-de-seguro",
 });
 

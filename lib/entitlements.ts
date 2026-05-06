@@ -34,7 +34,7 @@ export async function requirePremiumAccess(
   if (error) {
     return {
       ok: false,
-      reason: "Não foi possível verificar a assinatura.",
+      reason: "Não rolou conferir sua assinatura agora. Tenta de novo em um minuto.",
       status: 500,
     };
   }
@@ -47,7 +47,7 @@ export async function requirePremiumAccess(
   return {
     ok: false,
     reason:
-      "Este recurso exige PDFIA Premium ativo. Veja os planos em /precos.",
+      "Esse recurso é Premium. Vai em /precos pra liberar — R$29/mês, cancele quando quiser.",
     status: 402,
   };
 }

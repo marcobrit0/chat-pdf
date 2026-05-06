@@ -7,9 +7,9 @@ import { howToSchema } from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Como comparar duas versões de um PDF — guia em PT-BR",
+  title: "Como comparar duas versões de PDF — manual, ferramenta ou IA | PDFIA",
   description:
-    "Contrato em segunda rodada, edital com errata, apólice renovada: como identificar o que mudou entre duas versões do mesmo PDF, com e sem ferramenta dedicada.",
+    "Contrato renegociado, edital corrigido, apólice renovada: como identificar o que mudou entre v1 e v2 do mesmo PDF — quando vale na mão, quando vale ferramenta de diff, quando vale IA.",
   path: "/guias/comparar-versoes-de-pdf",
 });
 

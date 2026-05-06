@@ -2,9 +2,9 @@ import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Resumir edital de licitação em PDF — IA em português",
+  title: "Resumir edital de licitação em PDF com IA | PDFIA",
   description:
-    "Transforme editais extensos em visão executiva com IA: prazos-chave, documentação exigida, garantias e penalidades. Premium para PDFs longos e chat com fontes.",
+    "Edital de 100 páginas em resumo executivo: prazos-chave, documentação exigida, garantia, penalidade. Pra você decidir entrar na licitação ou desistir cedo. Premium pra editais longos e chat com a página citada.",
   path: "/resumir-edital-de-licitacao",
 });
 
@@ -27,7 +27,7 @@ export default function ResumirEditalPage() {
   return (
     <SeoPageTemplate
       title="Resumir edital de licitação"
-      intro="Transforme PDFs extensos em visão executiva: prazos-chave, documentação exigida, garantias e etapas do processo. Use o resumo gratuito para um primeiro passe; o Premium desbloqueia análises profundas, histórico e chat com citações por página."
+      intro="Edital de 100 páginas vira resumo executivo em segundos: prazos-chave, documentação exigida, garantia, etapas e penalidade. Use o grátis pra triar antes de gastar dias preparando proposta. No Premium, você conversa com o PDF e cada resposta vem com a página de origem."
       showUpload
       breadcrumbs={[
         { label: "Início", path: "/" },
