@@ -145,7 +145,7 @@ export default function PrecosPage() {
       />
       <JsonLd data={faqSchema(faqs)} />
 
-      <Section bg="canvas" size="md">
+      <Section id="planos" bg="white" size="md">
         <Container>
           <Breadcrumbs
             items={[
@@ -154,112 +154,18 @@ export default function PrecosPage() {
             ]}
           />
 
-          <div className="mt-10 grid gap-16 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
-            <header className="motion-rise">
-              <Chip variant="live">Grátis pra testar · R$29 pra usar</Chip>
-              <h1 className="mt-8 font-display text-heading-lg font-semibold text-midnight-ink md:text-display">
-                Um preço, em real, sem letra miúda.
-              </h1>
-              <p className="mt-6 max-w-[620px] text-body-lg text-charcoal-text">
-                Resume um PDF de graça pra ver se serve. Quando precisar conversar
-                com o documento e voltar à página exata, o Premium é R$29/mês —
-                cancele na hora que quiser.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <ButtonLink href="/resumir-pdf" variant="primary" size="lg">
-                  Resumir um PDF agora
-                </ButtonLink>
-                <ButtonLink href="#planos" variant="secondary" size="lg">
-                  Comparar grátis × Premium
-                </ButtonLink>
-              </div>
-            </header>
+          <header className="motion-rise mx-auto mt-10 max-w-[880px] text-center">
+            <Chip variant="live">Grátis pra testar · R$29 pra usar</Chip>
+            <h1 className="mt-6 font-display text-heading-lg font-semibold text-midnight-ink text-[clamp(32px,4vw,48px)]">
+              Grátis prova que funciona. Premium serve quando você usa de verdade.
+            </h1>
+            <p className="mt-4 text-body-lg text-charcoal-text">
+              Sem fidelidade, pagamento em real pelo Stripe, cancelamento direto
+              na conta. Sem ligar pra ninguém.
+            </p>
+          </header>
 
-            <div className="motion-rise-late rounded-lg border border-midnight-ink bg-crisp-white md:hidden">
-              <div className="grid grid-cols-2 border-b border-subtle-gray">
-                <div className="p-card-compact">
-                  <MonoLabel>Grátis</MonoLabel>
-                  <div className="mt-2 font-display text-heading font-semibold text-midnight-ink">
-                    R$0
-                  </div>
-                </div>
-                <div className="border-l border-subtle-gray bg-apollo-gold p-card-compact">
-                  <MonoLabel tone="ink">Premium</MonoLabel>
-                  <div className="mt-2 font-display text-heading font-semibold text-midnight-ink">
-                    R$29/mês
-                  </div>
-                </div>
-              </div>
-              <div className="grid divide-y divide-subtle-gray">
-                {[
-                  ["Páginas", "10 no grátis", "100 no Premium"],
-                  ["Chat citado", "Premium"],
-                  ["Histórico salvo", "Premium"],
-                  ["Modos por PDF", "Contrato, edital e apólice no Premium"],
-                ].map(([label, detail, extra]) => (
-                  <div key={label} className="p-card-compact">
-                    <MonoLabel>{label}</MonoLabel>
-                    <p className="mt-2 text-body-sm text-charcoal-text">
-                      {detail}
-                      {extra ? ` · ${extra}` : ""}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="motion-rise-late hidden rounded-lg border border-midnight-ink bg-crisp-white md:block">
-              <div className="grid grid-cols-[1fr_1fr] border-b border-subtle-gray bg-canvas">
-                <div className="p-card-compact">
-                  <MonoLabel>Grátis</MonoLabel>
-                  <div className="mt-2 font-display text-heading font-semibold text-midnight-ink">
-                    R$0
-                  </div>
-                </div>
-                <div className="border-l border-subtle-gray bg-apollo-gold p-card-compact">
-                  <MonoLabel tone="ink">Premium</MonoLabel>
-                  <div className="mt-2 font-display text-heading font-semibold text-midnight-ink">
-                    R$29/mês
-                  </div>
-                </div>
-              </div>
-              {[
-                ["Páginas", "10", "100"],
-                ["Chat citado", "Não", "Sim"],
-                ["Histórico", "Não", "Sim"],
-                ["Modos por PDF", "Básico", "Contrato · edital · apólice"],
-              ].map(([label, free, premium]) => (
-                <div
-                  key={label}
-                  className="grid grid-cols-[0.9fr_0.8fr_1fr] border-b border-subtle-gray last:border-b-0"
-                >
-                  <div className="p-card-compact text-body-sm text-faded-stone">
-                    {label}
-                  </div>
-                  <div className="border-l border-subtle-gray p-card-compact text-body-sm text-charcoal-text">
-                    {free}
-                  </div>
-                  <div className="border-l border-subtle-gray p-card-compact font-display text-body-sm text-midnight-ink">
-                    {premium}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      <Section id="planos" bg="white" size="md">
-        <Container>
-          <SectionHeading
-            eyebrow="Planos"
-            title="Grátis prova que funciona. Premium serve quando você usa de verdade."
-            description="Sem fidelidade, pagamento em real pelo Stripe, cancelamento direto na conta. Sem ligar pra ninguém."
-            maxWidth="wide"
-            className="mb-10"
-          />
-
-          <div className="grid gap-4 lg:grid-cols-[0.85fr_1.15fr]">
+          <div className="motion-rise-late mt-12 grid gap-4 lg:grid-cols-3 lg:items-stretch">
             <Card
               variant="elevated"
               className="flex flex-col transition-transform hover:-translate-y-1"
@@ -278,7 +184,7 @@ export default function PrecosPage() {
                 Pra ver como funciona antes de criar conta — resumo de PDF curto,
                 em segundos, sem dar e-mail.
               </p>
-              <ul className="mt-8 grid gap-3 text-body-sm text-charcoal-text">
+              <ul className="mt-8 grid flex-1 gap-3 text-body-sm text-charcoal-text">
                 <FeatureLi included>1 PDF por dia, até 10 páginas</FeatureLi>
                 <FeatureLi included>
                   Tópicos, datas, valores e nomes em destaque
@@ -299,82 +205,99 @@ export default function PrecosPage() {
               </ButtonLink>
             </Card>
 
-            <div className="relative overflow-hidden rounded-lg border-2 border-midnight-ink bg-crisp-white transition-transform hover:-translate-y-1">
-              <div className="grid gap-8 bg-midnight-ink p-card-elevated text-crisp-white md:grid-cols-[1fr_auto] md:items-start">
-                <div>
-                  <div className="flex flex-wrap items-center gap-3">
-                    <Eyebrow tone="accent">Premium</Eyebrow>
-                    <Chip variant="accent">Mais escolhido</Chip>
-                  </div>
-                  <div className="mt-8 flex flex-wrap items-end gap-3">
-                    <span className="font-display text-display font-semibold text-crisp-white">
-                      R$29
-                    </span>
-                    <MonoLabel tone="white" casing="normal">
-                      /mês · ou R$290/ano
-                    </MonoLabel>
-                  </div>
-                  <p className="mt-4 max-w-[560px] text-body text-soft-stone">
-                    Pra quem trabalha com PDF toda semana — contrato, edital,
-                    laudo, relatório — e precisa voltar ao documento, perguntar e
-                    saber de qual página veio a resposta.
-                  </p>
-                </div>
-                <div className="rounded-lg border border-midnight-divider p-card-compact">
-                  <MonoLabel tone="accent">Anual</MonoLabel>
-                  <p className="mt-2 font-display text-heading text-crisp-white">
-                    R$24,17/mês
-                  </p>
-                  <p className="mt-2 text-body-sm text-soft-stone">
-                    Você economiza R$58 no ano.
-                  </p>
-                </div>
+            <Card
+              variant="elevated"
+              className="flex flex-col transition-transform hover:-translate-y-1"
+            >
+              <div className="flex items-center justify-between gap-4">
+                <Eyebrow>Premium</Eyebrow>
+                <Chip variant="outline">Mensal</Chip>
               </div>
-
-              <div className="grid gap-8 p-card-elevated md:grid-cols-[1fr_0.85fr]">
-                <ul className="grid gap-3 text-body-sm text-charcoal-text">
-                  <FeatureLi included>
-                    Chat com o PDF — toda resposta cita a página
-                  </FeatureLi>
-                  <FeatureLi included>PDFs longos, até 100 páginas</FeatureLi>
-                  <FeatureLi included>
-                    Modos: resumo profundo, extrair dados, mapear riscos
-                  </FeatureLi>
-                  <FeatureLi included>
-                    Contrato CLT, edital, apólice, laudo — prontos pra usar
-                  </FeatureLi>
-                  <FeatureLi included>Biblioteca salva — volte quando quiser</FeatureLi>
-                  <FeatureLi included>Exportar resumo em PDF + Markdown</FeatureLi>
-                </ul>
-
-                <div className="flex flex-col justify-between gap-4 border-t border-subtle-gray pt-6 md:border-l md:border-t-0 md:pl-8 md:pt-0">
-                  <div>
-                    <MonoLabel>Checkout</MonoLabel>
-                    <p className="mt-3 text-body-sm text-charcoal-text">
-                      Cartão pelo Stripe, em real. A gente não guarda dado de
-                      cartão — quem cuida disso é o Stripe.
-                    </p>
-                  </div>
-                  <div className="grid gap-3">
-                    <CheckoutButton
-                      priceId={monthly}
-                      label="Assinar mensal · R$29"
-                      className="w-full"
-                    />
-                    <CheckoutButton
-                      priceId={yearly}
-                      label="Assinar anual · R$290"
-                      variant="secondary"
-                      className="w-full"
-                    />
-                  </div>
-                </div>
+              <div className="mt-8 flex items-end gap-2">
+                <span className="font-display text-heading-lg font-semibold text-midnight-ink">
+                  R$29
+                </span>
+                <MonoLabel casing="normal">/mês</MonoLabel>
               </div>
+              <p className="mt-4 text-body text-charcoal-text">
+                Pra quem trabalha com PDF toda semana e quer flexibilidade pra
+                cancelar a qualquer mês.
+              </p>
+              <ul className="mt-8 grid flex-1 gap-3 text-body-sm text-charcoal-text">
+                <FeatureLi included>
+                  Chat com o PDF — toda resposta cita a página
+                </FeatureLi>
+                <FeatureLi included>PDFs longos, até 100 páginas</FeatureLi>
+                <FeatureLi included>
+                  Modos: resumo profundo, extrair dados, mapear riscos
+                </FeatureLi>
+                <FeatureLi included>
+                  Contrato CLT, edital, apólice, laudo — prontos pra usar
+                </FeatureLi>
+                <FeatureLi included>
+                  Biblioteca salva — volte quando quiser
+                </FeatureLi>
+                <FeatureLi included>Exportar resumo em PDF + Markdown</FeatureLi>
+              </ul>
+              <CheckoutButton
+                priceId={monthly}
+                label="Assinar mensal"
+                variant="secondary"
+                className="mt-8 w-full"
+              />
+            </Card>
+
+            <div className="relative flex flex-col overflow-hidden rounded-lg border-2 border-midnight-ink bg-midnight-ink p-card-elevated text-crisp-white transition-transform hover:-translate-y-1">
+              <div className="flex items-center justify-between gap-4">
+                <Eyebrow tone="accent">Premium · Anual</Eyebrow>
+                <Chip variant="accent">Mais barato</Chip>
+              </div>
+              <div className="mt-8 flex items-end gap-2">
+                <span className="font-display text-heading-lg font-semibold text-crisp-white">
+                  R$24,17
+                </span>
+                <MonoLabel tone="white" casing="normal">
+                  /mês
+                </MonoLabel>
+              </div>
+              <p className="mt-3 text-body-sm text-soft-stone">
+                Cobrança única de R$290/ano · economia de R$58 vs. mensal.
+              </p>
+              <p className="mt-4 text-body text-soft-stone">
+                Pra quem já sabe que vai usar o ano todo — paga uma vez, esquece
+                até o ano que vem.
+              </p>
+              <ul className="mt-8 grid flex-1 gap-3 text-body-sm">
+                <FeatureLi included tone="white">
+                  Chat com o PDF — toda resposta cita a página
+                </FeatureLi>
+                <FeatureLi included tone="white">
+                  PDFs longos, até 100 páginas
+                </FeatureLi>
+                <FeatureLi included tone="white">
+                  Modos: resumo profundo, extrair dados, mapear riscos
+                </FeatureLi>
+                <FeatureLi included tone="white">
+                  Contrato CLT, edital, apólice, laudo — prontos pra usar
+                </FeatureLi>
+                <FeatureLi included tone="white">
+                  Biblioteca salva — volte quando quiser
+                </FeatureLi>
+                <FeatureLi included tone="white">
+                  Exportar resumo em PDF + Markdown
+                </FeatureLi>
+              </ul>
+              <CheckoutButton
+                priceId={yearly}
+                label="Assinar anual"
+                variant="primary"
+                className="mt-8 w-full"
+              />
             </div>
           </div>
 
           <p className="mt-8 text-center text-body-sm text-faded-stone">
-            Cancele quando quiser · Sem taxa de cancelamento ·{" "}
+            Cartão pelo Stripe, em real · Cancele quando quiser ·{" "}
             <Link
               href="/termos"
               className="underline underline-offset-4 hover:text-charcoal-text"
@@ -555,30 +478,37 @@ function ComparisonTable({
 function FeatureLi({
   children,
   included = false,
+  tone = "ink",
 }: {
   children: React.ReactNode;
   included?: boolean;
+  tone?: "ink" | "white";
 }) {
+  const isWhite = tone === "white";
+  const includedColor = isWhite ? "text-crisp-white" : "text-charcoal-text";
+  const excludedColor = isWhite ? "text-soft-stone" : "text-faded-stone";
+  const dotColor = isWhite ? "bg-apollo-gold" : "bg-midnight-ink";
+  const dashColor = isWhite ? "bg-midnight-divider" : "bg-soft-stone";
+  const strikeColor = isWhite
+    ? "decoration-midnight-divider"
+    : "decoration-soft-stone";
   return (
     <li
-      className={
-        "grid grid-cols-[16px_1fr] items-start gap-3 " +
-        (included ? "text-charcoal-text" : "text-faded-stone")
-      }
+      className={`grid grid-cols-[16px_1fr] items-start gap-3 ${included ? includedColor : excludedColor}`}
     >
       <span
         aria-hidden="true"
         className={
           included
-            ? "mt-1 inline-block h-2 w-2 bg-midnight-ink"
-            : "mt-2 inline-block h-px w-2.5 bg-soft-stone"
+            ? `mt-1 inline-block h-2 w-2 ${dotColor}`
+            : `mt-2 inline-block h-px w-2.5 ${dashColor}`
         }
       />
       <span>
         {included ? (
           children
         ) : (
-          <span className="line-through decoration-soft-stone">{children}</span>
+          <span className={`line-through ${strikeColor}`}>{children}</span>
         )}
       </span>
     </li>
