@@ -21,7 +21,12 @@ export function OtpForm({ nextPath }: OtpFormProps) {
 
   async function sendCode(emailToSend: string) {
     const supabase = createClient();
-    const { error } = await supabase.auth.signInWithOtp({ email: emailToSend });
+    const { error } = await supabase.auth.signInWithOtp({
+      email: emailToSend,
+      options: {
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextPath)}`,
+      },
+    });
     if (error) {
       setStep({
         name: "error",
