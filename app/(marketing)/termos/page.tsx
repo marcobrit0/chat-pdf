@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -103,12 +105,12 @@ export default function TermosPage() {
           </strong>{" "}
           (equivalente a R$24,17/mês), conforme a opção escolhida no
           checkout. Preços vigentes aparecem na página{" "}
-          <a
+          <Link
             href="/precos"
             className="text-midnight-ink underline underline-offset-4"
           >
             /precos
-          </a>{" "}
+          </Link>{" "}
           e podem ser reajustados; novos preços só passam a valer para você
           a partir da próxima renovação, com aviso prévio por e-mail.
         </p>
@@ -176,12 +178,12 @@ export default function TermosPage() {
           Após o fim do período pago, sua biblioteca Premium fica disponível
           para download por 30 dias antes de ser excluída definitivamente —
           conforme a{" "}
-          <a
+          <Link
             href="/privacidade"
             className="text-midnight-ink underline underline-offset-4"
           >
             Política de privacidade
-          </a>
+          </Link>
           .
         </p>
       </section>
@@ -246,12 +248,12 @@ export default function TermosPage() {
           modelos de IA, comercializar dados ou qualquer outra finalidade
           além de operar o serviço para você. O detalhe operacional sobre
           tratamento de dados está na{" "}
-          <a
+          <Link
             href="/privacidade"
             className="text-midnight-ink underline underline-offset-4"
           >
             Política de privacidade
-          </a>
+          </Link>
           .
         </p>
       </section>
