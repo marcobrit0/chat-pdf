@@ -13,13 +13,6 @@ type Props = {
   justUpgraded?: boolean;
 };
 
-const SHORTCUTS = [
-  { href: "/app/compare", label: "Comparar PDFs", badge: "EM BREVE" },
-  { href: "/app/pasta", label: "Pasta de PDFs", badge: "EM BREVE" },
-  { href: "/precos", label: "Assinatura", badge: null },
-  { href: "/privacidade", label: "Privacidade", badge: null },
-] as const;
-
 const TYPE_HINTS: Array<{ test: RegExp; tag: string; code: string }> = [
   { test: /contrat/i, tag: "Contrato", code: "CTR" },
   { test: /edital|licita/i, tag: "Edital", code: "EDT" },
@@ -93,6 +86,11 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
     }
   }
 
+  function openPicker() {
+    if (pending) return;
+    inputRef.current?.click();
+  }
+
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const file = inputRef.current?.files?.[0];
@@ -107,164 +105,94 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
     (acc, d) => acc + (typeof d.page_count === "number" ? d.page_count : 0),
     0,
   );
+  const thisMonth = documents.filter((d) => {
+    const t = new Date(d.created_at);
+    const now = new Date();
+    return (
+      t.getMonth() === now.getMonth() && t.getFullYear() === now.getFullYear()
+    );
+  }).length;
 
   return (
-    <div className="grid gap-0 md:grid-cols-[260px_minmax(0,1fr)]">
-      {/* Sidebar */}
-      <aside className="hidden border-r border-subtle-gray bg-canvas px-4 py-6 md:block">
-        <div className="rounded-lg border border-subtle-gray bg-crisp-white p-card-compact">
-          <p className="eyebrow text-faded-stone">
-            Conta
-          </p>
-          <p
-            className="mt-1 truncate text-body-sm text-graphite"
-            title={email ?? ""}
-          >
-            {email ?? "—"}
-          </p>
-          <div className="mt-3 flex items-center justify-between">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-subtle-gray bg-canvas px-2.5 py-1 eyebrow text-charcoal-text">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-apollo-gold" />
-              Premium
-            </span>
-            <span className="font-mono text-caption tracking-[0.06em] text-faded-stone">
-              R$29/mês
-            </span>
-          </div>
-        </div>
-
-        <div className="mt-6">
-          <div className="flex items-center justify-between px-1">
-            <p className="eyebrow text-faded-stone">
-              Biblioteca
-            </p>
-            <span className="font-mono text-caption tracking-[0.06em] text-faded-stone">
-              {documents.length}
-            </span>
-          </div>
-          {documents.length === 0 ? (
-            <p className="mt-3 px-1 text-caption text-faded-stone">
-              Sua biblioteca tá vazia. Sobe o primeiro PDF aí ao lado.
-            </p>
-          ) : (
-            <ul className="mt-2 grid gap-1">
-              {documents.slice(0, 8).map((d, i) => {
-                const { code } = classifyDocument(d.title);
-                return (
-                  <li key={d.id}>
-                    <Link
-                      href={`/app/documents/${d.id}`}
-                      className={
-                        "block rounded-md border px-3 py-2.5 text-left transition-colors hover:border-subtle-gray hover:bg-crisp-white " +
-                        (i === 0
-                          ? "border-subtle-gray bg-crisp-white"
-                          : "border-transparent")
-                      }
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className="mono-label text-faded-stone">
-                          {code}
-                        </span>
-                        <span className="font-mono text-caption tracking-[0.06em] text-faded-stone">
-                          {relativeDate(d.created_at)}
-                        </span>
-                      </div>
-                      <p className="mt-1 truncate text-body-sm text-graphite">
-                        {d.title ?? "Sem título"}
-                      </p>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-        </div>
-
-        <div className="mt-6">
-          <p className="px-1 eyebrow text-faded-stone">
-            Atalhos
-          </p>
-          <ul className="mt-2 grid gap-1">
-            {SHORTCUTS.map((s) => (
-              <li key={s.href}>
-                <Link
-                  href={s.href}
-                  className="flex items-center justify-between rounded-md px-3 py-2 text-body-sm text-charcoal-text hover:bg-crisp-white"
-                >
-                  {s.label}
-                  {s.badge ? (
-                    <span className="font-mono text-caption tracking-[0.06em] text-faded-stone">
-                      {s.badge}
-                    </span>
-                  ) : null}
-                </Link>
-              </li>
-            ))}
+    <div className="container-page grid gap-14 pb-20 pt-8 md:grid-cols-[220px_minmax(0,1fr)]">
+      {/* ── Sidebar ─────────────────────────────────────────────── */}
+      <aside className="hidden self-start md:sticky md:top-20 md:flex md:flex-col md:gap-8">
+        <div>
+          <p className="eyebrow text-faded-stone">Atalhos</p>
+          <ul className="mt-3.5 grid gap-0.5">
+            <SidebarLink label="Solte um PDF" href="#drop" active />
+            <SidebarLink
+              label="Biblioteca"
+              href="#biblioteca"
+              badge={String(documents.length)}
+            />
+            <SidebarLink
+              label="Comparar PDFs"
+              href="/app/compare"
+              badge="EM BREVE"
+              muted
+            />
+            <SidebarLink
+              label="Pasta de PDFs"
+              href="/app/pasta"
+              badge="EM BREVE"
+              muted
+            />
           </ul>
+        </div>
+
+        <div>
+          <p className="eyebrow text-faded-stone">Conta</p>
+          <ul className="mt-3.5 grid gap-0.5">
+            <SidebarLink label="Assinatura" href="/precos" />
+            <SidebarLink label="Privacidade" href="/privacidade" />
+          </ul>
+          {email ? (
+            <p
+              className="mt-4 truncate font-mono text-caption text-faded-stone"
+              title={email}
+            >
+              {email}
+            </p>
+          ) : null}
         </div>
       </aside>
 
-      {/* Main */}
-      <main className="px-4 py-8 sm:px-6 md:px-10 md:py-10">
+      {/* ── Main ────────────────────────────────────────────────── */}
+      <div className="flex flex-col gap-14">
         {justUpgraded ? (
-          <div className="mb-6 rounded-lg border border-midnight-ink bg-midnight-ink p-card text-crisp-white">
-            <p className="eyebrow text-apollo-gold">
-              Pagamento confirmado
-            </p>
+          <div className="rounded-lg border border-midnight-ink bg-midnight-ink p-card text-crisp-white">
+            <p className="eyebrow text-apollo-gold">Pagamento confirmado</p>
             <p className="mt-2 font-display text-subheading font-semibold">
               Premium ativo. Tá tudo liberado pra você usar.
             </p>
           </div>
         ) : null}
 
-        {/* Welcome card */}
-        <section className="grid gap-8 rounded-lg border border-subtle-gray bg-crisp-white p-card sm:p-card-elevated md:grid-cols-[1fr_280px]">
-          <div>
-            <p className="eyebrow text-faded-stone">
-              Workspace Premium
-            </p>
-            <h1 className="mt-3 font-display text-heading-lg font-semibold text-midnight-ink text-[clamp(28px,3.5vw,40px)]">
-              Bom te ver de volta.
-            </h1>
-            <p className="mt-3 max-w-xl text-body text-charcoal-text">
-              Solte um PDF aí pra gerar resumo, mapear datas e valores e abrir o
-              chat com a página de origem em cada resposta.
-            </p>
+        {/* Hero — drop zone is the focal point */}
+        <section id="drop">
+          <div className="mb-5 flex items-baseline justify-between">
+            <p className="eyebrow text-faded-stone">Workspace · Premium</p>
+            <span className="mono-label text-faded-stone">
+              Até 100 págs · histórico salvo · 4 modos
+            </span>
           </div>
-          <div className="grid content-start gap-2">
-            {[
-              ["LIMITE", "100 págs"],
-              ["HISTÓRICO", "Salvo"],
-              ["MODOS", "4 ativos"],
-            ].map(([k, v]) => (
-              <div
-                key={k}
-                className="flex items-center justify-between rounded-md bg-canvas px-3 py-2 text-body-sm"
-              >
-                <span className="mono-label text-faded-stone">
-                  {k}
-                </span>
-                <span className="font-medium text-midnight-ink">{v}</span>
-              </div>
-            ))}
-          </div>
-        </section>
 
-        {/* Upload + KPIs */}
-        <section className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-          <form
-            onSubmit={onSubmit}
-            className="rounded-lg border border-subtle-gray bg-crisp-white p-card"
-          >
-            <div className="flex items-center justify-between">
-              <p className="eyebrow text-faded-stone">
-                Novo documento
-              </p>
-              <span className="mono-label text-faded-stone">
-                Premium · até 100 págs
-              </span>
-            </div>
+          <h1 className="m-0 font-display text-display font-semibold text-midnight-ink text-[clamp(48px,6vw,84px)] leading-[0.96]">
+            Solte um PDF.
+            <br />
+            Receba{" "}
+            <span className="bg-apollo-gold px-[0.05em]">resumo</span> com fonte.
+          </h1>
+
+          <form onSubmit={onSubmit} className="mt-9">
             <label
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") openPicker();
+              }}
+              onClick={openPicker}
               onDragOver={(e) => {
                 e.preventDefault();
                 setIsDragging(true);
@@ -283,23 +211,26 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
                 }
               }}
               className={
-                "mt-3 flex cursor-pointer flex-col items-center justify-center gap-2 rounded-md border border-dashed py-10 px-5 text-center transition-colors " +
+                "block cursor-pointer rounded-lg bg-crisp-white px-8 py-16 text-center transition-colors " +
                 (isDragging
-                  ? "border-midnight-ink bg-canvas"
-                  : "border-soft-stone bg-canvas hover:border-midnight-ink hover:bg-crisp-white")
+                  ? "border border-solid border-midnight-ink"
+                  : "border border-dashed border-soft-stone hover:border-solid hover:border-midnight-ink")
               }
             >
-              <span className="font-display text-subheading font-semibold text-midnight-ink">
-                Solte um PDF aqui
-              </span>
-              <span className="text-body-sm text-charcoal-text">
-                ou{" "}
-                <span className="underline underline-offset-4">
-                  clica pra escolher do computador
+              <span className="mb-3.5 inline-flex items-center gap-3 text-midnight-ink">
+                <UploadGlyph />
+                <span className="font-display text-subheading font-semibold">
+                  Solte um PDF aqui
                 </span>
               </span>
-              <span className="mono-label text-faded-stone">
-                Fica salvo na biblioteca · indexado por página
+              <span className="block text-body-sm text-charcoal-text">
+                ou{" "}
+                <span className="text-midnight-ink underline underline-offset-[3px]">
+                  clique para selecionar do computador
+                </span>
+              </span>
+              <span className="mt-3.5 block mono-label text-faded-stone">
+                Premium · até 100 págs · indexado por página
               </span>
               <input
                 ref={inputRef}
@@ -313,151 +244,142 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
             </label>
 
             {fileName ? (
-              <p className="mt-3 text-body-sm text-graphite">
-                Arquivo escolhido:{" "}
-                <span className="font-medium text-midnight-ink">{fileName}</span>
-              </p>
+              <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+                <p className="text-body-sm text-graphite">
+                  Arquivo escolhido:{" "}
+                  <span className="font-medium text-midnight-ink">
+                    {fileName}
+                  </span>
+                </p>
+                <button
+                  type="submit"
+                  disabled={pending}
+                  className={
+                    "rounded-lg px-5 py-3 text-body-sm font-medium transition-opacity " +
+                    (pending
+                      ? "cursor-not-allowed bg-subtle-gray text-faded-stone"
+                      : "bg-apollo-gold text-midnight-ink hover:opacity-90")
+                  }
+                >
+                  {pending ? "Subindo…" : "Subir e abrir workspace"}
+                </button>
+              </div>
             ) : null}
 
-            <button
-              type="submit"
-              disabled={pending || !fileName}
-              className={
-                "mt-4 w-full rounded-lg px-5 py-3 text-body-sm font-medium transition-opacity " +
-                (fileName && !pending
-                  ? "bg-apollo-gold text-midnight-ink hover:opacity-90"
-                  : "cursor-not-allowed bg-subtle-gray text-faded-stone")
-              }
-            >
-              {pending
-                ? "Subindo…"
-                : fileName
-                  ? "Subir e abrir workspace"
-                  : "Solte um PDF primeiro"}
-            </button>
-
             {error ? (
-              <p className="mt-3 text-body-sm text-red-700" role="alert">
+              <p className="mt-4 text-body-sm text-red-700" role="alert">
                 {error}
               </p>
             ) : null}
           </form>
+        </section>
 
-          <div className="grid grid-cols-2 gap-4">
+        {/* Slim mono stats strip — context, not focal */}
+        <section>
+          <div className="grid grid-cols-2 border-y border-subtle-gray sm:grid-cols-4">
             {[
-              ["DOCUMENTOS", String(documents.length), "no total"],
-              [
-                "ESTE MÊS",
-                String(
-                  documents.filter((d) => {
-                    const t = new Date(d.created_at);
-                    const now = new Date();
-                    return (
-                      t.getMonth() === now.getMonth() &&
-                      t.getFullYear() === now.getFullYear()
-                    );
-                  }).length,
-                ),
-                "processados",
-              ],
-              ["PÁGINAS", String(totalPages), "analisadas"],
-              ["LIMITE/DIA", String(PREMIUM_UPLOADS_PER_DAY), "uploads"],
-            ].map(([k, v, sub]) => (
+              ["Documentos", String(documents.length), "no total"],
+              ["Este mês", String(thisMonth), "processados"],
+              ["Páginas", String(totalPages), "analisadas"],
+              ["Limite/dia", String(PREMIUM_UPLOADS_PER_DAY), "uploads"],
+            ].map(([k, v, sub], i) => (
               <div
                 key={k}
-                className="rounded-lg border border-subtle-gray bg-crisp-white p-card"
+                className={
+                  "py-5 " +
+                  (i === 0 ? "pl-0 pr-6" : "px-6") +
+                  " " +
+                  (i < 3
+                    ? "border-r-0 sm:border-r sm:border-subtle-gray"
+                    : "")
+                }
               >
-                <p className="mono-label text-faded-stone">
-                  {k}
-                </p>
-                <p className="mt-2 font-display text-heading font-semibold text-midnight-ink">
+                <div className="mono-label text-faded-stone">{k}</div>
+                <div className="mt-2 font-display text-heading leading-none font-semibold text-midnight-ink">
                   {v}
-                </p>
-                <p className="mt-1 text-caption text-charcoal-text">{sub}</p>
+                </div>
+                <div className="mt-1.5 font-mono text-caption text-faded-stone">
+                  {sub}
+                </div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Documents table */}
-        <section className="mt-4 overflow-hidden rounded-lg border border-subtle-gray bg-crisp-white">
-          <div className="flex items-center justify-between border-b border-subtle-gray px-5 py-4">
+        {/* Library — inline table on hairlines */}
+        <section id="biblioteca">
+          <div className="mb-[18px] flex items-baseline justify-between">
             <div>
-              <p className="eyebrow text-faded-stone">
+              <p className="eyebrow text-faded-stone">Biblioteca</p>
+              <h2 className="mt-2 m-0 font-display text-heading font-semibold text-midnight-ink">
                 Documentos recentes
-              </p>
-              <h2 className="mt-1 font-display text-subheading font-semibold text-midnight-ink">
-                Sua biblioteca
               </h2>
             </div>
-            <span className="font-mono text-caption tracking-[0.06em] text-faded-stone">
-              {documents.length} {documents.length === 1 ? "arquivo" : "arquivos"}
+            <span className="mono-label text-faded-stone">
+              {documents.length} arquivo{documents.length === 1 ? "" : "s"}
             </span>
           </div>
 
-          {documents.length === 0 ? (
-            <div className="px-6 py-10 text-center">
-              <p className="text-body-sm text-charcoal-text">
-                Sua biblioteca tá vazia. Sobe um PDF aí em cima pra começar.
-              </p>
+          <div className="border-t border-subtle-gray">
+            <div className="hidden grid-cols-[60px_minmax(0,1fr)_100px_120px_100px_24px] gap-4 border-b border-subtle-gray py-3 mono-label text-faded-stone md:grid">
+              <span>Tipo</span>
+              <span>Documento</span>
+              <span>Páginas</span>
+              <span>Atualizado</span>
+              <span>Status</span>
+              <span />
             </div>
-          ) : (
-            <>
-              <div className="hidden grid-cols-[60px_minmax(0,1fr)_120px_140px_100px_24px] gap-4 border-b border-subtle-gray bg-canvas px-5 py-3 mono-label text-faded-stone md:grid">
-                <span>Tipo</span>
-                <span>Documento</span>
-                <span>Páginas</span>
-                <span>Atualizado</span>
-                <span>Status</span>
-                <span />
+
+            {documents.length === 0 ? (
+              <div className="py-10 text-center text-body-sm text-faded-stone">
+                Sua biblioteca está vazia. Solte um PDF acima para começar.
               </div>
+            ) : (
               <ul>
-                {documents.map((d, i) => {
+                {documents.map((d) => {
                   const { tag, code } = classifyDocument(d.title);
+                  const titleClean = (d.title ?? "Sem título").replace(
+                    /\.pdf$/i,
+                    "",
+                  );
                   return (
                     <li
                       key={d.id}
-                      className={
-                        i < documents.length - 1
-                          ? "border-b border-subtle-gray"
-                          : ""
-                      }
+                      className="border-b border-subtle-gray last:border-b-0"
                     >
                       <Link
                         href={`/app/documents/${d.id}`}
-                        className="grid grid-cols-[60px_minmax(0,1fr)_24px] items-center gap-4 px-5 py-4 transition-colors hover:bg-canvas md:grid-cols-[60px_minmax(0,1fr)_120px_140px_100px_24px]"
+                        className="grid grid-cols-[60px_minmax(0,1fr)_24px] items-center gap-4 py-5 text-left transition-colors hover:bg-crisp-white md:grid-cols-[60px_minmax(0,1fr)_100px_120px_100px_24px]"
                       >
-                        <span
-                          className="justify-self-start rounded-md border border-subtle-gray bg-canvas px-2 py-1 mono-label text-midnight-ink"
-                          aria-label={tag}
-                        >
+                        <span className="justify-self-start rounded-md border border-subtle-gray bg-canvas px-2 py-1 mono-label text-midnight-ink">
                           {code}
                         </span>
                         <div className="min-w-0">
-                          <p className="truncate font-display text-body-sm font-semibold  text-midnight-ink">
-                            {d.title ?? "Sem título"}
-                          </p>
-                          <p className="mono-label text-faded-stone">
+                          <div className="truncate font-display text-body font-semibold text-midnight-ink">
+                            {titleClean}
+                          </div>
+                          <div className="mt-1 mono-label text-faded-stone">
                             {tag}
-                          </p>
+                          </div>
                         </div>
                         <span className="hidden font-mono text-caption text-graphite md:inline">
-                          {d.page_count != null
-                            ? `${d.page_count} págs`
-                            : "—"}
+                          {d.page_count != null ? `${d.page_count} págs` : "—"}
                         </span>
                         <span className="hidden mono-label text-faded-stone md:inline">
                           {relativeDate(d.created_at)}
                         </span>
                         <span className="hidden md:inline">
-                          <span className="inline-flex items-center gap-1.5 rounded-full border border-subtle-gray bg-canvas px-2.5 py-1 eyebrow text-charcoal-text">
-                            <span className="inline-block h-1.5 w-1.5 rounded-full bg-apollo-gold" />
+                          <span className="inline-flex items-center gap-2 rounded-full border border-subtle-gray bg-crisp-white px-3 py-1 eyebrow text-charcoal-text">
+                            <span
+                              aria-hidden="true"
+                              className="inline-block h-1.5 w-1.5 rounded-full bg-status-dot"
+                            />
                             Pronto
                           </span>
                         </span>
                         <span
                           aria-hidden="true"
-                          className="justify-self-end text-faded-stone"
+                          className="justify-self-end font-mono text-faded-stone"
                         >
                           →
                         </span>
@@ -466,62 +388,69 @@ export function WorkspaceShell({ email, documents, justUpgraded = false }: Props
                   );
                 })}
               </ul>
-            </>
-          )}
+            )}
+          </div>
         </section>
-
-        {/* Roadmap cards */}
-        <section className="mt-4 grid gap-4 md:grid-cols-2">
-          {[
-            [
-              "Comparar dois PDFs",
-              "Coloque a v1 e a v2 lado a lado e veja o que mudou — pra contrato renegociado e edital corrigido.",
-              "EM BREVE",
-              "/app/compare",
-            ],
-            [
-              "Pasta de PDFs",
-              "Agrupe vários arquivos num projeto e pergunte como se fossem um só (todos os contratos do RH).",
-              "EM BREVE",
-              "/app/pasta",
-            ],
-          ].map(([t, b, badge, href]) => (
-            <Link
-              key={t}
-              href={href}
-              className="grid gap-3 rounded-lg border border-subtle-gray bg-crisp-white p-card transition-colors hover:border-midnight-ink"
-            >
-              <div className="flex items-center justify-between">
-                <p className="eyebrow text-faded-stone">
-                  A caminho
-                </p>
-                <span className="font-mono text-caption tracking-[0.06em] text-faded-stone">
-                  {badge}
-                </span>
-              </div>
-              <h3 className="font-display text-subheading font-semibold text-midnight-ink">
-                {t}
-              </h3>
-              <p className="text-body-sm  text-charcoal-text">{b}</p>
-              <div className="flex items-center justify-between border-t border-subtle-gray pt-3 text-caption">
-                <span className="text-charcoal-text">Ver status</span>
-                <span aria-hidden="true" className="text-midnight-ink">
-                  →
-                </span>
-              </div>
-            </Link>
-          ))}
-        </section>
-
-        <div className="mt-8 border-t border-subtle-gray pt-6">
-          <Link
-            href="/precos"
-            className="text-body-sm text-faded-stone underline-offset-4 hover:text-charcoal-text hover:underline"
-          >
-            Gerenciar assinatura
-          </Link>
-        </div>
-      </main>
+      </div>
     </div>
+  );
+}
+
+function SidebarLink({
+  label,
+  href,
+  badge,
+  active = false,
+  muted = false,
+}: {
+  label: string;
+  href: string;
+  badge?: string;
+  active?: boolean;
+  muted?: boolean;
+}) {
+  return (
+    <li>
+      <Link
+        href={href}
+        className={
+          "flex items-center justify-between py-2 text-body-sm " +
+          (active
+            ? "font-semibold text-midnight-ink"
+            : muted
+              ? "text-faded-stone"
+              : "text-charcoal-text hover:text-midnight-ink")
+        }
+      >
+        <span
+          className={active ? "border-b border-midnight-ink" : ""}
+        >
+          {label}
+        </span>
+        {badge ? (
+          <span className="mono-label text-faded-stone">{badge}</span>
+        ) : null}
+      </Link>
+    </li>
+  );
+}
+
+function UploadGlyph() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path
+        d="M10 13V3M10 3l-3.5 3.5M10 3l3.5 3.5"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M3.5 13v3a1 1 0 001 1h11a1 1 0 001-1v-3"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+      />
+    </svg>
   );
 }
