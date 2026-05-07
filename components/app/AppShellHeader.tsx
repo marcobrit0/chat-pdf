@@ -7,20 +7,16 @@ type Props = {
 };
 
 /**
- * Minimal authenticated-app chrome. Keeps the workspace focused (no marketing
- * nav noise) but gives the user an anchor: logo home, biblioteca, plan status,
- * and an explicit upgrade path for non-Premium accounts.
+ * Authenticated-app chrome on the same warm canvas as the marketing site —
+ * keeps the workspace and homepage visually unified. Logo routes home; the
+ * "Biblioteca" eyebrow anchors the user inside the app.
  */
 export function AppShellHeader({ isPremium, email }: Props) {
   return (
-    <header className="sticky top-0 z-40 border-b border-subtle-gray bg-crisp-white/95 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-subtle-gray bg-canvas">
       <div className="container-page flex min-h-16 items-center justify-between gap-3">
         <div className="flex items-center gap-6">
-          <Link
-            href="/app"
-            aria-label="PDFIA — biblioteca"
-            className="flex items-center"
-          >
+          <Link href="/" aria-label="PDFIA — início" className="flex items-center">
             <Image
               src="/pdfia-logo.png"
               alt="PDFIA"
@@ -34,23 +30,24 @@ export function AppShellHeader({ isPremium, email }: Props) {
             aria-hidden="true"
             className="hidden h-5 w-px bg-subtle-gray sm:block"
           />
-          <Link
-            href="/app"
-            className="hidden text-body-sm text-charcoal-text underline-offset-4 hover:underline sm:inline"
-          >
+          <span className="hidden eyebrow text-charcoal-text sm:inline">
             Biblioteca
-          </Link>
+          </span>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3.5">
           {isPremium ? (
             <>
-              <span className="hidden items-center gap-1.5 rounded-full border border-midnight-ink/20 bg-canvas px-3 py-1 eyebrow text-midnight-ink sm:inline-flex">
-                <Dot /> Premium ativo
+              <span className="hidden items-center gap-2 rounded-full border border-subtle-gray bg-crisp-white px-3 py-1 eyebrow text-charcoal-text sm:inline-flex">
+                <span
+                  aria-hidden="true"
+                  className="inline-block h-1.5 w-1.5 rounded-full bg-status-dot"
+                />
+                Premium ativo
               </span>
               <Link
                 href="/precos"
-                className="rounded-lg border border-midnight-ink px-3 py-2 text-body-sm font-medium text-midnight-ink hover:bg-canvas"
+                className="rounded-lg border border-midnight-ink px-3 py-2 text-body-sm font-medium text-midnight-ink transition-colors hover:bg-midnight-ink hover:text-crisp-white"
               >
                 Assinatura
               </Link>
@@ -66,19 +63,16 @@ export function AppShellHeader({ isPremium, email }: Props) {
               >
                 Fazer upgrade
               </Link>
+              <Link
+                href="/precos"
+                className="hidden rounded-lg border border-midnight-ink px-3 py-2 text-body-sm font-medium text-midnight-ink transition-colors hover:bg-midnight-ink hover:text-crisp-white sm:inline-flex"
+              >
+                Assinatura
+              </Link>
             </>
           )}
         </div>
       </div>
     </header>
-  );
-}
-
-function Dot() {
-  return (
-    <span
-      aria-hidden="true"
-      className="inline-block h-1.5 w-1.5 rounded-full bg-midnight-ink"
-    />
   );
 }
