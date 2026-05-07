@@ -64,7 +64,7 @@ export default async function LoginPage({
               </div>
               <Link
                 href="/resumir-pdf"
-                className="rounded-lg border border-midnight-ink px-3 py-2 text-caption font-medium text-midnight-ink hover:bg-midnight-ink hover:text-crisp-white"
+                className="whitespace-nowrap rounded-lg border border-midnight-ink px-3 py-2 text-caption font-medium text-midnight-ink hover:bg-midnight-ink hover:text-crisp-white"
               >
                 Testar de graça
               </Link>
@@ -79,8 +79,8 @@ export default async function LoginPage({
         </section>
 
         {/* Right — Premium upsell rail */}
-        <aside className="border-t border-subtle-gray bg-ash-gray px-4 py-12 sm:px-8 md:border-l md:border-t-0 md:py-16">
-          <div className="mx-auto w-full max-w-lg">
+        <aside className="flex items-center justify-center border-t border-subtle-gray bg-ash-gray px-4 py-12 sm:px-8 md:border-l md:border-t-0 md:py-16">
+          <div className="w-full max-w-lg">
             <p className="eyebrow text-faded-stone">
               Premium · o que você libera
             </p>
@@ -114,7 +114,7 @@ export default async function LoginPage({
                 <p className="mono-label text-apollo-gold">
                   Reembolso · 7 dias
                 </p>
-                <p className="mt-1 text-body-sm">Stripe · pagamento em real</p>
+                <p className="mt-1 text-body-sm">Pagamento seguro com a Stripe</p>
               </div>
               <span className="rounded-md bg-apollo-gold px-2.5 py-1.5 mono-label font-medium text-midnight-ink">
                 R$29 / mês
