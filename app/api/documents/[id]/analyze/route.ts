@@ -3,6 +3,7 @@ import {
   premiumDocumentModeAnalysisOrStub,
   type GroundedContextChunk,
 } from "@/lib/ai/openrouter";
+import { captureServerEvent } from "@/lib/posthog-server";
 import { requirePremiumAccess } from "@/lib/entitlements";
 import { logApiError, userFacingMessage } from "@/lib/security/safe-api-response";
 import {
@@ -105,13 +106,33 @@ export async function POST(
       return NextResponse.json({ error: quota.reason }, { status: quota.status });
     }
 
-    const { result, stub } = await premiumDocumentModeAnalysisOrStub({
-      contextChunks,
-      mode,
-      contractIntent,
-    });
+    const startedAt = Date.now();
+    try {
+      const { result, stub } = await premiumDocumentModeAnalysisOrStub({
+        contextChunks,
+        mode,
+        contractIntent,
+      });
 
-    return NextResponse.json({ ...result, stub });
+      await captureServerEvent(user.id, "document_analyze_server_ok", {
+        document_id: documentId,
+        mode,
+        contract_intent: contractIntent,
+        latency_ms: Date.now() - startedAt,
+        chunks: contextChunks.length,
+        stub: Boolean(stub),
+      });
+
+      return NextResponse.json({ ...result, stub });
+    } catch (e) {
+      await captureServerEvent(user.id, "document_analyze_server_fail", {
+        document_id: documentId,
+        mode,
+        latency_ms: Date.now() - startedAt,
+        error_class: e instanceof Error ? e.name : "unknown",
+      });
+      throw e;
+    }
   } catch (e) {
     logApiError(route, e);
     return NextResponse.json(

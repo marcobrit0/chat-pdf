@@ -16,6 +16,20 @@ npm ci
 npm run dev
 ```
 
+### PostHog (analytics de produto)
+
+Para enviar eventos para o PostHog, defina:
+
+```
+NEXT_PUBLIC_POSTHOG_KEY=phc_...
+NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+# Opcional — usa NEXT_PUBLIC_* como fallback
+POSTHOG_KEY=phc_...
+POSTHOG_HOST=https://us.i.posthog.com
+```
+
+Sem essas variáveis, `track()` apenas faz `console.debug` em dev e os eventos server-side viram no-op.
+
 Abra [http://localhost:3000](http://localhost:3000).
 
 ## Rotas públicas

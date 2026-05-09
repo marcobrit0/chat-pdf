@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PaywallSeenTracker } from "@/components/analytics/PaywallSeenTracker";
 
 type Props = {
   email: string | null;
@@ -39,6 +40,7 @@ const featurePreview = [
 export function PremiumUpsell({ email }: Props) {
   return (
     <div className="space-y-12">
+      <PaywallSeenTracker trigger="free_authed_landing" surface="premium_upsell" />
       <section className="grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)] lg:items-start">
         <div className="space-y-6">
           <p className="eyebrow text-faded-stone">

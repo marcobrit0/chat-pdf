@@ -1,3 +1,4 @@
+import { IdentifyUser } from "@/components/analytics/IdentifyUser";
 import { AppShellHeader } from "@/components/app/AppShellHeader";
 import { requirePremiumAccess } from "@/lib/entitlements";
 import { createClient } from "@/lib/supabase/server";
@@ -16,6 +17,7 @@ export default async function AppGroupLayout({
 }) {
   let isPremium = false;
   let email: string | null = null;
+  let userId: string | null = null;
 
   if (
     process.env.NEXT_PUBLIC_SUPABASE_URL &&
@@ -26,6 +28,7 @@ export default async function AppGroupLayout({
       data: { user },
     } = await supabase.auth.getUser();
     if (user) {
+      userId = user.id;
       email = user.email ?? null;
       const gate = await requirePremiumAccess(supabase, user.id);
       isPremium = gate.ok;
@@ -34,6 +37,9 @@ export default async function AppGroupLayout({
 
   return (
     <div className="flex min-h-screen flex-col bg-canvas">
+      {userId ? (
+        <IdentifyUser userId={userId} email={email} isPremium={isPremium} />
+      ) : null}
       <AppShellHeader isPremium={isPremium} email={email} />
       <main className="flex-1">{children}</main>
     </div>

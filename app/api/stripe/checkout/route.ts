@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { captureServerEvent } from "@/lib/posthog-server";
 import { createClient } from "@/lib/supabase/server";
 import { assertAllowedPriceId } from "@/lib/stripe/price-allowlist";
 import { getStripe } from "@/lib/stripe/server";
@@ -95,6 +96,11 @@ export async function POST(request: Request) {
         { status: 500 },
       );
     }
+
+    await captureServerEvent(user.id, "checkout_started", {
+      stripe_session_id: session.id,
+      price_id: priceId,
+    });
 
     return NextResponse.json({ url: session.url });
   } catch (e) {

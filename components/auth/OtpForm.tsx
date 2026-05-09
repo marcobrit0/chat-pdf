@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { track } from "@/lib/analytics";
 import { createClient } from "@/lib/supabase/client";
 
 type OtpFormProps = {
@@ -20,6 +21,8 @@ export function OtpForm({ nextPath }: OtpFormProps) {
   const [step, setStep] = useState<Step>({ name: "email" });
 
   async function sendCode(emailToSend: string) {
+    const emailDomain = emailToSend.split("@")[1] ?? null;
+    track("auth_magic_link_requested", { email_domain: emailDomain });
     const supabase = createClient();
     const { error } = await supabase.auth.signInWithOtp({
       email: emailToSend,
