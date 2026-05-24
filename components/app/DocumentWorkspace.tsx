@@ -245,6 +245,10 @@ export function DocumentWorkspace({
   /** Garante que o auto-disparo só acontece uma vez por documento (modo summary). */
   const autoStartedRef = useRef(false);
 
+  useEffect(() => {
+    track("document_opened", { document_id: documentId, page_count: pageCount });
+  }, [documentId, pageCount]);
+
   const [messages, setMessages] = useState<ChatTurn[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -338,6 +342,7 @@ export function DocumentWorkspace({
     ];
     setMessages(nextHistory);
     setLoading(true);
+    track("premium_chat_start", { length: trimmed.length });
 
     try {
       const res = await fetch("/api/chat/premium", {

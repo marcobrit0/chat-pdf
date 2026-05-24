@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PaywallSeenTracker } from "@/components/analytics/PaywallSeenTracker";
 
 export type PaywallVariant =
   | "default"
@@ -49,6 +50,7 @@ export function PaywallCta({
   const copy = COPY[variant];
   return (
     <div className="rounded-xl bg-ash-gray p-card md:p-card-elevated">
+      <PaywallSeenTracker trigger={variant} surface="paywall_cta" />
       <p className="font-display text-subheading font-semibold text-midnight-ink">
         {copy.headline}
       </p>

@@ -6,6 +6,7 @@ import {
   fontSeasonMix,
   fontSoehne,
 } from "@/app/fonts";
+import { PostHogProvider } from "@/components/analytics/PostHogProvider";
 import { getSiteUrl } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
@@ -34,7 +35,9 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${fontSeasonMix.variable} ${fontSoehne.variable} ${fontAbcDiatype.variable} ${fontFoundersMono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col font-sans">{children}</body>
+      <body className="flex min-h-full flex-col font-sans">
+        <PostHogProvider>{children}</PostHogProvider>
+      </body>
     </html>
   );
 }

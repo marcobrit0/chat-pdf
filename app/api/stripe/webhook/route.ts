@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type Stripe from "stripe";
+import { captureServerEvent } from "@/lib/posthog-server";
 import { createServiceRoleClient } from "@/lib/supabase/admin";
 import { getStripe } from "@/lib/stripe/server";
 
@@ -114,13 +115,71 @@ export async function POST(request: Request) {
         if (typeof subId === "string") {
           const sub = await getStripe().subscriptions.retrieve(subId);
           await upsertSubscriptionFromStripe(sub, userId);
+          if (userId) {
+            const item = sub.items.data[0];
+            await captureServerEvent(userId, "subscription_started", {
+              stripe_subscription_id: sub.id,
+              price_id: item?.price?.id ?? null,
+              amount_cents: item?.price?.unit_amount ?? null,
+              currency: item?.price?.currency ?? null,
+              status: sub.status,
+            });
+          }
         }
         break;
       }
-      case "customer.subscription.updated":
+      case "customer.subscription.updated": {
+        const sub = event.data.object as Stripe.Subscription;
+        await upsertSubscriptionFromStripe(sub);
+        const userId = sub.metadata?.supabase_user_id;
+        if (userId && sub.cancel_at_period_end) {
+          await captureServerEvent(userId, "subscription_canceling", {
+            stripe_subscription_id: sub.id,
+            status: sub.status,
+          });
+        }
+        break;
+      }
       case "customer.subscription.deleted": {
         const sub = event.data.object as Stripe.Subscription;
         await upsertSubscriptionFromStripe(sub);
+        const userId = sub.metadata?.supabase_user_id;
+        if (userId) {
+          await captureServerEvent(userId, "subscription_canceled", {
+            stripe_subscription_id: sub.id,
+            status: sub.status,
+          });
+        }
+        break;
+      }
+      case "invoice.paid": {
+        const invoice = event.data.object as Stripe.Invoice;
+        const userId =
+          (invoice.parent?.subscription_details?.metadata?.supabase_user_id as
+            | string
+            | undefined) ?? undefined;
+        if (userId) {
+          await captureServerEvent(userId, "subscription_renewed", {
+            invoice_id: invoice.id,
+            amount_cents: invoice.amount_paid,
+            currency: invoice.currency,
+          });
+        }
+        break;
+      }
+      case "invoice.payment_failed": {
+        const invoice = event.data.object as Stripe.Invoice;
+        const userId =
+          (invoice.parent?.subscription_details?.metadata?.supabase_user_id as
+            | string
+            | undefined) ?? undefined;
+        if (userId) {
+          await captureServerEvent(userId, "payment_failed", {
+            invoice_id: invoice.id,
+            amount_cents: invoice.amount_due,
+            currency: invoice.currency,
+          });
+        }
         break;
       }
       default:

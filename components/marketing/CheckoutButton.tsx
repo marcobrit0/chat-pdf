@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { track } from "@/lib/analytics";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 
@@ -23,6 +24,7 @@ export function CheckoutButton({
   async function onClick() {
     setLoading(true);
     setError(null);
+    track("checkout_clicked", { price_id: priceId, variant });
     try {
       const supabase = createClient();
       const {
