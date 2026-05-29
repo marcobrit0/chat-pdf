@@ -62,11 +62,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/pdf-ia", priority: 0.5, freq: "monthly" },
     { path: "/ia-para-resumir-pdf", priority: 0.5, freq: "monthly" },
 
-    // Auth + legal (lower)
-    { path: "/login", priority: 0.4, freq: "monthly" },
+    // Legal (lower). /login and /app are intentionally excluded — they are
+    // noindex auth surfaces and listing them only wastes crawl budget.
     { path: "/termos", priority: 0.3, freq: "monthly" },
     { path: "/privacidade", priority: 0.3, freq: "monthly" },
-    { path: "/app", priority: 0.3, freq: "monthly" },
 
     // Programmatic SEO: persona × document-type long-tail landings.
     // Lower priority than canonical use-cases (0.8) to avoid signaling

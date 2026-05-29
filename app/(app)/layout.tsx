@@ -1,9 +1,19 @@
+import type { Metadata } from "next";
+
 import { IdentifyUser } from "@/components/analytics/IdentifyUser";
 import { AppShellHeader } from "@/components/app/AppShellHeader";
 import { requirePremiumAccess } from "@/lib/entitlements";
 import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
+
+/**
+ * The authenticated product surface has no SEO value and sits behind login.
+ * Keep it out of the index so Google spends crawl budget on marketing pages.
+ */
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 /**
  * Route group for `/app` — minimal authenticated chrome (logo, library,

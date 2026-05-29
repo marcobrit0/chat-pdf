@@ -9,6 +9,8 @@ export const metadata: Metadata = buildPageMetadata({
   description:
     "Entre no PDFIA com código de uso único enviado por e-mail. Sem senha pra esquecer, sem cadastro complicado.",
   path: "/login",
+  // Auth page — no SEO value, keep it out of the index.
+  index: false,
 });
 
 const benefits = [
