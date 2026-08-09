@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local agent worktrees
+/.claude/worktrees/
+
 # supabase local link/cache metadata
 supabase/.temp/
 
