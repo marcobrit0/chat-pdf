@@ -6,9 +6,9 @@ import {
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "OCR pra PDF: quando precisa e como saber se funcionou | PDFIA",
+  title: "PDF Escaneado Precisa de OCR? Teste e Como Resolver | PDFIA",
   description:
-    "Guia técnico em PT-BR sobre OCR pra PDF: quando precisa, como testar se seu PDF já tem texto, quais ferramentas usar, como julgar a qualidade e cuidados ao misturar OCR com IA.",
+    "Seu PDF é escaneado? Teste em 5 segundos se ele precisa de OCR, veja as melhores ferramentas e como deixar o texto pronto pra IA. Guia em português.",
   path: "/guias/ocr-para-pdf",
 });
 

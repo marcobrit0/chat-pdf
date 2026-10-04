@@ -4,9 +4,9 @@ import { buildPageMetadata } from "@/lib/seo";
 import { personaVariantsByCanonical } from "@/lib/seo/programmatic-seo-data";
 
 export const metadata = buildPageMetadata({
-  title: "Analisar proposta comercial com IA — antes de aceitar ou contrapropor | PDFIA",
+  title: "Analisar Proposta Comercial com IA Grátis em Segundos | PDFIA",
   description:
-    "Proposta chegou? Em segundos: escopo, valor, prazo, condições, validade e o que não está incluído. Pra você aceitar, negociar ou contrapropor com base no que tá escrito.",
+    "Envie a proposta em PDF e veja escopo, valor, prazo, validade e o que ficou de fora. Resumo grátis em segundos pra negociar sem surpresa no contrato.",
   path: "/analisar-proposta-comercial",
 });
 

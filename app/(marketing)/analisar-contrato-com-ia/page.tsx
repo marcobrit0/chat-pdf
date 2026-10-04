@@ -2,9 +2,9 @@ import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Analisar contrato com IA em português — sem advogado a cada cláusula | PDFIA",
+  title: "Analisar Contrato com IA Grátis: Resumo e Riscos | PDFIA",
   description:
-    "Analise contrato em PDF com IA: partes, objeto, prazo, valores e cláusulas que costumam pegar — em segundos. Resumo grátis pra triagem; chat com a página citada e modo de riscos no Premium. Não substitui advogado.",
+    "Envie o contrato em PDF e receba resumo grátis com partes, prazos, valores e cláusulas de risco, com a página citada. Sem cadastro pra começar.",
   path: "/analisar-contrato-com-ia",
 });
 
