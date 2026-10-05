@@ -4,9 +4,9 @@ import { Breadcrumbs } from "@/components/marketing/Breadcrumbs";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Guias práticos: como usar IA pra ler PDF em português | PDFIA",
+  title: "Guias de PDF com IA: resumir, analisar contratos e editais | PDFIA",
   description:
-    "Tutoriais diretos pra resumir, ler e analisar PDF com IA em português. Casos reais pra contrato, edital, apólice, laudo, boleto e relatório — escritos pra quem precisa resolver, não pra quem quer estudar.",
+    "Guias práticos em português pra resumir PDF, analisar contrato e edital, entender apólice, laudo e boleto com IA. Passo a passo direto, grátis pra ler.",
   path: "/guias",
 });
 
