@@ -2,7 +2,7 @@ import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "ChatPDF em português brasileiro — feito no Brasil, em real | PDFIA",
+  title: "ChatPDF em Português Grátis: Resuma e Pergunte ao PDF | PDFIA",
   description:
     "Ferramenta de chat com PDF em português do Brasil: resumo grátis, perguntas com a página citada e modos prontos pra contrato CLT, edital de licitação e apólice de seguro. Pagamento em real.",
   path: "/chatpdf-em-portugues",
