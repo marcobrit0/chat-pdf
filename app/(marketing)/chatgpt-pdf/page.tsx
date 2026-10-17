@@ -2,9 +2,9 @@ import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "ChatGPT pra PDF: por que ter uma ferramenta dedicada vale mais | PDFIA",
+  title: "ChatGPT pra PDF: Alternativa Grátis com Citação de Página | PDFIA",
   description:
-    "ChatGPT lê PDF, sim — mas é generalista. Veja por que uma ferramenta dedicada como o PDFIA cita a página, tem modo pronto pra contrato e custa em real, sem ter que pagar dólar.",
+    "ChatGPT lê PDF, mas é generalista. O PDFIA cita a página, tem modo pronto pra contrato e custa em real. Teste grátis, sem cadastro.",
   path: "/chatgpt-pdf",
 });
 
