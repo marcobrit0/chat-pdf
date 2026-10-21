@@ -75,6 +75,19 @@ export function SiteFooter() {
           </div>
         </div>
 
+        <div className="mt-10 border-t border-subtle-gray pt-6">
+          <p className="eyebrow text-faded-stone">Outras ferramentas</p>
+          <p className="mt-3 text-body-sm text-charcoal-text">
+            A reunião foi gravada em áudio? Transcreva e resuma automaticamente.
+          </p>
+          <a
+            href="https://transcrito.ia.br/"
+            className="mt-2 inline-block text-body-sm text-charcoal-text underline-offset-4 hover:underline"
+          >
+            Transcrever áudio e vídeo — Transcrito
+          </a>
+        </div>
+
         <div className="mt-12 flex flex-col gap-2 border-t border-subtle-gray pt-6 text-caption text-faded-stone sm:flex-row sm:items-center sm:justify-between">
           <p className="font-condensed">
             © {new Date().getFullYear()} PDFIA · Chat com PDF em português, feito no Brasil
