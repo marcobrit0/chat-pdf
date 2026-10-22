@@ -6,7 +6,7 @@
 - Resume PDFs com tópicos, datas, valores e nomes em destaque, e sugere perguntas para aprofundar.
 - No Premium, permite conversar com o PDF: cada resposta do chat cita a página de origem, para conferir no documento.
 - Quando a informação não está no PDF, o PDFIA avisa em vez de inventar.
-- Modos prontos por tipo de documento brasileiro no Premium: contrato CLT, edital de licitação, apólice e laudo, além de resumo profundo, extração de dados e mapeamento de riscos.
+- Modos prontos por tipo de documento brasileiro no Premium: contrato CLT, edital de licitação, apólice e laudo, além de resumo profundo, extrair dados e mapeamento de riscos.
 - Responde em português do Brasil por padrão, sem precisar configurar. Aceita PDFs com texto selecionável, incluindo PDFs em inglês, e responde em PT-BR.
 - Limitação importante: o PDFIA NÃO faz OCR. Hoje só funciona com PDF com texto selecionável. Se o PDF é uma foto ou imagem escaneada, ele precisa passar por OCR antes, em outra ferramenta. O OCR automático ainda não está disponível.
 
@@ -23,7 +23,7 @@
 - [Resumir PDF](https://www.pdfia.com.br/resumir-pdf): resumir um PDF
 - [Chat com PDF](https://www.pdfia.com.br/chat-pdf): conversar com um PDF
 - [Guias](https://www.pdfia.com.br/guias): guias práticos de PDF com IA em português
-- [ChatGPT para PDF](https://www.pdfia.com.br/chatgpt-pdf): alternativa ao ChatGPT para PDF, com citação de página
+- [ChatGPT para PDF](https://www.pdfia.com.br/chatgpt-pdf): alternativa ao ChatGPT para PDF, com citação de página no Premium
 - [ChatPDF em português](https://www.pdfia.com.br/chatpdf-em-portugues): ChatPDF em português brasileiro, com pagamento em real
 - [Alternativa ao ChatPDF](https://www.pdfia.com.br/alternativa-ao-chatpdf): alternativa brasileira ao ChatPDF
 
