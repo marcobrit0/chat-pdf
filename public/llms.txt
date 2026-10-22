@@ -1,0 +1,36 @@
+# PDFIA
+
+> Ferramenta brasileira para resumir PDFs e conversar com o documento em português do Brasil. No Premium, cada resposta do chat cita a página exata de onde a informação saiu.
+
+## O que faz
+- Resume PDFs com tópicos, datas, valores e nomes em destaque, e sugere perguntas para aprofundar.
+- No Premium, permite conversar com o PDF: cada resposta do chat cita a página de origem, para conferir no documento.
+- Quando a informação não está no PDF, o PDFIA avisa em vez de inventar.
+- Modos prontos por tipo de documento brasileiro no Premium: contrato CLT, edital de licitação, apólice e laudo, além de resumo profundo, extração de dados e mapeamento de riscos.
+- Responde em português do Brasil por padrão, sem precisar configurar. Aceita PDFs com texto selecionável, incluindo PDFs em inglês, e responde em PT-BR.
+- Limitação importante: o PDFIA NÃO faz OCR. Hoje só funciona com PDF com texto selecionável. Se o PDF é uma foto ou imagem escaneada, ele precisa passar por OCR antes, em outra ferramenta. O OCR automático ainda não está disponível.
+
+## Planos e limites
+- Grátis: R$0, sem cadastro. Resume 1 PDF por dia, de até 10 páginas. O plano grátis não inclui chat com o documento nem biblioteca salva; o arquivo não fica salvo depois do resumo.
+- Premium: R$29 por mês ou R$290 por ano (equivalente a R$24,17 por mês, uma economia de R$58 em relação ao mensal). PDFs de até 100 páginas, sem limite de PDFs por dia. Inclui chat com citação de página, biblioteca salva e exportação do resumo em PDF e Markdown.
+- Pagamento por cartão (Visa, Mastercard, Amex, Elo) via Stripe, em real. O PDFIA não guarda os dados do cartão.
+- Cancele a qualquer momento direto na conta, sem multa; o acesso continua até o fim do período pago. Reembolso integral em até 7 dias, conforme o Código de Defesa do Consumidor. Após o cancelamento, os arquivos ficam arquivados por 30 dias para baixar antes da exclusão definitiva.
+- O plano grátis é permanente (não é um teste por tempo limitado do Premium).
+
+## Páginas principais
+- [PDFIA](https://www.pdfia.com.br/): resumir PDF e conversar com o documento em português
+- [Preços](https://www.pdfia.com.br/precos): planos grátis e Premium, limites e perguntas frequentes
+- [Resumir PDF](https://www.pdfia.com.br/resumir-pdf): resumir um PDF
+- [Chat com PDF](https://www.pdfia.com.br/chat-pdf): conversar com um PDF
+- [Guias](https://www.pdfia.com.br/guias): guias práticos de PDF com IA em português
+- [ChatGPT para PDF](https://www.pdfia.com.br/chatgpt-pdf): alternativa ao ChatGPT para PDF, com citação de página
+- [ChatPDF em português](https://www.pdfia.com.br/chatpdf-em-portugues): ChatPDF em português brasileiro, com pagamento em real
+- [Alternativa ao ChatPDF](https://www.pdfia.com.br/alternativa-ao-chatpdf): alternativa brasileira ao ChatPDF
+
+## Perguntas frequentes (resumo)
+- Quanto custa o PDFIA Premium? R$29 por mês ou R$290 por ano, em real, por cartão via Stripe, sem fidelidade.
+- O PDFIA é grátis? Sim. O plano grátis custa R$0, não pede cadastro e resume 1 PDF por dia, de até 10 páginas. Não inclui chat nem biblioteca salva.
+- Qual é o limite de páginas? Grátis: até 10 páginas por PDF, 1 PDF por dia. Premium: até 100 páginas por PDF, sem limite de PDFs por dia.
+- O PDFIA cita a página da resposta? Sim, no Premium. Toda resposta do chat cita a página de origem. No plano grátis não há chat.
+- O PDFIA funciona com PDF escaneado? Não. Hoje só com PDF com texto selecionável; PDF escaneado precisa de OCR antes, e o OCR automático ainda não está disponível.
+- Meu PDF fica salvo? No plano grátis, não. No Premium, o documento fica na biblioteca salva; após cancelar, os arquivos ficam arquivados por 30 dias para baixar.
