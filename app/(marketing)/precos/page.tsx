@@ -192,8 +192,8 @@ export default function PrecosPage() {
                 <FeatureLi included>
                   Perguntas sugeridas pra você se aprofundar
                 </FeatureLi>
-                <FeatureLi>Chat com o PDF (perguntar e receber página)</FeatureLi>
-                <FeatureLi>Biblioteca salva — voltar ao documento</FeatureLi>
+                <FeatureLi>Chat com o PDF — não incluído no grátis</FeatureLi>
+                <FeatureLi>Biblioteca salva — não incluída no grátis</FeatureLi>
               </ul>
               <ButtonLink
                 href="/resumir-pdf"
