@@ -37,6 +37,11 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col font-sans">
         <PostHogProvider>{children}</PostHogProvider>
+        <script
+          async
+          src="https://app.tellpin.com/widget/v0.1.21/widget.js"
+          data-fbai-key="pk_live_0481a39d0f014e3e984d173809672c720b05292b04fe402685e8ef3bf8f5b7e3"
+        />
       </body>
     </html>
   );
