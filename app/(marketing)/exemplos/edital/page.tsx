@@ -45,6 +45,11 @@ export default function ExemploEditalPage() {
         { label: "Exemplo: edital", path: "/exemplos/edital" },
       ]}
       faqs={faqs}
+      related={[
+        { href: "/ler-edital-com-ia", label: "Ler edital com IA" },
+        { href: "/resumir-edital-de-licitacao", label: "Resumir edital" },
+        { href: "/precos", label: "Preços do PDFIA" },
+      ]}
     >
       <section>
         <h2 className="font-display text-subheading font-semibold text-midnight-ink">
@@ -127,7 +132,7 @@ export default function ExemploEditalPage() {
           para identificar o exemplo.
         </p>
         <p className="mt-4 text-body text-charcoal-text">
-          <strong>Resumo que o PDFIA devolveria para esse edital fictício:</strong>
+          <strong>Resumo que o PDFIA devolveria para esse edital fictício (no Premium, que cobre PDFs de até 100 páginas):</strong>
         </p>
         <ul className="mt-4 space-y-2 text-body-sm text-charcoal-text">
           <li>
@@ -158,7 +163,7 @@ export default function ExemploEditalPage() {
           </li>
           <li>
             <strong>Ponto de atenção (exemplo):</strong> o edital fictício
-            exige visita técnica opcional e apresentação de planilha de custos
+            prevê visita técnica opcional e apresentação de planilha de custos
             junto com a proposta.
           </li>
         </ul>
