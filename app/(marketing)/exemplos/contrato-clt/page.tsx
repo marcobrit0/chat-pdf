@@ -143,7 +143,7 @@ export default function ExemploContratoCltPage() {
           </li>
           <li>
             <strong>Jornada (exemplo):</strong> 44 horas semanais, de
-            segunda a sexta, das 9h às 18h, com 1 hora de intervalo.
+            segunda a sexta, das 8h às 17h48, com 1 hora de intervalo.
           </li>
           <li>
             <strong>Férias (exemplo):</strong> 30 dias após cada período
@@ -162,7 +162,7 @@ export default function ExemploContratoCltPage() {
           </li>
         </ul>
         <p className="mt-4 text-body text-charcoal-text">
-          <strong>Perguntas sugeridas depois do resumo (exemplo, no Premium):</strong>
+          <strong>Perguntas sugeridas depois do resumo (exemplo):</strong>
         </p>
         <ul className="mt-4 space-y-2 text-body-sm text-charcoal-text">
           <li>Qual é o salário e a jornada previstos? (página 2)</li>
