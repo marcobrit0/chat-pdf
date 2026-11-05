@@ -4,7 +4,7 @@ import { buildPageMetadata } from "@/lib/seo";
 import { personaVariantsByCanonical } from "@/lib/seo/programmatic-seo-data";
 
 export const metadata = buildPageMetadata({
-  title: "Analisar Proposta Comercial com IA Grátis em Segundos | PDFIA",
+  title: "Analisar Proposta Comercial com IA: Escopo, Valor e Prazo | PDFIA",
   description:
     "Envie a proposta em PDF e veja escopo, valor, prazo, validade e o que ficou de fora. Resumo grátis em segundos pra negociar sem surpresa no contrato.",
   path: "/analisar-proposta-comercial",
