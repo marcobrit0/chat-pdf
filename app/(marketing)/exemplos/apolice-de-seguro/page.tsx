@@ -2,9 +2,9 @@ import { SeoPageTemplate } from "@/components/marketing/SeoPageTemplate";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Como entender uma apólice de seguro com o PDFIA — exemplo passo a passo | PDFIA",
+  title: "Exemplo de apólice de seguro resumida com o PDFIA — passo a passo | PDFIA",
   description:
-    "Veja como o PDFIA resume uma apólice de seguro: coberturas, exclusões, franquia, carência e aviso de sinistro, com um exemplo fictício. Grátis até 10 páginas, sem cadastro.",
+    "Exemplo fictício de apólice de seguro auto resumida com o PDFIA: coberturas, exclusões, franquia, carência e aviso de sinistro. Grátis até 10 páginas, sem cadastro.",
   path: "/exemplos/apolice-de-seguro",
 });
 
@@ -38,7 +38,7 @@ const faqs = [
 export default function ExemploApoliceDeSeguroPage() {
   return (
     <SeoPageTemplate
-      title="Como entender uma apólice de seguro com o PDFIA"
+      title="Apólice de seguro: exemplo de resumo com o PDFIA"
       intro="Uma apólice de seguro parece simples até você precisar achar uma cláusula no meio dela: o que está coberto, o que está excluído, qual é a franquia, quanto tempo dura a carência, qual o prazo para avisar um sinistro. É para isso que serve o modo apólice do PDFIA: ele lê o PDF e devolve um resumo organizado por esses pontos, em português, sem você precisar caçar cada informação página por página."
       breadcrumbs={[
         { label: "Início", path: "/" },
