@@ -31,7 +31,7 @@ const faqs = [
   },
   {
     q: "Meu laudo fica salvo?",
-    a: "No plano gratuito o arquivo é processado e descartado. No Premium fica salvo na sua conta, criptografado em repouso. Não compartilhamos dados com terceiros.",
+    a: "No plano gratuito o arquivo é processado e descartado. No Premium fica salvo na sua conta, criptografado em repouso. Não vendemos seus dados pessoais.",
   },
 ];
 
