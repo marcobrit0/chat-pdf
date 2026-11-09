@@ -53,6 +53,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/exemplos/contrato-clt", priority: 0.75, freq: "weekly" },
     { path: "/exemplos/apolice-de-seguro", priority: 0.75, freq: "weekly" },
     { path: "/exemplos/laudo-medico", priority: 0.75, freq: "weekly" },
+    { path: "/exemplos/proposta-comercial", priority: 0.75, freq: "weekly" },
     { path: "/analisar-apolice-de-seguro", priority: 0.75, freq: "weekly" },
     { path: "/entender-laudo-medico", priority: 0.75, freq: "weekly" },
     { path: "/comparar-pdfs", priority: 0.75, freq: "weekly" },
