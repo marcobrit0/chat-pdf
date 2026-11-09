@@ -31,7 +31,7 @@ const faqs = [
   },
   {
     q: "Minha proposta fica salva?",
-    a: "No plano gratuito o arquivo é processado e descartado. No Premium fica salvo na sua conta, para você voltar ao documento quando quiser. Não compartilhamos dados com terceiros.",
+    a: "No plano gratuito o arquivo é processado e descartado. No Premium fica salvo na sua conta, para você voltar ao documento quando quiser. Não vendemos seus dados pessoais.",
   },
 ];
 
