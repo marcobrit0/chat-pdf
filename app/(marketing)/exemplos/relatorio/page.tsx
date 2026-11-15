@@ -166,6 +166,10 @@ export default function ExemploRelatorioPage() {
             operacionais fictícias de R$ 1.800.000 no trimestre.
           </li>
           <li>
+            <strong>Impostos e outras despesas (exemplo):</strong> impostos e
+            outras despesas fictícias de R$ 280.000 no trimestre.
+          </li>
+          <li>
             <strong>Lucro líquido (exemplo):</strong> lucro líquido fictício
             de R$ 320.000 no trimestre, com margem fictícia de 13,3% sobre a
             receita.
