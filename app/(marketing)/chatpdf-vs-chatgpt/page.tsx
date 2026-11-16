@@ -7,7 +7,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata = buildPageMetadata({
   title: "PDFIA vs ChatGPT pra ler PDF — qual escolher? | PDFIA",
   description:
-    "Comparação honesta entre PDFIA e ChatGPT pra trabalhar com PDF: citação de página em toda resposta, modos prontos por tipo de documento, plano grátis sem cadastro e pagamento em real.",
+    "Comparação honesta entre PDFIA e ChatGPT pra trabalhar com PDF: citação de página no chat Premium, modos prontos por tipo de documento, plano grátis sem cadastro e pagamento em real.",
   path: "/chatpdf-vs-chatgpt",
 });
 
@@ -45,14 +45,14 @@ const comparison = [
   {
     label: "Preço",
     you: "Gratuito (básico) / Premium em BRL",
-    them: "ChatGPT Plus em USD",
+    them: "Grátis (3 uploads/dia) / Plus em USD",
   },
 ];
 
 const faqs = [
   {
     q: "Preciso pagar o ChatGPT Plus para usar PDFs?",
-    a: "Sim, o upload de PDFs no ChatGPT exige o plano Plus (USD). O PDFIA tem resumo gratuito sem conta e Premium em BRL.",
+    a: "Não. O plano grátis do ChatGPT permite 3 uploads de arquivo por dia; acima disso, o Plus amplia o limite (até 80 arquivos a cada 3 horas). O PDFIA tem resumo gratuito sem conta e Premium em BRL.",
   },
   {
     q: "O ChatGPT perde contexto em documentos longos?",
@@ -136,8 +136,7 @@ export default function ChatpdfVsChatgptPage() {
             </h2>
             <p className="mt-2 text-body-sm  text-charcoal-text">
               Você já é assinante e usa o ChatGPT pra mil outras coisas (código,
-              imagem, brainstorm). Lembrando: upload de PDF exige o Plus, em
-              dólar.
+              imagem, brainstorm). Lembrando: no plano grátis o upload é limitado a 3 arquivos por dia — uso recorrente pede o Plus, em dólar.
             </p>
           </div>
         </section>
