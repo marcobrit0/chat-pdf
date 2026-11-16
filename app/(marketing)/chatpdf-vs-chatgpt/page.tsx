@@ -7,7 +7,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata = buildPageMetadata({
   title: "PDFIA vs ChatGPT pra ler PDF — qual escolher? | PDFIA",
   description:
-    "Comparação honesta entre PDFIA e ChatGPT pra trabalhar com PDF: citação de página em toda resposta, modos prontos por tipo de documento, plano grátis sem cadastro e pagamento em real.",
+    "Comparação honesta entre PDFIA e ChatGPT pra trabalhar com PDF: citação de página no chat Premium, modos prontos por tipo de documento, plano grátis sem cadastro e pagamento em real.",
   path: "/chatpdf-vs-chatgpt",
 });
 
@@ -19,7 +19,7 @@ const comparison = [
   },
   {
     label: "Citação de página",
-    you: "Sempre, por padrão",
+    you: "Sim, no Premium",
     them: "Só se você pedir no prompt",
   },
   {
@@ -33,6 +33,11 @@ const comparison = [
     them: "Não — prompt manual",
   },
   {
+    label: "Resposta em português",
+    you: "PT-BR por padrão, sem configurar",
+    them: "Depende do idioma do prompt",
+  },
+  {
     label: "Histórico do documento",
     you: "Sim (Premium)",
     them: "Por sessão",
@@ -40,14 +45,14 @@ const comparison = [
   {
     label: "Preço",
     you: "Gratuito (básico) / Premium em BRL",
-    them: "ChatGPT Plus em USD",
+    them: "Grátis (3 uploads/dia) / Plus em USD",
   },
 ];
 
 const faqs = [
   {
     q: "Preciso pagar o ChatGPT Plus para usar PDFs?",
-    a: "Sim, o upload de PDFs no ChatGPT exige o plano Plus (USD). O PDFIA tem resumo gratuito sem conta e Premium em BRL.",
+    a: "Não. O plano grátis do ChatGPT permite 3 uploads de arquivo por dia; acima disso, o Plus amplia o limite (até 80 arquivos a cada 3 horas). O PDFIA tem resumo gratuito sem conta e Premium em BRL.",
   },
   {
     q: "O ChatGPT perde contexto em documentos longos?",
@@ -56,6 +61,26 @@ const faqs = [
   {
     q: "Quando o ChatGPT é melhor?",
     a: "Se você já é assinante do Plus e a tarefa é pontual, ou precisa de outras tarefas além de leitura de PDF (geração de código, análise de imagem, etc.). Para PDFs em PT-BR de forma recorrente, uma ferramenta dedicada poupa fricção.",
+  },
+  {
+    q: "Quanto custa o PDFIA Premium?",
+    a: "R$29 por mês, ou R$290 por ano (R$24,17 por mês, uma economia de R$58 em relação ao mensal). Pagamento em real, por cartão via Stripe, e você cancela quando quiser.",
+  },
+  {
+    q: "O que o plano grátis do PDFIA inclui?",
+    a: "Resumo de 1 PDF por dia, de até 10 páginas, sem cadastro. O resumo traz tópicos, datas, valores e nomes em destaque, além de perguntas sugeridas pra aprofundar. O plano grátis não inclui chat com o documento nem biblioteca salva.",
+  },
+  {
+    q: "A citação de página está no plano grátis?",
+    a: "Não. A citação de página existe no chat do Premium: cada resposta cita a página exata de onde a informação saiu, pra você conferir no documento. No plano grátis não há chat — só o resumo.",
+  },
+  {
+    q: "O PDFIA funciona com PDF escaneado?",
+    a: "Não, ainda não. Hoje o PDFIA só lê PDF com texto selecionável. Se o PDF é uma foto ou imagem escaneada, ele precisa passar por OCR antes.",
+  },
+  {
+    q: "O PDFIA responde em português?",
+    a: "Sim. Interface, respostas e modos em PT-BR por padrão, sem precisar configurar nada. Ele aceita PDF em inglês e responde em português do Brasil.",
   },
 ];
 
@@ -82,8 +107,8 @@ export default function ChatpdfVsChatgptPage() {
           <p className="mt-5 text-body  text-charcoal-text sm:text-body-lg">
             ChatGPT é generalista — também aceita PDF. O PDFIA foi feito do
             zero pra isso: upload direto, resposta ancorada no texto, citação de
-            página em toda resposta e modos prontos pra contrato, edital e
-            apólice brasileira.
+            página em toda resposta no chat Premium e modos prontos pra
+            contrato, edital, apólice e laudo brasileiro.
           </p>
         </header>
 
@@ -111,8 +136,7 @@ export default function ChatpdfVsChatgptPage() {
             </h2>
             <p className="mt-2 text-body-sm  text-charcoal-text">
               Você já é assinante e usa o ChatGPT pra mil outras coisas (código,
-              imagem, brainstorm). Lembrando: upload de PDF exige o Plus, em
-              dólar.
+              imagem, brainstorm). Lembrando: no plano grátis o upload é limitado a 3 arquivos por dia — uso recorrente pede o Plus, em dólar.
             </p>
           </div>
         </section>
@@ -176,6 +200,208 @@ export default function ChatpdfVsChatgptPage() {
           </div>
         </section>
 
+        {/* —— Free vs Premium —— */}
+        <section className="mt-14">
+          <h2 className="font-display text-heading-lg font-semibold leading-tight text-midnight-ink">
+            O que o grátis inclui — e o que só o Premium faz
+          </h2>
+          <div className="mt-6 grid gap-6 md:grid-cols-2">
+            <div className="rounded-lg border border-subtle-gray bg-crisp-white p-6">
+              <p className="eyebrow text-faded-stone">
+                Grátis — R$0, sem cadastro
+              </p>
+              <p className="mt-3 text-body  text-charcoal-text">
+                Resumo de 1 PDF por dia, de até 10 páginas, com tópicos, datas,
+                valores e nomes em destaque e perguntas sugeridas pra
+                aprofundar. Sem chat com o documento e sem biblioteca salva: o
+                arquivo não fica guardado depois do resumo.
+              </p>
+            </div>
+            <div className="rounded-lg border border-subtle-gray bg-crisp-white p-6">
+              <p className="eyebrow text-faded-stone">
+                Premium — R$29/mês ou R$290/ano
+              </p>
+              <p className="mt-3 text-body  text-charcoal-text">
+                PDFs de até 100 páginas, sem limite por dia. Chat com o PDF em
+                que toda resposta cita a página de origem, biblioteca salva pra
+                voltar ao documento quando quiser e exportação do resumo em PDF
+                + Markdown.
+              </p>
+            </div>
+          </div>
+          <p className="mt-4 text-body-sm text-charcoal-text">
+            Detalhes, formas de pagamento e reembolso em{" "}
+            <Link
+              href="/precos"
+              className="text-midnight-ink underline underline-offset-4"
+            >
+              Preços
+            </Link>
+            .
+          </p>
+        </section>
+
+        {/* —— Modes —— */}
+        <section className="mt-14">
+          <h2 className="font-display text-heading-lg font-semibold leading-tight text-midnight-ink">
+            Modos prontos pra documento brasileiro
+          </h2>
+          <p className="mt-4 max-w-3xl text-body  text-charcoal-text">
+            Cada modo já sabe o que procurar nesse tipo de documento — você não
+            precisa montar prompt nem explicar o que é um edital ou uma
+            apólice. Além dos modos por documento, o Premium tem resumo
+            profundo, extrair dados e mapear riscos.
+          </p>
+          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+            <li className="rounded-lg border border-subtle-gray bg-crisp-white p-5">
+              <Link
+                href="/analisar-contrato-com-ia"
+                className="font-display text-body-lg font-semibold text-midnight-ink underline underline-offset-4"
+              >
+                Contrato CLT
+              </Link>
+              <p className="mt-1 text-body-sm text-charcoal-text">
+                Resumo e riscos do contrato antes de assinar.
+              </p>
+            </li>
+            <li className="rounded-lg border border-subtle-gray bg-crisp-white p-5">
+              <Link
+                href="/resumir-edital-de-licitacao"
+                className="font-display text-body-lg font-semibold text-midnight-ink underline underline-offset-4"
+              >
+                Edital de licitação
+              </Link>
+              <p className="mt-1 text-body-sm text-charcoal-text">
+                Prazos, valores e exigências do edital em um resumo só.
+              </p>
+            </li>
+            <li className="rounded-lg border border-subtle-gray bg-crisp-white p-5">
+              <Link
+                href="/analisar-apolice-de-seguro"
+                className="font-display text-body-lg font-semibold text-midnight-ink underline underline-offset-4"
+              >
+                Apólice de seguro
+              </Link>
+              <p className="mt-1 text-body-sm text-charcoal-text">
+                Coberturas, franquia e vigência da apólice.
+              </p>
+            </li>
+            <li className="rounded-lg border border-subtle-gray bg-crisp-white p-5">
+              <Link
+                href="/entender-laudo-medico"
+                className="font-display text-body-lg font-semibold text-midnight-ink underline underline-offset-4"
+              >
+                Laudo médico
+              </Link>
+              <p className="mt-1 text-body-sm text-charcoal-text">
+                O que o laudo diz, explicado em linguagem simples.
+              </p>
+            </li>
+          </ul>
+        </section>
+
+        {/* —— Worked examples —— */}
+        <section className="mt-14">
+          <h2 className="font-display text-heading-lg font-semibold leading-tight text-midnight-ink">
+            Veja um exemplo antes de enviar o seu PDF
+          </h2>
+          <p className="mt-4 max-w-3xl text-body  text-charcoal-text">
+            Cada exemplo abaixo é um documento fictício, resumido e respondido
+            pelo PDFIA — com as páginas citadas no chat Premium.
+          </p>
+          <ul className="mt-6 flex flex-col gap-3 text-body  text-charcoal-text">
+            <li>
+              <Link
+                href="/exemplos/edital"
+                className="text-midnight-ink underline underline-offset-4"
+              >
+                Exemplo de edital de licitação
+              </Link>{" "}
+              — 42 páginas (Premium)
+            </li>
+            <li>
+              <Link
+                href="/exemplos/contrato-clt"
+                className="text-midnight-ink underline underline-offset-4"
+              >
+                Exemplo de contrato CLT
+              </Link>{" "}
+              — 4 páginas
+            </li>
+            <li>
+              <Link
+                href="/exemplos/apolice-de-seguro"
+                className="text-midnight-ink underline underline-offset-4"
+              >
+                Exemplo de apólice de seguro
+              </Link>{" "}
+              — 8 páginas
+            </li>
+            <li>
+              <Link
+                href="/exemplos/laudo-medico"
+                className="text-midnight-ink underline underline-offset-4"
+              >
+                Exemplo de laudo médico
+              </Link>{" "}
+              — 6 páginas
+            </li>
+            <li>
+              <Link
+                href="/exemplos/proposta-comercial"
+                className="text-midnight-ink underline underline-offset-4"
+              >
+                Exemplo de proposta comercial
+              </Link>{" "}
+              — 7 páginas
+            </li>
+            <li>
+              <Link
+                href="/exemplos/boleto-fatura"
+                className="text-midnight-ink underline underline-offset-4"
+              >
+                Exemplo de boleto / fatura
+              </Link>{" "}
+              — 2 páginas
+            </li>
+            <li>
+              <Link
+                href="/exemplos/relatorio"
+                className="text-midnight-ink underline underline-offset-4"
+              >
+                Exemplo de relatório
+              </Link>{" "}
+              — 6 páginas
+            </li>
+          </ul>
+        </section>
+
+        {/* —— Limitations —— */}
+        <section className="mt-14">
+          <h2 className="font-display text-heading-lg font-semibold leading-tight text-midnight-ink">
+            Limitações: o que o PDFIA não faz
+          </h2>
+          <ul className="mt-6 max-w-3xl list-disc space-y-3 pl-5 text-body  text-charcoal-text">
+            <li>
+              Só lê PDF com texto selecionável. PDF escaneado ou foto precisa
+              passar por OCR antes — o PDFIA não faz OCR hoje.
+            </li>
+            <li>
+              O resumo não substitui a leitura do original. Antes de decidir
+              qualquer coisa, confira valores, datas e cláusulas no documento.
+            </li>
+            <li>
+              A IA pode errar em um valor ou uma data. Quando a informação não
+              está no PDF, o PDFIA avisa em vez de inventar — e a citação de
+              página do Premium deixa você conferir na hora.
+            </li>
+            <li>
+              Limites por plano: o grátis resume 1 PDF por dia, de até 10
+              páginas; o Premium vai até 100 páginas, sem limite diário.
+            </li>
+          </ul>
+        </section>
+
         {/* —— FAQ —— */}
         <section className="mt-16 grid gap-10 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
           <h2 className="font-display text-heading-lg font-semibold leading-tight text-midnight-ink">
@@ -217,6 +443,14 @@ export default function ChatpdfVsChatgptPage() {
                 className="text-midnight-ink underline underline-offset-4"
               >
                 ChatGPT para PDF
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/chatpdf-em-portugues"
+                className="text-midnight-ink underline underline-offset-4"
+              >
+                ChatPDF em português
               </Link>
             </li>
             <li>
