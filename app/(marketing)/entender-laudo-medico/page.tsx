@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     q: "É seguro enviar meu laudo?",
-    a: "No plano gratuito o arquivo é processado e descartado. No Premium fica salvo na sua conta, criptografado em repouso. Não compartilhamos dados com terceiros.",
+    a: "No plano gratuito o arquivo é processado e descartado. No Premium fica salvo na sua conta, criptografado em repouso. Não vendemos seus dados pessoais.",
   },
   {
     q: "Posso usar para vários laudos da mesma família?",
