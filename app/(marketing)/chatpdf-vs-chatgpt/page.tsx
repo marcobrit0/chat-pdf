@@ -15,7 +15,7 @@ const comparison = [
   {
     label: "Upload de PDF",
     you: "Upload direto, processado para chat",
-    them: "Upload por sessão, sem persistência",
+    them: "Upload salvo na conta (Library)",
   },
   {
     label: "Citação de página",
@@ -40,7 +40,7 @@ const comparison = [
   {
     label: "Histórico do documento",
     you: "Sim (Premium)",
-    them: "Por sessão",
+    them: "Sim, no histórico",
   },
   {
     label: "Preço",
