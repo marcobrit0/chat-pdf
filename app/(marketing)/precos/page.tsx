@@ -66,7 +66,7 @@ const competitorComparison = [
   },
   {
     label: "Cita a página de origem",
-    you: "Em toda resposta",
+    you: "Sim, no Premium",
     chatgpt: "Só se você pedir",
     smallpdf: "Não",
     adobe: "Em alguns recursos",
